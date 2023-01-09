@@ -1,0 +1,317 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ACABAMOS COM GENERIC TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEM SER BEM TRICKY DE ENTENDER...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O RESUMO QUE O PROFESSOR DEU NAS ÚLTIMAS LIÇÕES É 
+
+
+BOM:
+
+
+
+
+te dão 
+
+
+FLEXIBILIDADE, COMBINADA 
+
+COM 
+
+'type safety'...
+
+
+
+
+
+
+
+
+
+
+
+
+------->  TEMOS FLEXIBILIDADE QUANTO AOS TYPES QUE nós 'pass in',
+
+
+
+tipo em 
+
+
+
+
+''''
+
+
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+
+    ...
+}
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> FLEXIBILIDADE QUANTO AOS VALUES QUE USAMOS EM UMA CLASS.... (
+
+
+
+flexibilidade dentro dos CONSTRAINTS, adicionados por 'extends',
+
+que
+
+
+ADICIONARMOS NESSAS CLASSES....
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O BOM É QUE TEMOS FULL TYPE SUPPORT PARA 
+
+O QUE 
+
+VAMOS FAZER 
+
+
+
+com a class,
+
+
+
+
+
+
+__ OU COM O RESULT DE __ UMA GENERIC FUNCTION.. --> PQ AÍ O TYPESCRIPT VAI 
+
+
+
+
+'KNOW'
+
+
+ 
+
+
+
+ ___ QUAL__ CONCRETE__ TYPE__ nós passsamos_ _ QUANDO 
+
+
+
+
+ CHAMAMOS A FUNCTION mais tarde,
+
+
+
+
+ com parameters variados....
+
+
+
+
+
+
+
+
+
+ ---->  pq quando INSTANCIAMOS 
+
+
+ uma de nossas generic classes,
+
+ por meio de co´digo COMO 
+
+
+
+
+
+ 'const textStorage = new DataStorage<string>();' ,
+
+
+
+
+
+
+
+ NÓS JÁ PASSAMOS A INFORMAÇÃO/settamos a informação do 'CONCRETE TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS É CLARO QUE NÃO VAMOS 'LOCK THIS FUNCTION DOWN' 
+
+
+
+ a esse concrete type QUANDO CRÍAMOS ESSA 
+
+
+ CLASS --> em vez disso,
+
+
+
+ somos realmente flexíveis,
+
+
+ e adicionamos aqueles constraints
+
+
+
+
+
+
+
+
+,
+
+
+
+QUE SÃO OPCIONAIS.... -> 
+
+
+
+
+
+TEREMOS ALGUMAS CLASSES/FUNCTIONS QUE 
+
+TERÃO 
+
+
+
+
+POUCOS CONSTRAINTS, E OUTRAS QUE TERÃO __ UM MONTE__...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... GENERIC TYPES SÃO UMA FEATURE MT ÚTIL...
+
+
+
+
+
+
+
+
+
+
+--> COM 'PROMISE' e 'ARRAY'
+
+
+
+
+
+O PROFESSOR JÁ NOS MOSTROU 2 
+
+
+
+DOS 'BUILTIN' 
+
+GENERIC TYPES....
+
+
+
+
+
+'Array<string>' 
+
+
+
+
+'Promise<number>' ....
+
+
+
+
+
+
+
+
+
+
+
+
+-> E VEREMOS MAIS GENERIC TYPES, inclusive unS CUSTOM,
+
+
+ao longo deste curso...

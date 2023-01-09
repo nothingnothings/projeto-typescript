@@ -1,0 +1,277 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM OS GENERICS FORA DO CAMINHO,
+
+
+
+devemos ver UMA FEATURE AVANÇADA DO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+----> 'DECORATORS '--> 'META-PROGRAMMING'....
+
+
+
+
+
+
+
+
+
+
+--> MUITO ÚTEIS PARA O 'META PROGRAMMING'....
+
+
+
+
+
+
+
+
+
+-_> O QUE SIGNIFICA 'META-PROGRAMMING'?  ---> isso significa que 
+
+
+VOCÊ 
+
+NÃO VAI USAR 
+
+DECORATORS TÃO FREQUENTEMENTE para 
+
+ter 
+
+
+
+'a direct impact' NOS USERS QUE VISITAM 
+
+
+
+SUA PAGE,
+
+
+
+
+E SIM, EM VEZ DISSO,
+
+
+
+
+
+são 
+
+
+
+
+'A PARTICULARLY WELL SUITED INSTRUMENT' para __ O WRITE __ DE CÓDIGO_ QUE 
+
+
+
+É MAIS FÁCIL DE SER UTILIZADO POR OUTROS DESENVOLVEDORES....
+
+
+
+
+
+
+
+
+
+--> ISSO PODE PARECER ESTRANHO, MAS É ALGO QUE ENTENDEREMOS NESSE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO FINAL DAS CONTAS, 
+
+
+
+
+
+
+
+
+
+
+
+
+tudo 'comes down' ao 
+
+
+fato de que ,
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+EM OUTROS CODES SNIPPETS,
+
+
+
+
+
+
+quando adicionamos um EVENT LISTENER,
+
+
+
+
+PODEMOS FACILMENTE ADICIONAR 
+
+
+CÓDIGO QUE TERÁ IMPACTO DIRETO NOS USERS DE NOSSA PAGE (
+
+
+
+    ex: registrmoas um LISTENER EM UM BUTTON,,
+
+
+
+    E AÍ FAZEMOS SHOW DE UM ALERT QUANDO ESSE BUTTON É PRESSIONADO
+) -----> AÍ O USER,
+ 
+ VISITANDO NOSSA PAGE,
+
+ IMEDIATAMENTE VÊ ALGO... --> COM DECORATORS,
+
+
+
+ NÃO TRABALHAMOS 
+
+ ESPECIFICAMENTE NISSO,
+
+
+
+
+ MAS 
+
+
+ EM VEZ DISSO 
+
+
+
+ PODEMOS 
+
+
+
+
+
+ 'GARANTIR QUE UMA DE NOSSAS CLASSES ACABA SENDO USADA CORRETAMETNE',
+
+
+ ou então 
+
+ um 
+
+ 'METHOD EM UMA DE NOSSAS CLASSES'... .. -----> OU, ENTÃO,
+
+
+
+
+ fazemos 
+
+
+
+
+
+ uma 'HIDDEN TRANSFORMATION',
+
+
+
+ coisas assim....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ DETALHADAMENTE, VEREMOS NESTE MÓDULO:
+
+
+
+
+
+
+
+ 1) O QUE SÃO DECORATORS
+
+
+
+
+
+
+
+
+ 2) COMO USAR DECORATORS (e seus diferentes tipos)...
+
+
+
+
+
+
+
+
+
+
+ 3) EXEMPLOS DE DIFERENTES DECORATORS, QUE VÃO DEIXAR CLARO O 'ROLE' DOS 
+
+ DECORATORS, E PQ ELES PODEM SER ÚTEIS...

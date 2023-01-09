@@ -1,0 +1,642 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O ÚLTIMO TYPE É O 'NEVER'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS, ANTERIORMENTE,
+
+FUNCTIONS QUE RETORNAVAM 'void'(
+
+
+
+
+    OU SEJA,
+
+    NÃO RETORNAVAM COISA ALGUMA...
+) 
+
+
+
+
+
+
+--> BEM, NEVER É OUTRO __ TYPE__ QUE 
+
+FUNCTIONS PODEM RETORNAR.... (function(a: number, b: number): never {
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, DIGAMOS QUE TEMOS UMA FUNÇÃO DE 'generateError'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function generateError(message: string, code: number) {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UMA FUNCTION QEU VAI RECEBER UM PARAMETRO EM STRING, E OUTRO QUE É UM CÓDIGO,
+
+QUE SERÁ UM NUMBER.... 
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, DENTRO DESSA FUNCTION VAMOS DAR UM THROW DE ERROR...
+
+
+
+
+
+
+--> SERÁ UMA UTILITY FUNCTION QUE VAI FAZER O THROW DE ERROR OBJECTS....
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PROFESSOR ESCREVE 'throw {message: message, errorCode: code}' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É/SERIA UMA FUNÇÃO VÁLIDA,
+
+
+
+
+
+function generateError(message: string, code: number) {
+
+throw {message: message, errorCode: code}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO, PODEMOS CHAMÁ-LA COM 
+
+
+
+
+
+'generateError('AN ERROR OCCURRED', 500);' 
+
+
+
+
+
+
+
+------> QUANDO RECARREGARMOS NOSSO CÓDIGO,
+
+
+VAMOS OBTER ESSE THROWN ERROR NO CONSOLE...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PODE PARECER BEM ABSTRATO,
+
+MAS NÃO É;
+
+
+
+
+UTILITY FUNCTIONS COMO 
+
+ESSA 
+
+
+SÃO 
+
+
+BEM 
+
+STANDARD 
+
+
+EM 
+
+APPS MAIORES,
+
+
+
+
+
+
+UMA FUNCTION ÚNICA QUE 
+
+
+VOCÊ REUTILIZA CONSTANTEMENTE,
+
+
+QUE VAI 
+'BUILD THE ERROR OBJECT' E O ATIRA IMEDIATAMENTE PARA VOCê...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A COISA INTERESSANTE DESSA FUNCTION É QUE 
+
+ 
+
+
+
+ __ ELA FAZ O RETURN DE MAIS DO QUE APENAS 'void'...
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+
+
+ function generateError(message: string, code: number) {
+
+    throw {message: message, errorCode: code};  ///quando fazemos o THROW DE UM ERROR EM UMA FUNCTION, originalmente RETORNAMOS 'VOID', mas podemos retornar MAIS DO QUE ISSO, se especificarmos...
+    
+    }
+    
+
+
+
+
+    generateError('AN ERROR OCCURRED', 500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS ELE RETORNA ALGO DIFERNETE DE 'VOID',
+
+se formos bem específicos...
+
+
+
+
+
+
+
+
+---> o que essa function realmente retorna é 'NEVER'...
+
+
+
+
+--> NEVER --> PQ ELA _  NUNCA VAI _ 'RETURN A VALUE' -------> 
+
+
+
+
+OU SEJA,
+
+SE TENTARMOS 
+
+
+ARMAZENAR 
+
+O VALOR 
+
+
+DESSA FUNÇÃO, POR EXEMPLO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+const result = generateError('ERROR', 500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE TENTARMOS FAZER ISSO,
+
+
+NÃO VAMOS NEM MESMO VER ALGO NO CONSOLE; NADA APARECERÁ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function generateError(message: string, code: number) {
+
+    throw {message: message, errorCode: code};  ///quando fazemos o THROW DE UM ERROR EM UMA FUNCTION, originalmente RETORNAMOS 'VOID', mas podemos retornar MAIS DO QUE ISSO, se especificarmos...
+    
+    }
+    
+
+
+
+
+const result3 = generateError('AN ERROR OCCURRED', 500); ////passe o cursor por cima, você verá 'never' (ou seja, esse negócio NUNCA VAI RETORNAR VALOR ALGUM... NEVER PRODUCES A RETURN VALUE) ---> é por isso que TAMBÉM É IMPOSSÍVEL ARMAZENAR E CONSOLE.LOGGAR ESSE CÓDIGO... o throw desse error CANCELA O RUN DE NOSSO SCRIPT, POR ISSO NUNCA RETORNA UM VALOR...
+
+
+
+console.log(result3); ///leia a explicação logo acima...nunca vamos obter um VALOR em FUNCTIONS QUE FAZEMOS THROW DE ERRORS (pq isso vai CRASHAR NOSSO SCRIPT, levando a um 'não return'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK, ISSO SIGNIFIICA QUE 
+
+
+COMO UM ERROR IS THROWN,
+
+
+NOSSO SCRIPT É ESSENCIALMENTE 'CRASHED',
+
+
+deixa de ser executado....
+
+
+
+
+
+
+
+
+
+--> essa function nunca vai produzir um value,
+
+sempre 
+
+vai 
+crashar o script/parte do script,
+
+nunca retornando coisa alguma... é por isso que 
+
+o 
+
+return type disso aí 
+
+
+É 
+
+'NEVER',
+
+
+
+e não 'void'....
+
+
+
+
+
+
+
+
+
+
+
+---------
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+function generateError(message: string, code: number) {
+
+    throw {message: message, errorCode: code};  ///quando fazemos o THROW DE UM ERROR EM UMA FUNCTION, originalmente RETORNAMOS 'VOID', mas podemos retornar MAIS DO QUE ISSO, se especificarmos...
+    
+    }
+    
+
+
+
+
+const result3 = generateError('AN ERROR OCCURRED', 500); ////passe o cursor por cima, você verá 'never' (ou seja, esse negócio NUNCA VAI RETORNAR VALOR ALGUM... NEVER PRODUCES A RETURN VALUE) ---> é por isso que TAMBÉM É IMPOSSÍVEL ARMAZENAR E CONSOLE.LOGGAR ESSE CÓDIGO... o throw desse error CANCELA O RUN DE NOSSO SCRIPT, POR ISSO NUNCA RETORNA UM VALOR...
+
+
+
+console.log(result3); ///leia a explicação logo acima...nunca vamos obter um VALOR em FUNCTIONS QUE FAZEMOS THROW DE ERRORS (pq isso vai CRASHAR NOSSO SCRIPT, levando a um 'não return'...)
+
+
+
+
+
+////o type de 'never' é TÃO NOVO  que quando voce passa o cursor por cima daquela function, verá que o 'return type' será de void' (type mais antigo, e por isso usado nesse tipo de função utilitária que faz throw de errors)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VOID --> É TIPICAMENTE 'ASSUMED',
+
+
+e não é horrível 
+
+
+
+deixar esse type assim, em onde cabe.. --. mas vcoÊ pode 
+
+ser ainda mais 
+
+explícito 
+
+
+E 
+
+DEFINIR ALGO COMO 'NEVER', 
+se for 
+
+
+um utilitário de throw de errors ---> VOCê DEIXA BEM CLARO AOS OUTROS 
+
+DESENVOLVEDORES QUE O PROPÓSITO DESSA FUNCTION
+
+
+
+
+SUA 
+
+
+É 
+
+
+REALMENTE 'CRASH THE CODE',
+
+
+
+
+CRASHAR O RUNTIME E DAR O THROW DE UM ERROR.... ---> essa function tem 
+
+a intenção de nunca retornar coisa alguma,
+
+
+de quebrar seu script/parte de seu script...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OUTRO EXEMPLO SÃO WHILE LOOPS,
+
+QUE 
+
+TAMBÉM
+
+
+NUNCA FAZEM O RETURN 
+
+
+
+DE UM VALOR,
+
+NO SEU MEIO...
+]
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+function whileExemplo() { ///////OUTRO EXEMPLO DE FUNÇÃO CUJO RETURN TYPE SERÁ DE 'never' (pq nunca vai retornar nada, sempre vai ficar rodando, esse é o propósito de um WHILE LOOP)...
+    while(true) {
+        console.log('exemplo');
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1287 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, PODEMOS USAR TYPES PARA 
+
+
+
+DEFINIR 'FUNCTION PARAMETERS'
+
+E 
+
+
+PARA 
+
+OS 
+
+R
+ETURN VALUES DE UMAS FUNÇÕES...
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+function add(n1: number): number {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PODEMOS LEVAR TUDO ISSO A UM PRÓXIMO NÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE TIVERMOS  UM 'FUNCTION TYPE' em si mesmo...
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, DIGAMOS QUE TEMOS UMA VARIÁVEL, COMO 
+
+'combineValues',
+
+QUE 
+
+POR DEFAULT 
+
+TERÁ UM VALOR DE
+
+
+'any'..
+
+
+
+
+
+
+
+
+
+
+
+--> EX:
+
+
+
+
+
+ function combine2(n1: number | string , n2: number | string,
+    resultConversion?: 'stringResult' | 'numberResult'
+    ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string' ) {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number')) {
+        return;
+    } 
+
+    if (typeof n1 === 'number' && typeof n2 === 'string' && resultConversion)  {
+        result = n1 + n2;
+    } 
+
+    return result;
+  }
+  
+
+
+
+
+
+
+
+let combineValues3;
+
+combineValues3 = combine2;
+
+
+
+
+console.log(combineValues3(8, 8));
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... mas aí teremos um problema....
+
+
+
+
+--> se definirmos o valor de 'combinedValues'
+
+
+
+
+
+
+
+
+COMO SENDO UM 'number',
+
+tipo assim:
+
+
+
+
+
+
+
+let combineValues;
+
+
+    
+
+combineValues = add;
+
+
+
+combineValues = 5;
+
+
+
+
+console.log(combineValues(8, 8));
+
+
+
+
+
+
+
+
+
+O PROBLEMA SURGIRÁ 
+
+
+
+JUSTAMENTE PQ O TYPE INICIAL DE 'combineValues'
+
+
+
+
+será 
+
+de 
+
+'any', 
+
+
+até o momento em que ele é:
+
+
+
+1) redefinido para ser uma FUNCTION (ainda dentro de any)
+
+
+
+
+2) redefinido para ser '5' (ainda dentro de any)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> o problema acontece pq 
+
+
+O NEGÓCIO AGORA TERÁ SIDO TROCADO PARA SER '5', QUANDO 
+
+LOGO ABAIXO 
+
+CHAMAMOS 
+
+
+ESSA VARIÁVEL COMO SE FOSSE UMA FUNÇÃO (no console.log)...
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS COMPILAR ISSO, INFELIZMENTE,
+
+
+E NÃO VAMOS RECEBER ERROS DE TYPESCRIPT PROPRIAMENTE DITO --> ENTRETANTO,
+
+
+DURANTE O RUNTIME 
+
+
+VEREMOS 
+
+
+O ERROR, ERRO DE 'ASSIGN' equivocado...
+
+
+
+
+
+
+---> ou seja, tentaremos usar essa variable como uma function, quando 
+
+
+ela estará segurnado um NUMBER..
+
+
+
+
+
+
+
+
+
+
+--------> OK... --> E QUEREMOS EVITAR ESSE CENÁRIO... --> PARA ISSO,
+
+
+
+
+PRECISAMOS SER BEM CLAROS, PRECISAMOS ESPECIFICAR QUE 
+
+'combinedValues' 
+
+
+
+VAI __ SEGURAR_ _UMA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, UM PRIMEIRO PASSO  NESSA DIREÇÃO 
+
+
+SERIA 
+
+
+
+SETTAR O TYPE DESSA 
+
+'combinedValues
+'
+
+
+COMO SENDO DE  'Function'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FAREMOS ISSO ASSIM:
+
+
+
+
+let combineValues: Function;
+
+
+
+combineValue = add;
+
+
+combineValues = 5;
+
+
+console.log(combineValues(8, 8));
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> 'Function' É UM TYPE PROVIDENCIADO PELO 
+
+
+TYPESCRIPT. ... -------->  ISSO ESPECIFICA/DETERMINA QUE SÓ 
+
+
+FUNCTIONS PODERÃO 
+
+SER 
+
+
+DETERMINADAS 
+
+
+DENTRO 
+
+
+
+DESSA VARIÁVEL...
+
+
+
+
+
+--> é por isso que 'combineValues = 5' 
+
+
+
+
+VAI CAUSAR UM ERRo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ISSO É BOM, CLARO,  __ MAS NÃO É PERFEITO__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NÃO É PERFEITO PQ _ PODEMOS__ REDEFINIR__ ESSE 'combineValues',
+
+
+PODEMOS MUDAR SEU VALOR DE 'ESTA FUNCTION' 
+
+
+PARA 
+
+'AQUELA FUNCTION' (uma function diferente da settada ORIGINALMENTE)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+let combineValues: Function;
+
+
+combineValues = add;
+
+
+
+
+
+combineValues = printResult;  ///////////OU SEJA, PODEREMOS REDEFINIR ESSA VARIABLE, COLOCAR UMA OUTRA FUNCTION/POINTER A OUTRA FUNCTION NESSA VARIABLE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... --> MAS ACHO QUE __ PODEMOS___ SER 
+
+
+MAIS ESPECÍFICOS QUANTO AO _ FORMATO__ 
+
+
+
+
+DE FUNCTION QUE DEVE SER PERMITIDA 
+
+NESSA
+FUNÇÃO...    
+
+
+
+
+
+
+
+
+
+
+
+------> SERIA NICE SE O TYPESCRIPT NOS CONTASSE 
+
+SOBRE 
+
+
+A FUNCTION 
+
+
+
+QUE FICOU ARMAZENADA 
+
+DENTRO 
+
+
+DESSA VARIABLE... ---------> (pq o typescript só vai dizer 'let combineValues: Function')..
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+----------> SERIA BEM MAIS LEGAL SE PUDÉSSEMOS SER BEM MAIS PRECISOS SOBRE 
+
+
+
+
+'HOW THE FUNCTION SHOULD LOOK LIKE'
+
+
+
+
+
+
+
+--> E É AÍ QUE 'FUNCTION TYPES'
+
+entram na jogada
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FUNCTION TYPES SÃO TYPES QUE DESCREVEM UMA FUNCTION...  ---> ISSO ACERCA 
+
+
+
+DOS PARAMETERS E DO 'RETURNED VALUE' dessa function...
+
+
+
+
+
+
+
+
+
+--> E PARA CRIAR UM 'FUNCTION TYPE',
+
+
+
+
+vocÊ 
+
+DEVE USAR 
+
+A FUNCTION NOTATION.... (A ARROW FUNCTION NOTATION,
+
+
+DO JAVASCRIPT MODERNO )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+let combineValues: () => {
+
+} = () => {
+
+}
+
+
+
+
+
+
+
+
+--> MAS NÃO SERÁ ASSIM A ESCRITA... --> NÃO ESTAMOS 
+
+
+CRIANDO UMA 
+
+ARROW FUNCTION, AQUI, E SIM UM 
+
+
+
+'FUNCTION TYPE',
+
+
+
+POR ISSO 
+
+NÃO VAMOS ESCREVER 
+
+
+'{
+
+
+
+}
+'
+
+
+DEPOIS DO '=>' ...
+
+
+
+
+
+
+
+
+-------> let combineValues: () => 
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, DO LADO DESSA ARROW VOCÊ VAI COLOCAR O 'RETURN TYPE'
+
+
+DE SUA 
+
+FUNÇÃO... (da function que vocÊ vai querer armazenar na variable)...
+
+
+
+
+
+
+
+----------> AQUI, NO CASO, ESCREVEMOS 'number',
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+let combineValues: () => number;  ////////TIPO ASSIM.... (
+
+
+
+
+    aqui, no caso,
+
+
+    ESTAREMOS DIZENDO:
+
+
+    '''ESSA VARIABLE 
+    
+    VAI ACEITAR UMA FUNCTION QUE 
+    
+    VAI TER NENHUM PARÂMETRO, E QUE 
+    VAI 
+
+    OBRIGATORIAMENTE RETORNAR UM NUMBER''''...
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> retomando:
+
+
+
+
+
+
+
+let combineValues: () => number;
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS VAMOS QUERER
+
+DEIXAR 
+
+
+ISSO COMO 'ACCEPTING'
+
+
+
+2 PARÂMETROS DE TYPE NUMBER,
+
+E QUE 
+
+VAI 
+
+RETORNAR 
+
+
+UM NUMBER...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+PROFESSOR ESCREVE ISTO:
+
+
+
+  
+
+
+
+
+
+
+let combineValues: (a: number, b: number) => number;
+
+
+
+
+
+
+
+
+
+
+(
+
+    QUEREMOS QUE AS FUNCTIONS/A FUNCTION ARMAZENADA DENTRO DESSA VARIABLE 
+
+
+    __TENHA__ 2 PARÂMETROS DE TYPE 'number',
+
+    E QUE 
+
+    OBRIGATORIAMENTE RETORNE UM 'number'...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> SE FIEZRMOS ISSO,
+
+
+
+
+
+O 
+
+
+
+
+TYPESCRIPT NÃO VAI RECLAMAR QUANDO 
+
+
+
+TENTARMOS ARMAZENAR A FUNCTION DE 'add' 
+
+
+
+
+DENTRO DESSA VARIABLE 
+
+
+'combineValues',
+
+
+
+ISSO 
+PQ 
+
+
+
+A FUNCTION DE 'add'
+
+SATISFAZ COMPLETMAENTE ESSES REQUISITOS (2 argumentos de type number, RETURN DE UM VALOR DE TYPE 'NUMBER')....
+
+
+
+
+
+
+
+--> MAS ELE__ VAI RECLAMAR-_   
+
+
+
+DO STORE DA FUNCTION DE 'printREsult',
+
+
+
+ISSO PQ 
+
+ESSA FUNCTION VAI:
+
+1) TER APENAS 1 ARGUMENTO 
+
+
+
+2) RETORNA 'void' (ou seja, NADA; NÃO POSSUI UM 'RETURN STATEMENT' NO SEU BODY)....
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... FICAMOS COM UM MISMATCH, PORTANTO... ----> e isso faz com que 
+
+aconteça um ERRO... --> E ESSE ERRO É MOSTRADO NO COMPILER,
+
+
+
+erro que só pode 
+
+ser 
+
+sanado 
+
+
+
+
+pela remoção da definição/set de 
+
+
+
+'combinedValues = printResult'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK......
+
+
+
+
+
+
+
+
+
+--> FUNCTION TYPES NOS DEIXAM
+
+
+DEFINIR EXPLICITAMENTE 
+
+
+
+
+
+
+
+O FORMATO DE FUNCITONS QUE VAMOS PERMITIR EM DETERMINADAS VARIABLES/locais 
+
+
+
+de nosso código....
+
+
+
+
+
+
+
+(EX: EXPECTED VALUE IN A PARAMETER, AS IN A CALLBACK..
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

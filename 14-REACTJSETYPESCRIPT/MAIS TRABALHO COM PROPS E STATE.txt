@@ -1,0 +1,570 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSO PEQUENO DUMMY APP ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+
+import NewTodo from './components/NewTodo';
+
+import { Todo } from './todo.model';
+
+interface AppProps {}
+
+const App: React.FC<AppProps> = (props) => {
+
+  const [todos, setTodos] = useState<Todo[]>([
+
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+    setTodos((prevState) => {  //maneira superior de updatar state (pq considera sempre o LATEST STATE, algo que Às vezes não ocorre com aquela sintaxe clássica de 'setTodo()'... )
+      return [
+        ...prevState,
+        {
+          id: Math.random().toString(),
+
+          text: enteredTitle
+        },
+      ];
+    });
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+
+
+export default App;
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+TAMBÉM QUEREMOS SER CAPAZES DE DELETAR TODOS....
+
+
+
+
+
+
+
+
+
+
+--> PARA IMPLEMENTAR ISSO,
+
+
+
+DEVEMOS FAZER COM QUE EM 'TodoList',
+
+
+
+NÓS 
+
+NÃO TENHAMOS 
+
+
+APENAS 
+
+
+
+
+o 'todo.text',
+
+
+
+
+
+
+MAS AÍ TAMBÉM UM BUTTON EM QUE DIZEMOS 'delete'..
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+import React from 'react';
+
+interface TodoProps {
+  id: string;
+  title: string;
+}
+
+const Todo: React.FC<TodoProps> = (props) => {
+  return (
+    <li key={props.id}>
+      <p>{props.title}</p>
+      <button>DELETE</button>
+    </li>
+  );
+};
+
+export default Todo;
+
+
+
+ 
+
+
+
+
+
+
+ -----------------------------------
+
+
+
+
+
+
+
+
+
+
+ QUEREMOS QUE QUANDO ESSE BUTTON FOR PRESSIONADO,
+
+
+
+ ele seja deletado...
+
+
+
+
+
+
+
+ --> PROFESSOR ADICIONA UM 'onClick',
+
+ 
+ onClick 
+
+ QUE FARÁ COM QUE __ ESSE 
+
+
+
+
+ ITEM SUMA DE __ NOSSO __ ARRAY DE 'todos'
+
+ LÁ 
+
+
+ NO COMPONENT CHEFE 'App.tsx',
+
+
+
+ e que 
+
+
+ ao mesmo tempo RE-RENDERIZE NOSSA UL COM ESSE <li>...
+
+
+
+
+
+
+
+
+
+ --> É CLARO QUE, PARA ISSO, VAMOS PRECISAR PASSAR PROPS...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA PASSAR PROPS ENTRE 2+ COMPONENTS,
+
+
+O IDEAL É USAR O 'react-context', o hook.. ( ou então passar props 500x, o que não é ideal....)
+
+
+
+
+
+
+
+
+
+
+
+
+--> acho que não é necessário fazer isso,
+
+
+muita complicação, melhor só passar os props normalmente....
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI... FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+const App: React.FC<AppProps> = (props) => {
+
+  
+  const [todos, setTodos] = useState<Todo[]>([
+
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+
+  const todoDeleteHandler = (id: string) => {
+
+    const updatedTodos = todos.filter(
+      (todo) => {
+            return todo.id !== id
+      }
+    )
+
+    setTodos(
+      updatedTodos
+    )
+
+
+  }
+
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos((prevState) => {  //maneira superior de updatar state (pq considera sempre o LATEST STATE, algo que Às vezes não ocorre com aquela sintaxe clássica de 'setTodo()'... )
+      return [
+        ...prevState,
+    todo
+      ];
+    });
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} onDelete={todoDeleteHandler} />
+    </div>
+  );
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TodoList:
+
+
+
+
+
+
+interface TodoListProps {
+  ///DESCREVE COMO NOSSO 'props' recebido em 'TodoList' deve se PARECER...
+  items: { text: string; id: string }[];
+  onDelete: (id: string) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = (props) => {
+  return (
+    <ul>
+      {props.items.map((todo) => {
+        return <Todo title={todo.text} key={todo.id} id={todo.id} onDelete={props.onDelete} />;
+      })}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+Todo.tsx:
+
+
+
+
+
+
+import React from 'react';
+
+interface TodoProps {
+  id: string;
+  title: string;
+  onDelete: (id: string) => void;
+}
+
+const Todo: React.FC<TodoProps> = (props) => {
+  return (
+    <li key={props.id}>
+      <p>{props.title}</p>
+      <button onClick={() => {props.onDelete(props.id)}}>DELETE</button>
+    </li>
+  );
+};
+
+export default Todo;
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+será que ele vai usar o context? 
+
+
+
+
+acho que não...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR USOU OUTRA FORMA, NOVAMENTE,
+PARA UPDATAR O STATE... --> ele usou a forma de 'prevState => {
+    
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK... FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+  const todoDeleteHandler = (id: string) => {
+
+    const updatedTodos = todos.filter(
+      (todo) => {
+            return todo.id !== id
+      }
+    )
+
+    // setTodos(
+    //   updatedTodos
+    // )
+
+
+    
+      setTodos(
+        (prevState) => {
+
+          const updatedTodos = prevState.filter(
+            (todo) => {
+                  return todo.id !== id
+            }
+          )
+
+
+          return updatedTodos
+        }
+      )
+    
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+o código funcionou... será que o professor tem mais algum tópico?
+
+
+
+

@@ -1,0 +1,2463 @@
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR COMEÇA COM NPM start para iniciar o 'lite-server'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> depois '--watch tsc',
+
+
+para ter o rebuild 
+
+
+de nosso 
+
+
+
+
+js compilado typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ADMITE QUE HÁ MTAS MANEIRAS DE COMEÇAR COM O NOSSO PROJETO...
+
+
+
+
+
+
+
+
+
+
+--> ELE VAI COMEÇAR POR 'MAKE THIS FORM VISIBLE'.... (pq isso aí, a form, está inicialmente em um template)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ --> O PROFESSOR EXPLICA QUE 
+
+ VAI 
+
+ CONSTRUIR ESSE NOSSO APP 
+
+ por meio de um 
+
+
+ approach 'object oriented',
+
+
+
+
+
+
+
+
+ ___ QUE É __ 
+
+ 100%
+
+ OPCIONAL,
+
+ MAS 
+
+
+
+ COMO 
+
+
+ APRENDMEOS 
+
+ SOBRE 
+
+ CLASSES E TUDO MAIS,
+
+
+ O PROFESSOR 
+
+
+ QUER NOS MOSTRAR COMO ISSO FUNCIONA,
+
+
+ e por isso 
+
+
+ vai 
+
+ usar esse 
+
+
+
+
+ approach........
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> LOGO NO INÍCIO, O PROFESSOR CRIA UMA CLASS,
+
+ de 
+
+ nome 
+
+
+
+ 'ProjectInput'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------->  NESSA CLASS, ele diz que nosso objetivo É CONSEGUIR
+
+ ACESSO 
+
+ AO 
+
+
+ '
+ template'
+
+
+ E 
+
+ à FORM 
+
+ que 
+
+
+ EXISTE DENTRO DELE 
+
+
+
+(
+
+    ou seja,
+
+
+    este código aqui:
+
+
+
+
+
+
+   <template id="project-input">
+      <form>
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input type="text" id="title" />
+        </div>
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="people">People</label>
+          <input type="number" id="people" step="1" min="0" max="10" />
+        </div>
+        <button type="submit">ADD PROJECT</button>
+      </form>
+    </template>
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+---> TAMBÉM VAMOS, NESSA CLASS, QUERER GANHAR ACESSO à DIV de '<div id="app></div>',
+
+
+
+
+E AÍ __ RENDERIZAR O __ CONTEÚDO __ DE NOSSO TEMPLATE (a FORM, para ser mais específico)...
+
+
+NESSA DIV,
+
+no final das contas... (na minha versão do código, não fiz isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> para fazer isso, ele começa escrevendo nossa class:
+
+
+
+
+
+
+--> ELE ADICIONA O CONSTRUCTOR DESSA CLASS...
+
+
+
+
+class ProjectInput {
+
+    constructor() {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+------> NO CONSTRUCTOR É QUE VAMOS QUERER GANHAR ACESSO 
+AO 
+
+
+'template',
+
+
+e ao 
+
+
+
+local EM QUE ESSE TEMPLATE DEVE SER RENDERIZADO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> PARA ISSO, O PROFESSOR ADICIONA 2 PROPRIEDADES 'on the fly',
+
+
+
+as propreidaeds 
+
+
+
+
+
+
+
+
+
+
+de 'templateElement'
+
+
+
+e 
+
+
+
+
+'hostElement'..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+
+    constructor() {
+            
+            this.templateElement;
+            this.hostElement;
+    }
+}
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+------> A IDEIA DO PROFESSOR É QUE 
+
+
+'
+hostElement'
+
+
+
+
+
+vai segurar uma 'REFERENCE'
+
+ao 
+
+
+LOCAL EM QUE VAMOS 
+
+QUERER 
+
+
+RENDERIZAR 
+
+
+
+
+
+NOSSO TEMPLATE, NO FINAL DAS CONTAS (
+    ou seja,
+
+
+
+
+um pointer À '<div id="app"/>'...
+
+)
+
+
+
+
+
+
+
+
+
+----------> JÁ O 'templateElement'
+
+
+
+
+
+NOS DÁ ACESSO AO TEMPLATE QUE SEGURA ESSE CONTEÚDO QEU DEVE SER RENDERIZADO...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR ACESSO A ESSE TEMPLATE,
+
+
+devemos pensar em como 
+PODEMOS 
+
+OBTER ACESSO A ESSE TEMPLATE 
+
+QUE SEGURA ESSA FORM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, o template tem este formato:
+
+
+
+
+
+<template id="project-input">
+    <form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> PARECE SER UMA BOA ESTRATEGIA USAR ESSE 'project-input',
+
+    esse id aí...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> O PRFFESSOR VAI BASICAMENTE ESCREVER 
+
+
+
+    'document.getElementById('project-input');
+
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+    
+
+
+
+
+class ProjectInput {
+
+    constructor() {
+            
+            this.templateElement = document.getElementById('project-input');
+            this.hostElement;
+    }
+}
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS AQUI LOGO PRECISAMOS ESCLARECER ALGUMAS COISAS:
+
+
+
+
+
+
+1) O TS VAI NOS DAR UM ERRO: 'Property templateElement does not exist on type ProjectInput'..
+
+
+--------> PARA CONSERTAR ISSO, PRECISAMOS COLOCAR UMA DEFINIÇÃO DESSA PROPRIEDADE __ NO ROOT__ LEVEL 
+
+DE NOSSA CLASS 'ProjectInput'...
+
+
+
+
+
+
+
+--------> o professor escreve só esse field ali,
+
+normalmente:
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+
+
+
+    templateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    constructor() {
+            
+            this.templateElement = document.getElementById('project-input');
+            this.hostElement;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS TAMBÉM VAMOS QUERER SER CLAROS QUANTO AO 'type' que vai ser armazenado nessa propriedade,
+
+
+
+
+
+TYPE QUE SERÁ UM 'HTMLTemplateElement'... (eu também havia feito isso, no meu código)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O TYPE DE 'HTMLTemplateElement'
+
+
+É 
+
+
+
+disponível GLOBALMENTE NO TYPESCRIPT,
+
+
+
+TUDO 
+
+
+PQ 
+
+NÓS COLOCAMOS 
+
+
+
+O MODULE DE 
+
+'dom'
+
+
+
+
+Lá 
+
+no arquivo 
+
+TSCONFIG.JSON,
+
+
+lá naquele trecho de 
+
+
+
+'       // "lib": [    "dom",
+    // "es6",
+    // "dom.iterable",
+    // "scripthost"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment.  -> OU SEJA, DESCREVE AS FEATURES QUE SERÃO SUPORTADAS PELO SEU TYPESCRIPT..*/
+   
+
+
+
+
+
+
+
+
+   -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ----> ISSO NOS DARÁ OUTRO ERRO, NO ENTANTO.... --> o erro é 'esse negócio poderia ser null'...
+
+
+
+
+
+
+
+
+
+--> MAS SABEMOS QUE ESSE ELEMENTO _ NÃO VAI SER NULL,
+
+por isso escrevemos um '!'
+
+
+do lado do valor...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement;
+
+    constructor() {
+                
+        this.templateElement = document.getElementById('project-input')!;
+        this.hostElement =
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> UMA ALTERNATIVA, PARA OS CASOS EM QUE 
+
+NÃO TEMOS 
+
+
+CERTEZA,
+
+
+SERIA 
+
+
+
+
+armazenar esse 'templateElement' 
+
+
+
+
+em uma CONSTANTE, E AÍ CHECAR SE ESSA CONST É 'truthy',
+
+com um if check...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement;
+
+    constructor() {
+                
+     const templateEl =  document.getElementById('project-input');
+
+     if(templateEl) {
+
+         this.templateElement = templateEl;
+     }
+        this.hostElement =
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS NÓS AINDA VAMOS ESTAR RECEBENDO UM ERRO,
+
+
+
+
+
+ERRO 
+
+
+de 
+
+
+
+
+'Property 'content' is missing in type 'HTMLElement',
+
+but required in type 
+
+HTMLTemplateElement'... 
+
+
+
+
+
+
+
+---->  professor diz que nos explicará depois...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO AÍ VAI RESOLVER NOSSO PROBLEMA, BASICAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+--> COMO TEMOS CERTEZA, escrevemos um '!' 
+
+ali...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement;
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+                
+        this.templateElement = document.getElementById('project-input')!;
+
+
+
+
+
+        this.hostElement =
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OK, MAS E QUANTO ÀQUELE ERRO? -------------> o problema é que ESTAMOS DIZENDO AO TYPESCRIPT QUE 
+
+
+_VAMOS ARMAZENAR UM 
+
+
+
+ELEMENTO DE TYPE 
+
+'HTMLTemplateElement' 
+
+
+
+nessa propriedade 'templateElement'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO, NO CASO, 
+
+
+que 
+
+
+'document.getElementById('project-input')' 
+
+
+
+
+
+
+ESSE SELECTOR AÍ,
+
+NÃO VAI SABER QUAL TIPO DE ELEMENT ELE VAI SELECIONAR... (acho que vou precisar do type casting, de 'as'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SIM.... EU PRECISEI USAR ISSO...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement;
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+                
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+
+
+
+
+
+        this.hostElement =
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ISSO RESOLVEU NOSSO PROBLEMA....
+
+
+
+
+
+
+
+
+
+-----> TIRAMOS AQUELE '!',
+
+e colocamos 
+
+'as xxxx' ...
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PODERÍAMOS TER USADO A SINTAXE ALTERNATIVA DO TYPE CASTING,
+
+
+
+
+que é 
+esta:
+
+
+
+
+this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR USA O APPROACH DE 'as xxxx'... --> ISSO GARANTE QUE OQ VOCÊ VAI FETCHEAR NAO VAI SER NULL, 
+
+
+E QUE VAI SER DESSE TYPE ESPECÍFICO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... -----> AGORA CONSEGUIMOS SELECIONAR ESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS CONTINUANDO COM O 'hostingElement'...
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM ADICIONAMOS ESSE 'hostElement'
+
+como um FIELD, 
+
+
+E NÓS SABEMOS QUE __ ELE VAI SER DE TIPO 'HTMLElement'...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLElement;
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLElement;
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... ficou assim....
+
+
+
+
+
+
+
+
+
+-----> MAS O PROFESSOR ESCREVEU QUE É UM 'HTMLDivElement' (mas isso não faz mt diferença)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... AGORA TEMOS ACESSO A ESSA DIV....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> TEMOS ESSAS 2 PROPRIEDADES,
+
+
+
+
+
+
+
+dentro dessa class.... 
+
+
+
+
+
+
+
+-----> 
+
+
+
+
+
+
+
+
+
+AGORA TEMOS ACESSO A TODOS OS ELEMENTS DE QUE PRECISÁVAMOS...
+
+
+
+
+
+
+
+
+
+
+
+TEMOS ACESSO A ESSES ELEMENTS,
+
+
+MAS AINDA NÃO ESTAMOS RENDERIZANDO NADA NESSE LOCAL DELES...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR RENDERIZAR ALGO LÁ,
+
+PRECISAMOS 
+
+'IMPORT THE CONTENT OF THIS TEMPLATE ELEMENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no meu código antigo, usei este method:
+
+
+
+
+ const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement  
+ const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLFormElement;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> OK... MAS O PROFESSOR EXPLICA QUE 
+
+
+ PDOEREMOS FAZER ISSO,
+  
+  O 
+
+  EXTRACT DESSA DATA/HTML,
+
+
+
+
+
+
+
+
+DIRETAMENTE NO CONSTRUCOTR DE NOSSA CLASS.... 
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ A IDEIA DO PROFESSOR 
+
+
+É __ QUE __ QUANDO NÓS CRIARMOS/CRIAMOS UMA NOVA INSTANCE 
+
+
+DESSA 
+
+CLASS 
+
+de 
+
+'ProjectInput',
+
+
+
+JÁ SEJA IMEDIATAMENTE RENDERIZADA UMA 'Form' 
+
+QUE 
+
+PERTENCE 
+
+A 
+ESSA INSTANCE, 
+
+
+NO NOSSO 
+
+
+
+
+DOM....
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR VAI FAZER ISSO DIRETAMENTE NO NOSSO CONSTRUCOTR...
+
+
+
+
+
+
+
+
+
+
+
+ele vai escrever isto:
+
+
+
+
+'const importedHTMLContent = document.importNode();' 
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, ELE VAI USAR ESSE METHOD de 'importNode',
+
+que 
+
+
+É UM METHOD PROVIDENCIADO __ PELO _ JAVASCRIPT, pelo objeto global 'document'... -> 
+
+
+
+
+
+A ESSE 
+'IMPORTNODE',
+
+
+
+O PROFESSOR DIZ QUE DEVEMOS 'PASS A POINTER TO YOUR TEMPLATE ELEMENT'.. --> 
+
+
+no caso,
+
+
+vamos passar 
+
+o valor da propriedade 
+
+
+de 
+
+
+
+'this.templateElement'... -------> MAS, PARA SERMOS MAIS PRECISOS,
+
+NÃO 
+
+
+VAMOS QUERER O SIMPLES 
+
+'this.templateElement',
+
+
+
+
+__ e sim _ 
+
+
+
+
+
+o 'content' existente dentro dele...
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE ESCREVEMOS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLElement;
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content); ////EIS O CÓDIGO EM QUESTÃO.
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+OK.... --> O 'importNode'
+
+
+TAMBÉM ACEITA UM SEGUNDO PARÂMETRO,
+
+QUE 
+INFORMA SE ELE DEVE 
+
+
+
+__IMPORTAR__ ISSO COMO UM 'DEEP CLONE'
+
+
+ou NÃO...
+
+
+
+(
+
+    ou seja,
+
+    todos os levels de nesting INTACTOS...
+)
+
+
+
+
+
+
+--> COMO DEFINITIVAMENTE VAMOS QUERER FAZER ISSO,
+
+
+DEIXAMOS COMO 'true'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... COM ISSO, TEREMOS ESSA CONST de 'importedNode' ----> 
+
+
+
+
+
+
+
+
+
+SE VOCÊ PASSAR O MOUSE EM cima de 'importedNode',
+
+
+
+VOCÊ VERÁ QUE ELE TEM UM TYPE DE 
+
+
+'DocumentFragmnet'....
+
+
+
+
+
+
+
+
+
+
+
+-> MAS AGORA VAMOS QUERER __ USAR ESSE 'importedNode',
+
+
+PARA REALMENTE RENDERIZAR CONTEÚDO...
+
+
+
+
+
+
+
+
+
+
+
+-> PARA RENDERIZAR O CONTEÚDO LÁ 
+
+
+
+NO NOSSO LOCAL DE '<div id="app">',
+
+
+
+
+O PROFESSOR 
+
+CRIA UM NOVO  METHOD,
+
+
+
+METHOD DE 
+
+
+
+'attach()',
+
+
+
+__ QUE SERÁ __ PRIVATE__ (não poderá ser alterado por forças externas de nossa function, e não vai ser INHERITED pelas 
+
+inheriting classes, 
+
+
+
+
+mas vai aparecer nos nossos objects....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> DENTRO DE 'attach()',
+
+
+VAMOS FAZER REACH OUT 
+
+
+
+ao 'this.hostElement',
+
+
+
+
+
+
+
+
+E AÍ__ VAMOS CHAMAR 
+
+
+
+'insertAdjacentElement'
+
+
+PARA __ AÍ __ INSERIR 
+
+
+
+AQUELE 
+
+'importedNde' ( que não deixa de ser A DATA DE NOSSO TEMPLATE, MODIFICADA)...
+
+
+
+ 
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLElement;
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content); ////EIS O CÓDIGO EM QUESTÃO.
+
+
+    }
+
+
+
+    private attach() {
+
+        this.hostElement.insertAdjacentElement()
+    }
+}
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+OK.... MAS ESSE METHOD DE 'insertAdjacentElement'
+
+
+
+
+EXIGE 2 PARÂMETROS,
+
+
+
+
+
+
+ o primeiro é a 'posição' (afterend, beforeend, etc etc)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> insertAdjacentElement --> USADO PARA 
+
+
+ INSERIR UM ELEMENT ADJACENTE... -----> 
+
+
+
+
+
+
+
+ 'WHERE' to insert --> 
+
+
+
+
+
+
+
+
+
+ PROFESSOR VAI COLOCAR 'afterbegin',
+
+ PARA INSERIR BEM NO INÍCIO DO 
+
+ NOSSO ARQUIVO HTML..
+
+
+
+
+
+
+
+
+
+
+
+ ------->  OK.... --> MAS AQUI TEREMOS 2 PROBLEMÕES:
+
+
+
+
+
+
+
+
+ 1) O NEGÓCIO 'const importedNode = document.importNode(this.templateElement.content, true)', QUE QUEREMOS PASSAR A ESSE 'insertAdjacentElement', nesse method,
+
+ É  __ ALGO QUE _ _SÓ __ EXISTE 
+
+ LÁ 
+
+ NO CONSTRUCTOR DE NOSSA CLASS... (pq críamos ele lá)... ------->  ué, como poderia solucionar isso?
+
+
+
+
+
+ --> talvez colocando uma propriedaed de 'importedNode' na nossa class?
+
+
+
+
+
+
+
+2) O OUTRO PROBLEMA É QUE ___ O TYPE DE 'importedNde'
+
+ESTÁ COMO 
+
+
+'DocumentFragment'
+ (que NÃO É A MESMA COISA QUE HTML)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PRECISAMOS DO ELEMENTO HTML DE VERDADE EXISTENTE DENTRO DE 'importedNode ',
+
+
+
+
+
+
+
+POR ISSO O PROFESSOR VAI RODAR ALGUMA GAMBIARRA....
+
+
+
+
+
+
+
+
+
+-> MAS ANTES DISSO,
+
+
+
+O PROFESSOR 
+
+
+ FAZ UMA SACANAGEM 
+
+
+
+
+
+
+PARA RESOLVER O PROBLEMA número 1 (que não há acesso ao valor desse 'importedNode', lá de dentro de nosso constructor, A ESSE METHOD DE 'attach'...)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE O PROFESSOR escreve lá na class, no root,
+
+
+
+o código de 'element: HTMLFormElement'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+
+
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+    hostElement: HTMLElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content); ////EIS O CÓDIGO EM QUESTÃO.
+        this.element = 
+
+    }
+
+
+
+    private attach() {
+
+        this.hostElement.insertAdjacentElement('afterbegin')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+
+
+PROFESSOR VAI QUERER ARMAZENAR NESSA PROPRIEDADE DE 'element'
+
+
+
+
+
+___ O VALOR DE 'importedNode',
+
+MAS MAIS PROPRIAMENTE DE SUA 'firstElementChild',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content); ////EIS O CÓDIGO EM QUESTÃO.
+        this.element = importedNode.firstElementChild;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --------------> AGORA SÓ PRECISAMOS DIZER, + UMA VEZ,
+
+
+    AO TYPESCRIPT,
+
+
+
+
+
+    QUE __ ESSE 'importedNode.firstElementChild' 
+
+
+    SERÁ __ UM 'HTMLFormElement'...
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+    
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        
+                                                            
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', )
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ EDITAMOS TAMBÉM O METHOD DE 'attach',
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        
+                                                            
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO... AÍ EU PENSEI ''AH, O PROFESSOR VAI QUERER CHAMAR ''PROJECTINPUt', nossa class,
+
+DO LADO DE FORA DELA,  com o run do method de 'attach()'..
+
+
+
+
+
+
+
+
+
+
+
+--> ERRADO, PQ O PROFESSOR PLANEJA EXECUTAR esse 'attach(()' 
+
+
+
+__ LÁ DE DENTRO DO NOSSO CONSTRUCTOR (
+
+
+
+    o que poupa tempo,
+
+
+    PQ 
+
+
+    SEMPRE QUE ESSA CLASS FOR INSTANCIADA,
+
+
+
+    será executado esse method de 'attach', que vai ENFIAR ESSA FORM NA NOSSA TELA/DOM...
+)
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... AGORA VAMOS VER SE NOSSO CÓDIGO ESTÁ FUNCIONANDO... 
+
+
+
+
+
+
+
+
+
+
+
+--> TEORICAENTE, AGORA QUE INSTANCIAMOS NOSSA 'CLASS',
+
+
+
+
+
+
+ESSA CLASS DEVERIA __ RENDERIZAR __ NOSSA FORM NA TELA ....
+
+
+(
+
+
+    isso pq TODOS 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA TESTSAR ISSO,
+
+
+
+ CRÍAMOS um simples projectInptu
+
+
+ com a sintaxe de 
+
+
+ 'const projectInput = new ProjectInput();''
+
+
+
+
+
+
+
+
+
+
+
+
+ -> E NO NOSSO BROWSER, VEREMOS AQUELA FORM RENDERIZADA....
+
+
+
+
+
+
+
+
+
+
+ --> E AINDA QUE UM MONTE DE COISA ESTEJA FALTANDO,
+ é melhor do que nada...
+
+
+
+
+
+ 

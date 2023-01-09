@@ -1,0 +1,2369 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->  COM O CONHECIMENTO SOBRE 'DECORATOR FACTORIES' e 'DECORATORS',
+
+
+
+
+ podemos 
+
+
+ fazer 
+
+
+
+
+
+
+
+ __ COISAS LEGAIS__....
+
+
+
+
+
+
+
+
+
+
+
+  NOSSO CÓDIGO ATUAL ESTÁ ASSIM:
+
+
+
+function Logger2(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+
+
+
+
+
+@Logger2('HEY')  /////quando criamos/usamos DECORATOR FACTORIES, somos obrigados a EXECUTAR as 'outer function' dessas factories, assim mesmo...
+//// ^^^^^^^^ 'HEY', essa string aí, é passada como sendo o PARAMETER de 'logString', lá naquela DECORATOR FACTORy... --> o valor de 'logString' é então REPASSADO AO DECORATOR EM SI, no interior dessa factory...
+
+class Person2 { ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O PROFESSOR EXPLICA QUE PODERÍAMOS/PODEMOS 
+
+
+criar uma 
+
+
+NOVA DECORATOR FACTORY,
+
+
+
+por meio 
+
+
+de um código como este:
+
+
+
+
+
+
+
+
+
+
+
+
+''''''''''''''''''''''
+
+
+
+
+
+
+
+
+
+
+
+function withTemplate() {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-_> DENTRO DESSA FUNCTION, O PROFESOSR 'expect'
+
+
+
+UM ARGUMENTO DE 'template',
+
+
+
+QUE DEVERÁ SER UMA STRING...
+
+
+
+
+
+
+
+
+TAMBÉM UM ARGUMENTO DE 'hookId',
+
+
+que 
+
+também será uma string..
+
+
+
+
+
+
+eX:
+
+
+
+
+function withTemplate(template: string, hookId: string) {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSA FUNCTION,
+
+
+
+RETORNAMOS UMA ANON FUNCTION, QUE SERÁ 'THE ACTUAL DECORATOR FUNCTION'....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+
+        }
+
+
+
+}
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+DENTRO DESSE DECORATOR,
+
+VOU QUERER 
+
+
+'
+RENDER SOME TEMPLATE' ---------> UM TEMPLATE 
+
+
+SERÁ 
+
+
+
+'''UM CÓDIGO HTML'''.... -->  
+
+
+
+
+
+
+
+
+
+PROFESSOR VAI QUERER __ RENDERIZAR ESSE CÓDIGO HTML EM _ ALGUM LUGAR_ DO DOM,
+
+
+
+
+LUGAR DO DOM EM QUE ENCONTRO O VALOR DESSE 'hookId' (que é uma string)...
+
+
+
+
+
+
+
+
+
+
+(
+
+    HMMM AS COISAS ESTÃO FICANDO INTERESSANTES....
+)
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+
+        }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+PARA EXEMPLIFICAR ESSE DECORATOR FUNCTION,
+
+
+vamos até o index.html
+
+
+
+E ADICIONAMOS 
+
+UM LOCAL 
+
+
+
+LÁ,
+
+
+de '<div>',
+
+
+
+
+EM QUE 
+
+
+
+
+
+
+
+
+
+COLOCAMOS UM ID de 'app'... ( coisa bem típica em apps react)....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding TypeScript</title>
+    <script src="dist/app.js" defer></script>
+    <script src="dist/analytics.js" defer></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. AÍ VOLTAMOS AO ARQUIVO 'decoratorFactoriesMaisUteis.ts'
+
+
+
+E AÍ 
+
+
+
+
+
+
+
+
+
+__ ASSIGNAMOS ESSE 'DECORATOR FACTORY' desse decorator de 'WithTemplate' 
+
+
+
+
+à CLASS DE 'Person':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+
+        }
+
+
+
+}
+
+
+
+
+
+
+@WithTemplate( //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+
+
+
+
+) 
+class Person3{ ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PASSAR UMA EMPTY STRING COMO ARGUMETNO AO PRIMEIRO PARAMETER,
+
+
+
+E AÍ 'app' COMO UM SEGUNDO ARGUMENTO...
+
+
+
+
+
+
+
+
+EX(eu escrevo tipo isto, mas não sei está correto):
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+        const element = document.getElementById(hookId);
+
+        }
+
+
+
+}
+
+
+
+
+
+
+@WithTemplate( //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+'', ///1o argumento, 'template'...
+
+'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+
+) 
+class Person3{ ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> provavelmente vamos querer 
+
+INSERIR 
+
+
+
+o value de '' (primeiro parâmetro) 
+
+
+NESSE 
+
+
+
+
+'element' representaod 
+
+por 
+
+''''      const element = document.getElementById(hookId);''''
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+        const element = document.getElementById(hookId);
+
+        }
+
+
+
+}
+
+
+
+
+
+
+@WithTemplate( //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+'', ///1o argumento, 'template'...
+
+'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+
+) 
+class Person3{ ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+EU PENSEI EM ESCREVER 
+
+
+'!' 
+
+no valor desse 'const element',
+
+
+
+MAS 
+
+
+O 
+
+PROFESSOR 
+PREFERE 
+
+USAR 
+
+'if checks',
+
+CHECANDO PELA EXISTÊNCIA DE 'element' ('''se element for existente, etc etc'''..)...
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESSE ELEMENTO REALMENTE EXISTIR,
+
+
+PROFESSOR 
+
+VAI QUERER 
+
+ACESSAR 
+
+SEU 
+
+'innerHtml' (a propriedade)
+
+E 
+
+ENTAÕ 
+
+
+
+
+A DEFINIR COMO SENDO IGUAL AO PARÂMETRO DE 'tempalte'...
+
+
+
+
+
+
+
+
+
+
+POR ENQUANTO, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { ///DECORATOR function em SI....
+
+        const element = document.getElementById(hookId);
+
+
+        if (element) { ///se esse element REALMENTE EXISTIR no nosso código html de 'index.html'....
+
+            element.innerHTML = template; /// por favor, redefina o html (innerHTML) desse elemento, faça que seja igual ao 'template' argument...
+        }
+
+
+        return;
+        }
+
+
+
+}
+
+
+
+
+
+
+@WithTemplate( //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+'', ///1o argumento, 'template'... (vai ser o código html que vai ser inserido naquele local do DOM...)
+
+'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+
+) 
+class Person3{ ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ----------> OK... MAS AÍ O PROFESSOR VAI FAZER ALGO QUE ELE __ NÃO HAVIA FEITO AINDA....
+
+
+
+
+
+
+
+
+
+
+
+  --> ELE DIZ QUE __ 'NÃO VAI PRECISAR DO ARGUMENTO ''''target'''' ",
+
+
+
+  ou seja,
+
+
+
+  NÃO VAI PRECISAR DE NOSSA 'CONSTRUCTOR FUNCTION/class'
+
+
+
+  COMO UM ARGUMENTO.... ------> É EXATAMENTE POR ISSO QUE ELE SUBSTITUI O WRITE DE 'target'
+
+
+  por 
+
+  '_',
+
+
+
+
+  QUE É BASICAMENTE UM 
+
+  SINAL AO 
+
+  TYPESCRIPT 
+
+  DIZENDO 
+
+
+
+  '''yea, eu SEI QUE VOU RECEBER ESSE PARÂMETRO,  __ MAS EU NÃO PRECISO DELE, POIS NÃO O UTILIZAREI'''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> NÃO VAMOS NOS IMPORTAR COM ESSA CLASS, NESSE DECORATOR,
+
+  JUSTAMENTE _ PQ VAMOS QUERER __ SÓ __ RENDERIZAR 
+  
+
+  AQUELE CÓDIGO HTML NO NOSSO DOM,
+
+
+
+  naquele 
+
+
+
+  espaço de 
+
+
+  'element'...
+
+
+
+
+
+
+
+  ------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ---------> PARA EXEMPLIFICAR,
+
+
+
+  PROFESSOR 
+
+
+
+
+
+
+  coloca um '<h1>My Person Object</h1>'
+
+  NO LUGAR DE 
+
+  '',
+
+
+
+NO TEMPLATE ARGUMENT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... VAMOS SALVAR TUDO ISSO,
+
+E AÍ 
+
+NOSSO CÓDIGO VAI COMPILAR SEM ERRORS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA TELA/VISUAL DE NOSSO DOM,
+
+
+
+
+
+vemos 
+
+
+
+
+aquela tag de 
+
+'<h1>My Person Object</h1>'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NOS MOSTRA UM POUCO O __ PODER__ DOS DECORATORS... .--> SÃO MT FLEXÍVEIS,
+
+
+DEVO 
+
+ADMITIR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> VOCÊ PODE __ CONSTRUIR__ DECORATORS __ SUUUPER AVANÇADOS,
+
+
+mais ainda do que este,
+
+
+
+
+QUE __ DE REPENTE FAZEM 
+
+
+
+
+
+
+''''SOME MAGIC BEHIND THE SCENES'....
+
+
+
+
+
+
+
+
+
+
+(
+
+    é por isso que chamamos 
+    isso 
+
+    de 
+
+
+    'META-PROGRAMMING'....
+
+)
+
+
+
+
+
+
+
+
+
+---------> NÓS ADICIONAMOS UMA LÓGICA AQUI,
+
+A 
+
+DE 
+
+'WithTemplate',
+
+
+
+
+DESTE CÓDIGO AQUI:
+
+
+
+function WithTemplate(template: string, hookId: string) {
+        return function(
+            _: Function 
+            ) { 
+
+        const element = document.getElementById(hookId);
+        if (element) { 
+
+            element.innerHTML = template;
+        }
+
+
+        return;
+        }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+------> ESSE CÓDIGO PODERIA __ SER 
+
+'EXPOSED' 
+
+
+
+a OUTRAS PESSOAS,
+
+
+USUÁRIOS 
+
+
+
+
+DE NOSSA THIRD PARTY LIBRARY,
+
+
+
+
+
+PODERÍAMOS EXPOR ISSO__ 
+
+
+
+COMO PARTE
+
+
+
+DE NOSSA LIBRARY --------> AÍ 
+
+QUAQLEUR 
+
+
+
+
+PESSOA QUE USA NOSSA LIBRARY 
+
+PODERIA 
+
+
+
+
+
+
+
+
+__ IMPORTAR ESSA 'DECORATOR FUNCTION/FACTORY'
+
+ 
+
+
+
+ __ E AÍ _ A ADICIONAR__ 
+
+
+
+
+
+
+
+ A UMA 'CLASS'
+
+
+
+
+ __ PARA __ MAGICAMENTE__ 
+
+
+
+ 'render some content'....
+
+
+
+
+
+
+
+
+
+
+
+ --> E É CLARO __ QUE NÃO ESTAMOS LIMITADOS 
+
+
+
+
+ a esses valores existentes SÓ DENTRO DO CALL 
+
+
+
+
+ do 
+
+ '@WithTemplate'... -------> PQ NÓS PODEMS 
+
+
+ USAR 
+
+ OS 
+
+ VALORES 
+
+
+
+ EXISTENTES __ DENTRO__ DE 
+
+
+
+ NOSSA CLASS,
+
+
+ class 
+
+ conectada 
+
+
+
+ ao DECORATOR/DECORATOR FACTORY...
+
+
+
+
+
+
+
+
+
+
+
+ ------> PARA FAZER ISSO,
+
+
+
+
+
+ TERÍAMOS QUE ALTERAR UM POUCO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+ --> A PRIMEIRA ALTERAÇÃO SERIA/É 
+
+
+
+ NA 
+
+
+ DECORATOR FACTORY de 'WithTemplate',
+
+
+
+
+
+ que teria de TROCAR O ARGUMENTO DA DECORATOR FUNCTION,
+
+ que está como 
+
+
+ '_' (não quero argumento),
+
+
+ PARA 
+
+
+ 'target' (ou 'contructor')...
+
+
+
+
+
+
+
+
+
+
+ -------> ISSO FEITO, O CÓDIGO FICARIA ASSIM:
+
+
+
+
+ 
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { 
+
+        const element = document.getElementById(hookId);
+
+
+        if (element) { 
+
+            element.innerHTML = template; 
+        }
+
+
+        return;
+        }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+OK... 
+
+
+
+
+
+
+ISSO FEITO,
+
+
+
+PROFESSOR 
+
+
+EXPLICA 
+
+
+OUTRA COISA BIZARRA... -> APARENTEMENTE,
+
+NESSA 
+
+'DECORATOR FUNCTIOn' 
+
+
+
+NOS _ É PERMITIDO _ USAR 
+
+
+
+
+
+aquele 
+
+
+'constructor/target'
+
+
+
+PARA __ 
+
+CRIAR 
+
+NOVOS OBJECTS __ 
+
+a partir daquela class/constructor function....
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: Function) { 
+
+        const element = document.getElementById(hookId);
+
+        const p = new target(); /////EIS O CÓDIGO EM QUESTÃO.
+
+
+        if (element) { 
+
+            element.innerHTML = template; 
+        }
+
+
+        return;
+        }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS SE TENTARMOS ESCREVER ASSIM,
+
+NÃO FUNCIONA...
+
+
+(
+    dá um erro de 
+
+
+    '''This expression is not constructable.
+  Type 'Function' has no construct signatures.''''
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> PARA _ CONSERTAR__ ISSO,
+
+DEVEMOS TROCAR O TYPE DE 'target', de '
+
+Function' 
+para 
+
+
+
+'any'... (livre de restrições)....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {////decorator FACTORY.. (outer function)....
+
+
+
+
+        return function(target: any) { /////EIS O CÓDIGO EM QUESTÃO.
+ 
+        const element = document.getElementById(hookId);
+
+        const p = new target(); 
+
+
+        if (element) { 
+
+            element.innerHTML = template; 
+        }
+
+
+        return;
+        }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+----------------
+
+
+TENTEI TROCAR 
+
+O 
+
+
+
+'innerHTML' 
+
+
+de 
+
+um 
+
+ELEMENTO <p>,
+
+
+MAS NÃO DEU CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> DESCOBRI O PROBLEMA.... --> era aquele código do decorator,
+
+aquele 
+
+
+
+PASS DE ARGUMENTOS, DE 'template',
+
+QUE ESTAVA ASSIM:
+
+
+'''''
+
+
+
+
+
+
+@WithTemplate2( //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+`<h1>My Person Object: </h1>`, ///1o argumento, 'template'... (vai ser o código html que vai ser inserido naquele local do DOM...)
+
+'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+
+)
+
+
+
+
+
+
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+--> EM VEZ DE 
+
+
+'''`<h1>My Person Object: </h1>`'''',
+
+
+
+AGORA ESCREVI ASSim:
+
+
+
+
+@WithTemplate(
+  //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+  `<h1>My Person Object: </h1>
+    <p></p>
+  `, ///1o argumento, 'template'... (vai ser o código html que vai ser inserido naquele local do DOM...)
+
+  'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+(OU SEJA, COLOQUEI UM '<p>' a mais)....
+
+
+
+
+
+
+
+
+
+
+
+
+-> E AÍ,
+ PARA EDITAR ESSE P,
+
+
+ meu código ficou assim:
+
+
+
+
+
+
+
+
+
+
+ interface PersonInterface {
+  name: string;
+}
+
+function WithTemplate(template: string, hookId: string) {
+  ////decorator FACTORY.. (outer function)....
+
+  ///VVVVVV DECORATOR function em SI....
+  return function (
+    // target: Function ///sim, professor (e nós) SABEMOS QUE VAMOS RECEBER A CLASS/constructor function ASSIGNADA A ESSE DECORATOR como __ argumento, aqui, mas isso NÃO IMPORTA... (pq não vamos utilizar essa constructor function aqui para nada)....
+    // _: Function //// EM VEZ DISSO, escrevemos um '_', UNDERSCORE, que basicamente _ SINALIZA__ AO JAVASCRIPT QUE __ NÃO VAMOS PRECISAR DESSE PARÂMETRO/ARGUMNETO...
+    /// ^^^^   '''yea, eu SEI QUE VOU RECEBER ESSE PARÂMETRO,  __ MAS EU NÃO PRECISO DELE, POIS NÃO O UTILIZAREI'''...
+
+    target: any ////também chamado de 'constructor', por alguns desenvolvedores, pq SEMPRE ESSE ARGUMENTO SERÁ UMA CONSTRUCTOR FUNCTION/CLASS..., smepre serão elas passadas como esse parâmetro..
+    /////^^^^^---> SE QUEREMOS USAR ALGUMA DAS PROPRIEDADES DA CLASS ASSIGNADA A ESSA 'DECORATOR FUNCTION', __ DEVEMOS __ SETTAR O TYPE DE 'any', e não 'Function'...
+  ) {
+    const element = document.getElementById(hookId);
+    console.log(element);
+    let p: PersonInterface;
+    p = new target(); ///sim, podemos usar a class/CONSTRUCTOR function assignada ao nosso decorator __ PARA __ INSTANCIAR_ novos objects ( se queremos USAR ALGUMA DAS PROPRIEDADES DO OBJECT na lógica de nosso decorator)....
+
+    if (element) {
+      ///se esse element REALMENTE EXISTIR no nosso código html de 'index.html'....
+
+      element.innerHTML = template; /// por favor, redefina o html (innerHTML) desse elemento, faça que seja igual ao 'template' argument...
+     const paragraph = document.querySelector('p')!;
+     console.log(paragraph);
+      paragraph.innerHTML = p.name;
+    }
+
+    return;
+  };
+}
+
+@WithTemplate(
+  //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+  `<h1>My Person Object: </h1>
+    <p></p>
+  `, ///1o argumento, 'template'... (vai ser o código html que vai ser inserido naquele local do DOM...)
+
+  'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+)
+class Person4 implements PersonInterface {
+  ////decorators são 'all about classes', na verdade...
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+ou seja,
+
+
+o edit do 'innerHTML' funciona....
+
+
+
+
+
+
+
+
+
+
+
+--> e já pude testar um pouco do código 
+
+
+
+
+TYPESCRIPT:
+
+
+
+
+
+
+interface PersonInterface {
+    name: string;
+}
+
+
+
+
+                    ///// isto aqui...
+class Person3 implements PersonInterface { ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+
+
+
+
+
+
+e ainda isto aqui:
+
+
+
+
+
+
+        let p: PersonInterface;
+        p = new target(); ///sim, podemos usar a class/CONSTRUCTOR function assignada ao nosso decorator __ PARA __ INSTANCIAR_ novos objects ( se queremos USAR ALGUMA DAS PROPRIEDADES DO OBJECT na lógica de nosso decorator)....
+
+
+        if (element) { ///se esse element REALMENTE EXISTIR no nosso código html de 'index.html'....
+
+            
+            element.innerHTML = template; /// por favor, redefina o html (innerHTML) desse elemento, faça que seja igual ao 'template' argument...
+            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+        }
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO FUNCIONOU....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> agora consegui fazer o output do 'NAME' 
+
+
+
+do object
+
+
+LÁ 
+
+
+NO DOM,
+
+
+
+
+como parte daquele argument de 'template'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É ALGO QUE VOCÊ PODE FAZER, É CLARO,
+
+
+
+E 
+
+VOCê 
+
+
+PODE 
+
+
+
+ESCREVER 
+
+
+
+'DECORATORS'
+
+
+BEM 
+
+MAIS 
+
+COMPLEXOS 
+
+DO QUE 
+
+
+ESSES 
+
+QUE O PROFESSOR NOS MOSTROU...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> VEJA O 'ANGULAR'...:
+
+
+
+
+
+
+
+
+--> É UM FRAMEWORK __ SUPER__ POPULAr__ QUE USA TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> ELES USAM DECORATORS,
+
+
+VÁRIOS DECORATORS, 
+
+
+
+como 
+
+
+
+
+
+O DECORATOR DE 'component',
+
+
+
+
+que é tipo assim:
+
+
+
+
+
+
+
+
+
+import { Component } from '@angular/core';
+
+
+
+
+@Component ({
+
+
+    selector: 'app-root';
+    template: `
+
+
+    <h1>{{title}}</h1>
+    <h2>My favorite hero is: {{myHero}}</h2>
+    `
+})
+
+
+
+
+
+export class AppComponent {
+    title = 'Tour of Heroes'; 
+    myHero = 'Windstorm';
+}
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+--------------> ESSE DECORATOR TE DEIXA 'PASS IN A OBJECT',
+
+
+
+QUE TE DEIXA ESPECIFICAR 
+
+COMO 
+
+
+
+o 'template'
+
+desse component,
+
+
+E AÍ 
+
+O 
+
+selector 
+
+
+NO DOM 
+
+EM QUE 
+
+ESSE COMPONENT 
+
+DEVE 
+
+SER 
+
+RENDERIZADO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> e isso é bem parecido com o que codamos agora:
+
+
+codamos um decorator que 
+
+
+te 
+deixa 
+
+settar 
+
+
+
+1) 1 LOCAL,
+
+
+
+2) O ELEMENTO QUE DEVERÁ SER RENDERIZADO NESSE LOCAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS OS DECORATORS DO ANGULAR SÃO BEM MAIS 
+
+
+
+COMPLEXOS DO QUE OS NOSSOS,
+MAS 
+
+A 
+
+CORE 
+
+IDEA 
+
+É 
+A 
+
+MESMA...
+
+
+
+
+
+
+
+
+
+
+---> O ANGULAR __ NOS DÁ OS 'DECORATORS',
+
+TUDO PARA QUE 
+possamos 
+
+
+ESPECIFICAR 
+
+
+O CÓDIGO 
+
+
+
+
+HTML 
+
+
+que 
+
+vai ser CONECTADO A SUA 'COMPONENT CLASS',
+
+e que 
+
+VAI 
+
+SER 
+
+RENDERIZADO AO DOM,
+
+
+
+QUANDO ESSE COMPONENT FOR RENDERIZADO...
+
+
+
+
+
+
+
+'angular' --> não 
+
+sei como funciona...
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA SEI QUE ELE FUNCIONA ___ COM CLASSES E 
+
+COM DECORATORS,
+
+
+E QUE 
+
+FAZ BASICAMENTE 
+O QUE VIMOS AQUI...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSA É UMA DAS COISAS QUE PODEMOS FAZER 
+
+
+COM DECORATORS/ DECORATOR FACTORIES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E É EXATAMENTE ISSO QUE O PROFESSOR QUERAI DIZER COM 
+
+
+
+
+'META-PROGRAMMMNG' ---> 
+
+
+
+
+estmaos criando decorator functions  
+
+QUE 
+
+TALVEZ 
+
+
+
+TERÃO 
+
+
+IMPACOT 
+
+NO END-USER,
+
+
+mas 
+
+QUE 
+
+FAZEMOS 
+ISSO 
+
+POR MEIO DE UMA 
+
+TOOL
+
+
+QUE 
+
+FAZEMOS 
+
+'EXPOSE'
+
+A OUTROS 
+
+DEVs...  -----------> É UMA 
+
+TOOL
+
+QUE 
+
+OUTROS 
+
+
+
+DEVs 
+
+devem 
+usar 
+
+
+POR MEIO DO ANEXO A UMA CLASS (caso contrário, esse decorator, por si só, não faz nada)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTREGAMOS UTILITIES A OUTROS DEVS,
+
+PARA QUE 
+
+OTUROS DEVS POSSAM USAR ,
+
+
+
+
+
+
+
+
+PARA__ ENTÃO 
+
+'CONVENIENTLY 
+
+
+
+RENDER SOMETHING ON THE SCREEN',
+
+para uma class...

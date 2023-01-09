@@ -1,0 +1,532 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ANTES DE MAIS NADA,
+
+PODEMOS 
+
+COMEÇAR NOSSO DEV SERVER COM 
+
+'npm start'..
+
+
+
+
+
+
+--> ESSE PROCESSO FARÁ WATCH DE NOSSO PROJETO, PROCURANDO POR CHANGES...
+
+
+
+
+
+--> SE ALGO MUDAR,
+
+
+
+
+
+
+
+ELE VAI __ RECOMPILAR__ O CÓDIGO TYPESCIRPT__ EM JAVASCRIPT,
+
+
+
+RECOMPILAR JSX EM JAVASCRIPT, E AÍ BUILDAR SEU REACT APP E 
+
+
+ENTÃO O SERVIR EM 'localhost:3000'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... mas quando eu rodo 'npm start' 
+
+
+na minha pasta,
+
+ganho um error de 
+
+
+
+
+
+Error: Cannot find module 'A:\projeto5- TYPESCRIPT\react-scripts\bin\react-scripts.js'   
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)        
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:17:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+
+
+
+
+
+
+
+--> já tive esse erro antes,
+
+
+o fix é só copiar o node_modules no nosso project folder 
+
+para 
+
+dentro 
+
+
+de nosso 
+
+
+
+folder 'GERAL'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... VAMOS ANALISAR O QUE TEMOS...
+
+
+
+
+
+
+--> EM 'index.ts'
+
+
+temos 
+
+CÓDIGO JAVASCRIPT NORMAL,
+
+
+
+REACT....
+
+
+
+
+
+
+
+
+
+
+--> MAS EM 
+
+
+'App.tsx'
+
+temos aquele 
+
+TYPE ASSIGNMENT:
+
+
+
+
+const App: React.FC = () => {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--_> SE IGNORARMOS 
+
+
+
+
+
+
+ESSE 'React.FC' 
+
+
+
+
+por 1 segundo,
+
+
+podemos focar em 'const App' 
+
+
+
+
+
+
+
+--> O QUE ESSA CONSTANTE SEGURA?
+
+
+
+
+--> SEGURA UMA FUNÇÃO...
+
+
+
+
+
+
+
+
+--> SEGURA UMA ARROW FUNCTION, MAS ISSO AINDA É UMA 'REGULAR ARROW FUNCTION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS PQ ESSE 'React.FC'
+ 
+ não é um 
+
+
+
+ FUNCTION TYPE,
+
+
+
+
+
+
+
+ PQ 
+ NÃO É UM FUNCTION TYPE?
+
+
+
+
+
+
+
+
+
+ --> BEM, 
+
+ ISSO 
+
+ É UM 'FUNCTION TYPE', 'UNDER THE HOOD',
+
+
+
+ MAS 
+
+ UM FUNCTION _ TYPE__ QUE É __ PROVIDENCIADO _ PELO REACT__...
+
+
+
+
+
+
+
+
+
+
+
+ IMPORTANTE !!!! ---->  É CLARO QUE ESSE TYPE É UM TYPE PROVIDENCIADO PELA PACKAGE DE '@types',
+
+
+
+
+
+ a do 'react', particularmente...
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> O QUE É ESSE TYPE? 
+
+
+
+
+
+
+
+
+ bem,
+
+
+ 'FC' simplesmente é um acrônimo para 'FUNCTION COMPONENT'..
+
+
+
+
+
+
+
+
+
+ --> TAMBÉM EXISTE UMA VERSÃO MAIS LONGA DESSA ESCRITA,
+  
+  QUE É 
+
+
+  'const App: React.FunctionComponent = () => {}' 
+
+
+
+
+
+
+
+  (
+
+      MAS ISSO É EXATAMENTE O MESMO TYPE,
+
+
+      SÓ COM UMA ESCRITA MAIOR...
+  )
+
+
+
+
+
+
+
+
+
+
+
+  --> ISSO SIMPLESMNETE DEFINE QUE O QUE TEMOS/DEVEMOS TER DENTRO DE 'App'
+
+
+
+  DEVERÁ 
+
+
+  SER UMA FUNCTION,
+
+  MAS UMA FUNCTION QUE SE QUALIFIQUE 
+
+
+
+
+
+
+  como um 'FUNCTION COMPONENT NO REACT'....
+
+
+
+
+
+
+
+
+
+
+
+  --> É CLARO QUE VOCê TAMBÉM PODE ESCREVER 'CLASS-BASED COMPONENTS',
+
+
+
+
+
+
+  se você quiser fazer isso (para não usar o react propriamente dito),
+
+
+  vocÊ 
+  escreve 
+
+  o 
+
+  type de 
+
+
+
+  'React.ClassicComponent'  ---------------> SE VOCÊ FIZER ISSO,
+
+
+VOCÊ TERÁ DE ARMAZENAR UMA __ CLASS___ DENTRO __ 
+
+
+DESSA const,
+
+
+EM VEZ DE UMA FUNCTIOn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+const App: React.FC = () => { //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  return (
+    <div className="App">
+
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso já melhora um pouco nosso código,
+
+
+pq 
+
+
+
+
+nos dá 
+
+
+TYPE SAFETY... 
+
+
+
+
+(
+
+    evita 
+
+
+    o create de components inválidos...
+)
+
+
+
+
+
+EXEMPLO:
+
+
+VOCÊ ESTÁ CONSTRUINDO UM COMPONENT MAIOR,
+
+
+COM MÚLTIPLOS 
+
+
+
+IF STATEMENTS,
+
+E AÍ 
+
+VOCÊ 
+ESQUECE 
+
+
+
+QUE EM UM DOS RETURN STATEMENTS
+VOCÊ 
+
+
+NÃO ESTÁ RETORNANDO ALGUM TYPE NECESSÁRIO --> aí o typescript vai te salvar... ---> vai te dar o aviso 
+
+antes do runtime,
+
+onde seu app crasharia....
+
+
+
+
+
+
+
+
+
+
+
+
+--> chega 
+
+
+de conversa,
+
+
+vamos compor algo...
+
+
+
+
+
+
+
+--> vamos criar um TODO APP...

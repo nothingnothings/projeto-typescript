@@ -1,0 +1,1881 @@
+
+
+
+
+
+
+
+
+
+
+-> NOSSO CÓDIGO DE TYPE GUARDS HAVIA FICADO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+type Combinable = string | number; ////type guards _ NOS AJUDAM __ ESPECIFICAMENTE _cOM 'union types'....
+
+
+
+
+
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+
+
+    if (typeof a === 'string' || typeof b === 'string') { ///ISTO É UM TYPE GUARD  --->  É UM TYPE GUARD QUE USA 'typeof' --> mas é claro que existem OUTROS APPROACHES PARA ESCREVER TYPE GUARDS....
+        return a.toString() + b.toString();
+    }
+    
+    return a + b; ////sabemos, nesse código, com certeza absoluta, que nenhum desses parameters será uma string... (serão numbers)...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Admin2 = {
+    name: string;
+    privileges: string[];
+};
+
+
+
+
+
+
+type Employee2 = {
+    name: string;
+    startDate: Date; ///baseado no OBJECT BUILTIN NO JAVASCRIPT...
+}
+
+
+
+
+
+type ElevatedEmployee2 = Admin2 & Employee2;
+
+
+
+type UnknownEmployee = Employee2 | Admin2;  /////UNION TYPE COM 2 DE NOSSOS 'CUSTOM OBJECT TYPES'....  (o 'UnknownEmployee' VAI SER __ UM DOS DOIS, NO CASO)....
+ 
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name); //isto ('emp.name") existe nas 2 variações de 'emp'...
+                if ('privileges' in emp) { /////////SE A PROPRIEDADE 'privileges' EXISTIR DENTRO DESSE PARÂMETRO/object DE 'emp', vamos querer EXECUTAR ESSE CÓDIGO Aí....
+                    console.log('Privileges: ' + emp.privileges); 
+                }
+
+
+                if('startDate' in emp) { ///EXEMPLO DE 'TYPE GUARD' definido por meio da keyword de 'in'....
+                    console.log('StartDate: ' + emp.startDate);  
+                }
+
+}
+
+
+printEmployeeInformation({ ///vai printar ''          console.log('StartDate: ' + emp.startDate);   ''''
+ name: 'Arthur',
+    startDate: new Date()
+})
+
+
+printEmployeeInformation({ ///vai printar ''          console.log('Privileges: ' + emp.privileges);    ''''
+    name: 'Arthur2',
+        privileges: ['a', 'b']
+   })
+
+
+
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car(); 
+
+
+
+
+
+
+const v2 = new Truck();
+
+
+
+
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+    
+
+
+    
+    if (vehicle instanceof Truck) { ///ISSO __ FUNCIONA, E É BEM MAIS ELEGANTE (checa se esse negócio, nosso parâmetro, realmente é uma INSTANCIA DAQUELA CLASS, e retorna truthy/falsy)...
+
+
+        ////OBS: 'instanceof' SÓ __ PODE __ SER UTILIZADO __ COM 'CLASSES', e não FUNCIONA COM INTERFACES...
+        vehicle.loadCargo(1000);
+    }
+
+}
+
+
+
+
+
+useVehicle(v1);
+
+
+useVehicle(v2); //isso funciona....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO..... --> MAS HÁ TAMBÉM UM 'TIPO ESPECIAL DE TYPE GUARD',
+
+
+
+OU ALGO QUE __ TE AJUDA __ COM 
+
+
+
+TYPEGUARDS... ----------> O NOME DISSO É 
+
+
+
+
+'DISCRIMINATED UNION'...
+
+
+
+
+
+
+
+
+-------> O QUE É ISSO? ------->´E UM PATTERN 
+
+
+
+
+
+
+
+QUE VOCê PODE USAR 
+
+
+
+__QUANDO _ TRABALHA COM UNION TYPES,
+
+
+
+QUE FAZ 
+
+
+A IMPLEMENTAÇÃO DE 
+
+TYPE GUARDS 
+
+
+
+BEM MAIS FÁCIL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> É UM PATTERN QUE SE TORNA DISPONÍVEL QUANDO 
+
+
+
+
+__ VOCÊ TRABALHA COM OBJECT TYPES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> O PROFESSOR CRIA UMA INTERFACE,
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+        flyingSpeed: number
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA INTERFACE __ VAI _ TER UMA PROPRIEDADE de 'flyingSpeed',
+
+
+que será de tipo 'NUMBER'...
+
+
+
+
+
+
+
+
+--> TAMBÉM QUEREMOS UMA 
+
+INTERFACE 
+
+DE 
+
+'Horse',
+
+
+
+
+QUE TERÁ UMA RUNNINGSPEED...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+        flyingSpeed: number;
+
+
+}
+
+
+
+
+interface Horse {
+    runningSpeed: number;
+}
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+OK, TEMOS ESSAS 2 INTERFACES....
+
+
+
+
+
+
+
+
+
+
+
+
+-->  AGORA VAMOS QUERER CRIAR NOSSO PRÓPRIO UNION TYPE, que unirá esses 2 types...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+        flyingSpeed: number;
+
+
+}
+
+
+
+
+interface Horse {
+    runningSpeed: number;
+}
+
+
+
+
+
+
+type Animal = Horse | Bird;
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA, EXATAMENTE COMO ANTES,
+
+TEREMOS UMA FUNCTION 
+
+com parâmetro de 'animal',
+
+que vai receber 
+esse union type....
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+        flyingSpeed: number;
+
+
+}
+
+
+
+
+interface Horse {
+    runningSpeed: number;
+}
+
+
+
+
+
+
+type Animal = Horse | Bird;
+
+
+
+
+
+
+
+function moveAnimal(animal: Animal) {
+
+
+
+
+}
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+DENTRO DESSA FUNCTION, QUEREMOS UMA LÓGICA ESPECÍFICA....
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER CONSOLE.LOGGAR a 
+
+frase 
+
+
+
+'moving with speed: ' + animal.xxxxxx
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO CASO, VAMOS QUERER _ ACESSAR__ OU 'flyingSpeed'
+
+
+
+
+
+ou 'runningSpeed',
+
+
+
+DEPENDENDO 
+
+
+
+DO 
+
+
+
+'TYPE'/interface 
+
+
+
+
+do 
+
+
+
+objeto que é passado a essa função....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+        flyingSpeed: number;
+
+
+}
+
+
+
+
+interface Horse {
+    runningSpeed: number;
+}
+
+
+
+
+
+
+type Animal = Horse | Bird;
+
+
+
+
+
+
+
+function moveAnimal(animal: Animal) {
+
+console.log('Moving with speed: ' + animal.xxxx);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PODEMOS, É CLARO, TENTAR USAR o 'in' (eu acho)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+
+
+}
+
+
+
+
+interface Horse {
+runningSpeed: number;
+}
+
+
+
+
+
+
+type Animal = Horse | Bird; ///union type..
+
+
+
+
+
+
+
+
+
+function moveAnimal(
+    animal: Animal
+) {
+
+
+    if('runningSpeed' in animal) {
+        console.log('Moving with speed: ' + animal.runningSpeed)
+    }
+
+
+    if('flyingSpeed' in animal) {
+        console.log('Moving with speed: ' + animal.flyingSpeed)
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> EU ESCREVO ASSIM, E O NEGÓCIO NÃO DÁ ERRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok........ ------> PROFESSOR DIZ QUE PODEMOS FAZER ISSO,
+
+PODEMOS ESCREVER 
+
+coisas como 
+
+
+
+
+'''
+
+    if('runningSpeed' in animal) {
+        console.log('Moving with speed: ' + animal.runningSpeed)
+    }
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSE APPROACH É VÁLIDO,
+
+
+SIM,
+
+
+
+
+__ MAS POSSUI UM PROBLEMA:
+
+
+
+
+
+
+
+
+
+A MEDIDA QUE VAMOS ADICIONANDO MAIS 'animals'
+
+
+NAQUELE 
+
+
+
+UNION TYPE de 'Animal',
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+type Animal = Bird | Horse | Tiger | Whale;
+
+
+
+
+
+,
+
+
+
+
+NÓS FICAMOS __ COM CADA VEZ 
+
+
+
+
+
+COISAS (propriedades)
+
+
+
+PARA 
+
+CHECAR,
+
+
+
+
+
+lá nessa function de 'moveAnimal'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OUTRO PROBLEMA É QUE PODEMOS FACILMENTE MISTYPE 
+
+coisas nessa 
+
+
+
+
+string,
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+    if('runningSpeeed' in animal) {
+        console.log('Moving with speed: ' + animal.runningSpeed)
+    }
+
+
+
+
+
+
+
+
+
+
+
+---------->  OK....  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O PROBLEMA QUE TEMOS AQUI, NO CASO, É QUE 
+
+___ NÃO PODEMOS USAR 
+
+'instanceof'
+
+
+justamente 
+
+POR 
+
+ESTARMOS 
+
+TRABALHANDO COM _ INTERFACES__ (E não com CLASSES, que são as coisas que suportam essa sintaxe)..
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE ESTA SINTAXE NÃO FUNCIONA:
+
+
+
+
+
+if (animal instanceof Bird) {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO VAI FUNCIONAR PQ ___ INTERFACES SÃO FEATURES PURAMENTE TYPESCIPRT, O QUE QUER DIZER QUE 
+
+
+
+ELAS NÃO SERÃO COMPILADAS PARA JAVASCIRPT.... (isso significa que no runtime esse 'Bird' não vai estar disponível como constructor function)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> PARA RESOLVER ESSE PROBLEMA,
+
+
+
+
+
+
+
+PODEMOS _ USAR/CONSTRUIR uma 
+
+
+'DISCRIMINATED UNION' 
+
+
+
+no nosso arquivo.........
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO FAZEMOS ISSO?  -----> ATRIBUÍMOS A CADA 'interface' ( ou seja, objeto que FARÁ PARTE DA UNION )
+
+
+
+
+
+
+
+UMA __ PROPRIEDADE_ EXTRA___________...........
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> as words mais usadas são 'type' e 'kind'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface Bird {
+
+
+    type: 'bird';
+    flyingSpeed: number;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+}
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+isso significa que 'bird' 
+
+não é um ''''value''''' PROPRIAMENTE DITO, E SIM 
+
+
+
+UM 
+
+'LITERAL TYPE' (ou seja,
+
+
+
+SERÁ USADO COMO IDENTIFICADOR, PARA DISTINGUIR OS TYPES NO SEU 'union type' de 'Animal', nesse exemplo)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+    //não confunda isso com 'a definiçaõ de um valor'.... -> não... o 'bird', essa string aí, é na verdade um 'LITERAL TYPE'  (ou seja, 'Bird' DEVERÁ _ CERTAMENTE__ SEGURAR UMA PROPRIEDAED 'type', que __ CERTAMENTE__ SERÁ DE VALOR 'bird') ---> isso é um IDENTIFICADOR DE TYPE, portanto.... --> e é usado para fazer 'discriminated Unions'....
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, O VALOR ARMAZENADO EM 'type' SERÁ EXATAMENTE O DESSA STRING DE 'bird'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...  E VAMOS FAZER A MESMA COISA, MAS COM O 'horse' (colocar uma propriedade 'type', e aí definir como 'horse')...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+    //não confunda isso com 'a definiçaõ de um valor'.... -> não... o 'bird', essa string aí, é na verdade um 'LITERAL TYPE'  (ou seja, 'Bird' DEVERÁ _ CERTAMENTE__ SEGURAR UMA PROPRIEDAED 'type', que __ CERTAMENTE__ SERÁ DE VALOR 'bird') ---> isso é um IDENTIFICADOR DE TYPE, portanto.... --> e é usado para fazer 'discriminated Unions'....
+
+}
+
+
+
+
+interface Horse {
+runningSpeed: number;
+type: 'horse'; ///usado para definir 'discriminated unions'...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... AGORA 
+
+
+NA NOSSA FUNCTION,
+
+PROFESSOR 
+
+EXPLICA QUE 
+
+PODEMOS __ USAR__ UM SWITCH STATEMNT,
+
+
+
+
+E AÍ __ FAZER__ _SWITCH __ DE 
+
+
+
+NOSSOS CÓDIGOS A SEREM EXECUTADOS,
+
+a partir do 'type'
+
+nessa propriedade 
+
+de 
+
+
+'animal'..
+
+
+
+
+(nossa, isso é MUITO ÚTIL)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+    //não confunda isso com 'a definiçaõ de um valor'.... -> não... o 'bird', essa string aí, é na verdade um 'LITERAL TYPE'  (ou seja, 'Bird' DEVERÁ _ CERTAMENTE__ SEGURAR UMA PROPRIEDAED 'type', que __ CERTAMENTE__ SERÁ DE VALOR 'bird') ---> isso é um IDENTIFICADOR DE TYPE, portanto.... --> e é usado para fazer 'discriminated Unions'....
+
+}
+
+
+
+
+interface Horse {
+runningSpeed: number;
+type: 'horse'; ///usado para definir 'discriminated unions'...
+}
+
+
+
+
+
+function moveAnimal(
+    animal: Animal
+) {
+
+
+    switch(animal.type) {
+
+        case 'bird': 
+        console.log('Moving with speed: ' + animal.flyingSpeed)
+
+        break;
+
+        case 'horse':
+            console.log('Moving with speed: ' + animal.runningSpeed);
+        default: 
+        return;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+CREIO QUE SERÁ ASSIM, PORTANTO,....
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+COMO TODO 
+
+
+'Animal' terá essa propriedade de 
+
+'type',
+
+
+
+
+
+PODEMOS ___ 
+
+
+COLOCAR VÁRIOS CASES 
+
+para 
+
+
+rodar códigos diferentes....
+
+
+
+
+
+
+
+O CÓDIGO DO PROFESSOR FICA AINDA MAIS OPTIMIZADO....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+    //não confunda isso com 'a definiçaõ de um valor'.... -> não... o 'bird', essa string aí, é na verdade um 'LITERAL TYPE'  (ou seja, 'Bird' DEVERÁ _ CERTAMENTE__ SEGURAR UMA PROPRIEDAED 'type', que __ CERTAMENTE__ SERÁ DE VALOR 'bird') ---> isso é um IDENTIFICADOR DE TYPE, portanto.... --> e é usado para fazer 'discriminated Unions'....
+
+}
+
+
+
+
+interface Horse {
+runningSpeed: number;
+type: 'horse'; ///usado para definir 'discriminated unions'...
+}
+
+
+
+
+
+function moveAnimal(
+    animal: Animal
+) {
+
+    let speed;
+
+    switch(animal.type) {
+
+        case 'bird':
+        speed = animal.flyingSpeed;
+        break;
+        case 'horse':
+        speed = animal.runningSpeed;
+    }
+
+    console.log('Moving at speed: ' + speed);
+}
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA BASTA CHAMAR ESSA FUNCTION,
+
+
+
+
+COM O TYPE BEM SETTADO, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function moveAnimal(
+    animal: Animal
+) {
+
+
+    // if('runningSpeed' in animal) { ////problema de seguir essa sintaxe é que se você tiver um union type com UM MONTE DE TYPES, você vai ter que escrever if checks PARA CADA UMA DAS PROPRIEDADES de cada 1 desses types....
+    //     console.log('Moving with speed: ' + animal.runningSpeed)
+    // }
+
+
+    // if('flyingSpeed' in animal) {
+    //     console.log('Moving with speed: ' + animal.flyingSpeed)
+    // }
+
+
+
+    switch(animal.type) {
+
+        case 'bird': 
+        console.log('Moving with speed: ' + animal.flyingSpeed)
+
+        break;
+
+        case 'horse':
+            console.log('Moving with speed: ' + animal.runningSpeed);
+        default: 
+        return;
+    }
+}
+
+
+
+
+moveAnimal({type: 'bird', flyingSpeed: 21211});
+
+
+
+moveAnimal({type: 'horse', runningSpeed: 21211});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSE É O 'DISCRIMINATED UNION',
+
+
+
+
+EM QUE TEMOS 1 COMMON PROPERTY EM CADA 
+
+
+OBJETO 
+
+
+
+de nossa 'union',
+
+QUE 
+
+
+
+
+FAZ 'DESCRIBE DESSE OBJECT',
+
+
+
+TUDO PARA QUE POSSAMOS 
+
+USAR ESSA PROPRIEDADE 
+
+
+DESSES OBJECTS 
+
+
+
+
+_ __ NO NOSSO CHECK DE 'switch',
+
+PARA 
+
+TER 
+
+
+100% 
+
+de
+
+
+TYPE SAFETY,
+
+
+E PARA __ ENTENDER__ QUAIS PROPREIDADES_ __
+
+FICAM 
+
+DISPONÍVEIS
+
+
+
+EM 1 DETERMINADO OBJECT PASSADO A UMA FUNCTION,
+
+e quais 
+
+OBJECTS __ NÃO FICAM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ISSO SIGNFICA QUE 
+ESSE 
+
+
+É OUTRO PADRÃO ÚTIL QUANDO TRABALHAMOS COM OBJECTS E UNION TYPES....
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ELE __ ATÉ FUNCIONA COM INTERFACES,
+
+
+
+TUDO PQ 
+
+
+
+ESSA INTERFACE 
+
+
+VAI __ FORÇAR _ TODOS OS OBJECTS CONSTRUÍDOS A PARTIR DELA A TEREM ESSA PROPRIEDADE 
+
+
+
+
+de 
+
+'type/kind: bird '...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK.... --> OU SEJA,
+
+EM VEZ DE 
+
+CHECAR PELA EXISTÊNCIA DE UMA CERTA PROPRIEDADE,
+
+
+
+OU EM VEZ DE USAR 
+
+'instanceof,'
+
+
+NÓS __ 
+
+
+
+
+
+__USAMOS _ UMA PROPRIEDAED__ QUE TEMOS CERTEZA ABSOLUTA, 100%, de que vai existir,
+
+
+
+PARA ENTÃO CHECAR 
+
+COM 
+
+
+QUAL TIPO DE OBJECT ESTAMOS 
+
+
+TRABALHANDO  -------> TAMBÉM ELIMINAMOS O 
+
+
+
+PERIGO DE MISTYPING,
+
+
+
+PQ 
+
+O 
+
+TYPESCRIPT ENTENDE QUE 
+
+TODOS OS 
+
+
+
+CASES QUE PODEMOS TER AQUI SÃO 'bird' e 'horse'.... --> e o ide vai apitar se você tentar passar uma coisa diferente....
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE ESSE É UM PADRÃO 
+
+
+
+
+__MUITO ÚTIL PARA 
+
+
+TRABALHO COM 
+
+
+
+
+OBJECTS E UNION TYPES...

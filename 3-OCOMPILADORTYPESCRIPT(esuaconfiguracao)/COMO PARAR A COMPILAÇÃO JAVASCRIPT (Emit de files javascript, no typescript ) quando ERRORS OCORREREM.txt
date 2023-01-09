@@ -1,0 +1,460 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... PODEMOS IGNORAR 
+
+
+
+
+A OPÇÃO DE 'isolatedMOdules',
+
+
+
+
+
+MAS HÁ 
+
+
+
+OUTRA OPTION QUE __ NEM _ MESMO -_ É MENCIONADA AQUI,
+
+
+
+
+E QUE O PROFESSOR QUER MENCIONAR POR CONTA PRÓPRIA (considera importante)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É A OPTION DE 'noEmitOnError()'     
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE SETTAR ISSO COMO FALSE/TRUE,
+
+
+
+E O DEFAULT É __ FALSE___......
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PROFESSOR QUER MOSTRAR AS DESVANTAGENS DE DEIXAR ESSA OPTION COMO 'false' 
+
+
+
+
+
+
+
+
+
+
+
+
+-> se deixamos isso como 'FALSE',
+
+
+ISSO PODE SE TORNAR UM PROBLEMA 
+
+
+
+
+SE NÓS INTRODUZIRMOS/INTRODUZIMOS 
+
+
+
+
+
+UM ERRO NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+COMO EXEMPLO DISSO,
+
+PROFESSOR VAI ATÉ O 'app.ts'
+
+
+
+
+E 
+
+
+REMVOVE o '!" da definição da variável 'buttton'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+const button = document.querySelector('button');
+
+
+
+button.addEventListener('click',
+ 
+ 
+ () => {
+
+ }
+ 
+ )
+
+
+
+
+
+
+
+
+
+
+ -------> OK... O PROBELMA AQUI, NO CASO ,
+
+ É QUE 
+
+
+
+
+
+ O TYPESCRIPT SIMPLESMENTE NÃO SABE QUE TEMOS UM 'BUTTON' aqui... --> 
+
+ (
+
+     isso 
+
+     PQ ESSE 'document.querySelector('button')''
+
+
+
+PODE/PODERIA RETORNAR 'null' (nenhum element encontrado para esse selector, por isso o erro...)
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+--> E É ISSO QUE O 
+
+
+TYPESCRIPT ESTÁ RECLAMANDO,
+
+
+PQ AQUI ESTAMOS TENTANDO ACESSAR UMA PROPRIEDADE EM UMA CONSTANTE POTENCIALMENTE 
+
+
+_-VAZIA__, O QUE NÃO É PERMITIDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... E ESSE É UM ERROR QUE TEMOS AQUI... -> mas 
+
+se 
+
+
+
+TENTARMOS COMPILAR NOSSO CÓDIGO AGORA,
+
+COM ESSA OPTION de 
+
+
+'noEmitOnError' -----> NÃO AVAMOS CONSEGUIR COMPILAR ESSE CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo.... --> MAS 
+
+
+O PROBLEMA, AQUI, É QUE 
+
+
+
+
+ESSA FUNCTION/ERRO NA FUNCTION NÃO VAI SER FATAL AO NOSSO CÓDIGO....
+
+
+
+
+
+
+
+(ainda assim, se settada a config de noEmitOnError()')
+
+
+
+VOCê 
+
+NÃO PODERÁ COMPILAR SEU CÓDIGO.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O IDEAL, DIZ O PROFESSOR, É 
+
+
+__CONSERTAR__ ESSAS IDIOSSINCRASIAS '(aim for error-free projects,
+
+
+and how to WORK AROUND THIS PROBLEM, instead )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo... MAS É CLARO QUE PODERÍAMOS DEIXAR O TYPESCRIPT COMPILAR MESMO COM ERRORS,
+
+
+SE 
+
+SABEMOS QUE ESSES ERRORS NÃO FAZEM DIFERENÇA ALGUMA NO RUNTIME DE NOSSO App...
+
+
+
+
+
+
+
+
+
+------> AINDA ASSIM, PODERÍAMOS DEIXAR ISSO COMO DEFAULT/FALSE 
+
+SE 
+
+ACHAMOS QUE 
+
+
+
+é melhor só não compilar o código typescript 
+
+
+em javascript se encontrar algum bug/erro...   ( AÍ NADA SERÁ COMPILADO,
+
+
+NENHUM DOS ARQUIVOS DE NOSSO PROJETO... basta ter apenas 1 erro em 1 
+
+
+dos files do projeto) ---------> É POR ISSO QUE 
+
+AQUI 
+
+
+--TEMOS __ QUE 
+
+
+CONSERTAR ESSE ERRO,
+
+
+ANTES DE 
+
+DEIXAR O TYPESCRIPT COMPILAR PARA NÓS...
+
+
+
+
+
+
+
+
+onemitError
+
+
+
+
+--> O PROFESSOR MANTÉM ESSA op~cao de 
+
+'noEmitOnError'  PQ GOSTA DE RECEBER OS ARQUIVOS '.js'
+
+
+
+''''INTEIROS''', sem deixar ERRORS no código...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "removeComments": true,                           /* Disable emitting comments. */
+    // "noEmit": true,                                   /* Disable emitting files from a compilation. */
+    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
+    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
+    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
+    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
+    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
+    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
+    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+    // "stripInternal": true,                            /* Disable emitting declarations that have `@internal` in their JSDoc comments. */
+    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like `__extends` in compiled output. */
+    "noEmitOnError": true,   ///boa opção, te forca a escrever CÓDIGO CERTO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA IMPLEMENTEI ISSO TAMBÉM...
+

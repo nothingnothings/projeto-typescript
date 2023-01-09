@@ -1,0 +1,2535 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-> FUNCTION 'RETURN TYPES' 
+
+
+
+
+E 
+
+
+
+'VOID'... 
+
+
+
+
+
+
+
+
+
+
+
+
+--------> É HORA DE CRIAR UM NOVO ARQUIVO....
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR CRIA O ARQUIVO DE 
+
+
+
+
+
+'returnTypesEVoid'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR APONTA QUE VAMOS TRABALHAR MAIS COM 'FUNCTIONS', agora....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> já vimos functions com 'combine()' 
+
+
+
+
+
+
+
+
+
+
+
+
+--> NAS FUNCTIONS, VIMOS QUE É POSSÍVEL 
+
+
+
+
+
+ATRIBUIR 'TYPES'
+
+
+AOS 
+
+SEUS PARÂMETROS... (isso já deixa suas intenções BEM MAIS CLARAS, COM CADA FUNÇÃO)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+=----->  BEM, MAS É NECESSÁRIO RESSALTA RQUE 
+
+
+
+
+
+
+SOMOS CAPAZES DE FAZER BEM MAIS COISAS COM 'types'
+
+
+EM FUNCTIONS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> FUNCTIONS E TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA MOSTRAR ESSAS FEATURES,
+
+
+PROFESSOR
+
+
+CRIA OUTRA FUNCTION DE 
+
+
+'add',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+
+    return n1 + n2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, PODEMOS ATRIBUIR 'TYPES' a parâmetros,
+
+e isso 
+
+não é nada novo...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A 'OVERALL FUNCTION',
+
+
+no caso,
+
+
+__ TEM OUTRO __ TYPE,
+
+
+TYPE IMPORTANTE.... ----------> É AQUILO QUE CHAMAMOS DE 
+
+
+
+
+
+
+'RETURN TYPE' (o type de Data que É __ RETORNADO __POR ESSA FUNCTION)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AQUI, 
+
+NO CASO,
+
+
+
+
+
+O 
+
+'RETURN TYPE'
+
+
+DE CADA FUNCTION __ PODE _ SER VISTO __ SE 
+
+PASSARMOS 
+
+O 
+
+CURSOR EM CIMA DO _ NOME_ _DA FUNÇÃO... ------> 
+
+
+
+
+
+
+nO CASO DESSE 
+
+CÓDIGO DE 'add',
+
+
+
+observamos:
+
+
+
+
+
+
+
+
+
+
+
+'function add(n1: number, n2: number): number' ----------> 
+
+
+
+
+
+
+
+
+
+
+
+ESSE VALOR DEPOIS DO ':' 
+
+É __ O RETURN TYPE __ dessa função (pq essa função vai retornar uM NUMBER, OBRIGATORIAMENTE)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, NO MEU CASO, O QUE VEJO É ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+function add6(n1: number, n2: number): number
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----. OK.... ESSE É O 'RETURN TYPE' dessa function,
+O 
+
+
+
+'___ TYPE _ DO VALOR QUE SERÁ RETORNADO' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O TYPESCRIPT É CAPAZ DE FAZER ESSA INFERENCE JUSTAMENTE 
+
+PQ 
+
+
+NOSSOS PARÂMETROS, OS 2,
+
+SÃO 
+
+'NUMBERS'...
+
+
+
+
+
+
+
+
+------> MAS SE CONVERTEMOS ESSES NUMBERS EM STRINGS,
+
+POR MEIO DESTE CÓDIGO:
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+
+    return n1.toString() + n2.toString();
+}
+
+
+
+
+
+
+
+
+,
+
+
+
+O 
+
+
+TYPESCRIPT VAI INFERIR CORRETAMENTE QUE O RETURN TYPE será de 'string'... (pq convertemos/temos 2 strings)...
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+function add6(n1: number, n2: number) { //passe o mouse em cima de 'function add6' PARA _ VER _ QUAL É O RETURN TYPE dessa função (valor depois do ':')....
+  return n1 + n2;
+}
+
+
+
+
+
+
+function add25(n1: number, n2: number) { ///NOVAMENTE, VEJA O 'infered type' quando vocÊ colocar o MOUSE EM CIMA da 'function add25'... --> infered type de 'STRING'...
+    return n1.toString() + n2.toString();
+}
+
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+BEM... E É CLARO QUE NÓS PODEMOS 
+
+
+
+SETTAR/DEFINIR __ EXPLICITAMENTE 
+
+1 
+
+RETURN TYPE 
+
+
+
+EM 
+
+
+ 1 FUNCTION..
+
+
+
+
+
+
+
+ --> PARA ISSO,
+ VOCÊ 
+ DEVE 
+
+
+
+ ESCREVER 
+
+ um 
+
+ ':' 
+
+
+ DEPOIS 
+
+
+
+
+ DA LISTA DE PARÂMETROS, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function add(n1: number, n2: number): {
+
+
+
+
+ }
+
+
+
+
+
+
+ --------------------------
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+  function add(n1: number, n2: number): number { /////////CÓDIGO _ REDUNDANTE__, PQ O TYPESCRIPT JÁ VAI INFERIR AUTOMATICMAENTE QUE O RETURN TYPE SERÁ DE 'number' (corretamente)...
+
+    return n1 + n2;
+
+
+ }
+
+
+
+
+ ---------------------------------
+
+
+
+
+
+
+
+
+
+
+ E SE TENTARMOS AVACALHAR, ESCREVER ALGO ASSIM:
+
+
+
+
+   function add(n1: number, n2: number): string { /////////CÓDIGO ERRADO/INCOMPATÍVEL, PQ AQUI NÃO SERÁ FEITO O RETUNR DE UM NUMBER, E SIM DE UMA __ STRING__....
+
+    return n1 + n2;
+
+
+ }
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+-----> 
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function add6(n1: number, n2: number) { //passe o mouse em cima de 'function add6' PARA _ VER _ QUAL É O RETURN TYPE dessa função (valor depois do ':')....
+  return n1 + n2;
+}
+
+
+
+
+
+
+function add25(n1: number, n2: number) { ///NOVAMENTE, VEJA O 'infered type' quando vocÊ colocar o MOUSE EM CIMA da 'function add25'... --> infered type de 'STRING'...
+    return n1.toString() + n2.toString();
+}
+
+
+
+
+
+
+///É UMA BOA IDEIA __ DEIXAR __ O PRÓPRIO TYPESCRIPT 'infer' O RETURN TYPE DE NOSSAS FUNCTIONS (exatamente da mesma forma com 'variables')....
+
+// function add(n1: number, n2: number): string { /////////CÓDIGO ERRADO/INCOMPATÍVEL, PQ AQUI NÃO SERÁ FEITO O RETUNR DE UM NUMBER, E SIM DE UMA __ STRING__....
+
+//     return n1 + n2;
+
+
+//  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ SÓ DEVE FUTRICAR NO RETURN TYPE/DEFINIÇÃO EXPLÍCITA DO RETURN TYPE
+
+
+
+
+
+
+
+__ SE VOCÊ TIVER UMA RAZÃO ESPECÍFICA/MT BOA PARA ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+DEIXE ' TYPESCRIPT INFER THE TYPEE'.....
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... -------> QUANTO AOS RETURN TYPES, NO ENTANTO,
+
+
+
+HÁ 
+
+__ UM TYPE INTERESSANTE QUE AINDA NÃO VIMOS... --> 
+
+
+
+
+E É UM TYPE QUE 
+
+
+
+
+VAI SER INÉDITO A VOCê, 
+
+SE VOCCÊ 
+
+
+
+NÃO CONHECE OUTRAS LINGUAGENS DE PROGRAMAÇÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOME DO TYPE É 'void'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> PROFESSOR CRIA UMA NOVA FUNCTION ,
+
+
+DE NOME 
+
+'printResult'...
+
+
+
+
+
+
+
+
+
+
+
+--------> ESSA FUNÇÃO VAI TER APENAS 1 PARÂMETRO, QUE SERÁ 1 NÚMERO...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+function printResult(num: number) {
+
+    console.log('Result: ' + num);
+}
+
+
+
+
+
+
+printResult(1221);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE 
+
+
+
+NESSA FUNCTION,
+
+NO CASO,
+
+PROFESSOR 
+
+
+VAI QUERER 
+
+
+UTILIZAR O CÓDIGO DE 
+
+UMA FUNCTION QUE JÁ ESCREVMOS,
+
+
+
+FUNÇÃO DE 'add'....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+function printResult42(num: number) {
+
+    console.log('Result: ' + num);
+}
+
+
+
+
+
+
+printResult42(1221);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> no caso, 
+
+
+ele escreve assim:
+
+
+
+
+
+
+
+printResult(add(5, 12));
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+function printResult42(num: number) {
+
+    console.log('Result: ' + num);
+}
+
+
+
+
+
+
+printResult42(1221);
+
+
+
+
+
+
+printResult42(add6(5, 12));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ISSO SIGNIFICA QUE O RESULTADO DO call de 'add'
+
+
+ESTÁ 
+
+SENDO PASSADO COMO 
+PARÂMETRO à FUNÇÃO DE 'printResult' (e isso printa nosso valor ao console)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK...  
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS A COISA INTERESSANTE, AQUI, É ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+function printResult42(num: number) {
+    console.log('Result: ' + num); /////////ESTE CÓDIGO AQUI...
+}
+
+
+
+
+
+
+printResult42(1221);
+
+
+
+
+
+
+printResult42(add6(5, 12));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PERGUNTA É,
+
+
+qual 
+
+será o 
+
+'return type'
+
+
+de 
+
+
+'printResult42'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO CASO, O PRINT TYPE VISTO POR NÓS, NO IDE,
+
+
+
+
+com a ajuda do typescript,
+
+é 
+de 
+
+
+
+
+
+
+
+'VOID' ------> isso é bem estranho...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODERIA PENSAR:
+
+
+
+''AH, VAI SER UMA STRING,
+
+
+PQ 
+
+NESSE LOCAL ELE 
+
+
+ESTÁ 
+
+FAZENDO  O RETURN DE UMA STRING,
+
+PQ 
+
+
+ESTÁ 
+
+CONCATENANDO 
+
+
+'Result ' + num 
+
+
+
+(
+
+
+    ou seja,
+
+    concatenação de uma STRING COM UM NUMBER,
+
+    retorna uma STRING....
+)
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ENTRETANTO,
+
+
+
+
+
+
+
+ O PROBLEMA É QUE 
+
+
+ NESSA FUNÇÃO DE 
+
+
+
+ 'printResult42'
+
+
+
+ _ NÓS _ NÃO ESTAMOS FAZENDO _ O RETURN _ DE COISA __ ALGUMA..
+
+
+
+
+
+
+
+
+ --> A ÚNICA COISA QUE ESTAMOS FAZENDO, NESSA FUNCTION,
+
+ É 
+
+
+
+ O CALL 
+
+
+
+ de 
+
+ 'console.log()'- -------> E CONSOLE.LOGS, POR SI mesmos,
+
+
+
+ NÃO __ RETORNAM COISA ALGUMA....
+
+
+
+
+
+
+
+ -> E É EXATAMENTE POR ISSO QUE OBSERVAMOS 
+
+
+ 'function printResult: void' 
+
+
+
+ LÁ NO TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+ function printResult42(num: number): void
+
+
+
+
+
+
+
+
+ ---------->  ESSE RETURN TYPE É ESPECIAL... --> 'VOID'...
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+ function printResult42(num: number) { 
+
+    console.log('Result: ' + num); /// não estamos RETORNANDO  (return) NADA NESSA FUNCTION, POR ISSO O RETURN TYPE (':xxx') ESTÁ MOSTRANDO COMO 'void' (só estamos console.loggando, pq return não estamos retornando nada...)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'VOID' --> ISSO NÃO EXISTE NO JAVASCRIPT; O JS NÃO TEM UM NOME PARA ESSA SITUAÇÃO,
+
+MAS 
+
+O 
+TYPESCRIPT TEM, que é o 'void'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS NÃO PRECISAMOS ESPECIFICAR 'void' 
+
+
+
+
+
+como return type desse negócio (explícito),
+
+pq 
+O
+
+
+TYPESCRIPT JÁ FARÁ ISSO (inference)...
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... --> PROFESSOR SÓ QUERIA NOS MOSTRAR ESSE TYPE AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function printResult42(num: number) { 
+
+    console.log('Result: ' + num); /// não estamos RETORNANDO  (return) NADA NESSA FUNCTION, POR ISSO O RETURN TYPE (':xxx') ESTÁ MOSTRANDO COMO 'void' (só estamos console.loggando, pq return não estamos retornando nada...)
+}
+
+
+//void --> essa função NÃO TEM UM RETURN STATEMENT, NÃO RETORNA COISA ALGUMA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION É COMPLETADA COM SUCESSO, FAZ SEU TRABALHO, MAS NÃO RETORNA COISA ALGUMA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... ESSE É O RETURN TYPE DE 'void'..
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE SE NO TYPESCRIPT 
+
+CONSOLE.LOGGARMOS essa funçaõ (função que JÁ TEM UM CONSOLE.LOG NO SEU INTERIOR, E MAIS NADA) 
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+'console.log(printResult(add(5, 12)))',
+
+
+
+
+
+
+
+
+
+SE COMPILARMOS ISSO E EXECUTARMOS O 'JS',
+
+
+
+
+
+
+VAMOS VER QUE 
+
+
+APARECERÁ 'undefined'
+
+
+
+NO CONSOLE... ------->  ISSO SIGNIFICA QUE 
+
+
+
+
+
+NO JAVASCRIPT,
+
+SE
+
+
+
+USARMOS _O 'RETURN VALUE'
+
+
+de uma funçaÕ QUE NÃO RETORNA COISA ALGUMA,
+
+
+
+
+__ NÓS GANHAMOS 'undefined' COMO UM VALOR ___ ----------> E, COMO JÁ SABEMOS,
+
+
+
+
+NO JAVASCRIPT 
+
+'undefined'
+
+
+
+
+
+É ___ CONSIDERADO UM 'REAL VALUE',
+
+
+um
+
+
+VALOR QUE 
+
+VOCê 
+
+
+
+TAMBÉM OBTEM QUANDO TENTA ACESSAR UMA PROPRIEDADE QUE _NÃO EXISTE__ EM 1 OBJETO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> professor mencionou isso pq 
+
+A FUNÇÃO 
+
+
+''
+
+
+
+function printResult42(num: number) { 
+
+    console.log('Result: ' + num); /// não estamos RETORNANDO  (return) NADA NESSA FUNCTION, POR ISSO O RETURN TYPE (':xxx') ESTÁ MOSTRANDO COMO 'void' (só estamos console.loggando, pq return não estamos retornando nada...)
+}
+
+
+
+''
+
+
+
+
+
+
+_ É DITA QUE RETORNA 'void',
+
+
+QUANDO 
+
+
+NA VERDADE 
+
+ELA 
+
+TECNICAMENTE 
+RETORNA 
+
+'undefined'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E ISSO AÍ FICA BEM CONFUSO.... ------->  
+
+
+
+
+
+
+
+
+
+
+
+PARA DEIXAR AS COISAS AINDA MAIS CONFUSAS,
+
+PROFESSOR APONTA QUE 
+
+'undefined'
+
+
+existe __COMO TYPE__ EM TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê PODE, EM OUTRAS PALAVRAS, escrever algo assim:
+
+
+
+
+
+
+
+
+
+
+
+function printResult42(num: number): undefined {  ///EIS O CÓDIGO EM QUESTÃO
+
+    console.log('Result: ' + num); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, 
+
+VOCÊ PODE DEFINIR COMO 'UNDEFINED' O RETURN TYPE DE ALGUMA FUNÇAÕ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO,
+
+
+vocÊ pode 
+
+
+criar uma nova variável,
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+let someValue;
+
+
+
+
+
+
+
+
+
+
+--> E AÍ, VOCÊ PODE DEFINIR O TYPE INICIAL DESSA VARIABLE COMO SENDO DE 'undefined'...
+
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+let someValue: undefined;
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ FIZER ISSO,
+
+NÃO GANHARÁ UM ERRO,
+
+
+MAS ESSA VARIABLE SERÁ DEFINIDA COMO 'FOREVER UNDEFINED'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO É MT ÚTIL,
+
+mas existe, é um type em typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok.... -> MAS SE DEFINIMOS 
+
+
+
+
+
+
+QUE UMA FUNCTION VAI 
+
+
+
+QUERER RETORNAR 
+
+'undefined',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+function printResult42(num: number): undefined { 
+
+    console.log('Result: ' + num); /// não estamos RETORNANDO  (return) NADA NESSA FUNCTION, POR ISSO O RETURN TYPE (':xxx') ESTÁ MOSTRANDO COMO 'void' (só estamos console.loggando, pq return não estamos retornando nada...)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE FIZERMOS ISSO,
+
+O TYPESCRIPT_ VAI NOS RETORNAR UM ERROR _ (ele acha que FUNCTIONS NUNCA PODEM RETORNAR 'undefined')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> undefined é um valor de verdade no javascript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'undefined' também é um TYPE NO TYPESCIRPT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> uma variable totalmente nova pode receber um type de 'undefined',
+
+
+
+o que fará com que ela fique eternamente 'undefined'.......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> funções tecnicamente podem retornar 'undefined', mas o typescript 
+
+
+pensa sobre functions de maneira um pouco diferente (por isso ele nos mostra 
+o return disso como um ERROR)
+
+
+
+
+
+
+
+
+
+
+--> PARA EVITAR O 'APITO' DO TYPESCRIPT DIZENDO QUE 
+
+
+
+
+O RETURN DE 'UNDEFINED'
+
+
+
+em uma function é algo ERRADO,
+
+
+
+(
+
+    ou seja,
+
+
+    isto aqui:
+
+'''''''''''''
+
+    function printResult(num: number): undefined {
+        console.log('Result: ' + num)
+    }
+
+
+    ''''''''''''''''' 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA EVITAR ISSO, VOCê TEM QUE COLOCAR O 'RETURN TYPE' COMO 
+
+
+SENDO DE 'void',
+
+pq isso 
+
+vai 
+
+
+explicar que 
+
+ESSA RETURN 
+
+NÃO TEM/NÃO TERÁ 
+
+
+UM 'RETURN STATEMENT' 
+
+
+
+no seu interior... 
+
+
+
+
+
+
+
+--------> E SE VOCê ESCREVE ISTO:
+
+
+
+
+
+'function printResult(num: number): undefined {
+    console.log()
+}
+'
+
+
+
+
+O QUE O 
+
+
+TYPESCRIPT VAI ESPERAR É UM __ ACTUAL__ 
+
+
+
+RETURN 'vazio' 
+
+
+
+NO INTERIOR DE SUA FUNÇÃO,
+
+
+
+
+tipo um 
+'return;' ... (pq ISSO É O EXATO SIGNIFICADO DE 'RETORNAR UNDEFINED')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA, SE VOCê QUER QUE UMA FUNCTION ___ rEALMENTE-_ RETORNE 'undefined'
+
+
+com o typescript,
+
+
+
+vocÊ 
+
+
+tem que 
+
+
+
+
+
+ESCREVER ASSIM:
+
+
+
+
+
+'function printResult(num: number): undefined {
+    console.log();
+
+
+    return; /////EIS O CÓDIGO EM QUESTÃO.
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+------> ESSA É A DIFERENCA TECNICA, NO CASO... --------> É ASSIM QUE EVITAMOS 
+
+ESSE TIPO DE ERRORS NO TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ENTRETANTO, NA PERSPECTIVA DO JAVASCRIPT,
+
+
+
+
+
+
+
+isto aqui:
+
+
+
+
+
+
+function printResult22(num: number): undefined { 
+  console.log();
+
+
+  return; /////EIS O CÓDIGO EM QUESTÃO.
+}
+
+
+
+
+
+
+
+
+É A __MESMA__ COISA QUE 
+
+ISTo:
+
+
+
+
+
+
+function printResult22(num: number): undefined { 
+  console.log();
+
+}
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+mas __ o typescript DIFERENCIA ENTRE OS DOIS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> por isso,
+
+
+
+
+
+LEMBRE-SE:
+
+
+1) VOID É O TYPE _ QUE VOCÊ VAI DEFINIR, NO RETURN TYPE, 
+
+_ SE VOCê NÃO TEM/TIVER_ UM RETURN STATEMENT EM UMA FUNÇÃO...
+
+
+
+
+
+
+
+
+
+2) UNDEFINED ---> QUE VOCÊ RARAMENTE USARÁ,
+
+
+É USADO QUANDO VOCê 'WONT RETURN AN ACTUAL VALUE' (ou seja, quando você escrever só 'return;' no meio de sua função...)
+
+
+--> ISSO, ENTRETANTO, É UM USE-CASE 
+
+
+EXTREMAMENTE RARO...
+
+
+
+
+
+
+
+
+---------> MAS SE VOCê TIVER ESSE CENÁRIO número 2,
+
+
+
+
+vocÊ ___ TAM´BEM-_ PODE/PODERIA USAr 
+
+'void' no lugar de 'undefined', no return type...
+
+
+
+
+
+
+ex:
+
+
+
+function printResult22(num: number): void{ 
+  console.log();
+
+
+return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TAMBÉM É CONSIDERADO 'CORRETO'....  
+
+
+
+
+
+
+
+
+
+
+
+--> EM SUMA, VOCê SÓ USARÁ 'undefined' no return type se vocÊ 
+
+
+
+REALMENTE QUER PRODUZIR 'undefined'
+
+na sua função (rare case)...
+
+
+
+
+
+
+
+
+
+
+
+--. MAS VOID VOCê USA EM PRATICAMENTE 
+
+__TODOS __OS CENÁRIOS EM QUE __ VOCê TEM UMA FUNCTION QUE 
+
+NÃO 
+
+RETORNA UM VALUE...
+
+
+
+
+--> mas é claro que o typescript já é capaz de infer isso aí naturalmente,
+
+o 
+
+professor 
+
+
+só 
+
+
+
+coloca isso explicitamente para fins de demonstraçaõ...
+
+
+
+
+
+
+
+
+
+
+--> ISSO AÍ COMEÇA COM UM TYPE DE 'any',
+
+
+pq 
+
+
+a variável 
+
+vai 
+
+coemçar como 'pode ser qualquer coisa'...
+
+
+
+
+
+
+
+
+--> ex:
+
+
+
+
+let combineValues;
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE O PROFESSOR EVENTUALMENTE VAI QUERER FAZER É __ 'DEFINIR/SETTAR 
+
+
+'combineValues' como equivalente a 'add'.... -------> 
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+let combineValues;
+
+
+
+combineValues = add;
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... AÍ TEREMOS ADICIONADO UM POINTER A ESSA FUNCTION DE 'add' 
+
+
+
+
+
+NESSA CONSTANTE... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ABAIXO DISSO, O PROFESSOR ESCREVE:
+
+
+
+
+
+
+
+
+
+
+
+let combineValues;
+
+
+
+combineValues = add;
+
+
+
+
+console.log(combineValues(8, 8));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... SE SALVAMOS TUDO ISSO,
+
+
+
+E ENTÃO 
+
+
+EXECUTARMOS 
+
+O COMPILADOR,
+
+
+
+
+E
+ AÍ 
+
+
+ RODAMOS ESSE ARQUIVO .JS,
+
+
+
+
+ obteremos 
+
+
+ '16' -->  e isso está correto, pq REALMENTE PODEMOS 
+
+
+ ARMAZENAR 
+
+
+ 
+ POINTERS A FUNÇÕES, e então executar esses pointers,
+
+
+ no 
+
+ javascript... 
+
+ (
+
+
+
+     CÓDIGO JAVASCRIPT NORMAL;
+
+     PODEMOS 
+
+
+    EXECUTAR FUNÇÕES POR MEIO 
+
+
+    DE OUTRAS VARIABLES QUE POSSUEM POINTERS 
+
+    A ESSAS FUNÇÕES ARMAZENADOS EM SI MESMAS...
+ )
+
+
+
+
+
+------> O PROBLEMA DESSE SCRIPT, DE UMA 
+
+PERSPECTIVA TYPESCRIPT,
+
+
+
+é 
+
+
+que 
+
+
+
+o 
+
+
+type de 
+
+'combineValues'
+
+
+
+ESTÁ COMO 
+
+
+'any'...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+let combineValues; ///esse é o problema...
+
+
+
+combineValues = add;
+
+
+
+
+console.log(combineValues(8, 8));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> 

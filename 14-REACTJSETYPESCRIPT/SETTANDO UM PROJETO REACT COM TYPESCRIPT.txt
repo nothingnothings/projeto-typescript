@@ -1,0 +1,966 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> QUANDO O ASSUNTO É CONSTRUIR UM PROJETO REACT + TYPESCRIPT,
+
+
+
+
+PRECISAMOS DE UM 
+
+PROJECT SETUP QUE 
+
+CONSIGA 
+
+
+
+
+
+
+HANDLAR NOSSO REACT CODE (como JSX),
+
+
+
+
+
+
+e que 
+
+
+então 
+
+
+handla e optimiza nosso código react...
+
+
+
+
+
+
+
+
+
+
+--> TBM PRECISA SER UM PROJECT WORKFLOW 
+
+QUE CONSIGA 
+
+
+
+
+ENTENDER TYPESCRIPT E COMPILAR 
+
+
+
+
+
+
+EM JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE 
+o 
+
+próprio 
+
+
+
+'create-react-app'
+
+
+
+
+
+
+__ TAMBÉM__ TE DEIXA__ ADICIONAR _ TYPESCRIPT, out of the box..
+
+
+
+
+
+
+
+
+
+
+-> GOOGLE 
+
+
+'create-react-app typescript'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> link no próprio 
+
+
+site do react....
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ 
+
+VOCÊ VE COMO VOCÊ PODE __ 
+
+
+
+
+ADICIONAR__ TYPESCRIPT__ A UM EXISTING PROJECT 
+
+(
+
+
+
+    basta 
+
+
+    executar este comando:
+
+
+
+    'npm install --save typescript @types/node @types/react @types/react-dom @types/jest 
+'
+
+)
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA CONSEGUIR ISSO DIRETAMENTE,
+ 
+ SEM PRECISAR RODAR ESSES COMANDOS ADICIONAIS,
+
+
+ SIMPLESMENTE EXECUTE 
+
+
+
+
+
+ 'npx create-react-app projetoNome --typescript'...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI CRIAR UM NOVO PROJETO REACT QUE VAI SUPORTAR TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok.......
+
+
+
+
+
+
+RODAMOS ISSO AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AÍ RECEBEMOS UM ERROR:
+
+
+
+
+
+
+
+You are running `create-react-app` 4.0.3, which is behind the latest release (5.0.0).
+
+We no longer support global installation of Create React App.
+
+Please remove any global installs with one of the following commands:
+- npm uninstall -g create-react-app
+- yarn global remove create-react-app
+
+The latest instructions for creating a new app can be found here:
+https://create-react-app.dev/docs/getting-started/
+
+npm notice 
+npm notice New minor version of npm available! 8.1.2 -> 8.4.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v8.4.0
+npm notice Run npm install -g npm@8.4.0 to update!
+npm notice 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, CONSERTEI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O PROFESSOR RODA ESSE CÓDIGO AÍ,
+
+
+
+
+
+
+
+
+
+tudo bem... 
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ ESCREVE um '.' em vez do folder name, vocÊ seleciona o 'actual folder' em que você está 
+
+COMO O FOLDER DE SEU PROJETO REACT-TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OUTRA COISA QUE O PROFESSOR PERCEBEU É QUE__ ESSE___ CÓDIGO_ DO CREATE-REACT-PROJECT __ NEM SEMPRE FUNCIONA...
+
+
+(
+
+
+
+    Às vezes 
+    ele
+     
+     vai 
+
+     só criar UM __REGULAR__ JAVASCRIPT _ PROJECT,
+
+
+     e não um typescript project....
+)
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ISSO,
+
+
+VOCÊ PODE/DEVE __ INSTALAR__ 
+
+
+O CREATE-REACT-APP ___ GLOBALMENTE__ NA SUA MÁQUINA,
+
+
+
+
+
+
+
+__ POR MEIO DO CÓDIGO DE 
+
+'npm install -g create-react-app',
+
+
+
+
+
+
+
+
+E AÍ __ DEPOIS DISSO 
+
+USAR AQUELE CÓDIGO CITADO LÁ EM CIMA,
+
+
+
+ou então só 
+
+
+
+'create-react-app nomeprojeto --typescript'
+
+
+
+para conseguir a versão typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> DENTRO DESSE PROJETO, TEREMOS UM REACT APP EM QUE TAMBÉM PODEREMOS 
+
+ESCREVER UM CÓDIGO 
+
+
+TYPESCRIPT...
+
+
+
+
+
+
+
+
+--> ok, minha versão ficou cagada, exatamente como ele disse....
+
+
+
+
+
+
+-> tenho que seguir seus passos...
+
+
+
+
+
+--> fiz os passos....
+
+
+
+
+
+
+--> não funcionou...
+
+
+
+
+
+
+https://www.digitalocean.com/community/tutorials/using-create-react-app-v2-and-typescript
+
+
+
+
+
+
+
+--> talvez isso aí funcione.... (usar '--template typescript' em vez de '--typescript')...
+
+
+
+
+
+
+--> AGORA ACHO QUE FUNCIONOU.
+
+
+
+
+
+
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template-typescript...
+
+
+
+
+
+
+
+
+-> sim, funcionou.
+
+
+
+
+
+
+--> já ganhei um 
+
+tsconfig.json direto,
+
+
+
+e vários arquivos '.ts'..
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+PROFESSOR 
+
+
+
+
+
+EXPLICA QUE PODEOMS USAR 
+
+ESSE ARQUIVO TSCONFIG.JSON,
+
+
+podemos 
+
+
+o configurar para satisfazer nossas necessidades...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS SOBRE COMO TWEAKAR ESSA CONFIG FILE 
+
+
+
+ANTERIORMENTE NO CURSO...
+
+
+
+
+
+
+--> mas a config default é 
+
+suficiente para a maior parte dos casos...
+
+
+
+
+
+
+ 
+
+--> no folder de 'src' 
+
+
+
+
+
+
+
+ENCONTRAMOS UM MONTE DE '.tsx' files...
+.
+
+
+
+
+
+
+
+
+
+
+--> NUNCA TRABALHAMOS COM 
+
+
+
+'.tsx',
+
+até agora.... (
+
+
+    só trabalhamos com 'ts'....
+)
+
+
+
+
+
+
+
+
+
+--> 'TSX'
+
+
+são o formato escolhido, aqui,
+
+
+
+
+SIMPLESMENTE 
+
+PQ ESSES SÃO ARQUIVOS EM QUE 
+
+
+VOCÊ PODE 
+
+
+ESCREVER MAIS DO QUE CÓDIGO TYPESCRIPT,
+
+
+
+
+
+código typescript + react (com jsx, etc etc)...
+
+
+
+
+
+
+
+
+
+
+--> JSX -> ESCRITA ESPECIAL JAVSCRIPT, EM QUE VOCÊ ESCREVE HTML MARKUP
+ 
+
+
+ dentro do seu javascript/typescript code...
+
+
+
+
+
+
+
+
+
+ --> os arquivos são bem bizarros:
+
+
+
+
+
+
+ import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NA VERSÃO DO PROFESSOR, A SINTAXE É AINDA MAIS BIZARRA:
+
+
+
+
+
+
+ import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR EXPLICA QUE 
+
+
+'React.FC'
+
+
+é um _ TYPE ASSIGNMENT (
+
+    quer dizer,
+
+    aí temos um type assignment...
+)
+
+
+
+
+
+
+
+
+--> MAIS TARDE VEREMOS O QUE É ESSE TYPE DE 'React.FC',
+
+
+
+
+
+
+MAS JÁ PODEMOS 
+
+
+
+ver o uso de typescript aqui, no caso...
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR DIZ QUE DEVEOMS LIMPAR UM POUCO A ESTRUTURA DESSE STARTING FOLDER..
+
+
+
+
+
+
+
+
+
+--> AQUI, NO APP.TSX,
+
+
+ELE VAI REMOVER 
+
+todo o código do logo,
+
+
+
+e do interior daquela div,
+
+deixando assim:
+
+
+
+
+
+import React from 'react';
+
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... ---> ISSO FEITO,
+
+ELE TAMBÉM VAI REMOVER O IMPORT DO 'App.css',
+
+
+
+E TAMBÉM VAI SE LIVRAR DO 'App.test.tsx',
+
+
+também 
+
+
+do 
+
+
+'logo.svg'...
+
+
+
+
+
+
+
+
+
+--> TAMBÉM VAI SE LIVRAR DO 'service-worker'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... 
+
+
+
+
+limpamos um pouco o código...
+
+
+
+
+
+
+
+
+
+--> em 'index.css'
+
+
+LIMPAMOS TUDO,
+
+E AÍ 
+
+DEFINIMOS UNS STYLES
+
+
+SIMPLES,
+
+
+tipo assim:
+
+
+
+
+
+
+
+html {
+  font-family: 'sans-serif';
+}
+
+
+
+
+body {
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK....... 
+
+
+
+
+COMEÇAMOS COM O NOSSO CÓDIGO....

@@ -1,0 +1,764 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> RELACIONADO AO CONTEÚDO DE 'access modifiers' (public/private),
+
+
+
+
+
+
+
+
+
+ __ É OUTRO MODIFIER_ FAMOSO,
+
+
+
+ O 
+
+
+ MODIFIER DE 
+
+ 'read only'...
+
+
+
+
+
+
+
+
+
+
+
+ --------> DIGAMOS QUE 
+
+
+
+TEMOS ALGUNS FIELDS 
+
+QUE 
+
+
+DEVEM 
+
+
+SER MAIS DO QUE 
+
+'private/public' ... --> ELES DEVEM SER 'IMORTAIS',
+
+
+ou seja,
+
+DEVEM 
+
+
+
+_FICAR__ EXATAMENTE IGUAIS,
+ 
+ DEPOIS 
+
+
+ DE 
+ SUA 
+
+ INITIALIZATION (devem ser constantes, em outras palavras)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> POR EXEMPLO,
+
+
+
+ VAMOS QUERER QUE A PROPRIEDADE 'id'
+
+
+ NUNCA MAIS MUDE...
+
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO, ATÉ AGORA, ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private id: string
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee);
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> PARA FAZER COM QUE ESSE VALOR DESSA PROPRIEDADE __ NUNCA MAIS MUDE,
+
+
+
+
+    VOCê DEVE ADICIONAR 'readonly'
+
+
+
+    LOGO ANTES do write dela...
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+    
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string //////////EIS O CÓDIGO EM QUESTÃO.
+        ) { 
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee);
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+    
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+DEIXAMOS, PORTNAOT, NOSSO 'id' READONLY...
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM....  A KEYWORD 'readonly',
+
+
+
+EXATAMENTE COMO 
+
+
+AS PALAVRAS 'PRIVATE/PUBLIC',
+
+
+
+
+FORAM INTRODUZIDAS __ PELO __ TYPESCRIPT.... 
+
+
+
+
+
+
+
+
+
+--> não existiam nativamente no javascript...
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSA  keyword 'readonly'
+
+
+FAZ COM QUE 
+
+AS 
+
+
+TENTATIVAS DE 
+
+
+
+WRITE A ESSA PROPRIEDADE POSTERIORES, NO SEU CÓDIGO,
+
+
+__ FALHEm (na verdade, o TYPESCRIPT VAI APITAR... é isso que vai acontecer, pq 
+
+
+no seu código javascript normal essa keyword de 'readonly' NÃO EXISTE)...
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO QUER _ DIZER_ _QUE VOCê SÓ PODE DEFINIR _ ESSA 
+
+
+PROPRIEDADE 1 ÚNICA VEZ,
+
+DURANTE A INITIALIZATION,
+
+
+e nunca mais....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> MAS E SE TENTARMOS TROCAR ISSO POR MEIO DE UM 
+
+METHOD,
+
+TIPO ASSIM (method de 'addEmployee', colocamos um 'this.id = 'd2' '...): 
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string //////////EIS O CÓDIGO EM QUESTÃO.
+        ) { 
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.id = 'd2'; ////ISSO __ NÃO FUNCIONARÁ....
+        this.employees.push(employee);
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+-----------------
+
+
+
+BEM, SE TENTARMOS ISSO, 
+
+
+
+ESSA MUDANÇA/ALTERAÇÃO DE VALOR __ NÃO FUNCIONARÁ (dará erro typescript),
+
+
+
+
+JUSTAMENTE POR CONTA DESSA KEYWORD DE 'readonly'...
+
+
+
+
+(GANHAMOS UM ERROR DE 'Cannot assign to 'id' because it is a read-only property'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK .... 'readonly' deixa bem claro que uma certa propriedade deverá ter 1 único valor,
+
+'and never change thereafter'...
+
+(
+
+
+
+  É UM REQUISITO QUE VOCÊ TEM COM BASTANTE FREQUÊNCIA NOS SEUS OBJECTS...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...  -----> ISSO ADICIONA TYPE SAFETY AOS SEUS PROJETOS,
+
+
+PQ ''DEIXA SUAS INTENÇÕES BEM CLARAS''..
+
+
+
+
+
+
+
+
+
+
+
+--------> MESMO QUE SÓ VOCÊ ESTEJA ESCREVENDO SEU CÓDIGO,
+
+
+É BOM _ _SER BEM CLARO QUANDO VOCÊ O ESCREVE --> 
+
+
+
+ISSO PQ:
+
+
+
+
+
+
+
+A) VOCê PODE EVENTUALMENTE ESQUECER O QUE VOCÊ QUERIA FAZER, SE VOCÊ PAUSAR O SEU CÓDIGO POR ALGUMAS SEMANAS/MESES...
+
+
+
+
+
+
+
+B) VOCÊ PODE ESTAR TRABALHANDO EM UM TIME,
+
+
+
+COMPARTILHANDO CÓDIGO COM OUTRAS PESSOAS....
+
+
+
+
+
+
+
+
+
+
+
+
+-> É UMA BOA IDEIA ESCREVER CÓDIGO EXPLÍCITO, QUE DEIXA SUAS INTENÇÕES BEM CLARAS...
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... 
+
+
+
+
+
+
+
+
+E SE EXAMINARMOS NOSSO CÓDIGO JAVASCRIPT OUTPUTTADO,
+
+VEREMOS APENAS ISTO:
+
+
+
+
+
+
+
+'this.id = id;' ( OU SEJA, O 'READONLY' TERÁ SUMIDO)...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNFICA QUE 
+
+ESSE 
+
+CÓDIGO EXISTE SÓ EM TYPESCRIPT, E EM NENHUM OUTRO LOCAL....
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... ---> MAS TBM VEMOS 
+
+
+
+
+ALGO UM POUCO DIFERENTE,
+
+SE PRESTARMOS ATENÇÃO NESSE CÓDIGO....:
+
+
+
+
+
+
+
+
+
+
+
+__ OS __ METHODS__ TERÃO SIDO __ ADICIONADOS AO 'PROTOTYPE' 
+
+
+
+DE NOSSA CONSTRUCTOR FUNCTION, e não no root....
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+var Department = (function() {
+
+  function Department(id, name) {
+
+    this.id = id;
+    this.name = name;
+    this.employees = [];
+
+
+
+
+
+  }
+
+
+
+  Department.prototype.describe = function () { /////////EIS O CÓDIGO EM QUESTÃO...
+    console.log('Department : ' + this.id )
+  }
+}
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ENTENDER A RAZÃO DISSO,
+
+VOCÊ TEM QUE ENTNEDER 
+
+O 
+
+QUE 
+
+SÃO PROTOTYPES... 
+
+
+
+
+
+
+
+
+
+--> PROTOTYPES SÃO 
+
+
+
+OBJETOS EXISTENTES NO 
+
+BACKGROUND DE CADA 
+
+
+
+
+Class/constructor function, e que saõ então replicados em CADA SUBSEQUENTE OBJECT CRIADO A PARTIR 
+
+DELAS...
+
+
+
+
+
+
+
+
+
+
+
+----> PROFESSOR DIZ QUE PROTOTYPES 
+
+
+SÃO 
+
+
+'A BIT TOO MUCH'....
+
+
+
+
+
+
+
+
+-> PROTOTYPES SÃO UMA PARTE IMPORTANTE DO JAVASCRIPT, PRINCIPALMENTE DO 
+
+JAVASCRIPT 
+
+
+'PRÉ-CLASSES',
+
+
+
+
+
+
+
+
+
+E É BOM 
+
+SABER UM POUCO SOBRE ELES....
+
+
+
+
+
+
+
+
+
+
+-_> EM TYPESCRIPT FAZEMOS MENOS COISAS COM 
+
+
+
+PROTOTYPES, JUSTAMENTE PQ TRABALHAMOS COM CLASSES....
+
+
+
+
+
+
+
+
+
+--> NA PRÓXIMA AULA VEREMOS __ INHERITANCE, OUTRO CONCEITO 
+
+IMPORTANTE 
+
+
+DE CLASSES....
+
+
+
+
+
+

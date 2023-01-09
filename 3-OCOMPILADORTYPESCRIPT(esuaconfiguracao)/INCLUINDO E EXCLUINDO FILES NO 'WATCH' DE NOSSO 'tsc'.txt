@@ -1,0 +1,1047 @@
+
+
+
+
+
+
+
+OK, PODEMOS MANAGEAR MÚLTIPLAS FILES NO NOSSO 
+
+
+SETUP/PROJETO TYPESCRIPT POR MEIO DE 
+
+
+'tsc --watch',
+
+
+
+depois de executarmos 
+
+
+
+'tsc --init', 
+
+
+
+
+NO INÍCIO... (produzir arquivo 'tsconfig.json')...
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS 1 DETALHE SOBRE TER MÚLTIPLOS FILES .ts:
+
+
+
+
+
+
+
+
+
+QUANDO VOCE TEM MULTIPLOS ARQUIVOS,
+
+
+VOCÊ PODE 
+
+
+
+
+'import files into each other',
+
+
+POR MEIO DE 
+
+'MODULES' (
+
+
+    vanilla javascript,
+
+
+
+    MODULES COM 
+
+    'import xx from xx',
+
+)],
+
+
+
+
+
+
+MAS ISSO É ALGO QUE VEREMOS MAIS TARDE, EM 1 MODULO SEPARADO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS AGORA SABEMOS QUE PODEMOS 
+
+
+
+FAZER WATCH DE MÚLTIPLOS ARQUIVOS 
+
+
+
+
+(que não são importados 1 em cima do outro, mas que são importados no mesmo 'index.html', em diferentes SCRIPT IMPORTS)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. MAS AGORA É HORA DEEXAMINAR O 'tsconfig.json'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE ARQUIVO É CRUCIAL PARA O MANAGE DE NOSSO PROJETO --> ELE ESSENCIALMENTE 
+
+DIZ AO TYPESCRIPT 
+
+COMO 
+
+ELE 
+
+DEVE
+
+COMPILAR 
+
+ESSES ARQUIVOS..
+
+
+
+
+
+
+
+
+
+
+
+--> ANTES DE EXAMINARMOS ESSAS OPTIONS,
+
+
+
+DEVEMOS 
+
+
+IR 
+
+ATÉ 
+
+O FINAL DESSE ARQUIVO, PARA 
+
+ENTÃO EXAMINAR ALGUMAS OPTIONS QUE NÃO AFETAM 
+
+
+
+__ O 'COMPILER/COMPILATION STEP BEHAVIOR',  MAS __ QUE __ 
+
+
+
+AFETAM__ 
+
+
+
+'HOW THE COMPILER WORKS WITH THIS PROJECT'....  
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, ORIGINARIAMENTE, NOSSO ARQUIVO 'tsconfig.json'
+
+VEM ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Projects */
+    // "incremental": true,                              /* Enable incremental compilation */
+    // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
+    // "tsBuildInfoFile": "./",                          /* Specify the folder for .tsbuildinfo incremental compilation files. */
+    // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects */
+    // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
+    // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
+
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    // "jsx": "preserve",                                /* Specify what JSX code is generated. */
+    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
+    // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
+    // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
+    // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
+
+    /* Modules */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
+    // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
+    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+    // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
+    // "resolveJsonModule": true,                        /* Enable importing .json files */
+    // "noResolve": true,                                /* Disallow `import`s, `require`s or `<reference>`s from expanding the number of files TypeScript should add to a project. */
+
+    /* JavaScript Support */
+    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
+    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. */
+    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
+
+    /* Emit */
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+    // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
+    // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
+    // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
+    // "removeComments": true,                           /* Disable emitting comments. */
+    // "noEmit": true,                                   /* Disable emitting files from a compilation. */
+    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
+    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
+    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
+    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
+    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
+    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
+    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+    // "stripInternal": true,                            /* Disable emitting declarations that have `@internal` in their JSDoc comments. */
+    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like `__extends` in compiled output. */
+    // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    // "preserveConstEnums": true,                       /* Disable erasing `const enum` declarations in generated code. */
+    // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
+    // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
+
+    /* Interop Constraints */
+    // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
+    // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. */
+    // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
+    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
+    // "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read. */
+    // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */
+    // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
+    // "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
+    // "noUncheckedIndexedAccess": true,                 /* Include 'undefined' in index signature results */
+    // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
+    // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type */
+    // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
+    // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+BEM NO FINAL DESSE NEGÓCIO,
+
+
+
+
+naquele {
+     
+}
+
+anterior ao final,
+
+
+VOCê PODE COLOCAR UMA OUTRA ENTRY,
+
+"exclude",
+
+
+
+
+
+QUE É UMA OPTION/ARRAY __ EM QUE __ VOCê PODE ELENCAR OS PATHS 
+
+DOS ARQUIVOS QUE VOCê __ NÃO VAI QUERER__ 
+
+
+
+INCLUIR NA 'COMPILATION' QUANDO VOCÊ RODAR 'tsc' 
+
+
+
+NO SEU PROJECT...
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA DEMONSTRAR COMO ISSO FUNCIONA,
+
+O PROFESSOR DECIDE COLOCAR como excluído o arquivo 'analytics.js'....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Projects */
+    // "incremental": true,                              /* Enable incremental compilation */
+    // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
+    // "tsBuildInfoFile": "./",                          /* Specify the folder for .tsbuildinfo incremental compilation files. */
+    // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects */
+    // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
+    // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
+
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    // "jsx": "preserve",                                /* Specify what JSX code is generated. */
+    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
+    // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
+    // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
+    // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
+
+    /* Modules */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
+    // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
+    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+    // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
+    // "resolveJsonModule": true,                        /* Enable importing .json files */
+    // "noResolve": true,                                /* Disallow `import`s, `require`s or `<reference>`s from expanding the number of files TypeScript should add to a project. */
+
+    /* JavaScript Support */
+    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
+    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. */
+    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
+
+    /* Emit */
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+    // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
+    // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
+    // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
+    // "removeComments": true,                           /* Disable emitting comments. */
+    // "noEmit": true,                                   /* Disable emitting files from a compilation. */
+    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
+    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
+    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
+    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
+    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
+    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
+    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+    // "stripInternal": true,                            /* Disable emitting declarations that have `@internal` in their JSDoc comments. */
+    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like `__extends` in compiled output. */
+    // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    // "preserveConstEnums": true,                       /* Disable erasing `const enum` declarations in generated code. */
+    // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
+    // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
+
+    /* Interop Constraints */
+    // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
+    // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. */
+    // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
+    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
+    // "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read. */
+    // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */
+    // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
+    // "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
+    // "noUncheckedIndexedAccess": true,                 /* Include 'undefined' in index signature results */
+    // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
+    // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type */
+    // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
+    // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "exclude": [ /////////EIS O CÓDIGO EM QUESTÃO.
+      "analytics.js"
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK, ISSO SIGNIFICA QUE AGORA ESTAREMOS __ EXCLUINDO ESSE ARQUIVO DE NOSSO 
+
+'watch'..
+
+
+
+
+
+
+
+
+--> É CLARO QUE ISSO NÃO FAZ MT SENTIDO PARA NOSSO SETUP ATUAL,
+
+PQ TIPICAMENTE 
+
+VAMOS 
+
+QUERER INCLUIR ESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCê TIVER 1 ARQUIVO 
+
+QUE 
+
+
+NÃO DEVE SER COMPILADO, VOCÊ PODE O EXCLUIR ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+
+--. VOCê TAMBÉM PODE TRABALHAR COM 'wildcards'...
+
+
+
+
+
+
+
+
+-------> POR EXEMPLO, SE VOCÊ TEM UM ARQUIVO CHAMADO 
+
+de 
+
+'analytics.dev.ts'
+
+
+e quer O EXCLUIR,
+
+
+VOCê 
+
+
+PODE 
+
+
+
+ESCREVER SÓ 
+
+
+
+
+"*.dev.ts" (ESTRELA),
+
+
+
+
+
+
+O QUE É ESSENCIALMENTE UM 'WILDCARD',
+
+
+QUE ENTÃO FORÇA O TYPESCRIPT A 
+
+
+
+__EXCLUIR__ TODOS OS ARQUIVOS QUE TERMINAM COM '.dev.ts'... (independentemente do nome deles)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRA OPÇÃO É ESCREVEr 
+
+
+
+
+"**/*.dev.ts" 
+
+
+
+
+
+
+OU SEJA,
+
+
+2 estrelas + / + * 
+
+
+
+
+
+
+
+
+
+--> ISSO FARÁ __ COM QUE __ TODOS OS ARQUIVOS, EM QUAISQUER FOLDERS DE SEU PROJETO,
+
+COM 
+
+
+EXTENSÃO de '.dev.ts',
+
+
+__ SEJAM _ 
+
+EXCLUÍDOS DA COMPILATION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "exclude": [
+"analytics.js",
+"*.dev.ts", /* exemplo de WILD CARD -- excluíremos da compilation TODOS OS ARQUIVOS NO ROOT DE SEU PROJETO COM EXTENSÃO '.dev.ts'... */
+"**/*.dev.ts"  /*isto vai excluir TODOS OS ARQUIVOS DE SEU PROJETO com final '.dev.ts' */
+]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+OK... MAS AGORA VEREMOS UM PADRÃO BEM COMUM........
+
+
+
+
+
+
+
+
+
+
+
+
+---------> É O EXCLUDE DE 'node_modules' -------> SEMPRE VAMOS QUERER EXCLUIR O NODE_MODULES,
+
+
+
+PQ ELE TEM 
+
+ALGUNS TYPESCRIPT FILES NO SEU INTERIOR,
+
+files que é desnecessário compilar.... --------> VAI SÓ SLOW DOWN NOSSO APP (ou até mesmo o quebrar)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS O PROFESSOR EXPLICA QUE 
+
+
+
+
+O 
+
+
+
+EXCLUDE DE 'node_modules' 
+
+É O DEFAULT,
+
+JÁ É FEITO AUTOMATICAMENTE....
+
+
+
+
+
+
+
+
+-------> ENTRETANTO, SE VOCê __ ADICIONAR A OPÇÃO DE 'exclude'
+
+
+NO SEU ARQUIVO 'tsconfig.json',
+
+
+
+VOCÊ DEVE EXPLICITAMETNE EXCLUIR O 'node_modules',
+
+
+PQ 
+
+AÍ ELE 
+
+
+NÃO VAI SER EXCLUÍDO AUTOMATICMAENTE, POR DEFAULT...
+
+
+
+
+-----------> 
+
+
+
+E É CLARO QUE TEMOS O 
+
+
+
+'INCLUDE',
+
+QUE É O OPOSTO DO EXCLUDE... 
+
+
+
+
+
+
+
+
+
+
+
+
+---> ELE TE PERMITE DIZER AO 
+
+
+TYPESCRIPT ESPECIFICAMENTE QUAIS 
+
+
+FILES VOCê QUER INCLUIR NO 
+PROCESSO DE COMPILATION... ---------> OS ARQUIVOS QUE 
+
+NÃO FOREM INCLUÍDOS 
+
+
+NESSA ENTRY DE 'include' 
+
+
+
+
+
+__- NÃO SERÃO __ COMPILADOS... ------> SE DEFINIRMOS SÓ 'app.js',
+
+
+por exemplo,
+
+
+
+
+NÃO ACABAREMOS COMPILANDO 'analytics.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA COMPILAR TODOS NOSSOS ARQUIVOS,
+
+NESSE EXEMPLO,
+
+TERÍAMOS DE ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+"include": [
+
+  "app.ts",
+  "analytics.ts"
+]
+
+
+
+
+
+
+
+
+
+
+--OK ... AÍ O PROFESSOR NOS DÁ OUTRA EXPLICAÇÃO:
+
+
+
+
+
+
+SE VOCê 
+
+
+
+ESCREVER 'INCLUDE' JUNTO DE 'EXCLUDE',
+
+essas 2 keys,
+
+
+O comportamento 
+
+entre os dois 
+
+
+SERÁ QUE O 
+
+'EXCLUDE'
+
+vai 'FILTER DOWN'
+
+
+as coisas que 
+
+voce escreveu em 'include'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OU SEJA.... --. SE EXCLUÍRMOS 
+
+
+UM 'SUB FOLDER' 
+
+
+
+de uM folder que FOI INCLUDED,
+
+
+_ ESSE FOLDER SERÁ REALMENTE 'EXCLUDED',
+
+
+
+
+e o resto dos arquivos no folder 'incluído' 
+
+
+SERÃO 
+
+
+compilados... 
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR VAI QUERER EXCLUIR O 'node_modules' (mas até isso é meio redundante,
+
+pq esse é o comportamento default do arquivo tsconfig.json )
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... --------> VOCê TAMBÉM TEM UMA OPÇÃO 'files',
+
+QUE TE 
+
+DEIXA 
+
+
+'
+POINT OUT INDIVIDUAL FILES'...
+
+
+
+
+
+
+
+
+
+
+
+--> A DIFERENÇA DE 
+
+'files'
+
+para 'include'
+
+É QUE 
+
+COM FILES __ VOCê __ SÓ PODE APONTAR FILES ESPECÍFICAS,
+
+
+SEM PODER 
+
+APONTAR FOLDERS INTEIROS, como no include...
+
+
+
+
+
+
+
+
+
+
+-> O "files"
+
+só é uma opçao para PROJETOS MENORES,
+
+NA OPINIAO DO PROFESSOR... --> aí você especifica a lista de arquivos que você vai querer compilar, etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ESSAS SÃO AS OPTIONS BÁSICAS 
+
+
+DO COMPILER (mas há bem mais coisas)...

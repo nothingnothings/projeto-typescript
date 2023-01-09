@@ -1,0 +1,1163 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE SABEMOS SOBRE FUNDAMENTALS DO TYPESCRIPT,
+
+
+e sua 
+
+diferença/relaçaõ com  typescript,
+
+
+ 
+
+
+
+ DEVEMOS 
+
+ VER UM POUCO 
+
+ MAIS 
+SOBRE OS 
+
+
+DIFERENTES CORETYPES QUE 
+O 
+
+TYPESCIPRT
+
+
+
+SABE...
+
+
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO ESTÁ ASSIm:
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O CORE TYPE DE 'number'
+
+
+
+NÃO DIFERE ENTRE INTEGERS E FLOATS,
+
+
+
+
+
+
+
+
+
+
+
+'FLOATS --> DOUBLES' (é a mesma coisa)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> __ OBS::: EM JAVASCRIPT (E EM 'typescript')
+
+
+
+________ TODOS __ OS NUMBERS 
+
+SÃO 
+
+
+'FLOATS' 
+
+
+
+
+POR DEFAULT... ---------> ISSO SIGNIFICA QUE 
+
+NÃO 
+
+HÁ NENHUMA 
+
+
+DIFERENÇA 
+
+ENTRE 
+
+
+
+'5' e '5.0' 
+
+
+PARA O JAVASCRIPT, NATIVAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> MAS ALÉM DE NUMBERS,
+
+TEMOS OUTROS CORE TYPES,
+
+
+COMO 
+'STRINGS'
+
+
+E 
+
+'BOOLEANS'... -------> VAMOS VÊ-LOS AGORA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS JÁ VIMOS ESSES CORE TYPES APARECENDO, TODOS ELES,
+
+
+NAQUELE 
+
+IF CHECK REDUNDANTE DO MÓDULO PASSADO,
+
+
+DE 
+
+
+
+
+'if (typeof n1 !== 'number' || typeof n2 !== 'number') '
+
+
+
+
+
+
+
+
+
+
+--------> O RESULTADO DESSAS COMPARISON SERÁ 
+
+
+
+
+'BOOLEAN'... 
+
+
+
+
+
+tipo 
+
+
+
+true || false 
+
+
+
+
+
+
+
+
+
+
+se qualquer 1 dos dois for 'false',
+
+
+O NEGÓCIO INTEIRO SERÁ FALSE...
+
+
+
+
+
+
+
+
+
+
+
+----> PODEMOS TAMBÉM __ INICIALIZAR UMA VARIABLE 
+
+
+COM VALOR DE 
+
+
+'true/false'...
+
+
+
+
+
+
+
+
+
+--> PROFESSOR CRIA UMA CONST DE 'printResult'..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+
+
+const number2 = 2.8;
+
+
+const printResult = true;
+
+
+
+
+
+const result = add(number1, number2);
+console.log(result);
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+O PROFESSOR ENTÃO INVENTA DE PASSAR ESSE VALOR DE 'printResult'
+
+
+PARA DENTRO DE 
+
+'add'..
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+
+
+const number2 = 2.8;
+
+
+const printResult = true;
+
+
+
+
+
+const result = add(number1, number2, printResult);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS IMEDIATAMENTE 
+
+
+RECEBEMOS UM ERROR,
+
+
+
+PQ 
+
+O 
+IDE/TYPESCRIPT VAI APITAR DIZENDO QUE __ ESSA FUNÇÃO__ NÃO SUPORTA 1
+
+
+
+TERCEIRO ARGUMENTO....
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE O PROFESSOR ADICIONA UM NOVO ARGUMENTO EM 'add',
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+
+
+const number2 = 2.8;
+
+
+const printResult = true;
+
+
+
+
+
+const result = add(number1, number2, printResult);
+console.log(result);
+
+
+
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... SETTAMOS O TYPE DESSE NEGÓCIO COMO 
+
+'BOOLEAn'...
+
+
+
+
+
+
+
+
+--> agora essa função aceita esse valor,
+
+
+
+
+
+
+ficou tipo assim:
+
+
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+
+
+const number2 = 2.8;
+
+
+const printResult = true;
+
+
+
+
+
+const result = add(number1, number2, printResult);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+------------------> 
+
+
+
+
+AGORA, PROFESSOR DIZ QUE 
+
+
+DENTRO 
+
+DESSA FUNÇAÕ 
+
+
+PODEMOS __ COLOCAR__ UM IF CHECK...
+
+
+
+
+
+
+
+
+
+
+
+--> o if check será tipo 
+
+
+
+'if (showResult) {
+
+
+}
+',
+
+
+
+
+
+
+
+
+
+se isso for TRUE,
+
+vamos querer 
+
+
+
+
+CONSOLE.LOGGAR 
+
+
+'n1 + n2'....
+
+
+
+
+
+
+
+
+CASO CONTRÁRIO, VAMOS QUERER fazer 'return n1 + n2'...
+
+
+
+
+
+
+
+
+
+
+---> FUNÇÃO FICOU ASSIM:
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean) {
+
+
+
+    if (showResult) {
+        console.log(n1 + n2);
+    } else {
+        return n1 + n2;
+    }
+}
+
+
+
+
+
+
+
+
+
+--> É UMA FUNÇÃO QUE àS VEZES VAI CONSOLE.LOGGAR 1 VALOR IMEDIATAMETNE, EM OUTROS VAI RETORNAR 1 VALOR...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean) {
+
+
+
+    if (showResult) {
+        console.log(n1 + n2);
+    } else {
+        return n1 + n2;
+    }
+}
+
+
+
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+const printResult = true;
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult);
+console.log(result);
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+OK, AGORA ESSE CALL DE 'ADD', por causa de 'printResult = true',
+
+
+VAI CONSOLE.LOGGAR ESSE NEGÓCIO... (por causa de 'if(showResult)'....)
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSES SÃO OS BOOLEANS..
+
+
+
+
+
+
+
+
+
+MAS DIGAMOS QUE QUEREMOS__ CUSTOMIZAR_  __ 
+
+
+O OUTPUT... ---> PARA ISSO,
+
+
+
+
+
+VAMOS CRIAR UMA CONSTANTE 
+
+DE 
+
+'resultPhrase',
+
+
+
+
+
+
+
+que será tipo assim:
+
+
+
+
+
+
+
+
+
+const resultPhrase = "Result is: ";
+
+
+
+
+
+
+
+
+
+
+
+---> ESSA PHRASE 
+
+
+TAMBÉM 
+
+VAMOS COLOCAR LÁ NA FUNÇÃO DE 'add',
+
+COMO ARGUMENTO...
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+
+
+
+    if (showResult) {
+        console.log(n1 + n2);
+    } else {
+        return n1 + n2;
+    }
+}
+
+
+
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+const printResult = true;
+
+
+const resultPhrase = "Result is: ";
+
+
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult, resultPhrase);
+console.log(result);
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+--> VAMOS QUERER 
+
+
+
+
+
+USAR ESSE 'Result is '
+
+
+
+Como 
+
+PARTE DO OUTPTU DO CONSOLE.LOG,
+
+
+tipo assim:
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+
+
+
+    if (showResult) {
+        console.log(resultPhrase + n1 + n2);
+    } else {
+        return n1 + n2;
+    }
+}
+
+
+
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+const printResult = true;
+
+
+const resultPhrase = "Result is: ";
+
+
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult, resultPhrase);
+console.log(result);
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, SE ESCREVERMOS 'resultPhrase' + n1 + n2',
+
+
+
+
+VAMOS 
+
+
+REINTRODUZIR AQUELE BUG 
+
+
+
+de 'combine strings and numbers',
+
+pq 
+
+
+O 
+
+RESULTPHRASE É UMA STRNIG,
+
+
+
+
+
+e AQUELAS VARIABLES SÃO NUMBERS...- -> para solucionar isso,
+
+
+PODEMOS USAR __ UM TEMPALTE LITERAL..
+
+
+
+
+
+ex:
+
+
+
+
+
+let calculus = n1 + n2;
+
+let result = `${resultPhrase}: ${calculus} `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number, showResult: boolean) {
+
+
+
+
+    const calculus = n1 + n2;
+
+
+    const result = `${resultPhrase} ${calculus}`
+
+
+    if (showResult) {
+        console.log(result);
+    } else {
+        return n1 + n2;
+    }
+}
+
+
+
+
+const resultPhrase = "Result is: "
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+const printResult = true;
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+CERTO.... agora temos o output correto....
+
+
+
+
+
+
+
+
+
+
+-> ESSES SÃO OS CORE DATA TYPES EM AÇÃO... 
+
+
+
+
+
+
+
+--> AGORA DEVEMOS __ ENTENDER_ BEM 
+
+COMO 
+
+OS 
+
+'TYPES' são assignados,
+
+
+E A RAZÃO __ DE ELES __ NÃO SEREM ASSIGNADOS 
+
+
+
+
+EXPLICITAMENTE 
+
+
+
+
+
+
+EM LOCAIS COMO 
+
+
+
+'const number1 = 5;
+const number2 = 2.8;
+const printResult = true;
+const resultPhrase = 'Result is ';

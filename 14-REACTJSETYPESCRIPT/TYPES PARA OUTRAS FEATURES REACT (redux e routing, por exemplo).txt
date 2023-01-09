@@ -1,0 +1,562 @@
+
+
+
+
+
+
+
+
+
+
+---> É CLARO QUE EM REACT APPS MAIORES VOCÊ VAI TRABALHAR COM MAIS DO QUE 
+
+
+APENAS 'useRef'
+
+
+E 'useState'....
+
+
+
+
+
+
+
+
+
+
+--> PARA ENTENDER COMO VOCÊ USA TYPESCRIPT EM PROJETOS COMO ESSES,
+
+
+É SEMPRE ÚTIL PASSAR O MOUSE EM CIMA DAS FUNCTIONS QUE VOCÊ ESTÁ CHAMANDO,
+
+para ver com que você 
+
+
+
+está lidando.
+
+
+
+
+
+
+EXEMPLO,
+
+
+
+hook de 'useEffect':
+
+
+
+
+
+
+'useEffect()' 
+
+
+
+
+
+
+
+
+
+
+
+---> 
+
+
+
+(alias) useEffect(effect: React.EffectCallback, deps?: React.DependencyList | undefined): void
+import useEffect
+Accepts a function that contains imperative, possibly effectful code.
+
+@param effect — Imperative function that can return a cleanup function
+
+@param deps — If present, effect will only activate if the values in the list change.
+
+@version — 16.8.0
+
+@see — https://reactjs.org/docs/hooks-reference.html#useeffect
+
+React Hook useEffect requires an effect callback. Did you forget to pass a callback to the hook?eslintreact-hooks/exhaustive-deps
+React Hook "useEffect" cannot be called at the top level. React Hooks must be called in a React function component or a custom React Hook function.eslintreact-hooks/rules-of-hooks
+Expected 1-2 arguments, but got 0.ts(2554)
+index.d.ts(1090, 24): An argument for 'effect' was not provided.
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+ (alias) useEffect(effect: React.EffectCallback, deps?: React.DependencyList | undefined): void
+import useEffect
+Accepts a function that contains imperative, possibly effectful code.
+
+
+
+
+
+
+
+
+
+
+--> percebemos que o PRIMEIRO ARGUMENT SERÁ UM 'effect',
+
+
+
+
+
+
+um EFfECT CALLBACK,
+
+
+
+
+
+QUE 
+
+
+O TYPESCRIPT AVISARÁ SE VOCê SETTAR INCORRETAMENTE....
+
+
+
+
+
+
+--> o segundo argumento será OU 'nothing' (undefined),
+
+
+OU UM __ ARRAY__ DE 'any' (
+
+
+    any[]
+) ---> O QUE REALMENTE É VERDADE,
+
+
+
+
+
+PQ O USE EFFECT TEM UM CÓDIGO COMO ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+useEffect(
+    () => {
+
+    },
+     
+
+     []
+)
+
+
+
+
+
+
+
+
+
+--> ESSA INFORMAÇÃO TAMBÉM NOS DIZ QUE O USEEFFECT NUNCA RETORNA NADA ,
+
+
+como visto aqui:
+
+
+ (alias) useEffect(effect: React.EffectCallback, deps?: React.DependencyList | undefined): void
+import useEffect
+Accepts a function that contains imperative, possibly effectful code.
+
+
+
+
+
+
+'
+''':void''''..
+
+
+
+
+
+
+
+
+
+
+
+
+--> E LÁ EM 'useState',
+
+
+
+
+
+em que o professor MENCIONOU QUE SEMPRE VAMOS RECEBER DE VOLTA UM ARRAY COM 2 ELEMENTS,
+
+
+
+
+
+
+TIPO ISTO AQUI:
+
+
+
+
+
+
+
+
+(alias) useState<Todo[]>(initialState: Todo[] | (() => Todo[])): [Todo[], React.Dispatch<React.SetStateAction<Todo[]>>] (+1 overload)
+import useState
+Returns a stateful value, and a function to update it.
+
+@version — 16.8.0
+
+@see — https://reactjs.org/docs/hooks-reference.html#usestate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> como vocÊ pode observar,
+
+
+este código:
+
+
+(alias) useState<Todo[]>(initialState: Todo[] | (() => Todo[])):
+
+ [Todo[], React.Dispatch<React.SetStateAction<Todo[]>>] (+1 overload)
+
+
+
+
+
+
+
+
+
+
+
+
+--> é uma FUNCTION que vai receber um 'generic type' (que será enfiado no seu array RETORNADO DEPOIS),
+
+
+
+
+
+e que vai RECEBER UM ARGUMENTO 'initialState',
+
+que NESSE CASO SERÁ 'Todo[]'...
+
+
+
+
+
+
+
+-> também vemos que ele RETORNARÁ (:) um ARRAY DE 'Todo[]',
+
+
+
+
+
+
+
+em que o PRIMEIRO ELEMENTO SERÁ SEU GENERIC TYPE,
+
+E O SEGUNDO SERÁ 
+
+uma 
+
+
+
+'REACT DISPATCH FUNCTION',
+
+
+
+como expresso em 
+
+
+
+
+'React.Dispatch<React.SetStateAction<Todo[]>'..
+
+
+
+
+
+
+
+
+
+---> É ISSO QUE ESTÁ ACONTECENDO AQUI...
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM TVZ ESTARÁ TRABALHANDO COM O __ rEDUX__...
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, SE VOCê OLHAR OS DOCS,
+
+
+VOCÊ VERÁ INSTRUÇÕES DE COMO USAR O REDUX COM O TYPESCRIPT...
+
+
+
+
+--> COMO PODEMOS ADICIONAR TYPES àS NOSSAS ACTIONS, AOS NOSSOS REDUCERS e 
+
+
+
+
+AO STATE MANAGEMENT COM O 
+
+
+
+
+REDUX.... --> 
+
+ADICIONA UM MONTE DE TYPE SAFETY...
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM TVZ ESTARÁ USANDO A PACKAGE DE 'react-router',
+
+
+
+
+
+
+
+EM QUE 
+
+
+__VOCÊ __ NÃO VAI ENCONTRAR 
+
+
+
+
+
+TYPE NOTATIONS ESPECÍFICAS,
+
+
+mas que você pdoe 
+
+ESCREVEr 
+
+
+
+
+'npm install --save react-router-dom' ,
+
+
+
+
+
+
+
+
+
+
+PARA INSTALAR ESSA PACKAGE NO SEU REACT PROJECT...
+
+
+
+
+
+
+--> ADICIONADA ESSA PACKAGE,
+
+
+
+VOCÊ VERÁ QUE ELA NÃO POSSUI NENHUMA 'TYPE INSTRUCTIONS'
+
+
+na sua página....
+
+
+
+
+
+
+
+
+----------> ok.... --> ainda assim,
+
+é claro que podemos usar react-router-dom em projetos react,
+
+
+
+
+e PODEMOS CONSEGUIR BOM SUPORTE TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+---> SE TENTARMOS ESCREVER 
+
+
+
+
+'import { } from 'react-router-dom',',
+
+
+
+
+
+JÁ VAMOS RECEBER UM ERRO... ---> 
+
+
+'
+Could not find a declaration file for module 'react-router-dom',
+
+
+' 
+,
+
+
+
+
+
+NENHUMA TYPE INFORMATION...  ----> PARA CONSERTAR ISSO,
+
+PODEMOS FAZER AQUILO QUE JÁ FIZEMOS ANTES,
+
+
+rodar 
+
+
+'npm install --save-dev @types/react-router-dom'...' 
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI ADICIONAR ESSE TYPE SUPPORT NESSE PACKAGE AÍ...
+
+(
+
+    é uma trick que aprendemos mais cedo no curso...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA TEREMOS TYPE SUPPORT PARA O REACT-ROUTER-DOM...
+
+
+
+
+
+
+
+
+
+--> E É ASSIM QUE VOCÊ PODE USAR O TYPESCRIPT COM O REACT.....
+
+
+
+
+
+
+
+
+
+--> sempre cheque se um projeto possui built-in type support...
+
+
+
+
+
+
+
+---> OK... ACABAMOS COM ESTE MÓDULO...
+
+
+
+
+--> É ASSIM QUE PODEMOS USAR AS FEATURES DO TYPESCRIPT EM UM PROJECT REACT..
+
+
+
+
+
+
+
+
+--> VOCÊ PODE USAR TODAS AS FEATURES QUE VOCÊ APRENDEU DURANTE O CURSO EM UM REACT PROJECT...

@@ -1,0 +1,77 @@
+
+
+
+
+
+NESSE MÓDULO, INVESTIGAREMOS MAIS DE PERTO O 'TYPESCRIPT COMPILER'
+
+
+
+
+
+
+
+
+
+
+
+
+--. ATÉ AGORA,
+
+SEMPRE USAMOS 
+
+
+'tsc app.js',
+
+
+
+
+
+
+
+MAS 
+
+
+
+
+
+AGORA VAMOS RODAR 'tsc'
+
+PARA 
+
+COMPILAR 
+
+
+TODOS 
+
+NOSSOS ARQUIVOS (é assim que fazemos em projetos maiores)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM 
+
+
+VAMOS VER VÁRIAS 
+
+
+
+CONFIGS POSSÍVEIS 
+
+
+ACERCA DO COMPILATION PROCESS --> PODEMOS ESPECIFICAR __ O QUE __ SERÁ COMPILADO,
+
+E COMO SERÁ 
+
+COMPILADO...

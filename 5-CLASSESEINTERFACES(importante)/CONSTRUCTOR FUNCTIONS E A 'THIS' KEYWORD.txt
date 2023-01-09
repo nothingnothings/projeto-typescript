@@ -1,0 +1,3015 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR NOS EXPLICA QUE CLASSES/CONSTRUCTOR FUNCTIONS (Que existiam ANTES DAS CLASSES),
+
+
+
+
+QUE 
+
+
+SÃO USADOS 
+
+PARA CONSTRUIR A ESTRUTURA DOS OBJECTS,
+
+
+
+
+
+__ DENTRO DELAS VOCÊ 
+
+
+TAMBÉM 
+
+
+PODE __ ESCREVER _ METHODS...
+
+
+
+
+
+
+
+
+
+
+
+--> CUSTOM METHODS NAS NOSSAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CONSTRUCTOR FUNCTION -_> USADA PARA RODAR QUALQUER 'INITIALIZATION CODE'..
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ VAI PODER CHAMAR 
+
+
+
+
+methods _ nos seus _ CREATED OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+--> EXEMPLO DISSO SERÁ UM NOVO METHOD, 'describe(){}',
+
+QUE CRIAREMOS DENTRO DA CLASS de 'Department':
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> UM METHOD É ADICIONADO ASSIM:
+
+
+
+
+
+
+
+
+
+describe() {
+
+
+}
+
+
+
+
+
+
+methods também podem ser adicionados assim:
+
+
+
+
+'describe = () => {
+
+}
+'
+
+
+
+
+
+
+-->  
+
+
+
+
+O QUE INTERESSA É QUE 
+
+o 
+
+'()' 
+
+VAI 
+ACEITAR
+QUAISQUER PARAMETERS QUE 
+
+VOCÊ 
+
+
+POSSA PRECISAR.... 
+
+
+
+
+
+
+
+
+
+
+
+----> COMO AQUI NÃO VAMOS PRECISAR DE NENHUM PARÂMETRO, não colocamos nada....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... -> AGORA VAMOS QUERER A LÓGICA DESSE METHOD, dentro de 
+
+'{}' ----> VAMOS QUERER, NESSE CASO,
+
+
+
+OUTPUTTAR 
+
+ o
+ '
+ NAME'
+
+
+ do department 
+
+ lá 
+
+ no nosso console,
+
+
+
+
+ junto de mais um pouco de info...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+ 
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+                console.log('Department: ' + name);
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO, ESSE CÓDIGO AQUI:
+
+
+
+    describe() {
+                console.log('Department: ' + name);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    --> NÃO FUNCIONARÁ/FUNCIONARIA ------> NÃO FUNCIONARÁ 
+
+    PQ 
+
+
+
+    ISSO __ VAI PROCURAR POR UMA VARIABLE DE 
+
+
+    'name',
+
+
+
+    VARIABLE __ QUE _ DEVERÁ 
+
+    EXISTIR 
+
+
+
+__DENTRO DESSE METHOD DE 'describe' (e essa variable NÃO EXISTE AÍ, PQ NÃO FOI DEFINIDA AÍ)... ou... entõa 
+
+
+se 
+
+essa variable tiver sido definida no LADO DE FORA DA CLASS,
+
+COMO UMA 
+
+'GLOBAL VARIABLE'...
+
+
+
+
+
+
+
+
+
+
+----------> COMO AQUI NÃO TEMOS NENHUM DESSES CASOS,
+
+
+e como 
+
+VAMOS QUERER OUTPUTTAR 
+
+
+o 
+
+
+'name',
+
+
+
+
+
+
+
+
+
+
+VAMOS QUERER __ ACESSAR __ A PROPRIEDADE 'name'
+
+QUE EXISTE __ DENTRO 
+
+
+
+
+DE CADA OBJECT 'Department' 
+
+que 
+
+FOR CRIADO A PARTIR DESSA CLASS... -------> PARA ISSO,
+
+
+
+TERMEOS 
+
+
+ED 
+
+
+
+USAR 
+
+
+
+
+A 'THIS' KEYWORD...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+ 
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+                console.log('Department: ' + this.name); ////////EIS O CÓDIGO EM QUESTÃO.
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+FICOU ASSIM, PROVAVELMENTE:
+
+
+
+
+
+    describe() {
+                console.log('Department: ' + this.name); ////////EIS O CÓDIGO EM QUESTÃO.
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> 'this' 
+
+
+vai 
+
+tipicamente 
+
+
+SE REFERIR 
+
+
+à
+INSTANCE 
+
+CONCRETA 
+
+
+
+ 
+ _ CRIADA A PARTIR DE NOSSA CLASS de 'Department'...
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+ 
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+const accounting = new Department('Accounting', 521);
+
+
+
+
+accounting.describe(); //////VAI PRINTAR 'Department: Accounting'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+
+
+
+
+
+console.log(shiningApartment);
+
+
+
+
+
+
+shiningApartment.describe(); ///////ISSO VAI PRINTAR 'Department: salao' ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> SALVAMOS TUDO ISSO ,
+
+COMPILAMOS NOSSO CÓDIGO TS EM JS,
+
+
+E AÍ 
+
+
+
+
+
+EXAMINAMOS O BROWSER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... DEU CERTO... --> É ASSIM QUE PODEMOS 'ADD A METHOD'
+
+
+
+
+EM NOSSOS OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+--> e se usamos 
+
+a 
+keyword 'static' 
+
+na frente de um method/function,
+
+
+em uma class,
+
+FAZEMOS COM QUE 
+
+ESSA FUNCTION __ 
+
+
+PASSE _a EXISTIR_ SOMENTE__ NA CONSTRUCTOR FUNCTION/CLASS 
+
+
+
+
+que você vai querer usar, não sendo encontrada essa function em 
+
+NENHUM DOS OBJECTS INSTANCIADOS A PARTIR DESSA CLASS.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> KEYWORD 'this' --> SE VOCÊ JÁ TRABALHOU COM JAVASCRIPT,
+
+
+
+VOCÊ DEVE SABER QUE 
+
+A 
+
+'KEYWORD THIS PODE __ SER TRICKY'....  ------> POR EXEMPLO,
+
+
+
+
+
+
+SE O 
+PROFESSOR 
+
+
+ADICIONA 
+
+
+ 
+
+ OUTRA CONSATNTE NO NOSSO CÓDIGO,
+
+
+ constante chamada de 
+
+
+ 'shiningApartmentCopy'...
+
+
+
+
+
+--> SERÁ UM __ OBJECT_ QUE SÓ TERÁ 
+
+
+
+
+
+O METHOD DE 'describe '--> 
+
+
+
+
+ESSE OBJECT __ VAI TENTAR__ PEGAR O VALOR DE 'shiningApartment.describe' 
+
+
+
+
+PARA COLOCAR NA SUA PROPRIEDADE de 'describe':
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+
+
+shiningApartment.describe(); ///////ISSO VAI PRINTAR 'Department: salao' ...
+
+
+
+
+const shiningApartmentCopy = { 
+
+    describe: accounting.describe; ///////EIS O CÓDIGO EM QUESTÃO.
+}
+
+
+
+
+
+
+
+
+
+
+---------------> AGORA, SE TENTARMOS EXECUTAR 
+
+
+
+'accountingCopy.describe()''
+
+
+
+__ COMO 
+
+UM METHOD,
+O 
+
+QUE 
+
+VOCÊ 
+
+
+ACHA QUE ACONTECERÁ?
+
+
+
+
+
+
+
+
+
+
+-> ACHO QUE ACONTECERÁ __ ALGUM ERRO..
+
+
+
+
+
+
+
+
+
+--> BEM, NA VERADDE,
+
+
+NÃO VAMOS OBTER 1 ERRO,
+
+
+
+
+NENHUM COMPILATION ERROR,
+
+
+
+
+MAS 
+
+
+DURANTE O RUNTIME 
+VEREMOS 
+
+
+
+
+
+'Department: undefined'...
+
+
+
+
+
+
+
+
+
+--> A RAZÃO PARA ISSO É QUE 
+
+
+
+
+QUANDO O PROFESSOR ESCREVE ISTO:
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe},
+
+
+
+
+ele 
+
+
+
+
+__VAI__ ESTAR TENTANDO __ __ 'ADD UMA PROPRIEDADE DE 'DESCRIBE'
+ 
+
+
+
+
+
+
+ DENTRO DESSE OBJETO DE 'accountingCopy',
+
+
+
+
+
+ OBJETO QUE TERÁ SIDO 
+
+ 'CRIADO COM BASE NO 
+
+
+ OBJECT LITERAL' ( 
+
+
+
+
+     ou seja,
+
+
+
+     Objeto criado com 
+
+
+     'const xxx = {}',
+
+
+     EM VEZ 
+
+
+
+     DE A UTILIZAÇAÕ DE 'class XXX {}'....
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -------> OK.... --> ISSO SIGNIFICA QUE shiningApartmentCopy É _ -UM 'DUMMY OBJECT',
+
+
+ OBJECT QUE NÃO FOI CRIADO A PARTIR 
+
+ DE UMA 
+ CLASS QUE VOCÊ DEFINIU....
+
+
+
+
+
+
+
+
+
+
+
+ -> E AÍ, POR CONSEQUÊNCIA DISSO,
+
+
+
+
+
+
+
+ O VALOR PARA ESSA PROPRIEDADE 'describe'
+
+
+
+ SERÁ __ UM POINTER 
+
+
+
+
+
+
+ ____ AO METHOD de 'describe'
+
+
+
+ LÁ 
+
+
+
+
+
+
+ NO OBJECT DE 'shiningApartment'... ---> ou seja, estaremos apontando a UM METHOD QUE 
+
+
+
+
+ JÁ EXISTE EM UM' CONCRETE OBJECT' anterior (o object de shiningApartment) ..... 
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe() {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+
+
+shiningApartment.describe(); ///////ISSO VAI PRINTAR 'Department: salao' ...
+
+
+
+
+const shiningApartmentCopy = { 
+
+    describe: accounting.describe; ///////EIS O CÓDIGO EM QUESTÃO.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO CÓDIGO 'describe: accounting.describe',
+
+
+
+
+É CLARO QUE 
+
+
+
+ESSE CÓDIGO NÃO ESTÁ SENDO EXECUTADO (falta '()' )  --. ISSO QUER DIZER QUE 
+
+a 
+
+VALOR ___ DESSA EXECÇÃO DA FUNÇÃO 'accounting/shiningApartment'
+ 
+
+SERÁ 
+
+REALMENTE 
+
+'THE FUNCTION ITSELF'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... E, A PRIORI,
+
+O CÓDIGO DE 
+
+'accountingCopy.describe()' 
+
+
+
+VAI REALMENTE EXECUTAR O METHOD de 'describe',
+
+
+SINAL QUE FUNCIONOU DIREITO... -----> O PROBLEMA SÓ SERÁ QUE 
+
+
+
+
+
+
+
+
+
+_ QUANDO O __  METHOD DE 'describe'
+
+
+FOR 
+
+__ EXECUTADO__, 
+
+o 
+
+'this'
+ 
+
+ NAÕ VAI SE REFERIR 
+
+
+
+
+
+
+AO METODO EXISTENTE NA CLASS ORIGINAL (class de 'Department'),
+e sim 
+
+
+
+
+
+
+AO METHOD JÁ EXISTENTE....
+
+
+
+
+
+
+
+
+-> BOA RULE DE THUMB -->  O THIS TIPICAMENTE SE REFERE A COIAS QUE FOI RESPONSÁVLE PELO 
+
+OPEN DE NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+----------
+ 
+
+
+
+ THIS NÃO VAI SE REFERIR A TODOS OS PROJECTS COM 
+
+
+ 'name (naem/name)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> PARA EVITAR OS ERROS DE 'classes',
+
+
+
+
+ VOCÊ _ _ PODE ADICIONAR UM PARÂMETRO  ESPECIAL A ESSE METHOD DE 'describee',
+
+
+
+ QUE 
+
+
+ CHAMAM DE 'THIS'.. --------> 
+
+
+
+
+
+
+ PARA EVITAR 
+
+
+ ERROS DE 'THIS',
+
+
+
+ VOCÊ PODE DEFINIR O argumento 'this '
+
+
+
+
+
+
+ de seus methods como igual à CLASS QUE ORIGINU ESSE METHOD E TUDO MAIS...
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+
+
+
+
+    describe(this: Department) {
+        // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+        console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+    }
+}
+
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+
+
+shiningApartment.describe(); ///////ISSO VAI PRINTAR 'Department: salao' ...
+
+
+
+
+const shiningApartmentCopy = { 
+
+    describe: accounting.describe; ///////EIS O CÓDIGO EM QUESTÃO.
+}
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... começando DE NOVO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> describe() {} --------> 
+
+
+
+
+
+
+ 
+
+
+
+ describe() {
+     console.log('Department: ' + this.name) 
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> AÍ O PROFESSOR DECIDE FAZER UMA MALUQUICE...
+
+
+
+
+
+
+
+
+
+
+
+ -> 
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+ class Department {
+
+     constructor (n: string) {
+         this.name = n;
+     }
+
+     describe() {
+         console.log('Department: ' + this.name);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting');
+
+
+
+
+
+
+ accounting.describe();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ELE VAI CRIAR UM OUTRO OBEJTO AQUI,
+
+ DE NOME 'accountingCopy':
+
+
+
+
+
+
+
+
+
+--> E SERÁ UM SIMPLES OBJECT COM UM METHOD DE 'describe', 
+
+
+
+
+
+em que 
+
+
+professor vai APONTAR AO VALOR DE 'accounting.describe'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ class Department {
+
+     constructor (n: string) {
+         this.name = n;
+     }
+
+     describe() {
+         console.log('Department: ' + this.name);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting');
+
+
+
+
+
+
+ accounting.describe();
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe }
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ISSO _ NÃO FAZ MT SENTIDO... MAS TUDO BEM....
+
+
+
+
+
+
+
+
+
+-> aí o professor chama 
+
+'accountingCopy',
+
+
+E AÍ 
+
+CHAMA  ESSA PROPRIEDADE DE 'describe' 
+
+no seu interior,
+
+MAS 
+
+
+
+
+
+ELE __ A EXECUTA,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ class Department {
+
+     constructor (n: string) {
+         this.name = n;
+     }
+
+     describe() {
+         console.log('Department: ' + this.name);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting');
+
+
+
+
+
+
+ accounting.describe();
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe }
+
+
+
+
+
+accountingCopy.describe();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> eu pensei que iríamos ganhar um erro,
+
+
+
+MAS O QUE 
+OBTEMOS 
+
+
+É SÓ 
+
+
+'Department: undefined'.... --> A RAZÃO PARA ISSO 
+
+É 
+
+
+
+
+QUE 
+
+
+
+
+
+
+
+___ '''ESTAMOS 
+
+ADICIONANDO UMA PROPRIEDADE DE DESCRIBE A ESSE OBJECT,
+
+
+OBJECT_ QUE __ ESTÁ SENDO CRIADO A PARTIR DA SINTAXE DO OBJECT 
+
+LITERAL,
+
+
+E NÃO 
+
+
+
+A PARTIR DA SINTAXE DA 'CLASS' (new XXXXX(), etc etc)...
+
+
+
+
+
+ou seja,
+
+
+UM DUMMY OBJECT, sem ter ligação a uma class que vocÊ define... -------> E AÍ O 
+
+
+
+
+__ VALOR __ Para essa __PROPRIEDADE DE 
+
+
+'describe'
+
+
+É JUSTAMENTE __ 
+
+
+
+
+UM __ POINTER_ _à PROPRIEDADE 
+
+de 
+
+
+'describe'
+
+
+
+NO OBJECT 'accounting'...
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO SIGNIFICA QUE O PROFESSOR ESTÁ APONTANDO A ESTE METHOD 
+
+
+AQUI:
+
+
+
+
+
+'describe() {
+    console.log('Department: ' + 'Accounting');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok.... ------>  E COMO DENTRO DE 'accountingCopy'
+
+
+
+
+TEMOS 
+
+
+APENAS___ 
+
+
+
+
+A REFERÊNCIA A ESSA PROPRIEDADE,
+
+ESCRITA DE FORMA 'solta',
+
+
+tipo assim:
+
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe ///////// E NÃO ASSIM '''accounting.describe()''''}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E COMO NÃO ESTAMOS __ EXECUTANDO ESSE 'accounting.describe()" ,
+
+
+NÃO ESTAMOS RECEBENDO O ACTUAL VALUE DESSE METHOD....
+
+
+
+
+
+
+
+
+
+
+--> isso significa que 
+
+
+
+
+
+
+
+QUANDO NÓS 
+
+
+
+ESCREVEMOS 
+
+
+
+
+'accountingCopy.describe()',
+
+
+
+ISSO 
+
+REALMENTE__ ACABA EXECUTANDO O METHOD DESSA CLASS (De 'accountingCopy'),
+
+
+
+
+MAS 
+O
+ 
+ PROBLEMA 
+
+ É QUE 
+
+
+
+
+
+
+ QUANDO ESSE METHOD DE 'describe()" em 'accountingCopy'
+
+
+ for executado,
+
+
+
+ a 
+
+ keyword 
+
+ 'THIS' 
+
+
+
+
+
+ __ NÃO VAI __ ESTAR SE REFERINDO A 
+
+
+
+
+ ESSE 
+
+
+ OBJECT QUE 
+
+
+
+
+ o method 'describe' 
+
+
+
+
+
+ FAZIA PARTE ORIGINALMENTE (ou seja, não vai estar se referindo a 'const accounting') ,
+
+
+
+
+
+
+ E __ SIM __ 
+
+
+
+
+ VAI ESTAR SE REFERINDO 
+
+
+
+
+
+
+
+
+ '''''''''''à COISA QUE __ É RESPONSÁVEL __ PELO CALLING DE UM METHOD'''''''' ----->  E A COISA QUE 
+
+
+ É 
+
+ RESPONSÁVEL 
+ PELO CALL 
+
+ DE NOSSO METHOD,
+
+
+ NESSE CASO,
+
+
+
+ É JUSTAMENTE 
+
+
+
+ 'accountingCopy'
+
+
+ em si, 
+
+ PQ 
+
+ É 
+
+ ELE QUE TRIGGA A 'CHAIN DE METHODS'....
+
+
+(
+
+    pq o describe() foi chamado EM CIMA DELE/A PARTIR DE SUA PROPRIEDAED...
+)
+
+
+
+
+
+ eX:
+
+
+
+
+
+accountingCopy.describe();
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> ISSO, ESSA PROPRIEDADE, NO ENTANTO,
+
+é 
+
+UMA PROPRIEDADE  QUE  ___ NÃO __ TEM ___ 
+
+
+NENHUMA PROPRIEDADE 'name',
+
+
+
+
+
+E É __ EXATMENTE __ POR ISSO QUE 
+
+
+
+
+QUANDO TENTAMOS ACESSR 
+
+
+'this.name',
+
+por causa daquele 
+
+
+código de 
+
+
+
+'describe() {
+    console.log('Department: ' + this.name)
+}',
+
+
+
+
+
+
+
+_ NÓS IMEDIATAMENTE RECEBEMOS UM ERROR/UNDEFINED...
+
+
+
+(
+
+    é por isso que fica 
+
+
+    'Department: undefined'....
+)
+
+
+
+
+
+
+
+
+
+--> A CULPA É DO THIS, ESSENCIALMENTE,
+
+PQ 
+
+É 
+
+ELE QUE 
+ESTÁ __ SE REFERINDO _ A UM __ OBJECt__ QUE NÃO TEM UMA PROPRIEDADE DE 'name' (
+
+
+    no caso, o object 'accountingCopy'...
+) ---> e o name nos yielda undefined EXATAMENTE POR CONTA DISSO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO __ É ALGO QUE VOCÊ DEVE TER EM MENTE.... ---> É ALGO QUE VOCÊ TEM QUE CONSIDERAR 
+
+NÃO SÓ NO TYPESCRIPT, MAS NO JAVASCRIPT EM GERAL....
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO PODE ACONTECER 
+
+
+
+COM VOCÊ NO TYPESCRIPT TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PARA EVITAR__ ESSA SITUAÇÃO,
+
+
+
+o que 
+
+você 
+
+
+pode 
+
+fazer é 
+
+
+ADICIONAR __ UM __ PARAMETER__ 
+
+
+A SEU METHOD DE 'describe()'
+
+lÁ 
+
+NA SUA 
+
+
+
+
+CONSTRUCTOR FUNCTION..
+
+
+
+
+
+
+
+
+
+
+-----> O PARAMETER QUE VOCÊ PASSARÁ É JUSTAMENTE A KEYWORD DE 'this'....
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ class Department {
+
+     constructor (n: string) {
+         this.name = n;
+     }
+
+     describe(this) { //////////EIS O CÓDIGO EM QUESTÃO.
+         console.log('Department: ' + this.name);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting');
+
+
+
+
+
+
+ accounting.describe();
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe }
+
+
+
+
+
+accountingCopy.describe();
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  SE VOCÊ COLOCA 'this' 
+
+
+COMO __ PARÂMETRO __ 
+
+
+
+EM 
+
+
+1 
+
+DE SEUS 
+
+METHODS em 1 class,
+
+
+
+
+
+__ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA 
+
+
+
+
+
+
+
+
+
+UM PARAMETER DE 'THIS'
+
+
+
+no seu method,
+
+
+
+
+_ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS'
+
+que 
+
+será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROPÓSITO DE 'this',
+
+AQUI,
+
+
+É 
+
+
+'TELL A HINT' 
+
+ao typescript 
+
+
+
+
+__ SOBRE A COISA A QUE 
+
+'this'
+
+DEVE SE REFERIR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... MAS ISSO FEITO, É __ IMPORTANTE__ IMEDIATAMENTE__ ASSIGNAR UM ___ TYPE__ 
+
+A 
+ESSE 
+
+'this'
+
+
+
+
+
+
+
+
+
+---> NO NOSSO CASO, CASO DE NOSSO 
+
+
+
+CÓDIGO,
+
+
+
+___ É ÓBVIO QUE __ O TYPE QUE DEVE SER ESPERADO __ DEVE __ SER ESPECFICCAMENTE
+ 
+ NOSSA CLASS DE 
+
+ 'Department',
+
+
+
+ pq 
+
+
+
+ esse 
+
+ method, e seu 'this',
+
+
+
+ SEMPRE 
+
+
+ DEVERÃO SE REFERIR 
+
+ A ISSO.... (pq não vamos querer NOS REFERIR, obviamente, ÀS PROPRIEDADES/METHODS EXISTENTES NAS NOSSAS INSTÂNCIAS, E SIM __ NA CLASS ORIGINÁRIA, na class 'Department' original, com os methods e properties originais.....)
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+ 
+
+
+
+ class Department {
+
+     constructor (n: string) {
+         this.name = n;
+     }
+
+     describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO.
+         console.log('Department: ' + this.name);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting');
+
+
+
+
+
+
+ accounting.describe();
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe }
+
+
+
+
+
+accountingCopy.describe();
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO DESCRIBE FOR EXECUTADO,
+
+
+
+
+
+o 
+
+'this'
+
+
+DENTRO DE 'describe'
+
+
+DEVERÁ 
+
+SE REFERIR 
+
+
+
+
+SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT'''''
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+----> OU SEJA,
+
+AGORA 
+
+
+
+O 
+
+
+
+THIS VAI SEMPRE SE REFERIR 
+
+A 
+
+
+
+
+
+UM OBJECT QUE 
+
+É DE TYPE 'Deparment' ( ou seja, nossa class)...
+
+
+
+
+
+
+
+
+--------> E A PARTIR DISSO,
+
+
+
+IMEDIATAMENTE__ RECEBEREMOS _ UM ERRO LÁ EMBAIXO,
+
+
+
+em 
+
+
+'accountingCopy.describe()'....
+^^^^^^^^^^^^^
+
+
+
+
+
+
+
+
+ O CÓDIGO TYPESCRIPT VAI NOS DIZER QUE 
+
+
+
+ QUANDO NÓS CHAMAMOS '.describe()"
+
+
+ em 
+
+
+
+ 'accountingCopy'
+
+ ,
+
+
+
+
+
+ NÓS NÃO VAMOS ESTAR CHAMANDO 
+
+
+ ESSE METHOD 
+
+
+ em 
+
+
+
+
+
+ 'UMA INSTANCE DE DEPARTMENT',
+
+
+
+
+
+JUSTAMENTE PQ 
+
+ESSA PROPRIEDADE de 'describe' 
+
+
+
+ESTÁ 
+
+
+EXISTINDO DENTRO DE UM 'OBJETO SORTIDO', objeto criado SEM UMA CLASS, 
+
+pq 
+
+
+
+
+nosso código havia sido escrito assim:
+
+
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe } ///object que nÃO FOI CRIADO COM A INSTANCIACAO DE NOSSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const accounting = new Department('Accounting');
+
+
+
+
+
+
+accounting.describe();
+
+
+
+
+
+const accountingCopy = { describe: accounting.describe }; ///////object que nÃO FOI CRIADO COM A INSTANCIACAO DE NOSSA CLASS... (class de 'Department")...
+
+
+
+// accountingCopy.describe(); //// esse código é considerado INVÁLIDO_ JUSTAMNETE__ PQ ESTAMOS TENTNADO CHAMAR 'describe()' (esse method) EM 1 OBJECT_ _QUE __ NÃO _ É UM OBJECT CRIADO A PARTIR DA INSTANCIAÇÃO DAQUELA CLASS DE 'Department', que foi passada como type lá em 'describe(){}'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA UQE 
+
+PELO ADD DE 
+
+
+
+'this: Department'
+ 
+
+ lá 
+
+ no method DESCRIBE __ nós ___ ADICIONAMOS 
+
+
+
+
+
+
+
+
+ UM POUCO MAIS DE 'TYPE SAFETY',
+
+
+
+
+
+
+
+
+
+ ___ POR MEIO DESSE DUMMY PARAMETER DE 'this'.... ------> PQ SE TENTARMOS 
+
+
+
+ EXECUTAR 
+
+ 'accountingCopy.describe()',
+
+
+
+
+
+
+
+
+ VAMOS _ GANHAR ERRORS ( code não funcionará como o esperado)...
+
+
+
+
+
+
+
+
+
+
+
+ ------> PARA FAZER ESSE 'accountingCopy.describe()'
+
+
+ NÃO APITAR/DAR ERRO,
+
+
+
+ TMOS QUE 
+
+
+
+ ADICIONAR 
+
+
+
+ 'name: saashasisaiah' 
+
+
+
+
+ DENTRO DE 'accountingCopy',
+
+
+
+
+
+
+ TUDO PARA QUE 
+
+
+
+ O OBJECT de 'accountingCopy'
+
+
+
+
+ SEJA EFETIVAMENTE 
+
+
+
+ 1 OBJECT COM TYPE/compatível com 
+
+
+
+ a estrutura da CLASS de 'Department'....
+
+
+
+
+
+
+
+
+
+ ---------------------------
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  -----> OK.... SE REMOVEMOS ESSA PROPRIEDADE,
+
+
+  ganhamos o 
+
+  error dnv....
+
+
+
+
+
+
+
+
+
+
+
+  --> é importante entender 
+
+
+  QUE 
+
+  
+  VOCÊ DEVE ADICIONAR ESSE TYPE DE 'this'
+
+
+  NOS METHODS DE 
+
+
+
+  SUAS 
+
+
+
+  CLASSES (como 'describe(this: Department)' ),
+
+
+  TUDO PARA QUE 
+
+  VOCê EVITE COMPORTAMENTOS INDESEJADOS COMO ESSE de 
+
+
+  'accountingCopy: describe()'
+
+  que vimos há pouco...

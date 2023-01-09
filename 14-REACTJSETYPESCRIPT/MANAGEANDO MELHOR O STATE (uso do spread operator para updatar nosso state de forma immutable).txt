@@ -1,0 +1,286 @@
+
+
+
+
+
+
+
+
+
+--> OK, ISSO É BEM ÓBVIO, E JÁ SEI COMO FAZER,
+
+
+
+
+FIZ ASSIM:
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+
+import NewTodo from './components/NewTodo';
+
+
+
+import { Todo } from './todo.model';
+
+
+interface AppProps {}
+
+const App: React.FC<AppProps> = (props) => {
+  const [todos, setTodos] = useState<Todo[]>([  ///OBS::: VERSÃO COM OUTSOURCE DO INNERTYPE DE 'Todo'.... 
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+
+
+
+
+
+
+
+
+
+
+    --> 
+
+
+
+ISSO FUNCIONA,
+
+
+
+CERTAMENTE,
+
+
+MAS __ NÃO __ É A MELHOR MANEIRA DE FAZER ISSO,
+
+EXPLICA O PROFESSOR....
+
+
+
+
+
+
+
+
+
+--> PQ ISSO?
+
+
+
+
+
+
+
+
+--> É PQ O REACT 
+'SCHEDULES' 
+
+
+OS 
+
+
+state updates --> isso significa que  
+
+
+
+O QUE TEMOS NESSE ARRAY DE 'todos'
+
+
+TALVEZ NÃO SEJA 
+
+
+NECESSARIAMENTE O 'LATEST UPDATE' quando o 
+
+
+
+
+update é realizado... -----> PARA ASSEGURAR ISSO,
+
+
+QUE 
+
+
+REALMENTE ESTAMOS COM O 
+
+'latest update',
+
+
+PODEMOS USAR AQUELA SINTAXE 
+
+
+
+
+__EXTENSA__ DO 'setTodos',
+
+
+
+QUE USA 
+
+
+'prevState',
+
+
+
+
+
+QUE É UM SNAPSHOT 
+
+
+
+
+
+do state antigo,
+
+que podemos usar com sucesso....
+
+
+
+
+
+
+ficará tipo assim:
+
+
+
+
+
+
+
+
+setTodos(
+    (prevState) => {
+
+                return  [...prevState, 
+                    {
+                        id: Math.random().toString(), 
+                        
+                        text: text
+                    }
+                    ]
+                
+    }
+)
+
+
+
+
+
+
+
+------------------------
+
+
+
+OK... AGORA O NEGÓCIO VAI SER UPDATADO ADEQUADAMENTE....
+
+
+
+
+
+
+
+
+
+--> ISSO TUDO FUNCIONA...
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS QUERER UMA FUNCIONALIDADE __ PARA__ DELETAR___ NOSSOS TODOS....
+
+
+
+
+
+--> FAREMOS ISSO NA PRÓXIMA AULA...

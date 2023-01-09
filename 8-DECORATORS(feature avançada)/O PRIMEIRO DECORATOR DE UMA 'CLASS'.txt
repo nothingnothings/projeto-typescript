@@ -1,0 +1,1502 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA COMEÇAR, TEMOS NOSSO STARTING PROJECT DEFAULT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O LITE-SERVER,
+
+
+E O WATCH DO TSC,
+
+
+
+com 
+
+
+'tsc --watch'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------->  A PRIMEIRA COISA QUE TEMOS QUE CONFIGURAR, NO NOSSO TSCONFIG.JSOn,
+
+é 
+
+o 
+
+'target',
+
+que será de ES6....
+
+
+
+
+
+
+
+
+
+
+
+
+
+E SE SCROLLARMOS PARA BAIXO,
+
+
+
+DEVEMOS _ ABSOLUTAMENTE DEIXAR MARCADA AQUELA OPÇÃO DE 
+
+
+
+"experimentalDecorators: true'... 
+
+
+
+
+
+
+
+
+
+
+-> É ISSO QUE ATIVA O WRITE DE DECORATORS NO NOSSO CÓDIGO (decorators ECMASCRIPT 7)...
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... FICA ASSIM:
+
+
+
+
+
+    "experimentalDecorators": true, 
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCÊ TEM QUE ATIVAR ISSO PARA 
+
+
+poder usar decorators no seu código....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... VAMOS NO APP.TS 
+
+
+e escrevemos 
+
+nosso primeiro decorator...
+
+
+
+
+
+
+
+
+
+
+
+---> DECORATORS, NA VERDADE,
+
+SÃO 
+
+
+'ALL ABOUT CLASSES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESTE DECORATOR QUE VAMOS ESCREEVER ___ SERÁ ADICIONADO _à CLASS COMO UM TODO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> criamos 
+
+
+
+
+uma class 
+
+
+
+de nome 'Person',
+
+
+
+
+
+EM QUE 
+
+TEMOS 
+
+
+
+
+UMA VARIÁVEL/propriedaed
+
+de nome 
+
+'max'
+
+
+
+
+
+
+
+
+
+PRE-INICIALIZADA...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Person {
+
+
+
+    name = 'Max';
+
+
+    constructor() {
+        console.log('Creating person object...');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+AÍ, ISSO FEITO,
+
+
+
+PODEREMOS CRIAR UMA NOVA PERSON COM UM CÓDIGO COMO ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+class Person {
+
+
+
+    name = 'Max';
+
+
+    constructor() {
+        console.log('Creating person object...');
+    }
+}
+
+
+
+
+
+
+
+const person = new Person();
+
+
+
+
+
+
+
+console.log(person);
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> OK.... COMPILAMOS TUDO ISSO,
+
+
+E NÃO RECEBEMOS ERROR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> NO OUTPUT,
+
+vimos isto:
+
+
+
+ 
+
+
+ 'Creating person object...' 
+
+
+
+
+ > Person {name: 'Max'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> CERTO.... -----------> MAS NESSE EXEMPLO,
+
+ NÃO TEMOS NENHUM DECORATOR ENVOLVIDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> VAMOS MUDAR ISTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> NO TOPO DO ARQUIVO, ADICIONAMOS UM DECORATOR...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> E UM 
+
+
+
+ DECORATOR, NO FINAL DAS CONTAS,
+
+ É APENAS UMA RELES 'FUNCTION'.......
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> É UMA __ FUNCTION___ QUE É APLICADA A ___ ALGO__, no caso, uma 
+
+
+ CLASS,
+
+
+ de uma certa forma....
+
+
+
+
+
+
+
+
+
+
+
+ ----------> adicionamos 
+
+
+
+
+
+
+ aí 
+
+
+
+ a
+
+ keyword 
+
+ 'function',
+
+ e aí 
+
+
+
+ um 
+
+
+
+ nome de 'Logger'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --------------------->  A ÚNICA DIFERENÇA DE 'DECORATORS' para 
+
+ outras functions 
+
+
+ é __ 
+
+
+
+ AS INICIAIS EM MAIÚSCULo...
+
+
+
+
+
+
+
+
+
+ Ex:
+
+
+
+
+
+
+
+ function Logger() {  ///este é um DECORATOR.... --> decorators são aplicadas a coisas, como CLASSES, por exemplo... (e decorators são sempre escritos com INICIAL MAIÚSCULA)...
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO, NÃO É UM 'MUST-DO',
+
+
+btw,
+
+
+
+
+__ NÃO TEMOS QUE USAR 
+
+SEMPRE 
+
+UM 
+
+
+
+UPPER-CASE CHARACTER,
+
+
+mas 
+
+
+VOCÊ 
+
+FREQUENTEMENTE 
+
+
+VÊ 
+
+DECORATORS COM UPPERCASE 
+
+STARTING CHARACTERS,
+
+
+POR ISSO O PROFESSOR FAZ A MESMA COISA AQUI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO É UM DECORATOR, E PODEMOS O APLICAR EM UMA CLASS, COMO UM 'DECORATOR'...
+
+
+
+
+
+
+
+
+
+
+
+--> NO BODY DESSE DECORATOR,
+
+professor coloca um 
+
+
+
+console.log de 'Logging'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS O ADICIONAR, COMO DECORATOR,
+
+
+à CLASS de 'Person'...
+
+
+
+
+
+
+
+
+
+
+
+--> FAZEMOS ISSO POR MEIO DO WRITE DE UM SÍMBOLO DE 
+
+
+
+
+
+'@',
+
+
+
+E DEPOIS _O___ NOME __ DO DECORATOR/function,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+@Logger....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS PRECISAMOS DE ALGUNS ESCLARECIMENTOS....
+
+
+
+
+
+
+
+
+
+
+
+--> o '@' 
+
+É UM __IDENTIFICADOr__ ESPECIAL 
+
+
+
+
+
+___ NO TYPESCRIPT, QUE O TYPESCRIPT ENTENDE/RECONHECe....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE DEPOIS DE '@'
+
+vamos __ APONTAR A UMA FUNCTION/DECORATOR.... ---> basta 
+
+
+
+
+APONTAR,
+
+
+
+__ SEM EXECUTAR__ ('()' )....
+
+
+
+
+
+
+
+
+
+---------->  CERTO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AÍ O TYPESCRIPT NOS DÁ UMA INFO:
+
+
+
+
+
+'Logger accepts too few arguments to be used as a decorator here.
+Did you mean to call it FIRST and write '@Logger()'? '
+
+
+
+
+
+
+
+
+
+
+--------> OK.... ---> ISSO SIGNIFICA QUE:
+
+
+
+
+
+
+
+1) O TYPESCRIPT__ ENTENDE/ENTENDEU QUE VAMSO QUERER O UTILIZAR COMO UM DECORATOR, EM ALGUMA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+2) A MÁ NOTÍCIA É QUE 
+
+ AINDA NÃO PASSAMOS ARGUMENTOS SUFICIENTES.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> E, DE FATO,
+
+
+ DECORATORS _ __ RECEBEM__ ARGUMENTOS__....
+
+
+
+
+
+
+
+
+
+
+
+
+ -> QUANTOS ARGUMENTOS?
+
+
+
+
+
+
+
+
+
+ --> DEPENDE DO __ LOCAL__ EM QUE VOCê VAI QUERER UTILIZAR ESSE DECORATOR...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> aqui, 
+
+
+
+ PARA UM _ DECORATOR QUE __ ADICIONAMOS/APLICAMOS EM 1 CLASS,
+
+
+
+
+
+
+VAMOS __ OBTER/EXIGIR_ SÓ 1 
+
+
+PARÂMETRo/ARGUMENTO...
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ESSE ARGUMENTO, ÚNICO, 
+
+
+
+SERÁ __ 
+
+
+SÓ O 'TARGET'__ 
+
+
+
+DESSE DECORATOR.... 
+
+
+
+
+
+--> O TARGET, NO CASO, SERÁ __ UMA CONSTRUCTOR FUNCTION (pq classes são CONSTRUCTOR FUNCTIONS, NO FINAL DAS CONTAS.... e vamos sempre querer aplicar decorators a CLASSES)....
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE 
+
+
+VAMOS ESCREVER ASSIM:
+
+
+
+
+
+
+function Logger(target: Function) {
+    console.log('Logging...');
+}
+
+
+
+
+
+
+
+
+-------> OK, 
+
+
+
+ESSA FUNCTION, essa constructor function ( que é 'Person') SERÁ 
+
+O 
+
+'ALVO', 
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+VOCÊ 
+
+
+TAMBÉM 
+
+
+
+PODE 
+
+
+
+COLOCAR O NOME DE 'constructor',
+
+em vez de target,
+
+
+
+pq 
+
+
+
+SEU PARÂMETRO REALMENTE SERÁ UMA CONSTRUCTOR FUNCTION...
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+function Logger(target: Function) {  ///o target de DECORATORS DE CLASSES __ sempre_ será uma FUNCTION (pq é a/uma CONSTRUCTOR FUNCTION, o alvo, que é uma CLASS)....  ---> você também poderia chamar esse parâmetro de 'constructor', pq ele sempre será um constructor, também....
+    ///este é um DECORATOR.... --> decorators são aplicadas a coisas, como CLASSES, por exemplo... (e decorators são sempre escritos com INICIAL MAIÚSCULA)...
+    console.log('Logging...'); 
+}
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... obtemos uma function como parameter nesse 'decorator', no final das contas....
+
+
+
+
+
+
+
+
+
+
+--------> OK.... VAMOS CONSOLE.LOGGAR 
+
+
+também o argumento de 'constructor/target'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... SALVAMOS E COMPILAMOS ISSO AÍ...
+
+
+
+
+
+
+
+
+
+
+
+-----> VEMOS, no console, 
+
+este output:
+
+
+
+
+
+
+ Logging...
+
+
+class Person {
+    constructor() {
+        this.name = 'Max';
+        console.log('Creating person object...');
+    }
+}
+
+
+
+
+ Creating person object...
+ app.ts:31 Person
+
+
+
+
+ ------------------------------------
+
+
+
+
+
+
+
+
+
+ OK.... vemos esse 'Logging....' (output que escrevemos primeiro)
+
+
+ e aí 
+
+
+
+ aquele 
+
+
+ '''
+
+ 
+class Person {
+    constructor() {
+        this.name = 'Max';
+        console.log('Creating person object...');
+    }
+}
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+VEMOS A CLASS INTEIRA 
+
+
+
+nesse output...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VEMOS A CLASS INTEIRA AQUI... --> mas classes, no final das contas, são só 
+
+'syntatical sugar' sobre constructor functions....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PERCEBA:
+
+
+
+
+
+
+nosso console.log 
+
+
+
+,
+
+
+O DECORATOR OUTPUT,
+
+
+logging e tals,
+
+
+
+TUDO ISSO__ AÍ_, 
+
+
+
+
+
+
+É __ vISTO___ ANTES__ do 
+
+
+
+resto 
+
+de 
+
+
+
+
+todo o código...
+
+
+
+
+
+
+
+
+
+
+
+NA REAL, PENSE ASSIM:
+
+
+
+
+
+
+
+
+
+'Logging'... --> vem da linha 1 _ NO DECORATOR__....
+
+
+
+'
+class Person {
+    constructor() {
+        this.name = 'Max';
+        console.log('Creating person object...');
+    }
+}
+' -------> VEM DA LINHA 2 NO DECORATOR....
+
+
+
+
+
+
+'Creating Person object' ---> VEM DE DENTRO DO CONSTRUCTOR DA CLASS 'Person' (que é executada __ DEPOIS DO DECORATOR)...
+
+
+
+
+
+
+
+
+
+
+
+'>Person {name: 'Max}' ---> vem da linha de ''  console.log(person); ''' ----> que vem beeem depois do código de dentro do constructor da class 'Person'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ISSO SIGNFICA QUE 
+
+
+
+NOSSA 
+
+LÓGICA 
+
+DO DECORATOR É 
+
+
+
+__PRINTADO__ ANTEs___ DE TODO O RESTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO OCORRE/OCORREU  ___JUSTAMENTE__ PQ 
+
+
+
+DECORATORS__ SÃO EXECUTADOS___ 
+
+
+
+
+
+
+_________ NO MOMENTO __ EM QUE 
+
+___ SUAS CLASSES/CONSTRUCTOR FUNCTIONS __ SÃO DEFINIDAS 
+
+
+(
+
+    e não quando são instanciadas, em um MOMENTO POSTERIOR....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+
+
+
+
+'YOU DONT NEED TO INSTANTIATE YOUR CLASS AT ALL' PARA _ VER 
+
+
+
+A LÓGICA DE UM DECORATOR SENDO EXECUTADA....
+
+
+
+
+
+
+
+
+--> PODERÍAMOS 
+
+
+
+REMOVER O CÓDIGO DE INSTANCIAÇÃO, AQUELE 
+
+'const person = new Person()',
+
+
+
+E AINDA 
+
+RECEBERÍAMOS 
+
+O 
+
+
+OUTPUT DAQUELE DECORATOR,
+
+
+
+aquele 
+
+
+
+'''
+
+function Logger(target: Function) {  ///o target de DECORATORS DE CLASSES __ sempre_ será uma FUNCTION (pq é a/uma CONSTRUCTOR FUNCTION, o alvo, que é uma CLASS)....  ---> você também poderia chamar esse parâmetro de 'constructor', pq ele sempre será um constructor, também....
+    ///este é um DECORATOR.... --> decorators são aplicadas a coisas, como CLASSES, por exemplo... (e decorators são sempre escritos com INICIAL MAIÚSCULA)...
+    console.log('Logging...'); 
+    console.log(target);
+}
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+----------------------> ISSO SIGNIFICA QUE 
+
+
+
+
+
+___ O _ DECORATOR__ RODA QUANDO O JAVASCRIPT__ 
+
+
+
+
+
+
+'''FINDS YOUR CLASS DEFINITION, sua definição 
+
+
+da
+
+CONSTRUCTOR FUNCTION'''.... (e não quando você usa essa constructor function para instanciar um objeto)...
+
+
+
+
+
+
+
+
+
+
+
+
+E ISSO É BEM IMPORTANTE DE ENTENDER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... ESSE FOI NOSSO PRIMEIRO DECORATOR,
+
+E 
+A 
+
+MANEIRA 
+
+
+(única)
+ 
+ DE CRIAR DECORATORS....
+
+
+ 

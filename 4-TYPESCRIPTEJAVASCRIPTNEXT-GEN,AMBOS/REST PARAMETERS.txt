@@ -1,0 +1,567 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS O SPREAD OPERATOR,
+
+
+AGORA É HORA DE VER OS 
+
+'REST PARAMETERS'....
+
+
+
+
+
+
+
+
+(é o resto)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const add = () => {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR QUER SER CAPAZ DE 'ADD AS MANY VALUES AS THE USER PASSES IN'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso, SEREMOS FORÇADOS A USAR O SPREAD OPERATOR....
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+const add = (...arguments) => {
+
+
+
+           return arguments.reduce(); 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> ACHO QUE SERÁ ASSIM.... --> MAS 'reduce' usa UM CÓDIGO ESPECÍFICO....
+
+
+
+
+
+
+
+
+
+
+
+'...arguments' vai representar 
+
+
+'[2, 5, 7, 10, 12]' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS É CLARO QUE 
+
+
+'...arguments'
+
+VAI ORIGINALMENTE SE REFERIR A UMA __ LISTA__ DE VALUES_ COM TYPE DE 'any'... --> 
+
+
+
+E NÃO PODEMOS 
+
+
+SER 
+
+
+
+TÃO 
+
+
+'GENÉRICOS',
+
+
+POR ISSO 
+
+ESCREVEMOS O TYPE DO ARRAY,
+
+QUE SERÁ DE 
+
+'number':
+
+
+
+
+
+
+
+
+
+
+const add = (...arguments: number[]) => {
+
+
+
+           return arguments.reduce(); 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> E 'REDUCE'
+
+
+exige 1-2 parameters, e não passamos coisa alguma...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PROFESSOR NÃO VAI USAR 'reduce',
+
+E SIM _ VAI USAR 
+
+
+UM 
+
+
+
+__FOR LOOP_, para loopar POR 
+
+DENTRO DO ARRAY DE 
+
+
+'arguments'
+
+
+E ENTÃO 
+
+
+
+
+
+ADICIONÁ-LOS TODOS EM 1 ÚNICO NÚMERO...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+const add = (...arguments: number[]) => {
+
+
+
+    return arguments.reduce(
+            (prevValue, curValue) => {
+                return prevValue + curValue;
+            },
+            0
+    ); 
+
+}
+
+
+
+
+
+
+
+add(2, 50, 1221)
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> '.reduce()' ----> REALIZA UMA OPERAÇÃO EM CADA ELEMENTO EM 1 ARRAY, AÍ RETORNA 1 RESULT E ENTÃO 'ADDS THESE RESULTS TOGETHER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+ok... 
+
+
+TUDO CERTO, PENSO EU...
+
+
+
+
+
+
+
+
+REST PARAMETERS --> ÚTIL PARA ACEITAR 
+
+
+UM MONTE DE PARAMETERS... 
+
+
+
+
+
+
+
+
+
+
+
+
+VOCÊ TAMBÉM PODE COMBINAR 'REST PARAMETERS'
+
+
+com tuples, se quiser...
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ SABE __ QUE _ VOCÊ VAI QUERER SUPORTAR 'MULTIPLE ARGUMENTS',
+
+
+
+
+
+
+__ MAS_ __ VOCê __ SABE__ COM CERTEZA QUANTOS __ 
+
+
+ARGUMENTS VOCÊ TERÁ,
+
+
+
+
+
+
+
+
+
+
+
+
+VOCÊ 
+
+PODE 
+
+
+
+
+COMPLICAR AQUELA TYPE DEFINITION NA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+isto aqui:
+
+
+
+
+
+const add = (...numbers: [number])' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ  PODE ESPECIFICAR ISSO DAÍ,
+
+ESCREVER ALGO COMO ISTO:
+
+
+
+
+
+const add = (...numbers: [number, number, number])' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ISSO VAI ESPECIFICAAR __ BEM_  QUE 
+
+
+
+agora 
+
+
+NÓS VAMOS QUERER __ EXATAMENTE 3 ARGUMENTS,
+
+
+
+
+OS 3 NUMBERS,
+NESSA FUNCTION... (uso de TUPLES...) -------> 
+
+
+
+
+
+
+
+
+
+
+
+
+PQ EM VEZ DE ESCREVER ISTO:
+
+
+
+const add = (number1: number, number2: number, number3: number),
+
+
+
+
+
+
+
+
+
+É MAIS PRÁTICO ESCREVER ISTO:
+
+
+
+
+
+const add = (...numbers: [number, number, number])' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> certo.... 
+

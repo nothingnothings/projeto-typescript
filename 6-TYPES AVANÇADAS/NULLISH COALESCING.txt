@@ -1,0 +1,776 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... VAGAMENTE CONECTADA AO CONCEITO DE 'optional chaining' ,
+
+
+
+há 
+
+a feature 
+
+
+
+
+
+
+
+DO TYPESCRIPT  _ _QUE NOS AJUDA ___ A LIDAR COM 'NULLISH DATA'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOME DESSA FEATURE É 'nullish coalescing'...
+
+
+
+
+
+
+
+
+
+
+
+
+-_> COALESCING --> fusão/amálgama..
+
+
+
+
+
+
+
+
+
+
+
+
+---------------> IMAGINE QUE VOCê TEM UMA DATA,
+
+
+
+UM INPUT,
+
+
+em que 
+
+VOCÊ __ NÃO TEM CERTEZA 
+
+SE 
+
+É 
+
+
+
+'NULL' 
+
+
+
+
+
+
+
+OU SE É 'undefined',
+
+
+
+
+
+OU __ SE É UMA 'VALID PIECE OF DATa'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> por exemplo,
+
+
+professor 
+
+escreve um 
+
+
+
+
+
+'const userInput = null;' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... MAS NESSE EXEMPLO, HARDCODAMOS ISSO NO TYPESCRIPT, POR ISSO O TYPESCRIPT __SABE__ QUE ___
+
+ISSO É NULL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VAMOS FETCHEAR O VALOR DESSA CONST___ DE UMA DOM API,
+
+
+
+
+em que __ NÃO TEMOS CERTEZA 
+
+
+
+
+
+__ SE O NEGÓCIO SERÁ REALMENTE null...
+
+
+
+
+
+
+
+
+
+--> OU, EM OUTRA HIPÓTESE,
+
+ESTMAOS FETCHEANDO ESSE VALOR DE UM BACKEND... --> aí também não vamos ter certeza 
+
+DE 
+QUAL 
+
+
+
+
+TYPE SERÁ NESSA CONST.... (se será null ou não)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> CERTO.... E SE ARMAZENARMOS 
+
+
+
+ESSA 
+
+
+
+
+constnate em OUTRA VARIÁVEL,
+
+como 
+
+
+'storedData',
+
+
+
+
+
+
+
+
+
+
+
+
+
+EM QUE 
+
+DEFINIMOS UM 'FALLBACK VALUE' para essa constante...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+const userInput = null;
+
+const storedData = userInput || 'DEFAULT'; ///se isso realmente for NULL, vamos querer que seja adotado um TYPE DE 'DEFAULT' (essa string aí, literal type)...
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+ok... FICAMOS COM ESSE OPERADOR LÓGICO DE '||',
+
+
+QUE USAMOS PARA ARMAZENAR UM VALOR DE 
+
+
+
+'DEFAULT'
+
+nas hipóteses 
+
+EM QUE 
+
+
+
+AUQELE 
+
+VALOR 
+
+DE 
+
+'userInput'
+
+
+REALMENTE 
+É 
+
+
+'null/undefined' (falsY)...
+
+
+
+
+
+
+
+
+
+
+
+------->  
+
+
+o problema surge, no caso, SE O VALOR DE 'userInput' for de '' (empty string), E NÃO DE 
+'UNDEFINED/NULL'.... ----------> ISSO PQ  '' (empty string) É CONSIDERADO, TAMBÉM, 
+
+
+UM FALSY VALUE, mas NÃO É UNDEFINED/NULL.... --------> ISSO SIGNIFICA QUE 
+
+O 
+
+
+VALOR 
+
+'DEFAULT'
+
+
+
+VAI SE ENGATAR,
+
+
+
+mesmo 
+
+
+
+
+
+
+que essa não fosse nossa intenção...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE SE PRINTARMOS 'storedData',
+
+
+
+recebemos 'DEFAULT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E É CLARO QUE 
+
+
+
+
+ÀS VEZES ISSO PODE SER O QUE VOCÊ VAI QUERER 
+
+(
+
+    o 
+
+
+    return de '' 
+
+    naquela 
+
+
+    constante/fonte de seu código,
+
+    para 
+
+    então TRIGGAR ESSE 
+
+
+
+    'DEFAULT' definido nessa const....
+)
+,
+
+
+
+
+SITUAÇÕES EM QUE ISSO REALMENTE É O QUE VOCÊ QUER...
+
+
+
+
+
+
+
+
+
+
+------> MAS __ SE __ VOCê _ QUER __ MANTEr__ AQUELE 
+
+
+'userInput' (ou qualquer outra coisa com que você está trabalhando) 
+
+
+
+
+
+
+
+
+
+
+
+COMO A COISA QUE ELE É (uma EMPTY STRING, '', e não um 'valor falsy') ,
+
+
+
+
+
+
+
+
+
+
+__ AÍ _ _VOCÊ PRECISA DE OUTRO APPROACH...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, O 'NULLISH COALESCING' é usado 
+
+EM CASES 
+
+EM QUE
+
+
+VOCê 
+
+
+
+'''VAI QUERER MANTER UM EMPTY INPUT/STRING,
+
+
+
+
+
+E TAMBÉM VAI QUERER HANDLAR NULL/UNDEFINED DE FORMA DIFERENTE'''....
+
+
+
+
+
+
+
+
+
+
+
+
+--------> VOCÊ VAI QUERER DIZER 
+
+
+
+
+''''se ___ esse userInput ____________REALMENTE __ FOR UNDEFINED/NULL,
+
+
+VOU QUERER QUE SEJA COLOCADO ESSE VALOR 'DEFAULT''' ''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> para isso,
+
+
+
+
+_ O TYPESCRIPT TEM O OPERATOR DE '??' 
+
+
+
+
+
+
+
+
+
+
+
+DOUBLE QUESTION MARK...--------> É O OPERADOR DE 
+
+
+
+
+
+'NULLISH COALESCING'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele é escrito assim:
+
+
+
+
+
+
+
+
+
+const storedData = userInput ?? 'DEFAULT';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ELE QUER DIZER 
+
+
+
+
+'''SE ESSE VALOR à ESQUERDA REALMENTE FOR UNDEFINED,
+ 
+
+
+ E NÃO UMA EMPTY STRING OU ZERO,
+
+
+
+
+ __ AÍ _ VOU QUERER QUE SEJA DEFINIDO ESSE VALOR DA DIREITA'''.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+
+
+ ////ex:
+
+
+
+
+
+const userInput = '';
+
+
+
+
+
+
+////const storedData = userInput || 'DEFAULT';
+const storedData = userInput ?? 'DEFAULT'; /// o nulllish coalescing operator __ É USADO_ _ NO LUGAR DE "||" (pipe operator).....
+
+
+
+
+
+
+
+
+
+
+console.log(storedData); ////VAI PRINTAR  ''  (empty string), PQ __  ""  NÃO É __ EXATAMENTE A MESMA COISA QUE 'null/undefined', aos olhos do typescript, QUANDO USAMOS O NULLISH COALESCING OPERATOR (??)....
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> É POR ISSO QUE VEREMOS UMA EMPTY STRING OUTPUTTADA NO CONSOLE....
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ se escrevemos isto:
+
+
+
+
+
+
+
+
+////ex:
+
+
+
+
+
+const userInput = undefined;
+
+
+
+
+
+
+////const storedData = userInput || 'DEFAULT';
+const storedData = userInput ?? 'DEFAULT'; /// o nulllish coalescing operator __ É USADO_ _ NO LUGAR DE "||" (pipe operator).....
+
+
+
+
+
+
+
+
+
+
+console.log(storedData); ////VAI PRINTAR  ''  (empty string), PQ __  ""  NÃO É __ EXATAMENTE A MESMA COISA QUE 'null/undefined', aos olhos do typescript, QUANDO USAMOS O NULLISH COALESCING OPERATOR (??)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE ESCREVEOMS O 'userInput' como undefined,
+
+
+VAMOS GANHAR O PRINT DE 'DEFAULT',
+
+
+
+
+
+PQ 
+
+
+
+CÁIMOS NESSE FALLBACK, POR CAUSA DO 
+
+
+NULLISH COALESCING OPERATOR...

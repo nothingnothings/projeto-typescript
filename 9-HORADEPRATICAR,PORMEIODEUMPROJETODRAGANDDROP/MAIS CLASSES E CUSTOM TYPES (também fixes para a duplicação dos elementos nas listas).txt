@@ -1,0 +1,1893 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO PRÓXIMA ETAPA,
+
+
+O PROFESSOR QUER MELHORAR O CÓDIGO DE 'ProjectList',
+
+
+
+
+PARTICULARMENTE AQUELA PROPRIEDADE DE 'assignedProjects':
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+  assignedProjects: any[] = [];
+
+  constructor(private listType: 'active' | 'finished') {
+    ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+    this.templateElement = document.getElementById(
+      'project-list'
+    ) as HTMLTemplateElement;
+    this.hostElement = document.getElementById('app') as HTMLDivElement;
+    this.assignedProjects = [];
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+    projectState.addListener((projects: any[]) => {
+      this.assignedProjects = projects;
+      this.renderProjects();
+    });
+
+    this.attach();
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+  }
+
+  private attach() {
+    this.hostElement.insertAdjacentElement('beforeend', this.element);
+  }
+
+  private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    for (const project of this.assignedProjects) {
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+      const listItem = document.createElement('li');
+      listItem.textContent = project.title;
+      listEl.appendChild(listItem)
+    }
+  }
+
+  private renderContent() {
+    ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `${this.listType}-projects-list`;
+
+    console.log(listId);
+
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector(
+      'h2'
+    )!.textContent = `${this.listType.toUpperCase()} PROJECTS`;
+  }
+} 
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ESSE TYPE DE 'any[]' tem que ser alterado...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> também temos que mudar o type de 'any[]'
+
+
+lá em 
+
+'listeners' e 
+
+
+'projects',
+
+
+lá no 
+
+'ProjectState':
+
+
+
+
+
+
+
+class ProjectState {
+  ///approach parecido com o REACT (state management, global state objecT)....
+
+  private projects: any[] = [];
+
+  private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+  private listeners: any[] = []; //também usado com o SINGLETON...
+
+  private constructor() {
+    //vamos querer que esse constructor seja 'private' por causa do SINGLETON PATTERN (queremos que SÓ POSSA SER CRIADO 1 OBJECT, a partir dessa class, POR MEIO DE UM METHOD INTERNO A ESSA CLASS..)
+  }
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    const newProject = {
+      title: title,
+      description: description,
+      people: numOfPeople,
+      id: Math.random().toString(),
+    };
+
+    this.projects.push(newProject);
+    for (const listenerFunction of this.listeners) {
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+  }
+
+  addListener(listenerFunction: Function) {
+    this.listeners.push(listenerFunction);
+  }
+
+  static getInstance() {
+    ///ESSE METHOD TBM FAZ PARTE DO 'SINGLETON PATTERN' (apenas 1 object instanciado a uma class, E ESSE OBJECT SÓ PODE SER OBTIDO POR METHODS DEFINIDOS DENTRO DA CLASS EM SI)...
+
+    if (this.instance) {
+      return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok.... -----> É CLARO QUE 
+
+
+NÃO VAMOS QUERER TRABALHAR COM 'any[]'...
+
+
+
+
+
+
+
+
+
+
+
+--> FARIA BEM MAIS SENTIDO TER UMA 
+
+
+
+'DEDICATED PROJECT CLASS/TYPE/INTERFACE',
+
+
+
+
+
+
+que poderíamos usar no lugar desse 
+
+
+
+'any[]' 
+
+
+(
+
+    aí ficaria tipo 
+
+    'private projects: Project[] = [];'
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+O PROFESSOR CRIA UM TYPE DE 
+
+'Project'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA CRIAR UM 'TYPE' DE 
+
+
+
+'Project',
+
+
+
+O PROFESSOR 
+
+
+BASICAMENTE VAI USAR A SINTAXE DE 'class'...
+
+
+
+
+
+
+
+
+
+
+
+
+ele escreve assim:
+
+
+
+
+
+
+
+
+
+
+class Project {
+
+
+}
+ 
+
+
+
+
+
+ ---------------------------------
+
+
+
+
+
+
+
+
+
+
+ --> FAREMOS ISSO __ JUSTAMENTE__ PARA QUE _ SEMPRE __ SEJAMOS CAPAZES DE 
+
+ 'CREATE PROJECT OBJECTs'
+
+
+
+ com a mesma estrutura... 
+
+
+ (
+
+
+
+por enquanto, sempre fizemos o create desses projects, no nosso código,
+
+por meio da LITERAL NOTATION, COMO VISTO LÁ Em 'addProject' (ProjectState),
+
+
+em que 
+
+
+temos 
+
+o código de 
+
+
+
+'const newProject = {
+    id: Math.random().toString(),
+    title: title,
+    description: description,
+    people: numOfPeople
+}
+
+
+'
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+ -------------> VAMOS SUBSTITUIR ISSO POR ESSA CLASS/TYPE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS USAR UMA 'CLASS' 
+
+ E NÃO UM 'TYPE/INTERFACE',
+
+
+
+ PQ __ VAMOS _ QUERER___ SER CAPAZES__ DE INSTANCIAR_ ESSA CLASS/MOLDE..
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ok, 
+
+
+
+
+
+
+
+
+ AÍ O PROFESSOR COMEÇA A DEFINIR ESSA CLASS DE 'Project.'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ELE ADICIONA UM CONSTRUCTOR, E AÍ USA O SHORTCUT DE 'DEFINE PROPERTIES',
+
+
+
+
+
+
+ que é mais ou menos assim:
+
+
+
+
+
+
+
+ class Project {
+
+
+     constructor(public id: string, public title: string, public description: string, public people: number,  ) {
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+ --> ESSE SHORTCUT ESSENCIALMENTE ADICIONA 'PARAMETERS' A NOSSA CLASS QUE 
+
+ BASICAMETNE 
+
+
+
+
+ VIRAM 'PROPERTIES' também... (automaticmaente)...
+
+
+
+
+
+
+
+
+
+ADICIONAMOS, PORTANTO, AS PROPRIEDADES DE 
+
+'id',
+
+'title',
+
+'description',
+
+'people',
+
+etc...
+
+
+
+
+
+
+
+---> E, UMA COISA QUE TAMBÉM VAMOS QUERER ADICIOANR, QUE NÃO TÍNHAMOS ATÉ AGORA,
+
+é um 
+
+'project status' (
+
+
+
+
+    ISSO PARA DIVIDIR ENTRE 'FINISHED PROJECTS' E 'ACTIVE PROJECTS'...
+)
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+ class Project {
+
+
+     constructor(public id: string, 
+     public title: string, 
+     public description: string, 
+     public people: number, 
+     public projectStatus: 'active' | 'finished'
+      ) {
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE 'project status',
+
+NO CASO,
+
+
+
+SERÁ UM 'LITERAL TYPE',
+
+
+pq OS ÚNICOS VALORES POSSÍVEIS SERÃO 'active' ou 'finished'...
+
+
+
+
+
+
+
+
+
+
+-> ESSA PROPRIEDADE SERÁ ESSENCIAL PARA FILTRAR NOSSOS PROJECTS... (1 tipo de projects em 1 box, outro tipo na outra box)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> EU __ ACHAVA__ QUE O TYPE SERIA LITERAL, COM UNION TYPES,
+
+tipo assim:
+
+
+
+'public status: 'active' | 'finished' 
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK.... --> PODERÍAMOS FAZER ISSO, SIM ,
+
+MAS AQUI O PROFESSOR QUER 
+
+
+
+REINTRODUZIR UM CONCEITO QUE VIMOS NO PASSADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UM CONCEITO QUE VIMOS MUITO POUCO.... 
+
+
+
+
+
+
+
+
+
+
+--> O CONCEITO DE 'ENUM'..
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+enum 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'ENUM',
+
+diz o professor,
+
+
+É __ PERFEITO__ AQUI,
+
+
+
+
+PQ __ SÓ TEMOS EXATAMENTE 2 OPTIONS,
+
+
+
+
+
+
+
+
+
+
+
+E AQUI, NO CONTEXTO DESSE OBJECT DE 'Project',
+
+
+NÃO PRECISAMOS DE UM 'TEXT' 
+
+que 
+
+FAÇA SENTIDO A HUMANOS,
+
+
+
+
+por isso podemos só usar '0' '1',
+
+
+...
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR ESCREVE UM NOVO ENUM, de nome 
+
+
+
+
+'ProjectStatus'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+enum ProjectStatus {
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------
+
+
+
+DENTRO DESSE ENUM, QUEREMOS TER 2 VALUES,
+
+'Active' 
+
+
+e 
+
+'Finished'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+enum ProjectStatus {
+
+
+    Active, Finished
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--_> POR FIM,
+
+
+PASSAMOS ESSE 'enum'
+
+
+COMO __ TYPE__ DE 'projectStatus':
+
+
+
+
+
+
+
+
+enum ProjectStatus {
+
+
+    Active, Finished
+
+}
+
+
+
+
+class Project { //usamos uma CLASS e não um type JUSTAMENTE PQ _ QUEREMOS __ SER CAPAZES __ DE __ INSTANCIAR__ ESSA CLASS... (com types/interfaces, isso não é possível)...
+
+  constructor( ///shortcut que DEFINE ESSES NEGÓCIOS AO MESMO TEMPO COMO 'PARAMETERS' DE NOSSA CLASS E __ PROPRIEDADES_ DELA...
+    public id: string, 
+    public title: string, 
+    public description: string, 
+    public people: number, 
+    public projectStatus: ProjectStatus /////uso de ENUM, aquele enum ali de cima (passamos ou '0' ou '1', quando instanciamos esse 'project')...
+  
+     ) {
+
+    }
+
+}
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+OK.... ESSA, AGORA, É MINHA CLASS DE 'Project'....
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS ATÉ 'ProjectState' 
+
+
+
+E AÍ 
+
+
+
+TROCAMOS 
+
+
+
+
+aquele 
+
+'private projects: any[] = [];' 
+
+
+POR 
+
+
+
+
+
+private projects: Project[] = [];
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, SUBSTITUÍMOS O CÓDIGO DE 'addProject',
+
+QUE ESTAVA ASSIM:
+
+
+
+
+
+
+
+
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    const newProject = {
+      title: title,
+      description: description,
+      people: numOfPeople,
+      id: Math.random().toString(),
+    };
+
+    this.projects.push(newProject);
+    for (const listenerFunction of this.listeners) {
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> POR ISTO:
+
+
+
+
+  
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    const newProject = new Project(title, description, numOfPeople, Math.random().toString(), 0);  ///////OU SEJA, title, description, people, ProjectStatus (enum de 0 e 1, active e finished)....
+
+    this.projects.push(newProject);
+    for (const listenerFunction of this.listeners) {
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    // const newProject = {  /// usávamos isto antes de usar o approach da class de 'Project'
+    //   title: title,
+    //   description: description,
+    //   people: numOfPeople,
+    //   id: Math.random().toString(),
+    // };
+
+    const newProject = new Project(Math.random().toString(), title, description, numOfPeople, 0);  ///////OU SEJA, id, title, description, people, ProjectStatus (enum de 0 e 1, active e finished)....
+
+    this.projects.push(newProject);
+    for (const listenerFunction of this.listeners) {
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+  }
+
+
+
+
+
+
+  -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+  OK, ISSO VAI FAZER PUSH DE 
+
+
+
+
+
+  1 PROJECT COM ESSA PROPRIEDADE de 'projectStatus: finished/active'  a nosso array de projects... ------> AGORA SÓ 
+
+
+
+  PRECISAMOS 
+
+
+  FAZER COM QUE 
+
+
+  __ SÓ SEJAM RENDERIZADOS OS PROJECTS COM __ ESSE VALOR DE PROPRIEDADE ESPECÍFICO,
+
+
+  naquela function de 'renderProjects'...
+
+
+
+
+
+
+
+
+
+  --> TALVEZ A SOLUÇAÕ ESTEJA NAQUELE 'FOR OF LOOP' 
+
+
+
+  de nossas 'listenerFunction'....
+
+
+
+
+
+
+
+
+
+
+
+  NA VERDADE, ENCONTREI A SOLUÇÃO SOZINHO..
+
+
+
+
+
+
+
+
+
+  --> FOI NESTE PEDAÇO DE CÓDIGO AQUI:
+
+
+
+
+
+
+
+
+
+
+
+  
+  private renderActiveProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+      if (project.projectStatus === ProjectStatus.Active && this.listType === 'active') {
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem)
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --------> TROQUEI O NOME DA FUNÇÃO PARA 'renderActiveProjects',
+
+
+  E AÍ 
+
+
+
+  MUDEI AQUELA IF CHECK,
+
+  deixando-o assim:
+
+
+
+  if (project.projectStatus === ProjectStatus.Active && this.listType === 'active') {
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem)
+      }
+
+
+
+
+
+
+
+
+
+
+
+      --> ou seja, 
+
+      tanto 'projectStatus' deve estar como 0,
+
+
+      COMO 
+
+      o 
+
+      'listType' 
+
+      DESSE NOSSO  __ OBJECT__ INSTANCIADO__ DEVE TER SIDO DE 'active'... (e não de 'finished')....
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE NOSSA CLASS de 'ProjectList'
+
+AINDA ESTÁ SENDO COMPARTILHADA PELAS 'active' e ' finished',
+
+
+
+
+MAs 
+
+
+
+essa function de 'renderActiveProjects'
+
+
+AGORA REALMENTE SÓ VAI RENDERIZAR NOSSOS PROJECTS NESSA LIST DE 'active'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VOU VER A AULA DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor explica que 'CADA NOVO PROJECT DEVE SER SEMPRE ACTIVE'...
+
+
+
+
+
+
+
+
+
+
+--. por isso ele escreve 
+
+
+'ProjectStatus.Active'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PROFESSOR EXPLICA QUE 
+
+
+
+LÁ 
+
+
+
+DEVEMOS MUDAR A CLASS DE 'ProjectList',
+
+trocar o 'assignedProjects'
+
+
+de 
+
+'any[]' para 
+
+'Project[]'...
+
+
+
+
+
+
+
+
+
+
+
+isso nos dá melhor AUTO-COMPLETION...
+
+
+
+
+
+
+
+
+
+
+
+-------- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... -> ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS A CLASS DE 'Project' 
+
+NÃO SERÁ A ÚNICA UTILIZADA POR NÓS.... 
+
+
+
+
+
+
+
+
+
+--> TAMBÉM 
+
+
+TEMOS AQUELA PROPRIEDADE 
+DE 
+
+
+'private listeners: any[] = []',
+
+
+
+QUE TAMBÉM PRECISA SER COMPLEMENTADA..
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO,
+
+PROFESSOR ADICIONA UM NOVO CUSTOM TYPE,
+
+de nome 
+
+
+'Listener'...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+type Listener = {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR DIZ QUE VAMOS USAR UM 'TYPE'
+
+
+
+PQ QUEREMOS ESSENCIALMENTE 'ENCODE A FUNCTION TYPe'
+
+
+
+
+COM APENAS 1 PALAVRA ('Listener')...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E COMO 1 'listener'
+
+NO NOSSO APP É _ APENAS_ UMA FUCNTION,
+
+
+
+
+ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+type Listener = () => {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+------------> PQ O QUE ARMAZENAMOS NO ARRAY DE 'Listeners'
+
+É APENAS UM PUNHADO DE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS O QUE DEVERÁ FICAR NESSE 'TYPE'?
+
+
+
+
+(projects: any[]) => {
+      this.assignedProjects = projects;
+      this.renderActiveProjects();
+    }
+
+
+
+
+
+
+
+    --> TALVEZ ISTO:
+
+
+
+
+
+
+
+
+type Listener = (projects: Project[]) => {
+    this.assignedProjects = projects;
+    this.renderActiveProjects();
+}
+
+
+
+
+
+
+
+
+
+--> MAS ISSO ESTÁ ERRADO....
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE 'Listener' é uma FUNCTION, SIM,
+
+QUE RECEBERÁ __ 'items',
+
+
+
+
+
+QUE NO NOSSO CASO, SERÁ UM ARRAY DE PROJECTS...
+
+
+
+
+
+
+ex:
+
+
+
+type Listener = (items: Project[]) => {
+
+}
+
+
+
+
+
+
+
+
+
+
+--> AÍ, DENTRO DO FUNCTION BODY,
+
+
+essa function FAZ ALGO COM ELES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PARA SER MAIS PRECISO, AQUI PODEMOS/DEVEMOS DEFINIR O 'RETURN TYPE',
+
+QUE NESSE CASO SERÁ 
+
+de 
+'void' (
+
+
+    pq 
+
+    essa 
+
+    function NÃO RETORNA COISA ALGUMA,
+
+    E SIM SÓ 
+
+    EXECUTA 
+
+
+
+    ''
+
+        this.assignedProjects = projects;
+    this.renderActiveProjects();
+
+    ''
+)
+
+
+
+
+
+EX:
+
+
+
+
+
+
+type Listener = (items: Project[]) => void;
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+CERTO...
+
+
+
+
+
+
+
+
+--> RETORNAMOS 'VOID',
+
+
+O QUE SIGNIFICA 
+
+QUE NÃO NOS IMPORTAMOS COM QUALQUER VALOR QUE ESSA LISTENER FUNCTION VAI RETORNAR. ... --> isso pq 
+
+QUANDO TRABALHAMOS COM LISTENERS,
+
+
+
+
+__ NÃO _ PRECISAMOS DE NENHUM 'RETURN TYPE',
+
+
+
+
+
+
+
+APENAS QUEREMOS GARANTIR QUE _ 'WHOEVER PASSES US SUCH A LISTENER EXPECTS TO GET SOME ITEMS WHEN THE LISTENER FIRES'...
+
+
+
+
+
+
+
+
+AÍ 
+
+
+
+escrevemos:
+
+
+
+
+
+'private listeners: Listener[] = [];' ..
+
+
+
+
+
+
+
+
+
+
+
+
+TAMBÉM ALTEREI ISTO:
+
+
+
+
+
+
+
+    addListener(listenerFunction: Listener) {
+    this.listeners.push(listenerFunction);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... 
+
+
+
+
+LÁ EM 
+
+
+
+
+
+'projectState.addListener((projects: ...))',
+
+
+
+
+TAMBÉM PODEMOS MELHORAR NOSSO TYPING,
+
+E DEIXAR ASSIM:
+
+
+
+
+    projectState.addListener((projects: Project[]) => {
+      this.assignedProjects = projects;
+      this.renderActiveProjects();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... COM ISSO, DEFINIMOS NOSSO 'LISTENER' 
+
+E 'PROJECT' 
+
+types....
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO NÃO MUDOU O COMPORTAMENTO DE NOSSO APP (
+
+
+    ainda estamos com a duplicação de items.... e ainda estamos com 'item sendo adicionado a 2 lists ao mesmo tempo'....
+)
+
+
+
+
+
+
+
+--> BEM, A COISA DO ADD A 2 LISTS EU JÁ __ RESOLVI... (código meio spaghetti)..
+
+
+
+
+
+
+--> AGORA RESTA CONSERTAR O CÓDIGO DA 'DUPLICATA'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso, tenho que raciocinar um pouco....
+
+
+
+
+
+
+
+
+
+--> provavelmente é algum PROBLEMA COM ARRAYS.... (cópia imperfeita de arrays)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o problema ESTÁ NESTE CÓDIGO:
+
+
+
+
+      if (project.projectStatus === ProjectStatus.Active && this.listType === 'active') {
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem)
+      }
+
+
+
+
+
+
+
+--> esse 'appendChild'
+
+
+É O PROBLEMA... (ele está appendando 
+
+
+
+'ITEM VELHO + ITEM NOVO' 
+
+
+
+ao 'ITEM VELHO',
+
+
+e é por isso que estamos ficando com esse render bizarro...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS ANTES DE VERMOS OUTRAS PARTES, DEVEMOS CONSERTAR ESSA DUPLICATION DENTRO DE 1 ÚNICA LIST, e ao longo das 2 boxes..

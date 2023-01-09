@@ -1,0 +1,129 @@
+
+
+
+
+
+
+
+APRENDEMOS MUITO SOBRE TYPESCRIPT.... 
+
+
+
+
+
+
+
+
+
+--> HÁ 1 CENÁRIO EM PARTICULAR EM QUE VOCÊ TAMBÉM PODERIA USAR O TYPESCRIPT,
+
+
+CENÁRIO QUE NÃO OLHAMOS ATÉ AGORA....
+
+
+
+
+
+
+--> ATÉ AGORA SÓ FOCAMOS NO USO DO TYPESCRIPT PARA ESCREVER BROWSERSIDE JAVASCRIPT CODE --> 
+
+isso é fine e 
+
+
+
+o use case mais comum,
+
+mas é claro que 
+
+
+VOCÊ PODE USAR 
+
+
+
+O
+ 
+
+ TYPESCRIPT PARA CONSTRUIR APPS NODEJS,
+
+
+
+
+ TAMBÉM EM CONJUNTO COM __ O POPULAR FRAMEWORK 'EXPRESSJS'...
+
+
+
+
+
+
+
+
+
+ --> É CLARO QUE O NODEJS NÃO É CAPAZ __ DE EXECUTAR TYPESCRIPT POR CONTA PRÓPRIA,
+
+
+
+
+ MAS NESSE MÓDULO VAMOS APRENDER SOBRE COMO PODEMOS USAR 
+
+
+
+ O TYPESCRIPT EM CONJUNTO COM O NODEJS,
+
+
+ para escrever 
+
+ NODEJS SCRIPTS....
+
+
+
+
+
+
+
+
+
+ --> VAMOS ESCREVER UM APP BEM SIMPLES,
+
+
+ UMA SIMPLES REST API,
+
+
+
+
+ em que 
+
+ TAMBÉM VAMOS USAR O TYPESCRIPT NO SERVERSIDE,
+
+ COM O NODEJS E O EXPRESs....
+
+
+
+
+
+
+
+
+
+ --> essa seção REQUER CONHECIMENTO DE NODEEXPRESS...
+
+
+
+
+
+
+
+
+
+ --> É SOBRE O USO DE TYPESCRIPT COM O NODEEXPRESS,
+
+
+ não ensina node 'from the ground up'...
+
+
+
+
+
+
+
+
+ --> ok.... 

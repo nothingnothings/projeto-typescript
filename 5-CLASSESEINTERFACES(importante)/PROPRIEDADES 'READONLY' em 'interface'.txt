@@ -1,0 +1,430 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... AÍ, DENTRO DE INTERFACES,
+
+
+TAMBÉM 
+
+PODEMOS 
+
+ADICIONAR 
+
+
+
+
+
+
+A KEYWORD DE 'readonly',
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    readonly name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+'readonly' --> 
+
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    readonly name2: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+-------> SIM, o 'readonly'
+
+É POSSÍVEL....
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, 
+
+O 
+
+
+
+DEFINE DE PROPRIEDADES 'public/private '__ NÃO É POSSÍVEL EM UMA INTERFACE.... (só o 'readonly' mesmo)...
+
+
+
+
+
+
+
+
+
+
+-->  MAS VOCÊ PODE DEIXAR 
+
+
+'READONLY'
+
+
+PARA DEIXAR BEM CLARO QUE __ ESSA PROPRIEDADE 
+
+AÍ 
+
+
+,
+
+EM QUALQUER 
+
+
+OBJECT QUE VOCÊ CONSTRUIR A PARTIR DESSA INTERFACE,
+
+
+
+
+__ NÃO PODERÁ _ SER ALTERADO... (o 
+
+
+valor de inicialização é o valor FINAL; em outras palavras,
+
+você não vai poder alterar esse valor, nem 
+
+com 
+
+a DOT NOTATION, nem COM METHODS...
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+------> 'READONLY' --> o valor é settado durante a initialization, e depois disso é só 
+
+
+'readonly'... ------> NÃO PODE SER ALTERADO DEPOIS QUE O OBJECT FOI INITIALIZADO...
+
+
+
+
+
+
+
+
+
+
+
+
+------> O PROFESSOR 
+
+
+
+TAMBÉM RESSALTA QUE 'readonly'
+
+
+PODE 
+
+
+SER ESCRITO 
+
+
+
+
+em propriedades _ EM 1 'type alias',
+
+
+TAMBÉM...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+type Greetable { ///exemplo de ___ TYPE__ com esse 'readonly'...
+
+    name: string;
+    readonly name2: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.... --> O 'readonly'
+
+é 
+
+
+usado com types, sim, 
+
+MAS É VISTO COM MAIOR FREQUÊNCIA 
+
+
+em 
+
+
+__ INTERFACES__>....
+
+
+
+
+
+
+
+
+
+
+'readonly' é apenas mais uma coias que você pode settar em interfaces,
+
+mais uma feature extra....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE 'readonly'
+
+VAI REALMENTE FUNCIONAR NAS CLASSES 
+
+
+
+
+CRIADAS COM CONTRATO COM sua interface,
+
+sem você precisar escrever 
+
+
+
+'readonly'
+
+nas propriedades da class....
+
+
+
+
+
+
+(
+
+    E se você tentar 
+
+
+    alterar essa propriedade, por meio de 
+
+    'user1.name = 'EXEMPLO', 
+
+
+
+    por exemplo,
+
+    vocÊ 
+
+    receberá um ERROR...
+)
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+type Greetable { ///exemplo de ___ TYPE__ com esse 'readonly'...
+
+    name: string;
+    readonly name2: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+////OBS::: VOCê PODE IMPLEMENTAR__ MAIS DE 1 INTERFACE__ EM 1 MESMA CLASS.... (algo que não acontece com INHERITANCE, com extends)...
+
+
+            static age = 30; ////isso não foi definido na INTERFACE, mas podemos escrever mesmo assim.... (só temos que satisfazer o 'BARE MININUM' das condições da interface)...
+
+            name2: string;
+
+
+        greet(phrase: string) { ///satisfeita a condição de 'greet()' de nossa interface...
+                console.log(phrase);
+        }
+
+
+
+        constructor(public name: string) { ///satisfeita a condição de 'name' de nossa interface... (por meio desse shorthand)...
+                this.name2 = name;
+        }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+let newLawyer: Greetable; ////DEFINIMOS O 'TYPE' dessa variable como sendo  __ ESSENCIALMENTE __ o de 'Greetable'...
+
+
+newLawyer = new Lawyer('excelsior'); //isso será válido....
+
+
+
+newLawyer.name2 = 'valordiferente'; //JÁ ISSO SERÁ __ INVÁLIDO (pq vamos tentar alterar uma propriedade que é 'readonly')...
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+ ok....... até aí, tudo bem..
+
+
+
+
+
+
+ -_> A INTERFACE _ VAI _ TER EFEITO NA NOSSA CLASS,
+
+
+
+ vai realmente 
+
+
+
+
+
+ considerar/enforçar  ESSE 'readonly'
+
+ QUE SETTAMOS LÁ NA INTERFACE...

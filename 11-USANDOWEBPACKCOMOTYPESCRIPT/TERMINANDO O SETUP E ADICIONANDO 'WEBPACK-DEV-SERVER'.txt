@@ -1,0 +1,343 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> POR ENQUANTO, O PROFESSOR NÃO ESTÁ USANDO O WEBPACK-DEV-SERVER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele cria um novo script, de 
+
+
+'start': 'webpack-dev-server'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE SERVER TEM HOT RELOAD,
+JÁ TRABALHEI COM ELE....
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ELE RECOMPILA.... ---------> 
+
+
+
+
+
+
+
+MAS ELE FAZ SERVE DE UM ARQUIVO 'NA MEMÓRIA'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> WEBPACK-DEV-SERVER --> 
+
+
+O CÓDIGO É CARREGADO 
+
+
+NO DEV SERVER,
+
+MAS NÃO É 'WRITTEN TO THE DISK'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AS COISAS NÃO ESTÃO 'WIRED UP CORRECTLY' 
+
+
+no momento...
+
+
+
+
+
+
+-->  PARA CONFIGURAR NOSSO WEB SERVER CORRETAMENTE,
+
+
+DEVEMOS IR ATÉ 'webpack.config.js'
+
+
+
+E AÍ 
+,
+
+LÁ EM 'output',
+
+
+DEVEMOS COLOCAR UMA KEY DE 'public',
+
+
+E AÍ 
+
+ESCREVER 
+
+
+
+
+'dist' .... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESCREVEMOS ISSO,
+
+
+
+
+
+NOSSO 
+
+
+
+WEBPACK-DEV-SERVER FICARÁ COM O HOT RELOAD ADEQUADO....
+
+
+
+
+
+(vocÊ precisa escrever isso, esse setup, para que o webpack entenda '''em que lugar seu output é written to'', e em que folder seus arquivos residem, em relação ao INDEX.HTML...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> EX:
+
+
+
+
+
+
+
+
+const path = require("path");
+
+module.exports = {
+  entry: "./src/app.ts",
+
+  output: {
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist"),
+    publicPath: 'dist' ///necessário para fazer o 'WEBPACK-DEV-SERVER 'funcionar corretamente, com auto-reload....
+  },
+
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'inline-source-map',
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+
+
+AGORA SE QUITTARMOS NOSSO DEV SERVER,
+
+
+
+
+
+
+TEMOS MAIS UMA CONFIG QUE DEVEMOS ADICIONAR AO webpack.config.js'...
+
+
+
+
+
+
+
+
+
+
+--é o 'mode' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COLOCAMOS 'development',
+
+
+
+que é aquilo que diz ao webpack que 
+
+
+ELE DEVE MELHORAR NOSSA 
+
+DEV EXPERIENCE,
+
+
+DAR MENSAGENS DE ERRO MELHORES,
+
+
+
+
+
+
+
+E OPTIMIZAR MENOS O CÓDIGO (não para production)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE É O DEV WORKFLOW...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PRODUCTION WORKFLOW TERÁ UM ARQUIVO DESSES 1 PCO DIFERENTE,
+
+PQ
+
+VAMOS QUERER 1 OUTPUT DIFERENTE...

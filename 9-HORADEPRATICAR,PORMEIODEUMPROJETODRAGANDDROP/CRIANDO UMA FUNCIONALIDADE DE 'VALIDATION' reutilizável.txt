@@ -1,0 +1,3280 @@
+
+
+
+
+
+
+
+
+
+
+PROVAVELMENTE VAMOS TER QUE USAR AQUELE FORMATO DE 'DECORATOR' que aprendemos no passado,
+
+que tinha este código:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+interface ValidatorConfig {
+  [property: string]: { ///exemplo de 'INDEXABLE TYPES' ( ou seja, de um OBJECT/class com PROPRIEDADES INFINITAS/VARIÁVEIS...)
+
+
+    [validatableProperty: string]: string[] //// ['required', 'positive'] //lista de validators...
+
+
+  } ////////E PARECE QUE CADA 'PROPRIEDADE VARIÁVEL' nessa nossa class _ VAI __ ARMAZENAR UM OBJECT ({})...
+
+}
+
+
+
+const registeredValidators: ValidatorConfig = {}
+
+
+
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+      ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+    [propName]: ['positive']
+  }
+}
+
+
+function Required(target: any, propName: string) { ///decorator (property decorator)
+
+
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+    ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+    [propName]: ['required']
+  }
+  
+}
+
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) { //procuramos 'validator configuration'  para a class de 'Course'... e nenhuma é encontrada, portanto o object é automaticamente válido....
+    return true;
+  }
+
+  let isValid = true; //garante que todos nossos fields de 'input' SÃO VERIFICADOS..
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) { //vai ser sempre 1 array, mesmo nós tendo, hipotéticamente, 1 único 'validator' adicionado..
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+          isValid = isValid && !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'... --> queremos retornar TRUE se a propriedade tiver um valor 'non empty'... --> e podemos fazer isso por meio do 'double bang operator' do javascript... --> double bang operator converte isso em um 'REAL BOOLEAN VALUE'(true ou false)....
+          break;
+          case 'positive':
+         isValid = isValid && obj[prop] > 0;
+         break;
+      }
+    }
+  }
+
+  return isValid
+}
+
+
+
+
+
+
+
+class Course {
+  @Required
+  title: string;
+
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+
+
+    const newCourse = new Course(title, price);
+    
+
+    if(!validate(newCourse)) {
+
+      alert('Invalid input, please try again.');
+      return;
+
+    }
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... DEVEMOS COMEÇAR COM UM 'storage object' de nossos VALIDATORS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele vai ser criado de forma 'normal',
+
+MAS
+
+
+VAI PRECISAR TER SUA ESTRUTURA SETTADA POR AQUILO QUE CHAMAMOS DE 'INTERFACES COM INDEXABLE PROPERTIES'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no caso, escreveremos assim:
+
+
+
+
+
+
+
+interface ValidatorConfig {
+
+  [property: string]: {
+
+
+    [validatableProperty: string]: string[]
+  }
+}
+
+
+
+
+
+
+
+const registeredValidators = ValidatorConfig = {}
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+DEPOIS DISSO,
+
+
+
+TEMOS AS 
+
+
+
+DECORATOR FUNCTIONS QUE FARÃO O ACTUAL 'validation',
+
+
+
+como aquelas de 'PositiveNumber":
+
+
+
+
+
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+      ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+    [propName]: ['positive']
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CÓDIGO 'CLEAN':
+
+
+
+
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = { 
+
+      ...registeredValidators[target.constructor.name], 
+    [propName]: ['positive']
+  }
+}
+
+
+----------------------------------------
+
+
+
+
+
+
+CERTO... AÍ TEMOS NOSSO ACTUAL' VALIDATION FUNCTION', de 'validate()',
+
+
+
+
+
+QUE HAVIA SIDO SETTADA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) { //procuramos 'validator configuration'  para a class de 'Course'... e nenhuma é encontrada, portanto o object é automaticamente válido....
+    return true;
+  }
+
+  let isValid = true; //garante que todos nossos fields de 'input' SÃO VERIFICADOS..
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) { //vai ser sempre 1 array, mesmo nós tendo, hipotéticamente, 1 único 'validator' adicionado..
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+          isValid = isValid && !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'... --> queremos retornar TRUE se a propriedade tiver um valor 'non empty'... --> e podemos fazer isso por meio do 'double bang operator' do javascript... --> double bang operator converte isso em um 'REAL BOOLEAN VALUE'(true ou false)....
+          break;
+          case 'positive':
+         isValid = isValid && obj[prop] > 0;
+         break;
+      }
+    }
+  }
+
+  return isValid
+}
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... AGORA SÓ ME RESTA IR ATÉ CADA 'propriedade' na class E ENTÃO 
+
+
+adicionar o 'DECORATOR VALIDATOR',
+
+
+
+
+
+tipo assim:
+
+
+
+
+class Course {
+  @Required
+  title: string;
+
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+
+---------> MAS O PROBLEMA, NO MEU CÓDIGO,
+
+
+
+
+
+É QUE 
+
+
+EU NÃO ARMAZENEI ESSES VALORES DIRETAMENTE nas propriedades 
+
+
+
+, e sim só seus html elements...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ISSO, CRIEI UMA __ NOVA CLASS, de 'Project',
+
+E AÍ 
+
+
+
+
+
+FIZ UMA INSTANCIAÇAÕ DESSA CLASS, lá dentro do method de 'submitHandler',
+
+lá em 
+
+'ProjectInput' class...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  interface Project {
+    title: string;
+    description: string;
+    people: number;
+
+
+  }
+
+
+
+
+
+  const projects: Project[] = [];
+
+
+
+
+
+
+class Project {
+
+    @Required
+    title: string;
+
+
+    @Required
+    description: string;
+
+
+    @PositiveNumber
+    people: number;
+
+
+    constructor(title: string, description: string, people: number) {
+        this.title = title;
+        this.description = description;
+        this.people = people;
+    }
+
+
+
+}
+
+
+
+
+class ProjectInput {
+
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {    
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+        
+        this.configure();
+        this.attach();                                      
+    }   
+
+
+    private attach() {///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people);
+
+
+        const newProject = new Project(title, desc, people);
+
+        if(!validate(newProject)) {
+
+            alert('Invalid input, please try again');
+            this.clearInputs
+            return;
+        }
+
+
+        projects.push(newProject);
+        this.clearInputs();
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+private configure() { 
+    this.element.addEventListener(
+        'submit',
+        //this.submitHandler.bind(this) //// --> esse código foi substituído POR NOSSO 'AUTOBIND DECORATOR', que é muito útil... (ver method de 'submitHandler')
+        ///bind da 'this' keyword À class de 'ProjectInput', para evitar error....
+        this.submitHandler
+    )
+}
+
+
+private gatherUserInputs(): [string, string, number] | void { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+
+
+    if (enteredTitle.trim().length === 0 || 
+    enteredDescription.trim().length === 0 || 
+    enteredPeople.trim().length === 0) {
+
+        alert('Invalid input, please try again.');
+        return;
+     
+    } else {
+        return [enteredTitle, enteredDescription, +enteredPeople]
+    }
+
+}
+
+
+
+private clearInputs() {
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+QUANTO à 'VALIDATION', por meio de DECORATORS e uma validation function, eu coloquei:
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+    registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+  
+        ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+      [propName]: ['positive']
+    }
+  }
+  
+  
+
+  function Required(target: any, propName: string) { ///decorator (property decorator)
+
+
+    registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+  
+      ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+      [propName]: ['required']
+    }
+    
+  }
+
+
+
+
+
+  function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+    const objectValidatorConfig = registeredValidators[obj.constructor.name];
+  
+  
+    if (!objectValidatorConfig) { //procuramos 'validator configuration'  para a class de 'Course'... e nenhuma é encontrada, portanto o object é automaticamente válido....
+      return true;
+    }
+  
+    let isValid = true; //garante que todos nossos fields de 'input' SÃO VERIFICADOS..
+    for (const prop in objectValidatorConfig) {
+      for (const validator of objectValidatorConfig[prop]) { //vai ser sempre 1 array, mesmo nós tendo, hipotéticamente, 1 único 'validator' adicionado..
+        switch (validator) { ///essa é a lógica de validate em si...
+          case 'required':
+            isValid = isValid && !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'... --> queremos retornar TRUE se a propriedade tiver um valor 'non empty'... --> e podemos fazer isso por meio do 'double bang operator' do javascript... --> double bang operator converte isso em um 'REAL BOOLEAN VALUE'(true ou false)....
+            break;
+            case 'positive':
+           isValid = isValid && obj[prop] > 0;
+           break;
+        }
+      }
+    }
+  
+    return isValid
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  ------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+  CERTO.... AGORA DEVO TESTAR ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+  -> OK... DEU CERTO....
+
+
+
+
+
+
+
+
+
+
+  -> E SE EU QUISER ADICIONAR __ MAIS VALIDATION, 
+
+
+
+
+  MAIS 'VALIDATION DECORATORS',
+
+
+
+  PRECISO EDITAR OS SEGUINTES TRECHOS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1)     if (!objectValidatorConfig) { //procuramos 'validator configuration'  para a class de 'Course'... e nenhuma é encontrada, portanto o object é automaticamente válido....
+      return true;
+    }
+  
+    let isValid = true; //garante que todos nossos fields de 'input' SÃO VERIFICADOS..
+    for (const prop in objectValidatorConfig) {
+      for (const validator of objectValidatorConfig[prop]) { //vai ser sempre 1 array, mesmo nós tendo, hipotéticamente, 1 único 'validator' adicionado..
+        switch (validator) { ///essa é a lógica de validate em si...
+          case 'required':
+            isValid = isValid && !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'... --> queremos retornar TRUE se a propriedade tiver um valor 'non empty'... --> e podemos fazer isso por meio do 'double bang operator' do javascript... --> double bang operator converte isso em um 'REAL BOOLEAN VALUE'(true ou false)....
+            break;
+            case 'positive':
+           isValid = isValid && obj[prop] > 0;
+           break;
+        }
+      }
+    }
+
+
+
+
+
+
+
+    (EM 'validate()'...) ------> colocar mais um case, 
+
+
+
+    com a lógica de validate desejada...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    2)    function Required(target: any, propName: string) { ///decorator (property decorator)
+
+
+    registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+  
+      ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+      [propName]: ['required']
+    }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> criar uma DECORATOR FUNCTION COM ESSA ESTRUTURA, para 
+
+
+
+  ser aquele valor de 'required', 'positive', etc etc, lá no SWITCH STATEMENT EM 'validate()'...
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+  function MinLength5(target: any, propName: string) { ///decorator (property decorator)
+
+
+    registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+  
+      ...registeredValidators[target.constructor.name], //vamos pegar todos os 'validators que já existiam/passaram a existir previamente, e vamos os somar nesse array aqui..
+      [propName]: ['minLength5']
+    }
+    
+  }
+
+
+
+
+
+
+
+
+  --> OK, MAS ESSE EXEMPLO DE VALIDATION AINDA NÃO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+  --> por alguma razão, sempre estamos entrando no block de 
+
+
+
+  '''
+
+  
+        if(!validate(newProject)) {
+            console.log(validate(newProject))
+            alert('Invalid input, please try again');
+            this.clearInputs
+            return;
+        }
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+--> hmmmm consegui fazer funcionar... --> tive de tirar o check de 'Required',
+
+
+e deixar só o de 'minLength5' (
+
+
+
+  pq basicamente o check de 'minLength5' ENGLOBA O DE 
+
+
+  'Required', pq não é possível você ESCREVER ALGO QUE TENHA 'mais de 5 caracteres' 
+
+  e ao mesmo tempo SEJA 'NULL'...
+)
+
+
+
+
+
+
+--> FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+  function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+    const objectValidatorConfig = registeredValidators[obj.constructor.name];
+  
+  
+    if (!objectValidatorConfig) { //procuramos 'validator configuration'  para a class de 'Course'... e nenhuma é encontrada, portanto o object é automaticamente válido....
+      return true;
+    }
+  
+    let isValid = true; //garante que todos nossos fields de 'input' SÃO VERIFICADOS..
+    for (const prop in objectValidatorConfig) {
+      for (const validator of objectValidatorConfig[prop]) { //vai ser sempre 1 array, mesmo nós tendo, hipotéticamente, 1 único 'validator' adicionado..
+
+        console.log(obj[prop]);
+        switch (validator) { ///essa é a lógica de validate em si...
+          case 'required':
+            isValid = isValid && !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'... --> queremos retornar TRUE se a propriedade tiver um valor 'non empty'... --> e podemos fazer isso por meio do 'double bang operator' do javascript... --> double bang operator converte isso em um 'REAL BOOLEAN VALUE'(true ou false)....
+            break;
+            case 'positive':
+           isValid = isValid && obj[prop] > 0;
+           break;
+           case 'minLength5':
+               console.log(obj[prop]);
+               isValid = isValid && obj[prop].length >= 5; //não está funcionando...
+           break;
+        }
+      }
+    }
+  
+    return isValid
+  }
+  
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+AGORA VAMOS VER A AULA DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+O que poderíamos fazer com a validation ?
+
+
+ 
+
+ DEVEMOS COMEÇAR COM O 'DESIRED END RESULT'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR QUER QUE MAIS TARDE TENHAMOS UMA FUNCTION DEDICADA DE 'validate',
+
+
+
+
+ EM QUE 
+
+
+ VAMOS PASSAR 
+
+
+
+
+ um 'configuration object'
+
+
+
+
+
+ ,
+
+
+
+
+
+
+
+ UM CONFIG OBJECT EM QUE teremos uma propriedade 
+
+ de 
+
+
+ 'value',
+
+
+
+
+
+
+e em que então teremos 'additional properties' 
+
+que 
+
+
+DIZEM A ESSA FUNÇAÕ DE 'VALIDATE' como deverá ser validado esse valor...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+if (
+
+  validate({value: })
+)
+
+
+
+
+------------------
+
+
+
+
+
+
+
+
+
+as outras propriedades vao indicar como deverá ser 'validated' 
+
+esse valor...
+
+
+
+
+
+
+
+
+
+
+
+
+--> exemplos:
+
+
+'required: true',
+
+
+
+'minLength: 5' ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> E FAZEMOS ISSO __ PARA_ OS 3 INPUT FIELDS,
+
+
+
+
+E 'validate' é uma function que retorna 'TRUE' se o input for valid, 
+
+
+
+e 'false'
+
+se for 
+
+
+
+invalid... -----> 
+
+
+
+
+
+
+ÁI VAMOS TER ALGO MAIS OU MENOS ASSIM:
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void {
+
+  const  enteredTitle = this.titleInputElement.value;
+  const enteredDescription = this.descriptionInputElement.value;
+  const enteredPeople = this.peopleInputElement.value;
+
+
+
+
+
+
+  if (
+    validate({value: enteredTitle, required: true, minLength: 5}) &&
+    validate({value: enteredDescription, required: true, minLength: 5}) &&
+    validate({value: enteredPeople, required: true, minLength: 5})
+  ) {
+
+
+    alert('Invalid input, please try again');
+    return;
+  } else {
+    return [enteredTitle, enteredDescription, +enteredPeople];
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> essa é a ideia... mas essa é apenas uma maneira de implementar isso...
+
+
+
+
+
+
+
+
+
+
+-_> mas é uma maneira que o professor gosta muito....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO TOPO DO NOSSO ARQUIVO, ADICIONAMOS 'SOME VALIDATION LOGIC'...
+
+
+
+
+
+
+
+
+
+--> há mtas maneiras de fazer isso,
+
+
+
+MAS OO PROFESSOR VAI COMEÇAR 
+
+DEFININDO A ESTRUTURA 'OF A VALIDATABLE OBJECT'... -------> 
+
+
+
+ 
+
+
+ ISSO __ PQ VAMOS PRECISAR__ DE UM OBJETO PARA PASSAR 
+
+
+ ao 
+
+ 'validate()'... -----> ESSA FUNÇÃO SEMPRE VAI PRECISAR DE UM OBJETO COM UMA ESTRUTURA 
+
+
+ PADRÃO,
+
+
+
+
+ com uma certa 
+
+
+
+
+ quantidade de propriedades,
+
+
+
+
+ e certos TYPES de propriedades.... --> tudo para que a function de 'validate()'
+
+
+
+
+ SAIBA 
+
+
+ COM O QUE VOCÊ ESTÁ TRABALHANDO...
+
+
+
+
+
+
+
+
+
+
+
+ ---->  para isso, 
+
+ professor começa com o setup de uma 'INTERFACE'...
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR DIZ QUE PODERÍAMOS DEFINIR UM 'type',
+
+
+
+ MAS 
+
+
+ que ele prefere uma interface...  (PQ VAMOS DEFINIR A ESTRUTURA DE UM OBJECT)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> SERÁ UMA INTERFACE DE NOME 'Validatable',
+
+
+
+ etc etc...
+
+
+
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+
+
+
+
+ interface Validatable {
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+ -------> ELE TERÁ UMa propriedade 'value',
+
+
+ que 
+
+ será 
+
+
+ de type STRING,
+
+
+ OU DE TYPE 'number'...
+
+
+
+
+
+
+
+
+ -----> TERÁ UM PROP DE 'required',
+
+
+ QUE TERÁ 
+
+
+ UM VALUE DE 'boolean'...
+
+
+
+
+
+
+e também terá 
+
+
+
+
+
+UMA PROPRIEDADE DE 'minLength',
+
+
+que será de 'number'...
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEREMOS MAXLENGTH,
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E, SÓ PARA 'CASES EM QUE RECEBEMOS 1 NUMBER',
+
+
+
+temos 'min' e 'max', 
+
+
+ambos de type NUMBER...
+
+
+
+
+ex:
+
+
+
+
+
+ interface Validatable {
+
+
+    value: string | number;
+    required: boolean;
+    minLength: number;
+    maxLength: number;
+    min: number;
+    max: number;
+
+
+ }
+
+
+
+
+
+ --------------------------------------
+
+
+
+
+
+
+
+
+ A DIFERENÇA DE 'min/maxlength' 
+
+ para 
+
+ 'min/max'
+
+
+ é que 
+
+
+
+
+ ____ OS 'length' SERÃO USADOS PARA CHECAR  __ A LENGTH__ DA STRING,
+
+
+
+
+ E O 'MIN/MAX'
+
+ é 
+
+ o __ VALUE__ DO NUMBER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK..... 
+
+
+--> ESSAS SÃO AS PROPRIEDADES QUE VOU QUERER ADICIONAR, A CADA 
+
+call de 
+
+'
+validation', 
+
+
+por meio do set de 'objetos config'...
+
+
+
+
+
+
+
+-> MAS É CLARO QUE CADA 'OBJETO ENFIADO EM validate()' 
+
+
+
+NÃO VAI TER A MESMA ESTRUTURA... --> não.... pq 
+
+
+TODOS OS FIELDS TERÃO VALIDATIONS 
+
+
+DIFERENTES.. (o 'minLength' pode existir LÁ EM 'title', mas não existir em 'people')...
+
+
+
+
+
+
+
+--> PARA ISSO, PARA DIZER QUE ''''NENHUMA PROPRIEDADE SERÁ OBRIGATÓRIA''',
+
+
+
+
+devemos usar '?' do lado do nome de cada propriedade ''de validation''' (ou seja, todas menos 'value'):
+
+
+
+
+
+
+
+
+
+
+
+ interface Validatable {
+
+
+    value: string | number;
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+A SINTAXE ALTERNATIVA DISSO É USAR ' | undefined',
+
+
+tipo assim:
+
+
+
+
+
+
+ interface Validatable {
+
+
+    value: string | number;
+    required: boolean | undefined
+    minLength: number | undefined
+    maxLength: number | undefined
+    min: number | undefined
+    max: number | undefined
+
+
+ }
+
+
+
+
+
+
+
+
+ ---> mas como vamos aplicar isso?
+
+
+
+
+
+
+
+
+
+
+
+--> COMO APLICAR ESSA 'VALIDATABLE INTERFACE'?
+
+
+
+
+
+
+
+
+
+
+--> BEM, CRIADA ESSA 'INTERFACE',
+
+
+podemos 
+
+CRIAR 
+
+
+
+
+A ACTUAL FUNCTION DE 'validate'....
+
+
+
+
+
+
+
+
+
+
+-->EU ESCREVI ASSIM, MAS NÃO SEI SE ESTÁ CERTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function validate(configObj: Validatable): boolean {
+
+
+    switch(configObj.inputField) {
+
+    case 'title': 
+    if (configObj.required && typeof configObj.value === 'string') {
+        return true;
+    } 
+    return false;
+    break;
+    case 'description':
+        if (configObj.required && typeof configObj.value === 'string' && configObj.minLength >= 5) {
+            return true;
+        }
+
+
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o ts está me dando erro em 'description'....
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR DIZ QUE DEMOS PCRIAR A FUNÇAÕ,
+
+
+
+funçã de 'validate()'...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+function validate(validatioinInput :Valdaiatable {
+
+}
+
+
+
+
+
+----------------------------- 
+
+
+
+DENTRO DESSA FUNCTION, 
+
+
+
+
+
+
+PODEMOS COMÇEAR 
+
+
+
+
+PELO 'CHECK 'PELA EXISTSTcêNIA
+
+
+
+
+
+
+
+
+
+DESSAS PROPRIEADE.S..,
+
+
+para então fazer a validation aproprriada.
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+function validate(ValidatablInput: Validatable) {
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+-> DENTOR DESSE NEGÓCIO, PROFESOSR VAI QUERER 
+
+
+
+
+
+CRIAR UMA VARIABLE De 'isValid'
+
+
+
+
+
+
+QUE__ ELE VAI QUERER CRMIAR INICIALMNTiValid= tur'..................................................
+(
+
+  OK O CM
+
+
+
+
+
+ --------- 
+
+
+
+
+
+
+
+
+ Ex:
+
+
+
+
+
+
+
+FUNCTION validate(validatbleInput: validatableProperty) {
+
+
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+-> eX:
+
+
+FUNCTION validate(validatbleInput: validatableProperty) {
+
+
+    let isValid = ture;
+    if (validateInput.requiere);
+
+
+
+
+
+
+
+
+    -
+}
+
+
+
+
+
+
+
+
+
+
+
+-_> SE 'empty', por exemplo, for TRUE,
+
+
+VAMOS QUERE QUE 
+
+AAQULE 
+
+
+
+
+de 
+RE'OI
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE DER 'TUrue',
+
+ISSO SINGICIARÁ QUE O TYPSCT,
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+function validate(configObj: Validatable): boolean {
+
+
+    switch(configObj.inputField) {
+
+    case 'title': 
+    if (configObj.required && typeof configObj.value === 'string') {
+        return true;
+    } 
+    return false;
+    break;
+    case 'description':
+        if (configObj.required && typeof configObj.value === 'string' && configObj.minLength >= 5) {
+            return true;
+        }
+
+
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--. OU SEja,
+
+
+esse 'let isVliad',
+
+
+retornado por nossa function,
+vai 
+
+COMEÇAR COM UM VALOR DE 'true',
+
+MAS VAI VIRAR 'false'
+
+
+SE QUALQUER UM DE NOSSOS IF CHECKS NAQUELE parametros de 'validatableInput' falhar...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+function validate(validatableInput: Validate) {
+    let isValid = true;
+
+    if (validatableInput.required)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESSE PARÂMETRO-OBJETO TIVER ESSA PROPRIEDADE, E ESSA PROPRIEDADE NAO ESTIVER COMO 'undefined'( ou seja, presente),
+
+
+
+VAMOS 
+
+
+saber que 
+
+O 
+
+
+'value' deve ser REQUIRED, E QUE NÃO DEVE SER 'empty'...
+
+
+
+
+
+
+
+
+
+
+
+--------> AÍ 
+
+
+
+VAMOS ESCREVER UMA EXPRESSÃO DE TRUE/FALSE,
+
+tipo assim:
+
+
+
+
+
+
+if (validateInput.required) {
+  isValid = isValid && validatableInput.value.trim() !== '';
+}
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+eu acho que essa versão de '' (empty string) É MELHOR, PARA CHECAR ISSO AÍ...
+
+
+
+(usar '.length' não seria válido, nesse nosso exemplo, pq se o 'value' for um NUMBER, ele não terá essa propriedade de 'length'...)
+
+
+
+
+
+
+
+--> MAS O PROFESSOR EXPLICA QUE UMA VERSÃO/APPROACH COM 'type guard' TAMBÉM SERIA VÁLIDA...
+
+
+
+
+
+--> MAS ISSO SERIA REDUNDANTE... -------> 
+
+
+
+
+
+
+o que nao seria redundante seria SÓ SIMPLESMENTE CONVERTER NOSSO 'value'
+
+em uma STRING,
+
+
+e aí CHECAR SE A LENGTH É 'not zero'....
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+function validate(validatableInput: Validatable) {
+    let isValid = true;
+
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim() !== ''; ////talvez esta expressão seja válida como a de baixo, também...
+        // isValid = isValid && validatableInput.value.trim().length !== 0; ///esta expressão foi a adotada pelo professor....
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSE É O PRIMEIRO CHECK QUE VAMOS RODAR, AÍ... (para casos em que há a existência da propriedade 'isRequired' no object que passamos a essa function)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE TEREMOS OUTROS CHECKS....
+
+
+
+
+
+
+
+--> O OUTRO CHECK É O DE SE 'minLength' 
+EXISTE...
+
+
+
+
+
+
+
+
+
+
+EU COMEÇO ASSIM:
+
+
+
+    if(validatableInput.minLength) {
+        isValid = isValid && validatableInput.value.toString().length >= 5; ////check de MINIMUM LENGTH. 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ---> MAS É CLARO QUE ESSE 'minLength' 
+
+    ´SO VAI EXISTIR __ SE NOSSO 'validatableInput.value'
+
+
+    FOR DE _ TYPE 'string' (pq lengths N EXISTEM EM NUMBERS)....
+
+
+
+
+
+
+
+    --> É POR ISSO QUE ESCREVEMOS ASSIM:
+
+
+
+
+
+
+        if(validatableInput.minLength && typeof validatableInput.value === 'string') { ///será SKIPPADO esse check se for constatado que esse 'value' NÃO É UMA STRING... (é um nubmer)..
+        isValid = isValid && validatableInput.value.toString().length >= 5  ////check de MINIMUM LENGTH. 
+    }
+
+
+
+
+
+
+
+
+------>
+
+
+
+
+
+
+
+
+
+
+CERTO, MAS NOSSA VERSÃO AINDA FICOU PIOR DO QUE A DO PROFESSOR... 
+
+
+
+
+--> a do professor incorporou aquela propriedade de 'minLength',
+
+que deve ser usada no lugar daquele '5'...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+        if(validatableInput.minLength && typeof validatableInput.value === 'string') { ///será SKIPPADO esse check se for constatado que esse 'value' NÃO É UMA STRING... (é um nubmer)..
+        isValid = isValid && validatableInput.value.toString().length > validatableInput.minLength  ////check de MINIMUM LENGTH. 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function validate(validatableInput: Validatable): boolean {
+    let isValid = true;
+
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim() !== ''; ////talvez esta expressão seja válida como a de baixo, também...
+        // isValid = isValid && validatableInput.value.trim().length !== 0; ///esta expressão foi a adotada pelo professor....
+    }
+
+    if(validatableInput.minLength && typeof validatableInput.value === 'string') { ///será SKIPPADO esse check se for constatado que esse 'value' NÃO É UMA STRING... (é um nubmer)...
+        ////deverá ser de type STRING, e deverá SER MAIOR OU IGUAL A 5...
+        isValid = isValid && validatableInput.value.toString().length > validatableInput.minLength  ////check de MINIMUM LENGTH. 
+    }
+
+    if(validatableInput.maxLength && typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.toString().length < validatableInput.maxLength  ////check de MINIMUM LENGTH. 
+    }
+
+    if(validatableInput.min && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value > validatableInput.min;
+    }
+
+    if(validatableInput.max && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value < validatableInput.max;
+    }
+
+
+
+    return isValid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> CERTO.... MAS O PROFESSOR EXPLICA QUE TEMOS 'ONE POTENTIAL PROBLEM, HERE'...
+
+
+
+
+
+
+
+
+
+
+
+-> qual seria esse problema?
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA É QUE 
+
+
+
+ESSE NOSSO CÓDIGO VAI GERALMENTE FUNCIONAR,
+
+
+MAS __ ELE__ VAI _ FALHAR___ SE 
+
+
+
+'minLength'
+
+ESTIVER DEFINIDO COMO '0'...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim() !== ''; ////talvez esta expressão seja válida como a de baixo, também...
+   
+    }
+
+    if(validatableInput.minLength && typeof validatableInput.value === 'string') { 
+        isValid = isValid && validatableInput.value.toString().length > validatableInput.minLength  
+    }
+
+
+
+
+
+
+
+
+-----> esta expressão aqui:
+
+
+'validatableInput.minLength && typeof.validatableInput.value === 'string'
+
+
+
+
+__ VAI FALHAR__ (dar 'false')
+
+SE 
+
+
+
+for passado o 'minLength'
+
+
+COMO 0.... -------------> A INTENÇÃO DO DESENVOLVEDOR, QUANDO SETTAR ISSO COMO '0',
+
+
+PROVAVELMENTE NAÕ VAI SER 
+
+A DE
+
+
+
+''QUERO SKIPPAR ESSE CHECK'',
+
+
+
+
+
+MAS PARA APENAS CHECAR SE TEMOS UMA MINIMUM LENGTH DE '0'... -----> (
+
+
+
+  mas você poderia dizer que esse é um check REDUNDANTE...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCê  QUER SER __ SUPER _ SAFE,
+
+VOCê PODE 
+
+
+ADICIONAR UM CHECK EXTRA,
+
+E CHECAR SE 
+
+
+'validatableInput.minLength' 
+
+
+__ NÃO É IGUAL A 'undefined',
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim() !== ''; ////talvez esta expressão seja válida como a de baixo, também...
+   
+    }
+
+    if(validatableInput.minLength != null && typeof validatableInput.value === 'string') {  ///eis o código em questão.
+        isValid = isValid && validatableInput.value.toString().length > validatableInput.minLength  
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OBS::: QUANDO ESCREVEMOS  '!= null',  ESTAMOS  DIZENDO 'NÃO DEVE SER IGUAL TANTO A UNDEFINED, COMO NULL'... (engloba undefined e null em uma mesma categoria)...
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... 
+
+
+
+
+
+
+
+o check deverá ser 
+
+de 
+
+'isValid = isValid && validatableInput.value > validatableInput.min' ....
+
+
+
+
+
+
+
+-----> fazemos a mesma coisa para o 'max'..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+function validate(validatableInput: Validatable): boolean {
+    let isValid = true;
+
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim() !== ''; ////talvez esta expressão seja válida como a de baixo, também...
+        // isValid = isValid && validatableInput.value.trim().length !== 0; ///esta expressão foi a adotada pelo professor....
+    }
+
+    if(validatableInput.minLength != null && typeof validatableInput.value === 'string') { //// OBS::: QUANDO ESCREVEMOS  '!= null',  ESTAMOS  DIZENDO 'NÃO DEVE SER IGUAL TANTO A UNDEFINED, COMO NULL'... (engloba undefined e null em uma mesma categoria)... --> colocamos esse check aí APENAS PARA SER EXTRA SAFE, PARA QUE o pass de '0' como minLength não bugue todo nosso código (para que não seja considerado como falsy)..
+        
+        ///será SKIPPADO esse check se for constatado que esse 'value' NÃO É UMA STRING... (é um nubmer)...
+        ////deverá ser de type STRING, e deverá SER MAIOR OU IGUAL A 5...
+        isValid = isValid && validatableInput.value.toString().length > validatableInput.minLength  ////check de MINIMUM LENGTH. 
+    }
+
+    if(validatableInput.maxLength != null && typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.toString().length < validatableInput.maxLength  ////check de MINIMUM LENGTH. 
+    }
+
+    if(validatableInput.min != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value > validatableInput.min;
+    }
+
+    if(validatableInput.max != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value < validatableInput.max;
+    }
+
+
+
+    return isValid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, ESTAMOS CHECANDO TODOS OS VALORES POSSÍVEIS,
+
+E RETORNANDO 'isValid', que será ou true ou false... (boolean)...
+
+
+
+
+
+
+
+
+
+-------->  AGORA SÓ PRECISAMOS 
+
+
+
+
+
+CRIAR OBJECTS que 
+
+
+
+
+
+
+sigam as regras da interface de 
+
+
+
+''
+  
+ interface Validatable { ////objeto usado para o validation, lá na function de 'validate()', executada lá no 'submitHandler()'....
+
+
+    value: string | number; //é o 'actual value' de um determinado field.
+    inputField: string;
+
+
+    required?: boolean; ///são as 'validation properties' de um determinado field (pq um field NÃO PRECISA TER TODAS EM SI... alguns fields podem ter só 'minLength', outros só 'min' com 'required', etc etc..)
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+
+}
+
+
+
+
+''',
+
+
+
+
+
+
+
+
+
+
+PARA ENTÃO 
+
+
+
+
+
+
+CONSEGUIR OS ENVIAR à FUNÇÃO DE 'validate()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+
+    if (
+        validate({value: enteredTitle, required: true, minLength: 5}) &&
+        validate({value: enteredDescription, required: true, minLength: 5}) &&
+        validate({value: enteredPeople, required: true, min: 1, max: 10}) 
+    ) 
+    {
+
+
+        alert('Invalid input, please try again.');
+        return;
+    } else {
+
+        return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+
+}
+
+
+
+
+
+
+
+
+-------> seria melhor, na verdade, construir OBJETOS (em consts) PARA 
+
+cada um 
+
+
+dos calls de validate, esse seria o ideal....
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR 
+
+
+
+
+
+
+ADMITE QUE PODERÍAMOS CRIAR UMA CLASS PARA enfiar esses valores dos input fields com esses 'required', 'minLength', etc etc,
+
+
+
+
+MAS 
+
+
+
+ele diz que prefere 
+
+
+OPTAR POR UMA INTERFACE AQUI, para 
+
+mostrar 
+
+
+como isso funciona...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... seguimos o approach do professor, para deixa esses calls mais bonitos:
+
+
+
+
+
+
+
+
+EX(antes):
+
+
+
+
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+    if (
+        validate({value: enteredTitle, required: true, minLength: 5}) &&
+        validate({value: enteredDescription, required: true, minLength: 5}) &&
+        validate({value: enteredPeople, required: true, min: 1, max: 10}) 
+    ) 
+    {
+
+
+        alert('Invalid input, please try again.');
+        return;
+    } else {
+
+        return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX(depois):
+
+
+
+
+
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+
+
+
+
+
+    const titleValidatable: Validatable = {
+      value: enteredTitle,
+       required: true,
+        minLength: 5
+
+
+    }
+
+
+
+        const descriptionValidatable: Validatable = {
+value: enteredDescription,
+ required: true,
+  minLength: 5
+
+
+    }
+
+
+    const peopleValidatable: Validatable = {
+        value: enteredPeople, 
+        required: true, 
+        min: 1, 
+        max: 10
+    }
+
+
+
+
+
+    if (
+        validate(titleValidatable) &&
+        validate(descriptionValidatable) &&
+        validate(peopleValidatable) 
+    ) 
+    {
+
+
+        alert('Invalid input, please try again.');
+        return;
+    } else {
+
+        return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... FICOU BEM MAIS BONITo.... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> o titleValidatable vai checar só 
+
+por 
+
+'required' e por 'minLength'....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+      const peopleValidatable: Validatable = {
+          value: +enteredPeople, 
+          required: true, 
+          min: 1, 
+          max: 10
+      }
+
+
+
+
+
+
+
+
+
+
+
+      -->ok, o max será de 10....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas nossa lógica está errada: 
+
+
+
+
+
+
+
+
+    if (
+        validate(titleValidatable) &&
+        validate(descriptionValidatable) &&
+        validate(peopleValidatable) 
+    ) 
+
+
+
+
+
+
+
+
+
+
+    --> SE APENAS __ 1 DELAS FALHAR, VAMOS QUERER QUE TODAS 'FALHEM' (deem false)...
+
+
+
+
+
+
+
+
+    --> para isso,
+
+    colocamos 
+
+
+
+
+    O PIPE OPERATOR....
+
+
+
+
+    eX:
+
+
+
+
+
+    
+
+    if (
+        !validate(titleValidatable) ||
+        !validate(descriptionValidatable) ||
+        !validate(peopleValidatable) 
+    ) 
+
+
+
+
+
+
+
+
+
+
+--> se apenas UM DESSES CALLS DE 'validate' der false,
+
+
+VAMOS RODAR AQUELE ALERT ALI....
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+--> COM ISSO, PARA TESTAR TUDO ISSO,
+
+
+
+
+VAMOS 
+
+
+
+
+ATÉ O INDEX.HTML E MUDAMOS O  'max'
+
+
+lá 
+
+naquele 
+
+
+'<input type="number" id="people" step="1" min="0" max="10" />' 
+
+
+
+
+
+
+
+
+
+
+
+--> ELE COLOCA UM MAX de '5',
+
+e aí 
+
+
+
+
+testa a lógica....
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... NOSSA LÓGICA DE VALIDATION ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+-_> CLARO QUE ESSA É APENAS 1 DAS MANEIRAS DE IMPLEMENTAR VALIDATION  ---> mas é 
+
+BEM REUSABLE,
+
+E PODE 
+
+SER USADA 
+
+EM VÁRIAS PARTES DIFERENTES DE NOSSO CÓDIGO...,
+
+
+
+
+E CLARO QUE TIRA VANTAGEM DO 'TYPESCRIPT' 
+
+
+
+e nos 
+
+oferece 
+
+grande support e type checking, para evitar erros desnecessários...
+
+
+
+
+
+
+
+
+
+-------------------------
+
+OK.... ISSO PQ SÓ VAMOS OBTER 'active' ou 'finished' projects...
+
+
+
+
+
+
+
+
+
+--> AÍ, LÁ EM 
+
+'this.element.id',
+
+
+
+
+
+COLOCAMOS ESTA DEFINIÇÃO:
+
+
+
+
+
+
+this.element.id = listType...

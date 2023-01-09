@@ -1,0 +1,2191 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR QUER COMEÇAR COM A FEATURE 
+
+
+
+ DE 'NAMESPACE'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA MOSTRAR COMO ESSA FEATURE FUNCIONA,
+
+ PROFESSOR 
+
+ PEGA 
+
+ 
+ OS CÓDIGOS DE INTERFACE,
+
+
+
+
+ 'interface Draggable' 
+
+
+ e 
+
+
+ 'interface DragTarget',
+
+
+
+
+
+
+
+
+
+
+
+ CORTA-AS DE 
+
+
+
+
+ 'app.ts'
+
+
+
+ E COLOCA EM UM ARQUIVO DIFERENTE .ts,
+
+
+
+de nome 
+
+'drag-drop-interfaces.ts'..
+
+
+
+
+
+
+
+
+
+
+
+
+COLAMOS OS CÓDIGOS LÁ,
+
+ASSIM:
+
+
+interface Draggable {
+  dragStartHandler(event: DragEvent): void; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+  dragEndHandler(event: DragEvent): void;
+}
+
+interface DragTarget {
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+  dragLeaveHandler(event: DragEvent): void;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------> PARA ACESSAR A FEATURE DO NAMESPACE,
+
+
+
+
+devemos escrever 
+
+
+'namespace {
+
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS 'namespace' 
+
+
+
+É UMA KEYWORD,
+
+E AO SEU LADO DEVEMOS COLOCAR O NOME DESSE NAMESPACE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR USA O NOME DE 
+
+
+
+
+
+
+
+
+'DragDropInterfaces'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+namespace DragDropInterfaces {
+
+}
+
+
+interface Draggable {
+  dragStartHandler(event: DragEvent): void; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+  dragEndHandler(event: DragEvent): void;
+}
+
+interface DragTarget {
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+  dragLeaveHandler(event: DragEvent): void;
+}
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... 
+
+
+MAS O IMPORTANTE É QUE 
+
+'namespace',
+
+essa keyword 
+
+
+aí 
+
+é 
+
+UMA FEATURE 
+TYPESCRIPT,
+E NÃO 
+
+JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO É COMPILADO EM CÓDIGO JAVASCRIPT.... --------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÃO É PQ NÃO EXISTE EQUIVALENTE NO JAVASCRIPT.... --> 
+
+
+
+
+
+EM VEZ DISSO,
+O QUE 
+
+
+O 
+
+TYPESCRIPT FAZ É BASICAMENTE COMPILAR ESSE 
+
+'namespace'
+
+
+EM 
+
+
+1 
+
+OBJECT,
+
+1 GRANDE OBJECT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AS COISAS QUE 
+
+VOCÊ COLOCA NO NAMESPACE 
+
+
+
+SÃO ARMAZENADAS EM PROPRIEDADES... ---. MAS VOCê NÃO TEM QUE 
+
+
+SE PREOCUPAR COM ISSO,
+
+
+PQ 
+
+TODAS AS TECNICALIDADES 
+
+SÃO FEITAS PELO TYPESCRIPT (resolving do acesso a essas propriedades)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> VAMOS COLOCAR NOSSAS INTERFACES DENTRO DO 'NAMESPACE'...
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, ESTAMOS QUASE TERMINADOS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+AGORA TEREMOS UM PROBLEMA:
+
+
+
+
+ESSAS INTERFACES 
+
+
+_ FICARÃO DISPONÍVEIS ___ APENAS__ DENTRO DESSE NAMESPACE....
+
+
+
+
+
+
+
+
+
+
+
+
+-------> BTW,
+
+
+
+
+vocÊ não é obrigado a colocar INTERFACES dentro de namespaces;
+
+
+
+vocÊ pode colocar QUALQUER COISA DENTRO DELES (
+    
+
+    classes, functions,
+
+    constants,
+
+    etc....
+
+)
+
+
+
+
+
+
+--> você pode wrappar 1 namespace em volta de QUALQUER CÓDIGO QEU VOCê TEM...
+
+
+
+
+
+
+
+--> MAS 1 PROBLEMA QUE VOCÊ TERÁ é que 
+
+
+
+ESSAS FEATURES/CÓDIGOS SÓ FICARÃO DISPONÍVEIS __ DENTRO__ DESSE NAMESPACE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> COMO VOCê PODE VER, SÓ TEMOS ESSAS 2 INTERFACES DENTRO DESSE NAMESPACE...
+
+
+--> É CLARO QUE 
+
+PODERÍAMOS COLOCAR O 'CÓDIGO QUE DEPENDE DESSAS INTERFACES'
+
+
+
+dentro desse namespace,
+
+
+
+MAS OBVIAMENTE 
+
+
+ISSO 
+
+'BLOATARIA'
+
+
+nosso name space,
+
+
+
+PQ TEMOS CLASSES BEM GIGANTES __ QUE__ DEPENDEM __ DESSES NAMESPACES.. 
+
+(
+    como 'ProjectList'
+
+    e 
+
+    'ProjectItem'...
+)
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE TERÍAMOS DE ADICIONAR UM MONTE DE CÓDIGO 
+
+NESSE NAMESPACE,
+
+O QUE ACABARIA COM SEU PROPÓSITO...
+
+
+
+
+
+
+
+--> PORTANTO, O QUE 
+
+VOCê PODE FAZER É 
+
+ADICIONAR A 
+
+
+
+keyword 
+
+'export' 
+
+
+
+
+NA FRENTE DAS INTERFACES QUE ESTÃO DENTRO DO 'namespace',
+
+
+
+PARA ENTÃO 
+
+
+EXPORTAR 1 FEATURE ARMAZENADA EM 1 NAMESPACE....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+namespace DragDropInterfaces {
+        
+export interface Draggable {  ////EIS O CÓDIGO EM QUESTÃO.
+  dragStartHandler(event: DragEvent): void; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+  dragEndHandler(event: DragEvent): void;
+}
+
+export interface DragTarget {
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+  dragLeaveHandler(event: DragEvent): void;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--------> ISSO SIGNIFICA, AGORA,
+
+QUE 
+
+
+ESSAS FEATURES/INTERFACES
+
+
+FICARÃO DISPONÍVEIS NÃO SÓ 
+
+DENTRO DESSE NAMESPACE,
+
+
+MAS TAMBÉM ____fORA___ DESSE ARQUIVO 'drag-drop-interfaces.ts' 
+
+
+em que vocÊ definiu o namespace...
+
+
+
+
+
+
+
+
+
+
+
+--> logo veremos como isso funciona.... --> mas o que interessa 
+
+é 
+
+que 
+
+
+ISSO DEIXA A COISA QUE ESTAMOS FAZENDO 'EXPORT' 
+
+DISPONÍVEL___ NO LADO_ DE FORA __ DESSE ARQUIVO, TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS DEVEMOS IMPORTAR/USAR ESSE NAMESPACE __ FORA__ DESSE ARQUIVO,
+
+para acessar essa feature...
+
+
+
+
+
+
+
+
+
+--> DE NOVO, VOCÊ PODE EXPORTAR QUALQUER COISA EM 1 NAMESPACE,
+
+
+NÃO SÓ INTERFACES...
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO IMPORTAMOS 
+
+UMA INTERFACE 
+
+EM 
+'app.ts',
+
+
+POR EXEMPLO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> BEM... PARA ADICIONAR UM NAMESPACE 
+A 
+UM ARQUIVO 
+
+
+'.ts',
+
+
+
+VOCê DEVE ESCREVEr 
+
+
+'///' 
+
+
+
+
+
+3 FORWARD SLASHES 
+
+
+
+,
+
+
+
+
+
+
+ISSO NÃO É UM 'NORMAL COMMENT',
+
+E SIM É UMA 
+
+
+SINTAXE ESPECIAL
+
+
+COMPREENDIDA PELO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSES 3 SLASHES,
+
+
+
+VOCê ESCREVE 
+um 
+
+< />
+
+
+
+
+
+
+
+(SELF CLOSING HTML TAG)
+
+
+
+
+
+E AÍ, DENTRO DISSO,
+
+
+VOCÊ 
+
+DEVE ESCREVER 
+
+
+'reference path="..." 
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DE 'path="...",
+
+
+
+VOCê DEVE ESCREVER O __ PATH___ DO ARQUIVO 
+
+
+
+QUE VOCÊ QUER IMPORTAr...
+
+
+
+
+
+
+
+--> NO NOSSO CASO,
+
+ESCREVEMOS ISTO>
+
+
+
+///<reference path="drag-drop-interfaces.ts"/>
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSA É UMA SINTAXE 
+
+
+
+
+ESPECIAL DO TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+--> ELE ENTENDE ESSA 'SPECIAL REFERENCE THING'...
+
+
+
+
+
+
+
+--. ISSO NÃO É UM CÓDIGO JAVASCRIPT VANILLA....
+
+
+
+
+
+
+
+--> VANILLA JS 
+
+NÃO SE INTERESSA COM ISSO,
+
+E NÃO 
+
+SE IMPORTA COM ESSE CÓDIGO...
+
+
+
+
+
+
+
+--> OK, MAS O QUE ESSA SINTAXE FARÁ
+
+
+
+
+
+--> ELA FARÁ 
+
+COM QUE O CÓDIGO DE 
+
+
+
+
+
+namespace DragDropInterfaces { ///É ASSIM QUE USAMOS  'NAMESPACES'...
+interface Draggable {
+    dragStartHandler(event: DragEvent): void; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+    dragEndHandler(event: DragEvent): void;
+  }
+  
+  interface DragTarget {
+    dragOverHandler(event: DragEvent): void;
+    dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+    dragLeaveHandler(event: DragEvent): void;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+FIQUE _ DISPONÍVEL EM 
+
+'app.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS O EDITOR AINDA ESTÁ RECLAMANDO, LÁ NO CÓDIGO DE 
+
+
+
+'class ProjectItem implements Draggable {
+
+}
+'
+
+
+
+
+
+
+
+
+
+
+--> E SE TENTAMOS SALVAR ISSO
+
+
+aí,
+
+
+
+o 
+
+TYPESCRIPT RECLAMA....
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+'Draggable',
+essa interface aí,
+
+
+
+'DOESNT SEEM TO BE AVAILABLE'...
+
+
+
+
+
+
+
+
+---->>>>>> ISSO É PQ __ HÁ 'A SPECIAL THING ABOUT INTERFACES'....
+
+
+
+
+
+
+
+
+
+--> VOCê PODE USAR NAMEPSACES PARA 
+
+SPLITTAR SEU CÓDIGO, SIM....
+
+
+
+
+
+
+
+
+
+
+
+
+--> E, DE ACORDO COM AQUILO QUE O PROFESSOR FALOU,
+
+
+
+'VOCÊ PODE USAR UMA DETERMINADA COISA 
+
+
+DE UM NAMESPACE___ COM QUALQUER_ _ COISA __ DAQUELE NAMESPACE_...''
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, IT TURNS OUT QUE __ VOCê __ REALMENTE _ PODE __ SPLITTAR 
+
+
+
+'NAMESPACES'
+
+AO LONGO 
+
+
+DE __ MÚLTIPLOS ARQUIVOS,
+
+
+
+
+basta você 
+
+
+
+usar o 'export' nas features dos namespaces,
+
+ 
+
+ E AÍ USAR 
+
+ AQUELA 
+
+ SINTAXE DE IMPORTS ESPECIAL DE 
+
+
+ 
+
+
+
+///<reference path="drag-drop-interfaces.ts"/> 
+
+
+
+
+
+
+
+
+
+
+
+
+...
+
+
+
+
+
+
+
+SIM, VOCê PODE FAZER ISSO, MAS.... ---------> MAS VOCê 
+
+
+
+
+
+TEM __ QUE__, AÍ_,
+
+COLOCAr 
+
+AS COISAS QUE 
+
+VOCê QUER UTILIZAR, DESSE NAMESPACE IMPORTADO,
+
+
+
+
+
+
+___dENTRO__ DO MESMO 'NAMESPACE'...
+
+
+
+
+
+
+
+
+
+
+
+
+putz, isso é bem estranho...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+isso significa, se eu entendi bem,
+
+que
+
+
+
+VOCê TERÁ 2 ARQUIVOS DIFERENTES,
+
+
+com um PORTA no meio dos 2...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a PORTA entre os 2 arquivos será justamente o 'namespace' 
+
+
+nos 2 arquivos...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+arquivo de 'drag-drop-interface.ts':
+
+
+
+
+
+namespace DragDropInterfaces { ///É ASSIM QUE USAMOS  'NAMESPACES'...
+interface Draggable {
+    dragStartHandler(event: DragEvent): void; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+    dragEndHandler(event: DragEvent): void;
+  }
+  
+  interface DragTarget {
+    dragOverHandler(event: DragEvent): void;
+    dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+    dragLeaveHandler(event: DragEvent): void;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+arquivo de 'app.ts': 
+
+
+
+
+
+...
+
+
+
+namespace DragDropInterfaces {
+
+
+    ''''CÓDIGO EM QUE VOU QUERER USAR AS INTERFACES DAQUELE NAMESPACE EM 
+
+    'drag-drop-interface.ts'...
+}
+
+
+
+
+
+
+
+
+
+
+....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARA EXEMPLIFICAR ISSO,
+
+
+
+PROFESSOR 
+
+
+ESCREVE 
+
+UM NAMESPACE,
+
+em 
+
+
+'app.ts',
+
+
+
+
+com esse nome de 
+
+'DragDropInterfaces',
+
+
+e aí 
+
+COLOCA TODO NOSSO CÓDIGO NO INTERIOR DISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> ok... mas meu código diz que algo está errado (que o 'DragTarget' e 'Draggable' AINDA NÃO PODEM SER ENCONTRADOS)...
+
+
+
+
+
+
+
+
+
+
+
+--> ERA PQ EU HAVIA ESQUECIDO DE ESCREVER 'export' nas minhas interfaces....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... ATÉ AÍ, TUDO BEM....
+
+
+
+
+
+
+
+
+
+-------. BEM, MAS AGORA SURGE UMA PERGUNTA...
+
+
+
+
+
+
+
+
+
+--> O QUE ACONTECE COM O RESULTADO DESSA COMPILATION DE 
+
+NOSSO 
+
+
+'drag-drop-interfaces' 
+
+
+e 
+
+'app.ts' 
+
+
+
+
+--> FICAMOS COM SÓ 1 BUNDLE, 1 ARQUIVO, OU COM 2 ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE CHECARMOS NOSSO OUTPUT,
+
+
+
+
+EM 'dist',
+
+
+VEREMOS OS ARQUIVOS 
+
+
+'app.js' 
+
+'app.js.map' (sourcemap)
+
+
+'drag-drop-interface.js' 
+
+
+'drag-drop-interface.js.map'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE VAMOS OBTER 2 ARQUIVOS COMO RESULTADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM.. MAS O ARQUIVO 'drag-and-drop-interfaces.ts'
+
+
+
+VAI ESTAR BEM VAZIO,
+
+PQ 
+
+CONFORME APRENDEMOS ANTERIROMENTE,
+
+
+
+INTERFACES 
+
+
+PRATICAMENTE NÃO SÃO COMPILADAS,
+
+PQ 
+
+
+NÃO EXISTE 1 EQUIVALENTE JAVASCRIPT DELAS (feature pura typescript)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR AS INTERFACES PARA TER TODOS AQUELES IMPROVEMENTS TYPESCRIPT,
+MAS EM PRODUCTION 
+
+
+
+___ELA REALMENTE NÃO INTERESSA,
+
+NÃO INTERESSA 
+
+SE ELAS FICAREM EM 1 ARQUIVO SEPARADO OU NAO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A PERGUNTA É:
+
+
+
+E SE TENTASSEMOS COLOCAR ALGO EM 'namespaces'
+
+
+QUE REALMENTE EXISTE 
+
+
+NO JAVASCRIPT NORMAL (não como interfaces, que não existem)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO EXWEMPLO,
+
+
+
+
+PODEMOS USAR OS 'enums' 
+
+
+
+E A CLASS DE 'Project'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CRIAMOS UM NOVO ARQUIVO, 'enums&projectClass.ts',
+
+
+
+
+E AÍ 
+
+
+COLOCAMOS 
+
+
+
+
+UM NAMESPACE COM AQUELE MESMO NAME,
+
+de 
+
+'App',
+
+e escrevemos assim:
+
+
+
+
+
+
+
+
+
+
+namespace App {
+export enum ProjectStatus { ///usado para 'ECONOMIZAR CÓDIGO' (passamos 0 e 1 em vez daquelas strings ali)...
+    Active, ///0
+    Finished ////1
+  }
+  
+  
+  
+  export class Project { 
+  
+    constructor( 
+      public id: string, 
+      public title: string, 
+      public description: string, 
+      public people: number, 
+      public projectStatus: ProjectStatus 
+       ) {
+  
+      }
+  
+  }
+  
+   }
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> EXPORTAMOS ESSAS FEATURES, É CLARO... 
+
+(
+    tudo para que consigamos as utilizar 
+
+
+    EM OUTROS NAMESPACES COM O MESMO NAME DE 'App'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... agora de volta a 'app.ts',
+
+
+
+
+TEMOS QUE IMPORTAR  ESSE SEGUNDO ARQUIVO,
+
+
+POR MEIO DE UM CÓDIGO COMO 
+
+
+
+''///<reference path="enums&ProjectClass.ts"/> '''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+
+
+
+
+--> SE SALVAMOS E COMPILAMOS NOSSO PROJETO,
+
+
+VEREMOS QUE AGORA 
+
+
+
+EXISTIRÃO 3 ARQUIVOS EM 'dist', arquivos de output...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.js
+
+
+
+drag-drop-interfaces 
+
+
+
+enums&ProjectClass.ts
+
+
+
+
+
+
+
+
+
+
+-------> DENTRO DESSE NOVO ARQUIVO,
+
+
+VAMOS 
+
+
+VER UNS CÓDIGOS EXTRAS...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+"use strict";
+var App;
+(function (App) {
+    let ProjectStatus;
+    (function (ProjectStatus) {
+        ProjectStatus[ProjectStatus["Active"] = 0] = "Active";
+        ProjectStatus[ProjectStatus["Finished"] = 1] = "Finished";
+    })(ProjectStatus = App.ProjectStatus || (App.ProjectStatus = {}));
+    class Project {
+        constructor(id, title, description, people, projectStatus) {
+            this.id = id;
+            this.title = title;
+            this.description = description;
+            this.people = people;
+            this.projectStatus = projectStatus;
+        }
+    }
+    App.Project = Project;
+})(App || (App = {}));
+//# sourceMappingURL=enums&ProjectClass.js.map
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A PERGUNTA AGORA É:
+
+
+
+
+POR ACASO NOSSO APP FUNCIONA COMO ANTES..
+
+
+
+
+
+
+
+---> TESTAMOS NOSSO APP....
+
+
+
+
+
+
+
+
+
+
+
+--. RECARREGAMOS,
+
+
+TENTAMOS ADICIONAR UM NOVO PROJECT... --> 
+
+RECEBEMOS 
+
+UM ERROR --> 
+
+
+
+
+'Uncaught TypeError: 
+
+
+Cannot read property ACTIVE of undefined'...
+
+
+
+
+
+
+
+
+
+------> A RAZÃO PARA ISSO, CONFORME EXPLICADO PELO PROFESSOR,
+
+
+NOSSAS 'FILES'   
+
+
+
+SÃO COMPILADAS ''''STANDALONE''''....
+
+
+
+
+
+
+
+NAMESPACES EXISTEM SÓ NO MUNDO TYPESCRIPT ,
+
+
+
+
+
+inexistem no javascript...
+
+
+
+
+
+
+
+
+
+--> NO MUNDO TYPESCRIPT,
+
+
+TUDO ESTÁ ÓTIMO, PQ 
+
+OS NAMESPACES FUNCIONAM COMO DEVEM (
+
+    typescript é capaz de encontrar qualquer coisa que 
+
+    queremos...
+)
+
+
+
+
+QUANDO PEÇO a class de 'Project', por exemplo,
+
+o 
+
+
+typescript Lê AQUELE IMPORT STATEMENT de 
+
+
+'///<reference path="enums&ProjectClass.ts"/>'',
+
+
+
+E AÍ CONSEGUE ENCONTRAR ESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS O IMPORT AÍ 
+
+
+REALMENTE FUNCIONA 
+
+NO TYPESCRIPT,
+
+PQ 
+
+QUANDO ESSE CÓDIGO É COMPILADO EM JAVASCRIPT,
+
+
+ESSA 
+
+CONEXÃO ENTRE OS 2 ARQUIVOS __ É DESTRUÍDA__...
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE PRECISAMOS CONFIGURAR NOSSO DEV WORKFLOW DE MODO QUE 
+
+
+ESSA CONEXÃO ESTABELECIDA POR MEIO DE 'namespaces'
+
+
+NÃO SEJA DESTRUÍDA QUANDO 
+
+
+NOSSO CÓDIGO FOR COMPILADO...
+
+
+
+
+
+
+
+
+
+---> PARA ISSO,
+
+VAMOS ATÉ O ARQUIVO 'tsconfig.json',
+
+
+
+
+
+E LÁ 
+
+
+
+TEMOS      AQUELA OPÇÃO/entry de 
+
+'outFile'....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. OPCOES MUITO IMPOR */
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->  PODEMOS COMENTAR ESSA OPÇÃO PARA DENTRO.... 
+
+
+
+-->>>> ESSA OPÇÃO BASICAEMNTE MANDA O TYPESCRIPT CONCATENAR 'NAMESPACES' (essas references que temos durante a compilation, representadas por coisas como nossos imports de namespaecs....)
+
+
+EM 
+
+
+
+__APENAS 1 ÚNICO ARQUIVO JAVASCRIPT,
+
+EM VEZ DE COMPILAR 
+
+MÚLTIPLOS ARQUIVOS JS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+PROFESSOR 
+
+
+
+escreve algo como isto:
+
+
+
+"outFile": "./dist/bundle.js" 
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FARÁ COM QUE TUDO, TODA NOSSA PRODUÇÃO, FIQUE COMPILADA EM 1 ÚNICO ARQUIVO 
+
+.js,
+
+
+de nome 'bundle.js'....
+
+
+
+
+
+
+
+
+
+
+
+---> MAS SE SALVARMOS ISSO, RECEBEREMOS UM __ERROR__...
+
+
+
+
+
+
+
+
+
+
+O ERROR SERÁ ESTE:
+
+
+Only 'amd' and 'system' modules are supported alongside --outFile.ts
+
+
+
+
+
+
+
+
+
+
+
+
+--------> NÓS NÃO PRECISAMOS ENTENDER ISSO... ----> 
+
+
+
+
+BASICAMENTE, EXISTEM DIFERENTES MANEIRAS DE BUNDLAR ARQUIVOS JAVASCRIPT EM 1 
+
+ÚNICO ARQUIVO, razões históricas,
+
+
+
+MAS O QUE INTERESSA 
+
+É QUE 
+
+
+
+
+
+TEMOS QUE MUDAR UMA OUTRA OPÇÃO EM 'tsconfig.json',
+
+TROCAR AQUELE 
+
+
+'module': 'commonjs'
+
+
+
+
+PARA 
+
+
+
+
+
+'amd'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... TROQUEI ESSE VALOR...
+
+
+
+
+
+
+
+
+
+
+
+agora o código vai compilar sem problemas..
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA TEREMOS 1 ARQUIVO NOVO EM DIST,
+
+de nome 'bundle.js' (compiladao)....
+
+
+
+
+
+
+
+
+
+SE DELETARMOS TODOS NOSSOS ARQUIVOS 
+
+.js e deixarmos só esse aí,
+
+
+
+VEREMOS QUE 
+
+
+
+NOSSO CÓDIGO TS AGORA SEMPRE VAI SER COMPILADO PARA ESSE ARQUIVO ÚNICO....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE ARQUIVO VAI SEGURAR TODO NOSSO 
+
+CÓDIGO NA VERSÃO 'COMPILED AND TRANSLATED VERSION'....
+
+
+
+
+
+
+
+
+
+
+
+--> E LÁ EM 'index.html',
+
+agora só temos que 
+IMPORTAR 
+
+'bundle.js'
+
+EM VEZ DE 'app.js'...
+
+
+
+
+
+
+
+
+
+
+AGORA EXECUTAMOS NOSSO APP,
+
+E TUDO FUNCIONA COMO ANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> WORKING APP,
+
+
+com drag and drop e tudo mais... --> TUDO EM 1 ÚNICO ARQUIVO,
+
+
+
+
+MAS SÓ NO 'FINAL RESULT',
+
+
+PQ 
+
+  DURANTE O DEVELOPMENT FICAMOS COM ESSES 'NAMESPACES',
+
+  que nos ajudam um pouco, pq deixam 
+   o 
+
+   código um pouco mais MANAGEABLE...
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS VER A OUTRA FONTE DE SPLITTING NO TYPESCRIPT,
+
+QUE É 
+
+
+O 'ES6 MODULES' (es6 import export syntax)....

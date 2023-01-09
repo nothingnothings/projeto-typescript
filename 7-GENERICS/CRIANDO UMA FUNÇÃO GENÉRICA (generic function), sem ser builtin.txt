@@ -1,0 +1,2278 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR PELO CREATE DE UMA GENERIC FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE CRIAR TANTO GENERIC CLASSES COMO FUNCTIONS,
+
+
+
+pode fazer ambos...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---. começamos com uma function....
+
+
+
+
+
+
+
+
+
+-_> SERÁ UMA FUNCTION QUE FARÁ 'MERGE' DE 2 OBJECTS,
+
+E QUE 
+RETORNARÁ 
+
+
+
+UM NOVO OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+--> o nome da function será de 'merge',
+
+
+
+
+
+e vai receber 
+
+
+
+'objA' 
+
+
+
+
+e 
+
+
+'objB'
+
+
+
+como input....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+function merge(objA, objB) {
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+É CLARO QUE PODERÍAMOS ESCREVER ESSA FUNÇÃO DE UMA CERTA MANEIRA..
+
+
+
+--> poderíamos colocar esses parameters como 'Object' type (generic)....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function merge(objA: object, objB: object) {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... ISSO NÃO NOS DARÁ ERRORS TYPESCRIPT (só um aviso de que types são generic)..
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, O QUE ESSA FUNCTION VAI FAZER, É 
+
+
+
+
+RETORNAR O RESULTADO 
+
+
+
+
+
+de 
+
+
+
+'Object.assign(
+    objA, objB
+)'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBJECT.ASSIGN --> é um method JAVASCRIPT, EXISTENTE NESSE CONSTRUCOTR FUNCTION/CLASS DE 'Object'... (static method)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE FAZ ISTO:
+
+
+
+O método Object.assign() é usado para copiar os valores de todas as propriedades próprias enumeráveis de um ou mais objetos de origem para um objeto destino. Este método irá retornar o objeto destino.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> FÓRMULA:
+
+
+
+
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+
+
+
+
+
+
+
+
+Object.assign(destino, ...origens)
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ok... AQUI, NO CASO, A FUNCTION DO PROFESSOR FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function merge(objA: object, objB: object) {
+
+
+
+  return Object.assign(objA, objB)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, VAMOS TRANSPLANTAR AS PROPRIEDADES DE 'objB' para o OBJ A (sem copiar, é realmente com os objects de verdade...),
+
+
+
+e AÍ VAMOS RETORNAR ESSE VALOR... 
+
+
+
+
+
+
+------> CERTO...
+
+
+
+
+
+
+
+
+--> O PROFESSOR ADMITE QUE ESSA FUNÇÃO SERIA MEIO INÚTIL POR SI SO´,
+
+
+pq 
+
+se quiséssemos mergear 2 objects,
+
+poderíamos só chamar 
+
+
+'Object.assign()'
+
+
+sem essa outer function.... --> ENTRETANTO,
+
+ELE 
+
+
+
+AFIRMA QUE _ VOCÊ _ PODERIA, HIPOTETICAMENTE, QUERER RODAR OUTRAS LÓGICAS NESSA FUNCTION,
+
+
+
+por isso 
+
+
+
+esse exemplo não é totalmente não realista...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK..... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CONTINUANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function merge(objA: object, objB: object) { ///essa função é/seria válida...
+
+
+
+
+        return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+console.log(merge({name: 'NOME'}, {age: 21})); /////////ISSO FUNCIONA/FUNCIONARIA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO FUNCIONARÁ, E RECEBEREMOS, NO CONSOLE, O OUTPUT de 
+
+
+
+
+'{name: "Max", age: 30}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA QUE TEMOS COM ISSO, CONTUDO, É QUE 
+
+
+
+
+SE __ TENTARMOS___ ARMAZENAR  O RESULTADO DESSE 'merge',
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function merge(objA: object, objB: object) { ///essa função é/seria válida...
+
+
+
+
+        return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+console.log(merge({name: 'NOME'}, {age: 21}));
+
+
+
+
+
+
+
+
+const mergedObject = merge({name: 'NOME'}, {age: 21}); ////SE FIZERMOS TIPO ASSIM....
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+SE TENTARMOS ARMAZENAR ISSO NESSA CONST,
+
+
+
+
+
+AÍ _ NÃO PODEREMOS __ aCESSAR '.name' nesse object....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OBTEREMOS ESTE ERROr:
+
+
+
+
+
+Property 'name' does not exist on type 'object'.
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OU SEJA,
+
+
+
+O USO DO TYPE GENERIC DE 'object'
+
+
+
+É INSATISFATÓRIO, PQ 
+VAI 
+
+
+RESULTAR EM ERRORS COMO ESSE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS COMO PODERÍAMOS CONSERTAR ESSE PROBLMEA?
+
+
+
+
+
+TALVEZ com a definição de um RETURN TYPE? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas isso TAMBÉM SERIA INSATISFATÓRIO,
+
+
+
+
+pois SE DEFINIRMOS QUE O RETURN TYPE ''''sempre vai retornar "name" e "age" '''',
+
+
+
+ESTARÍAMOS __ RESTRINGINDO __ 
+
+
+
+AS UTILIZAÇÕES DESSA FUNCTION (
+
+    que aí só vai poder ser chamada 
+
+
+
+    com 
+
+
+
+    'name: Max' 
+
+
+
+    e 
+
+
+    'age: 30'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK....--> É POR ISSO QUE VAMOS PRECISAR 'CREATE A GENERIC FUNCTION'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TUDO ACONTECE PQ _ O TYPESCRIPT_ _NÃO TEM COMO SABER QUE ESSE OBJECT VAI TER 
+
+
+1 propriedaed de 'name'...
+
+
+
+
+
+
+
+
+--> A ÚNICA COISA QUE 
+
+
+
+
+DIZEMOS, AQUI, É QUE VAMOS PASSAR 2 OBJECTS,
+
+
+
+e ái 
+
+
+
+O
+
+TYPESCRIPT' INFER' 
+
+
+
+
+QUE
+
+VAMOS 
+
+
+RETORNAR UM OBJECT... --> esse infer é CORRETO,
+
+
+
+MAS _ NÃO __ CARREGA TODA INFORMAÇÃO QUE PODERÍAMOS USAR, AQUI...
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE SEMPRE  PODERÍAMOS USAR 
+
+
+
+
+type casting, como eu expliquei anteriormente...
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+function merge(objA: object, objB: object) { ///essa função é/seria válida...
+
+
+
+
+        return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+const mergedObj = merge({name: 'Max'}, {age: 30}) as {name: string, age: number}; ////SIM, PODERÍAMOS FAZER ASSIM....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SIM, PODERÍAMOS ESCREVER ESSE TYPE CASTING AÍ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... ISSO SERIA MT CUMBERSOME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE EXEMPLO, 'GENERICS' PODERIAM/PODEM NOS AJUDAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA __tRANSFORMAR___ UMA FUNÇÃO EM UMA 'GENERIC FUNCTIOn',
+
+
+
+
+
+
+
+_ VOCÊ_ DEVE escrever '<>' 
+
+
+
+
+
+
+___dEPOIS__ DO FUNCTION NAME...
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+function merge<>(objA: object, objB: object) {
+
+
+
+
+        return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+AÍ, DENTRO DESSE '<>',
+
+
+
+DEFINIMOS ___ 
+
+
+
+2 IDENTIFIERS__ DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> O PRIMEIRO __ IDENTIFIER__ TIPICAMENTE É 'T',
+
+
+
+
+que é uma abreviação de 'Type'.... (mas você poderia usar qualquer identifier, não precisa ser 1 letra só)....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A CONVENÇÃO É USAR__ APENAS 1 'CHARACTER',
+
+
+
+e se VOCÊ TEM APENAS 1 
+GENERIC TYPE NO SEU CÓDIGO,
+
+
+
+vocÊ usa 'T'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA TIPO ASSIM:
+
+
+
+
+
+
+function merge<T>(objA: object, objB: object) {
+
+
+
+
+        return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO VAI BASICAMENTE DIZER AO TYPESCRIPT:
+
+
+
+
+'''ESSE GENERIC TYPE DE "T" VAI 
+
+
+AGORA FICAR DISPONÍVEL_ _ _APENAS__ DENTRO DESSA FUNCTION_ ....."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEFINIDO ESSE NOME DE 'T',
+
+
+
+
+podemos o UTIIZAR EM PARTES DE NOSSA FUNCTION LOCAL...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+function merge<T>(objA: T, objB: object) { ///essa função é/seria válida...
+
+
+
+
+    return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK....  ESSA SINTAXE PODE PARECER ESTRANHA,
+
+
+MAS LOGO FARÁ SENTIDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo... mas AINDA___ TEMOS O SEGUNDO PARÂMETRO, de type 'object',
+
+
+que 
+
+
+
+AINDA NÃO SABEMOS COMO DEVERÁ SE PARECER (o primeiro tbm, mas agora SABEMOS QUE SEU TYPE SERÁ de 'T', que é um 
+
+
+TYPE CRIADO POR NÓS, PARA ESSA FUNCTION)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS __ ACEITAR__ UM SEGUNDO GENERIC TYPE AQUI...
+
+
+
+
+--> COLOCAMOS UM SIMPLES ',' ,
+
+
+
+
+
+E AÍ 
+
+
+
+
+
+__ REFERENCIAMOS A PRÓXIMA LETRA DO ALFABETO, 'U'....
+
+
+
+
+
+
+
+
+
+--> ex:
+
+
+
+
+
+
+function merge<T, U>(objA: T, objB: object) { ///essa função é/seria válida...
+
+
+
+
+    return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+'objA'
+
+será de TYPE 
+
+
+'T',
+
+
+
+E 
+
+
+'objB'
+
+será de type 
+
+
+'U'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> MAS O QUE DIABOS ISSO NOS RENDE?
+
+
+
+
+
+
+
+
+
+
+
+--> professor explica que UM MONTE...
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+
+function merge<T, U>(objA: T, objB: U) { 
+
+
+
+
+    return Object.assign(objA, objB); 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+const mergedObj = merge({name: 'Max'}, {age: 30});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> esse código aí, por exemplo,
+
+
+JÁ VAI SE COMPORTAR DE MANEIRA DIFERENTE...
+
+
+
+
+
+
+
+-> SE TENTARMOS ACESSAR o 'name' em 'mergedObj',
+
+
+
+
+CONSEGUIREMOS 
+
+
+TER AUTO-COMPLETION E SUPORTE DO TYPESCIRPT (sucesso)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> e se passamos o mouse em cima 
+de 
+
+'mergedObj',
+
+
+
+
+
+VEMOS:
+
+
+
+
+
+
+'''
+
+
+
+
+const mergedObj: {
+    name: string;
+} & {
+    age: number;
+}
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+--------->  OK, MAS O QUE ACONTECEU AQUI?
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> BEM, SE VOCÊ PASSAR O MOUSE EM CIMA de 
+
+
+'function',
+
+
+VOCê 
+
+VERÁ 
+
+ISTO AQUI:
+
+
+
+
+
+
+
+
+
+
+function merge<T, U>(objA: T, objB: U): T & U
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, TYPESCRIPT INFERIU QUE __ 
+
+ESSA FUNCTION__ VAI RETORNAR UMA 'INTERSECTION' 
+
+
+
+entre 
+
+T e U ....
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS PQ ISSO? 
+
+
+
+
+
+
+
+
+
+
+--> é pq SE VOCÊ PASSAR O MOUSE EM CIMA DE 'Object.assign',
+
+
+você verá que seu 
+
+
+código é de 
+
+
+
+
+'(method) ObjectConstructor.assign<T, U>(target: T, source: U): T & U (+3 overloads)' 
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO SIGNIFICA QUE:
+
+
+
+'COMO 
+
+ESSA FUNCTION VAI RETORNAR O RESULTADO DESSE CALL DE OBJECT.ASSIGN,
+
+O TYPESCRIPT ENTENDE AUTOMATICAMENTE QUE ELA 
+
+
+VAI RETORNAR __ UMA ___ INTERSECTION _ ENTRE T E U ('T & U', isso signfica uma intersection)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, MAS COMO ISSO É UTIL A NÓS? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, SE AGORA PASSARMOS O MOUSE POR CIMA DE 'mergedObj',
+
+
+
+
+TYPESCRIPT VAI ENTENDER QUE O QUE TEMOS 
+
+
+
+em 'mergedObj'
+
+
+
+SERÁ A _INTERSECTION__ ENTRE ESSES OBJECT TYPES....
+
+
+
+
+ex:
+
+
+
+
+
+
+
+const mergedObj: {
+    name: string;
+} & {
+    age: number;
+}
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS PQ ELE FEZ ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO FOI CAPAZ DE INFERIR ISSO AGORA, com 
+
+
+'T' E 'U',
+
+
+
+
+__ E NÃO COM 'object', como antes...? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É PQ 
+
+
+
+'object' É UM 
+
+TYPE ALTAMENTE INESPECÍFICO.... ------> NÓS DIZEMOS 'ANY OBJECT',
+
+
+
+
+
+
+
+o que VAI FAZER COM QUE O 
+
+
+TYPESCRIPT SIM, CONSIGA INFER QUE  
+
+
+
+
+VAMOS RETORNAR UMA INTERSECTION DE 
+
+
+'''object & object'''' --> MAS 
+
+
+
+
+A INTERSECTION DE 2 'UNKNOWN OBJECTS'
+
+
+VAI RETORNAR EXATAEMNTE ISSO,
+
+UM
+
+
+
+
+'UNKNOWN OBJECT'....
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE 
+
+
+
+'generic types', como o object, são um LIXO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> esse 'object' é mt genérico, e deve ser evitado....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> JÁ COM OS 'generic types' (como 'T' e 'U') ,
+
+
+SOMOS _ CAPAZES__ DE DIZER_ AO TYPESCRIPT _ QUE 
+
+ESSES 2 
+
+PARAMETERS 
+
+PODEM, e frequentemente VÃO,
+
+
+ser 
+
+DE __ DIFERENTES__ TYPES__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT VAI ENTENDER QUE NÃO ESTMAOS 'WORKING WITH SOME RANDOM OBJECT TYPE',
+
+
+e sim 
+
+
+
+QUE __ VAMOS RECEBER 'DIFFERENT DATA' AQUI,
+
+
+e que 
+
+ESSA FUNCTION, OVERALL, 
+
+
+
+
+VAI __ RETORNAR__ A INTERSECTION DESSA DATA... -----------> E É POR ISSO 
+
+QUE 
+
+
+O TYPESCRIPT VAI ENTENDER 
+
+QUE 
+
+
+
+O RETURN DESSA DATA ALI VAI __ SER A INTERSECTION DESSES 2 TYPES ESPECÍFICOS... (
+
+    pq agora 
+
+    não estamos 
+
+    mais lidando com 
+
+
+    2 objects inespecíficos/vagos, e sim 
+
+
+    COM 
+
+
+    2 TYPES __ BEM DEFINIDOS...
+)
+
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+oK... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+entendi a utilidade dos 'generic types' --_> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA NÃO ESTAMOS LIDANDO COM 'VAGUE OBJECTS',
+
+
+e sim 
+
+
+
+2 TYPES BEM ESPECÍFICOS...
+
+
+
+
+
+
+
+
+
+
+--> TUDO GRAÇAS A GENERIC TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> NÃO NOS IMPORTAMOS QUANTO AO EXATO OBJECT QUE SERÁ O TYPE,
+
+
+
+
+E SIM SÓ QUE '''SERÁ UM OBJECT COM ALGUMAS COISAS NO SEU INTERIOR''' ( e não '''UM OBJECT VAGO''') 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E TEMOS 'T' E 'U' justamente para 
+
+
+diferenciar entre os 2 diferentes types/objects....
+
+
+
+
+
+
+
+
+
+
+------>  OK... MAS O INTERESSANTE É QUE O 'TYPE' É DEFINIDO DINAMICAMENTE QUANDO __ CHAMAMOS __ eSSA FUNÇÃO__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ISSO SIGNIFICA QUE QUANDO CHAMAMOS A FUNCTION,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... MAS SE CHAMARMOS ESSA FUNCTION EM UMA NOVA LINHA, COM DIFERENTES 
+
+
+
+
+OBJECTS, tipo assim:
+
+
+
+const mergedObj2 = merge({job: 'coder'}, {name: 'asasas'});
+
+
+
+
+
+
+
+
+
+
+
+---> AÍ 
+
+
+
+
+O TYPE DESSE 'mergedObj2' 
+
+
+
+VAI FICAR DIFERENTE DO QUE O DE 'mergedObj',
+
+
+PQ VAI FICAR ASSIM:
+
+
+
+
+
+
+
+const mergedObj2: {
+    job: string;
+} & {
+    name: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso significa que vamos poder acessar 'mergedObj2.job' 
+
+
+
+e 'mergedObj2.name',
+
+MAS NÃO 
+
+
+
+'mergedObj2.age'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... 
+
+
+
+
+
+
+
+
+
+
+MAS VOCê TAMBÉM PODE ESPECIFICAR __aO TYPESCRIPT__ QUAIS TYPES ESSE 'FUNCTION CALL' deve 'fill in',
+
+
+
+
+
+
+
+NESSE FUNCTION CALL ESPECÍFICO...
+
+
+(basta usar '<>')...
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+const mergedObj3 = merge<string, number>({job: 'coder'}, {name: 'asasas'});
+
+
+
+
+
+
+
+
+
+(
+
+    COM ISSO, ESTARÍAMOS DIZENDO '''AH, ESSE FUNCTION CALL VAI QUERER PASSAR 
+
+    1 STRING E 1 NUMBER'''' ---> 
+
+
+
+
+    e é claro que isso vai dar um ERRO TYPESCRIPT,
+
+    pq 
+
+
+    as coisas que passamos, mais para a direita, são DOIS OBJECTS....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE QUISÉSSEMOS SER __ SUPER __ ESPECÍFICOS QUANTO AO CALL DESSA FUNCTION, nesse call aí,
+
+
+escreveríamos assim:
+
+
+
+const mergedObj3 = merge<{job: string}, {name: string}>({job: 'coder'}, {name: 'asasas'});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO AÍ FUNCIONARIA/FUNCIONA, CLARO, MAS É VERBOSE/REDUNDATNE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É IMPORTANTE ENTENDER QUE, NO FINAL DAS CONTAS,
+
+
+
+ISSO É OS 'GENERIC TYPES'... --> QUE PODEMOS __ PREENCHER __ CERTOS CONCRETE TYPES PARA CERTOS 
+
+
+
+FUNCTION CALLS,
+
+
+mas que 
+
+
+
+NÃO PRECIASMOS FAZER ISSO TÃO EXPLICITAMENTE PQ 
+O 
+
+TYPESCRIPT VAI 'INFER' 
+
+
+__OS _ TYPEs__ DOS VALUES _ QUE ESTAMOS PASSANDO COMO ARGUMENTS, AQUI... (
+
+
+
+
+e
+ aí 
+
+ ele 'plugs in' 
+
+ OS INFERED TYPES PARA O 'T  U',
+
+
+
+ nesse 
+
+ function call... (E em cada function call)....
+     
+)

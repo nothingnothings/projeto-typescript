@@ -1,0 +1,352 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DE VOLTA AO NOSSO PROEJTO,
+
+SE QUEREMOS USAR O WEBPACK,
+
+
+
+
+
+PRECISAMOS INSTALAR O 'NODE' (que vem com o npm)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PODEMOS USAR O NPM PARA INSTALAR MAIS DEPENDENCIES NESSE NOSSO PROJETO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> VAMSO QUERER TER THIRD PARTY LIBRARIES ADICIONAIS,
+
+QUE VAO NOS AJUDAR A SETTAR UM 
+
+PROJECT WORKFLOW E CONFIGURATION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> RODAMOS 
+
+'npm install --save-dev' 
+
+
+
+
+
+
+E AÍ 
+
+'webpack'...
+
+
+
+
+
+
+
+
+TAMBÉM 'webpack-cli',
+
+
+
+
+e 'webpack-dev-server'...
+
+
+
+
+
+
+
+
+
+
+
+
+-->>>> também vamos instalr 'typescript ' 
+
+
+
+e 
+
+'ts-loader'....
+
+
+
+
+
+
+
+
+
+
+
+--> INSTALAMOS TUDO ISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----->> COM ISSO INSTALADO,
+
+
+VAMOS ATÉ O PACKAGE.JSOn 
+
+
+,
+
+
+
+
+VEMOS NOSSAS DEVDEPENCIES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> todas nsosas packages foram addadas..
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS PELO 'WEBPACK'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------> WEBPACK
+
+
+O QUE ELE FAZ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ELE NOS DEIXA TRANSFORMAR NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> WEBPACK DEIXA FAZER 2 COISAS:
+
+
+
+
+
+
+
+1) TRANSFORMAR NOSSO CÓDIGO TYPESCRIPT EM JAVASCRIPT
+
+
+2) EMITIR UMA 'BUNDLED JAVASCRIPT FILE'....
+
+
+
+
+
+
+
+
+
+(tudo ao mesmo tempo)...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR O WEBPACK-DEV-SERVER para 
+
+
+fazer watch 
+
+nas nossas files por changes,
+
+
+
+e o 'webpack-cli' 
+
+
+
+
+
+
+
+
+
+
+
+---> PRECISAMOS INSTALAR TAMBÉM O 'typescript', 
+
+e o 
+
+'ts-loader'...
+
+
+
+
+
+
+
+
+
+--> TYPESCRIPT JÁ É INSTALADO 
+
+GLOBALMENTE NA NOSSA MÁQUINA,E É POR ISSO QUE PODEMOS RODAR
+
+
+'tsc --watch' ...
+
+
+
+
+
+---> AINDA ASSIM, É RECOMENDADO __ INSTALAR UMA CÓPIA DO TYPESCRIPT POR PROJETO,
+
+TUDO PARA QUE 
+
+VOCê TENHA UMA CÓPIA DO TYPESCRIPT POR PROJETO (
+
+    aí você não vai ter breaking changes 
+
+
+    no seu projeto,
+
+    quando o typescript for eventualmente updatado, no futuro...
+)
+
+
+
+
+
+
+
+
+--> JÁ O ts-loader é uma package qeu diz AO WEBPACK COMO 
+
+
+ELE DEVE CONVERTER O CÓDIGO TYPESCRIPT EM CÓDIGO JAVASCRIPT,
+
+
+tudo para que o webpack consiga 
+
+
+
+fazer aquelas 2 coisas ao mesmo tempo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... --. E, COM ISSO, DEVEMOS COMEÇAR, SETTAR UM PROJETO WEBPACK...
+
+

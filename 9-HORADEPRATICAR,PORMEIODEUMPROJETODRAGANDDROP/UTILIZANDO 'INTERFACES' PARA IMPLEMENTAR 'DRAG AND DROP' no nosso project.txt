@@ -1,0 +1,2926 @@
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS CHEGANDO AO FIM DESTE PROJETO...
+
+
+
+
+
+
+
+--> QUEREMOS SER CAPAZES DE FAZER 'DRAG AND DROP' 
+
+de 1 
+
+projeto em 1 box,
+
+em outra box...
+ 
+
+
+ (
+
+
+
+     switchar o project, de um active project,
+
+     para um FINISHED PROJECT...
+ )
+
+
+
+
+
+
+
+
+
+
+
+ --> ISSO NÃO É SÓ UM UPDATE DE 'VISUAL' ,
+
+
+
+
+
+
+
+
+
+ PQ _ VAMOS QUERER __ ATUALIZAR A DATA,
+
+
+
+
+
+
+
+
+ POR TRÁS DAS CENAS,
+
+
+
+ NAS NOSSAS CLASSES DE 'State Management'...
+
+
+
+
+
+
+
+
+
+
+ --> EX: o 'projectsTATE'
+ ,
+
+
+
+ EM QUE 
+
+
+ FAZEMOS UMA LIST DE PROJECTS, NO FINAL DAS CONTSA...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VOCê DEVE TER EM MENTE, NO CASO, 
+
+
+ QUE CADA 
+
+
+ 
+ PROJECT POSSUI UMA PROPRIEDADE de 'projectStatus',
+
+
+
+ E VAMOS PRECISAR UPDATAR 
+
+ ESSA PROPRIEDADE 
+ QUANDO 
+
+ OS 
+
+ PROJECTS 
+
+
+
+ 'mudarem' 
+
+ de list (uma list para a outra)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> OK... --> 2 COISAS QUE PRECISAMOS IMPLEMENTAR:
+
+
+
+
+
+
+ 1) 'DRAG AND DROP' (parte visual)
+
+
+
+
+
+
+ 2) ESSE 'CHANGE OF DATa' por trás das cenas (trocar o 'projectStatus' de um PROJECT, de 'active' para 'finished')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS COMEÇAR COM O DRAG AND DROp..
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS IMPLEMENTAR O DRAG AND DROP NA FORMA 
+
+
+ NORMAL 'VANILLA JAVASCRIPT',
+
+
+
+ QUE VOCÊ POR EXMEPLO PODE APRENDER NO GUIDE COMPLETO DE JAVASCRIPT 
+
+
+ do professor...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O SETUP DE UM 'DRAG AND DROP' 
+
+
+
+ ENVOLVE BASICAMETNE O SET DE UM MONTE DE EVENTLISTENERS,
+
+
+
+
+
+
+ E VAMOS RELEMBRAR COMO ISSO FUNCIONA,
+
+ NESTE MÓDULO...
+
+
+
+
+
+
+
+
+
+ --> VAMOS IMPLEMENTAR ESSA FEATURE COM UM ESTILO 'TYPESCRIPT',
+
+
+ usando algumas features typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA COMEÇAR,
+
+
+
+
+ fazemos...
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA MOSTRAR O USO DO TYPESCRIPT,
+
+
+ professor quer 
+
+ REINTRODUZIR O 
+ USO DE 
+
+ 'interfaces'
+
+
+ PARA MOLDAR NOSSAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ELE ESCREVE 
+
+ ///Drag and drop interfaces..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS ELE NÃO VAI QUERER SÓ DEFINIR A ESTRUTURA DE UM 'OBJECT' com essas interfaces... --> 
+
+
+ ELE VAI QUERER FAZER ALGO ALÉM DISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> EM VEZ DISSO,
+
+
+
+
+PROFESSOR VAI QUERER SETTAR UM CONTRACT 
+
+
+
+
+ENTRE NOSSAS CLASSES E ESSA INTERFACE,
+
+
+tudo para basicamente FORÇAR ESSAS CLASSES
+
+
+
+A 'IMPLEMENTAR CERTOS METHODS',
+
+
+
+METHODS QUE VAO NOS AJUDAR COM O DRAG AND DROP....
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+algumas classes vao 'assinar' esse contract, essa 'INTERFACE',
+
+
+que vai os FORÇAR A IMPLEMENTAR CERTOS 'methods',
+
+
+methods que vao nos AJUDAR 
+
+
+
+COM O DRAG AND DROP...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA SERMOS MAIS PRECISOS,
+
+
+
+O PROFESSOR ESTÁ 
+PENSANDO 
+
+
+E
+M 
+
+
+
+
+2 INTERFACES DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+----> É CLARO QUE O USO DESSAS INTERFACES SERÁ OPCIONAL,
+
+
+mas seu uso vai nos deixar 'basicamente providenciar um código  
+
+
+
+QUE __ VAI FORÇAR UMA CLASS A SER OU 
+
+
+___DRAGGABLE, OU ENTÃO UM 'DROP TARGET'''..........
+
+
+
+
+
+
+
+
+
+
+
+certo... acho que entendi...
+
+
+
+
+
+
+
+
+
+--> são 2 interfaces,
+
+
+
+1 para cada coisa...
+
+
+
+
+
+
+
+
+
+
+
+
+1 INTERFACE PARA CRIAR/MOLDAR UM 'DRAGGABLE ITEM' (nossos 'ProjectItem', actually),
+
+
+
+
+e 
+
+
+
+1 INTERFACE PARA DEFINIR UM 'DROPPABLE TARGET'... (nossas 'ProjectList', na verdade)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->  SE ESTIVÉSSEMOS CONSTRUINDO UM APP MAIOR,
+
+ESSA DIFERENCIAÇÃO/interfaces 
+
+
+
+NOS DEIXARIAM __ ESCREVER CÓDIGO MAIS CLEAN... 
+
+
+mais clean e uNDERSTANDABLE,
+
+
+
+
+particularmente quando trabalhamos em uma EQUIPE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS DE QUAL CÓDIGO O PROFESSOR ESTÁ FALANDO?
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, ele vai escrever a primeira interface,
+
+
+tipo 
+
+
+
+
+'interface Draggable {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> a segunda interface 
+
+
+terá um nome de 'DragTarget'..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+interface Draggable {
+
+}
+
+
+
+
+
+
+
+
+interface DragTarget {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A IDEIA DO PROFESSOR É QUE PODEMOS/DEVEMOS 
+
+ADICIONAR 
+
+
+A INTERFACE DE 
+
+
+'Draggable'
+
+
+
+EM QUALQUER CLASS 
+
+QUE 
+
+
+
+
+'RENDERS AN ELEMENT THAT CAN BE DRAGGABLE' ----------> no nosso exemplo,
+
+
+
+
+
+
+isso 
+
+SERÁ 
+
+ESPECIFICAMENTE O 'ProjectItem'..
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ as 'ProjectList',
+
+
+que são NOSSAS BOXES,
+
+
+
+SERÃO 
+
+
+RESPONSÁVEIS 
+
+
+
+
+
+POR SER 'drag targets'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, MAS O QUE DIABOS ESSAS INTERFACES VÃO FORÇAR 
+
+
+
+AS CLASSES A FAZER?
+
+
+
+
+
+
+
+
+
+
+----> VÃO FORÇAR A CODAR 
+
+
+CERTOS 'METHODS'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VAMOS COMEÇAR POR DRAGGABLE:
+
+
+
+
+
+
+
+interface Draggable {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSA INTERFACE,
+
+QUEREMOS ESTABELECER ESSENCIALMENTE 2 
+
+
+
+EVENTLISTENERS:
+
+
+
+
+
+
+
+'mousedown' (PRESSIONA UM ELEMENTO )
+
+
+
+
+
+
+
+e 
+
+
+
+
+'mouseup' (SOLTA ESSE ELEMENTO)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> PRECISAMOS DE 
+
+
+
+2 HANDLERS, ESSENCIALMENTE,
+
+
+
+
+
+
+
+
+para cada um desses events...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS TER UM HANDLER DE NOME 
+
+
+
+'dragStartHandler()',
+
+
+
+
+RESPONSÁVEL 
+
+
+
+PELO 
+
+
+
+'mousedown' nesse elemento nosso....
+
+
+
+
+
+
+
+---> É CLARO QUE 'dragStartHandler'
+
+
+SERÁ UM __ METHOD__...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ TEREMOS UM 'DragEndHandler()',
+
+
+
+RESPONSÁVEL PELO 
+
+
+'mousedown'...
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+interface Draggable {
+
+
+
+    dragStartHandler() 
+    DragEndHandler()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ QUANDO IMPLEMENTAMOS 'DRAG AND DROP',
+
+
+a coisa que você quer fazer DRAG AND DROp 
+
+
+
+
+__REQUER_ ALGUNS LISTENERS,
+
+
+
+
+
+1) LISTENER QUE FAZ LISTEN AO 'START' DO DRAG EVENT....
+
+
+2) LISTENER QUE FAZ LISTEN AO 'END' DO DRAG EVENT (drop, e aí o código que é executado a partir desse event de 'mouseup')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO...
+
+
+
+
+
+
+
+
+
+
+O METHOD DE 'dragStartHandler'
+
+
+
+
+VAI RECEBER UM parâmetro 'event',
+
+
+
+
+
+
+
+
+__ PARÂMETRO/OBJECT QUE VAI SER 
+
+
+
+
+DE TYPE 'DragEvent'.....
+
+
+
+
+
+
+EX:
+
+
+
+
+
+DRAGEVENT =====
+
+
+A DOM event that represents a drag and drop interaction.
+ The user initiates a drag by placing a pointer device (such as a mouse) 
+ on the touch surface and then dragging the pointer to a new location (such as another DOM element). 
+ Applications are free to interpret a drag and drop interaction in an application-specific way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> esse 'DragEvent' 
+
+É UM ___ TYPE_ __ DO __ TYPESCRIPT EM SI....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSE METHOD DE 'dragStartHandler'
+
+
+
+
+NÃO VAI RETORNAR COISA ALGUMA, VAI RETORNAR 'VOID',
+
+
+
+
+PQ __ ELE __ SÓ VAI EXECUTAR__ E ENTÃO 'CONFIGURAR O DRAGEVENT,
+
+
+
+
+MAS NÃO VAI PROPRIAMENTE RETORNAR UM VALOR....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+interface Draggable {
+
+
+
+    dragStartHandler(event: DragEvent): void;
+    DragEndHandler()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+O 'DRAGEND' 
+
+
+HANDLER TAMBÉM VAI 
+
+
+RECEBER UM 'DragEvent',
+
+
+claro que será um DRAGEVENT DIFERENTE,
+
+
+
+MAS __ ESSE METHOD __ TAMBÉM VAI RETORNAR 'void'...
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+interface Draggable {
+
+
+
+    dragStartHandler(event: DragEvent): void;
+    DragEndHandler(event: DragEvent): void;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+CERTO.... 
+
+
+
+
+
+
+
+É CLARO QUE LOGO VEREMOS COMO ESSES METHODS DE 
+
+'dragStartHandler'
+
+e 
+
+'DragEndHandler'
+
+
+
+SÃO IMPLEMENTADOS/APLICADOS 
+
+
+
+NAS NOSSAS CLASSES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+----> OK.... MAS E QUANTO AO 'DragTarget'?
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface DragTarget {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> PARA O 'TARGET', PARA A BOX EM QUE __ 
+
+
+VAMOS __ SOLTAR__ OS NEGÓCIOS,
+
+
+VAMOS QUERER 
+
+
+
+DEFINIR __ OUTROS LISTENERS...
+
+
+
+
+
+
+
+
+
+
+--> SERÁ O LISTENER DE 'exit' e de 'enter'... 
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PARECE QUE ESQUECI 1 OUTRO EVENT HANDLER, PQ O PROFESSOR 
+
+DIZ QUE 
+
+EXISTIRÃO '3 EVENT HANDLERS' 
+
+
+
+nos elementos que serão 'DragTarget' (ou seja, serão nossas lists)....
+
+
+
+
+
+
+
+
+
+
+
+
+1) element exit 
+
+
+
+2) element enter 
+
+
+
+3) element exit e __ NÃO ENTRA __ NA OUTRA LIST... 
+
+
+
+
+
+
+
+(
+
+
+    acho que essa são as 3 hipóteses...
+)
+
+
+
+
+
+
+
+--> bem.... eu __ QUASE__ ACERTEI...
+
+
+
+
+
+
+
+
+
+
+
+os methods 
+
+
+
+que o professor escreveu foram:
+
+
+
+
+
+
+1) dragOverHandler()    (element enter)...
+
+
+
+
+2) dropHandler()  element exit e ENTÃO DROPPA... (na outra list, ou então fora das 2 lists)....
+
+
+
+
+
+3) dragLeaveHandler()     --> ELEMENT EXIT...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface DragTarget {
+    dragOverHandler()
+    dropHandler()
+    dragLeaveHandler() 
+}
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+-------> VOCê PRECISA DE 'dragOverHandler' PARA BASICAMENTE SINALIZAR QUE 
+
+
+
+'''A COISA QUE VOCÊ ESTÁ SOBREVOANDO COM SEU ELEMENT ITEM __ É UM VALID__ TARGET, DRAG TARGET'''....
+
+
+
+
+
+
+
+
+
+
+
+-> SE VOCÊ __ NÃO __ FIZER _ 'DO THE RIGHT THING' 
+
+
+
+no 'dragOverHandler',
+
+
+
+
+O DROPPING NÃO SERÁ POSSÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PARTIR DISSO, PRECISAMOS DE 
+
+'2':
+
+
+
+
+
+
+
+
+2) 'dropHandler' --> É USADO PARA 
+
+
+
+
+REAGIR AO 'ACTUAL DROP' que acontece.... ---------> 
+
+
+
+
+
+
+
+
+RESUMINDO:
+
+
+
+
+
+
+1) o 'dragOverHandler' ___ '''''PERMITE'''''__ O 'DROP' NAQUELE ELEMENTO...
+
+
+
+
+2) o 'dropHandler' ___ '''REALIZA''' O DROP NAQUELE ELEMENTO.... HANDLA O DROP 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O UPDATE DA UI E DA DATA OCORRE EM 'dropHandler', essencialmente....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O 
+
+
+
+
+3) 'dragLeaveHandler' É __ ÚTIL___  SE QUEREMOS _ DAR  UM  'VISUAL FEEDBACK' AO USER, FEEDBACK DE QUE __ SEU __ ELEMENTO __ ESTÁ ___ '''SAINDO''' DA LIST EM QUE ESTAVA...
+
+
+
+
+
+
+
+
+
+-_> DAMOS ALGUM VISUAL FEEDBACK 
+
+
+
+
+AO USER.... -->  quando ele dragga algo para FORA DA CAIXA,
+
+
+
+PODEMOS MUDAR O 'BACKGROUND COLOR' desse elemento....
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, se 'NO DROP' acontece (
+
+
+    ou seja, se o drop é cancelado, ou se o user coloca o elemento de volta,
+
+    ou se ele 
+
+    TIRA O ELEMENTO DA CAIXA E NÃO COLOCA NA OUTRA,
+
+
+
+),
+
+
+NÓS 
+
+
+
+PODEMOS ATIVAR 
+
+
+'dragLeaveHandler()' 
+
+
+
+
+PARA _ REVERTER_ O 'VISUAL UPDATE' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM, MAS TODOS OS 3 'HANDLERS' VÃO RECEBER 1 argumento 'event' 
+
+
+de 
+
+
+type 'DragEvent',
+
+
+
+
+
+E OS 3 NÃO VÃO RETORNAR COISA ALGUMA, como aqueles handlers de 'dragStartHandler' e 'DragEndHandler'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface DragTarget {
+    dragOverHandler(event: DragEvent): void;
+    dropHandler(event: DragEvent): void;
+    dragLeaveHandler(event: DragEvent): void;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface Draggable {
+
+  dragStartHandler(event: DragEvent): void ; ///'DragEvent' --> é um type BUILTIN no typescript... --> e esse method vai retornar 'void' (não vai retornar coisa alguma, portanto, e sim só configura O DRAGEVENT...)....
+  dragEndHandler(event: DragEvent): void;
+}
+
+
+
+
+
+
+
+
+interface DragTarget {
+
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void; ///O UPDATE DA UI E DA DATA, AO MESMO TEMPO, OCORRE EM 'dropHandler', essencialmente....
+  dragLeaveHandler(event: DragEvent): void;
+}
+
+// 1) o 'dragOverHandler' ___ '''''PERMITE'''''__ O 'DROP' NAQUELE ELEMENTO... (é ativado quando arrastamos nosso elemento ('elemento permitido') em cima de uma 'droppable area')...
+// 2) o 'dropHandler' ___ '''REALIZA''' O DROP NAQUELE ELEMENTO.... HANDLA O DROP... // ///O UPDATE DA UI E DA DATA OCORRE EM 'dropHandler', essencialmente....
+// 3) 'dragLeaveHandler' É __ ÚTIL___  SE QUEREMOS _ DAR  UM  'VISUAL FEEDBACK' AO USER, FEEDBACK DE QUE __ SEU __ ELEMENTO __ ESTÁ ___ '''SAINDO''' DA LIST EM QUE ESTAVA...
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok.... NÓS CONFIGURAMOS ALGUMAS INTERFACES.... --> 
+
+
+
+POR SI SÓ,
+
+ELAS NÃO FAZEM 
+
+
+MT COISA... --------> MAS PODEMOS AS UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR PELO 
+
+'ProjectItem',
+
+
+
+
+FAZER COM QUE 
+
+
+ELE 
+
+
+
+SEJA 
+
+
+'Draggable'....
+
+
+
+
+
+
+
+
+
+--> BEM, A PRIMEIRA COISA NECESSÁRIA É 
+
+
+
+ativar o 'CONTRATO' de 'ProjectItem' 
+
+com essa 
+
+INTERFACE...
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO DE PROJECTITEM É ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+  // constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) { //CÓDIGO DE MINHA AUTORIA, MINHA VERSÃO (não usava/inheritava a class de 'Component')....
+
+
+
+    // console.log('YOURLISTITEM')
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+    //         const listItem = document.createElement('li');
+    //     listItem.innerHTML = `
+    //     <h1>${this.title}</h1>
+    //     <p>${this.description}</p>
+    //     <p>${this.people}</p>
+    //     `
+
+      
+    //     listEl.appendChild(listItem);
+
+
+
+
+  // }
+
+
+  private project: Project /////type de 'Project', type QUE NÓS MESMOS CRÍAMOS...
+
+
+
+
+
+
+
+///OBS: GETTERS GERALMENTE SÃO POSICIONADOS LOGO ABAIXO DAS SUAS 'properties/fields'...
+
+  get persons() { ///getter para RETORNAR UM VALOR FORMATADO ADEQUADAMENTE DE 'persons' (one person assigned, two persons assigned, etc)....
+
+
+    if (this.project.people === 1) {
+
+      return 'One Person Assigned'
+
+    } else {
+
+      return `${this.project.people} Persons Assigned`
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  constructor(hostId: string, project: Project ) {
+
+
+
+
+
+
+    super(//////////////// templateId: string, hostElementId: string, insertPosition: "afterbegin" | "beforeend", newElementId?: string | undefined
+
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      project.id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    );
+
+
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    // projectItemPeople.textContent = people.toString(); ////sem uso de GETTER...
+    projectItemPeople.textContent = this.persons; ///COM uso de GETTER...
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... para contratar, fazemos assim:
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable  {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE ESCREVEMOS ESSE 'implements Draggable',
+
+
+
+JÁ RECEBEMOS AVISOS DO TYPESCRIPT:
+
+
+
+
+
+
+Class 'ProjectItem' incorrectly implements interface 'Draggable'.
+  Type 'ProjectItem' is missing the following properties from type 'Draggable': dragStartHandler, dragEndHandlerts(2420)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --------> OU SEJA,
+
+
+
+  PRECISAMOS ADICIONAR ESSES METHODS AÍ,
+
+
+
+  na nossa class..
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  dragStartHandler(event: DragEvent): void {
+      
+  }
+
+
+
+
+
+  dragEndHandler(event: DragEvent): void {
+      
+  }
+
+
+
+
+
+
+  ---------------------------------------
+
+
+
+
+
+
+
+
+  ok, implementamos esse CONTRATO 
+
+
+  nessa class de 'ProjectItem'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ----->  
+
+
+
+
+
+
+
+  AGORA PRECISAMOS DEFINIR O 'FUNCTION BODY' DESSES METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OK, ESSES 2 METHODS FORAM ADICIONADOS, MAS É CLARO QUE 
+
+
+
+  ELES NÃO FUNCIONARÃO SOZINHOS...
+
+
+
+
+
+
+
+
+
+
+
+  ------------> SÓ ISSO NÃO VAI 'ENABLE' o drag and drop... ----> isso apenas 
+
+
+
+  NOS DEIXA ESCREVER 'draggable components/classes'
+
+
+  de uma maneira uniforme... -----> ISSO SIGNFICA QUE 
+
+
+
+
+  SE NÓS 
+
+
+  ADICIONARMOS 
+
+
+  MAIS 
+
+  E MAIS 
+
+  CLASSES/components,
+
+
+
+
+
+
+
+  CLASSES QUE DEVEM SER DRAGGABLE,
+
+
+
+
+  ELAS __ SEMPRE__ TERÃO 
+
+
+  ESSES 
+
+  METHODS 
+
+  DE 
+
+  'dragStartHandler'
+
+  E 
+
+  'dragEndHandler'... ---------> ISSO DEIXA NOSSO CÓDIGO BEM MAIS FÁCIL DE LER, E RACIOCINAR.... (principalmente quando trabalhamos em uma EQUIPE, pq todos saberão onde 'put in work' for the dragStart event...   )
+
+
+
+
+
+
+
+------> OK....
+
+
+
+
+
+
+
+
+
+
+--> MAS UMA __ COISA___ QUE __ 
+
+
+
+ISSO 
+
+
+
+__ AÍ __ NÃO VAI __ FAZER __ É 
+
+
+
+
+ESTABELECER 
+
+UM 
+
+'LISTEN TO' a 
+
+
+UM 
+
+
+'DRAGSTART EVENT'...
+
+
+
+
+
+
+
+
+
+---------------> PARA ESTABELECER UM ___ LISTENER__ DE 'dragStartEvent' (
+
+
+    que vai ficar ESPERANDO POR ESSE EVENT,
+)
+
+
+
+podemos 
+
+
+
+UTILIZAR AQUELE METHOD de 
+
+'configure(){}',
+
+
+QUE 
+
+
+
+ATUALMENTE ESTÁ VAZIO...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+configure() {
+
+}
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+--> NO CONFIGURE, VAMOS FAZER 'reach out' 
+
+
+AO ELEMENTO 
+
+'this.element' (que será, é claro, 'ProjectItem'/o <li> que representa nosso projectItem, no dom),
+
+
+
+
+
+
+
+
+E AÍ __ COLOCAMOS UM 'addEventListener'
+
+nele...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+configure() {
+
+
+            this.element.addEventListener('mousedown', )
+}
+
+
+
+
+
+
+
+
+
+
+
+------------
+
+
+
+
+
+
+__ EU ACHO __ QUE SERÁ UM EVENT de 'mousedown',
+
+MAS NÃO TENHO CERTEZA....
+
+
+
+
+
+
+
+
+
+--> ok.. errei... o evento será o 'dragstart'...
+
+
+
+
+
+
+
+configure() {
+
+
+            this.element.addEventListener('dragstart', )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'DRAGSTART' --> é __ UM __ EVENT__ 
+
+
+
+,
+
+
+DEFAULT BROWSER DOM EVENT,
+A QUE PODEMOS FAZER 
+
+'LISTEN TO'...
+
+
+
+
+
+
+
+
+-> E É CLARO QUE VAMOS QUERER RODAR O 'dragStarHandler'... 
+
+
+
+
+
+
+EX:
+
+
+
+
+
+  configure() {
+
+    this.element.addEventListener('dragstart', this.dragStartHandler);
+
+  }
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK.... MAS TAMBÉM  
+
+
+
+
+
+
+QUEREMOS 
+
+
+'''CONSERTAR''' 
+
+O COMPORTAMENTO DA 
+
+
+KEYWORD 'this'
+
+
+DENTRO 
+
+
+
+DO METHOD DE 'dragStartHandler',
+
+
+
+
+
+
+POR ISSO ADICIONAMOS NOSSO 
+
+
+
+
+DECORATOR DE 'autoBind'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVO ASSIM:
+
+
+
+
+
+
+
+
+
+
+  configure() {
+
+    this.element.addEventListener('dragstart', this.dragStartHandler)
+
+  }
+
+
+  @Autobind ////conserta o comportamento de 'this' no nosso LISTENER em 'configure()'... (exatamente como fizemos com 'submitHandler')....
+  dragStartHandler(event: DragEvent): void { ////isso por si só não vai fazer 'listen to a drag event'... --> precisamos do method de 'configure()' para isso...
+      
+  }
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE A ALTERNATIVA SERIA ESCREVER ISTO:
+
+
+
+
+  configure() {
+
+    this.element.addEventListener('dragstart', this.dragStartHandler.bind(this))
+
+  }
+
+
+
+
+
+
+
+
+
+
+  --------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------> O professor TAMBÉM VAI COLOCAR OUTRO LISTENER NESSE 
+
+
+'CONFIGURE()',
+
+que 
+
+será 
+
+
+o 
+
+
+
+LISTENER DO 'dragend',
+
+vinculado ao 'this.dragEndHandler'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+  configure() { ///define os listeners para o comportamento de 'drag and drop'...
+
+    this.element.addEventListener('dragstart', this.dragStartHandler);
+    this.element.addEventListener('dragend', this.dragEndHandler)
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+------> por enquanto, a única coisa que o professor faz em 
+
+
+'dragStartHandler'
+
+
+É 
+
+
+
+
+CONSOLE.LOGGAR 
+
+O 
+
+
+'event'
+ 
+ recebido nesse method...
+
+
+
+
+
+
+ ex:
+
+
+
+ 
+
+  @Autobind ////conserta o comportamento de 'this' no nosso LISTENER em 'configure()'... (exatamente como fizemos com 'submitHandler')....
+  dragStartHandler(event: DragEvent): void { ////isso por si só não vai fazer 'listen to a drag event'... --> precisamos do method de 'configure()' para isso...
+
+
+            console.log(event);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E O DRAGEVENT EM SI TEM BASTANTE PROPRIEDADES:
+
+
+
+
+isTrusted: true, dataTransfer: DataTransfer, screenX: 858, screenY: 780, clientX: 198, …}
+
+
+
+
+
+
+--> E BEM MAIS DO QUE ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PROFESSOR EXPLICA QUE 
+
+
+
+
+O 'DRAG' NÃO VAI FUNCIONAR NATIVAMENTE.... (??? o meu funcionou..)
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ELE EXPLICA QUE PARA 'CONSERTAR' esse comportamento de 'drag',
+
+
+DEVEMOS IR ATÉ NOSSO INDEX.HTML 
+
+E ENTÃO 
+
+
+
+adicionar um pequeno fix lá 
+
+no código de 
+
+
+'<li>',
+
+
+
+
+
+
+ESTE CÓDIGO AQUI:
+
+
+
+
+
+
+
+    <template id="single-project">
+      <li>
+        <h2 id="title"></h2>
+        <h3 id="people"></h3>
+        <p id="description"></p>
+      </li>
+    </template>
+
+
+
+
+
+
+
+
+
+--> VOCÊ TEM QUE IR NO LI E ESCREVER 
+
+'draggable="true"'....
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    <template id="single-project">
+      <li draggable="true">
+        <h2 id="title"></h2>
+        <h3 id="people"></h3>
+        <p id="description"></p>
+      </li>
+    </template>
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+SALVAMOS  E FICAMOS COM O ELEMENTO INTEIRO 'draggable' (bem mais certinho do que antes)....
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR TEM RAZÃO: 
+
+
+
+
+
+SE VOCÊ NÃO DEFINE SEU ELEMENTO COMO 'draggable',
+
+
+
+ele só SERÁ 'DRAGGABLE' SE VOCê 
+
+
+
+
+
+selecionar (deixar azul o elemento, selecionar com highlight) e SÓ ENTÃO O ARRASTAR
+
+(
+
+
+    por isso a necessidade de 'draggable'..
+)
+
+
+
+
+
+
+
+
+
+------>  AGORA, SE PEGARMOS E ARRASTARMOS, E DEPOIS DROPPARMOS,
+
+
+
+veremos 
+
+
+
+
+1) aquele object 'dragStart', do event....
+
+
+
+
+
+
+
+2) depois, veremos 'DragEnd', sinalizando que o negócio SABE QUANDO VOCÊ DROPPA ESSE ELEMENTo...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE NOSSOS LISTENERS ESTÃO CONECTADOS,
+
+
+
+E QUE 
+
+AGORA PODEMOS 'DRAG'...
+
+
+
+
+
+
+
+--> AGORA PODEMOS TRABALHAR COM O 
+
+
+'DragTarget' interface,
+
+
+
+
+A BOX __ EM QUE __ NOSSOS ELEMENTS DEVEM 
+
+
+
+
+'TER PERMISSÃO PARA SEREM DRAGGADOS',
+
+
+para que 
+
+então 
+
+
+SEJA ADICIONADO O PROJECTITEM Àquela list em que vocÊ o droppou...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O PROFESSOR MUDA UM POUCO O STYLING DE '.projects li',
+
+
+
+
+
+colcoa um background de 'white',
+
+só para que consigamos 
+
+visualizar isso um pouco melhor (esse drag item)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... MAS AGORA TEMOS QUE VER O PRÓXIMO PASSO, QUE É DEIXAR ESSE 'projectItem'
+
+DROPPABLE...

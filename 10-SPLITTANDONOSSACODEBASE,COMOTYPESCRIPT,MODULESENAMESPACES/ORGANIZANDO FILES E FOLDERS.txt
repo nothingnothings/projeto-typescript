@@ -1,0 +1,1144 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS COM 'namespaces',
+
+e vimos um pouco de como isso funciona...
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS CONTINUAR, E AGORA VER COMO PODEMOS SPLITTAR NOSSO CÓDIGO EM AINDA MAIS ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR APONTA QUE PODERÍAMOS COLOCAR O CÓDIGO DA CLASS 'ProjectState'
+
+
+
+EM 
+
+1 ARQUIVO SEPARADO, TAMBÉM...
+
+
+
+
+
+
+
+
+-> PEGAMOS ESSE CÓDIGO TODO E ENFIAMOS EM UM ARQUIVO COMPLEMENTAR,
+
+
+
+'projectState.ts'...
+
+
+
+
+
+
+
+
+
+--> COLOCAMOS  ESSE 
+
+
+CÓDIGO EM UM NAMESPACE,
+
+
+outro namespace de nome 'App',
+
+
+
+e aí o exportamos...
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+namespace App {
+
+    
+
+type Listener<T> = (items: T[]) => void; ////type GENÉRICO...
+
+
+
+
+class State<T> { 
+ protected listeners: Listener<T>[] = [];  ///usamos 'protected' pq queremos que essa propriedade seja usada nas INHERITING CLASSES... (como em 'ProjectState'...)
+
+  addListener(listenerFunction: Listener<T>) { //forward do 'T' em 'State'...
+    this.listeners.push(listenerFunction);
+  }
+
+
+}
+
+
+export class ProjectState extends State<Project> {
+  private projects: Project[] = []; ///o type será nossa CLASS DE 'Project', em 1 array desse tipo de object...
+
+  private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+  private constructor() {
+    //vamos querer que esse constructor seja 'private' por causa do SINGLETON PATTERN (queremos que SÓ POSSA SER CRIADO 1 OBJECT, a partir dessa class, POR MEIO DE UM METHOD INTERNO A ESSA CLASS..)
+
+    super();
+  }
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    const newProject = new Project(
+      Math.random().toString(),
+      title,
+      description,
+      numOfPeople,
+      ProjectStatus.Active
+    ); ///////OU SEJA, id, title, description, people, ProjectStatus (enum de 0 e 1, active e finished)....
+
+    this.projects.push(newProject);
+
+    this.updateListeners();
+  }
+
+  moveProject(projectId: string, newStatus: ProjectStatus) {
+    ///VERSÃO DO PROFESSOR...
+
+    const projectToMove = this.projects.find((project) => {
+      return project.id === projectId;
+    });
+
+    if (projectToMove && projectToMove.projectStatus) {
+      projectToMove.projectStatus = newStatus; ///vai trocar a 'list' em que está o object...
+      this.updateListeners();
+    }
+  }
+
+  private updateListeners() {
+    for (const listenerFunction of this.listeners) {
+      listenerFunction(this.projects.slice());
+    }
+  }
+
+  static getInstance() {
+    if (this.instance) {
+      return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+  }
+}
+
+export const projectState = ProjectState.getInstance();
+
+
+
+ }
+
+
+--------> EXPORTAMOS TANTO A CONSTANTE COMO O 'ProjectState'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ O type de 'Listener' e a class 'State'
+
+
+
+NÓS NÃO IMPORTAREMOS, POIS SÓ SÃO USADAS 
+
+
+DENTRO DESSE NAMESPACE de 'App' em 'project-state.ts' mesmo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK.... AGORA TEMOS QUE IMPORTAR ESSE NAMESPACE 'app'
+
+
+de 
+
+'project-state.ts'
+
+
+LÁ NO NOSSO app.ts,
+
+
+
+
+TUDO POR MEIO DAQEULE CÓDIGO DE 
+
+
+
+///<reference path="project-state.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SALVAMOS TUDO ISSO, E O NEGÓCIO COMPILA SEM ERRORS...
+
+
+
+
+
+
+
+
+
+
+--> CONTINUANDO,
+
+
+
+
+
+PROFESSOR DIZ QUE A PARTE DE 'VALIDATION'
+
+
+
+pode ir em outro arquivo separado...
+
+
+
+
+
+
+--> validation.ts...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+namespace App {
+
+export interface Validatable {
+  value: string | number; //é o 'actual value' de um determinado field.
+  // inputField: string;
+
+  required?: boolean; ///são as 'validation properties' de um determinado field (pq um field NÃO PRECISA TER TODAS EM SI... alguns fields podem ter só 'minLength', outros só 'min' com 'required', etc etc..)
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
+}
+
+export function validate(validatableInput: Validatable): boolean {
+  let isValid = true;
+
+  if (validatableInput.required) {
+    isValid = isValid && validatableInput.value.toString().trim() !== ""; ////talvez esta expressão seja válida como a de baixo, também...
+    // isValid = isValid && validatableInput.value.trim().length !== 0; ///esta expressão foi a adotada pelo professor....
+  }
+
+  if (
+    validatableInput.minLength != null &&
+    typeof validatableInput.value === "string"
+  ) {
+    isValid =
+      isValid &&
+      validatableInput.value.toString().length > validatableInput.minLength; ////check de MINIMUM LENGTH.
+  }
+
+  if (
+    validatableInput.maxLength != null &&
+    typeof validatableInput.value === "string"
+  ) {
+    isValid =
+      isValid &&
+      validatableInput.value.toString().length < validatableInput.maxLength; ////check de MINIMUM LENGTH.
+  }
+
+  if (
+    validatableInput.min != null &&
+    typeof validatableInput.value === "number"
+  ) {
+    isValid = isValid && validatableInput.value >= validatableInput.min;
+  }
+
+  if (
+    validatableInput.max != null &&
+    typeof validatableInput.value === "number"
+  ) {
+    isValid = isValid && validatableInput.value < validatableInput.max;
+  }
+
+  return isValid;
+}
+
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ---> AÍ IMPORTAMOS ESSE NEGÓCIO LÁ NO APP.TS,
+
+
+   coisa padrão...
+
+
+
+
+
+
+
+
+   EX:
+
+
+
+
+
+   
+///<reference path="drag-drop-interfaces.ts"/> 
+///<reference path="enums&ProjectClass.ts"/>
+///<reference path="project-state.ts" />
+///<reference path="validation.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... 
+
+
+
+
+
+
+
+O PROFESSOR TAMBÉM DIZ QUE O 'decorator' 
+
+PODE SER MOVIDO PARA 1 ARQUIVO SEPARADO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> criamos um arquivo de 'autobind-decorator.ts'...
+
+
+
+
+
+
+namespace App {
+  export function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+    ///// USAREMOS NOS NOSSOS METHODS na nossa class...
+
+    const originalMethod = descriptor.value;
+
+    const adjustedDescriptor: PropertyDescriptor = {
+      configurable: true,
+      get() {
+        const boundFunction = originalMethod.bind(this);
+        return boundFunction;
+      },
+    };
+
+    return adjustedDescriptor;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ IMPORTAMOS LÁ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+///<reference path="drag-drop-interfaces.ts"/> 
+///<reference path="enums&ProjectClass.ts"/>
+///<reference path="project-state.ts" />
+///<reference path="validation.ts" />
+///<reference path="autobind-decorator.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> CERTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS MAIS COISAS A EXPORTAR:
+
+
+
+1) a class base de 'Component'
+
+
+
+2) todas nossas outras classes...
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR QUER TER 1 CLASS PARA CADA ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AÍ ELE DIZ QUE VAMOS FICANDO COM UM PROBLEMA, RELATIVAMENTE RÁPIDO...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS FICANDO COM CADA VEZ MAIS ARQUIVOS,
+
+
+
+TUDO NO MESMO NÍVEL...
+
+
+(
+
+
+
+    e isso é ruim
+)
+
+
+
+
+
+
+
+
+
+
+--> SERIA MELHOR TER FOLDERS....
+
+
+
+
+
+
+
+
+-----> COM FOLDERS, VOCê SÓ TEM QUE ESPECIFICAR MELHOR OS 'paths'...
+
+
+
+
+
+
+
+
+-----> PROFESSOR GOSTA DE CRIAR SUBFOLDERS EM 'src'...
+
+
+
+
+
+
+--> FOLDER PARA DECORATORS,
+
+
+
+
+
+
+outro folder de 'models',
+
+
+EM QUE VAI COLOCAR 
+
+
+'drag-drop-interfaces' 
+
+
+e 
+
+
+'enums&ProjectClass'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR CRIA UM FOLDER DE 'util',
+
+para utility...
+
+
+
+
+ELE COLOCA O 'validation.ts' 
+
+LÁ DENTRO....
+
+
+
+
+
+--> AÍ ELE CRIA UM FOLDER DE 'state',
+
+em que coloca o arquivo 'projectState.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok... 
+
+
+
+ATÉ AÍ, TUDO BEM...
+
+
+BASTA UPDATAR OS UPDATES EM 'app.ts'...
+
+
+EX:
+
+
+
+
+
+
+///<reference path="./decorators/autobind.ts"/> 
+///<reference path="./models/enums&ProjectClass.ts"/>
+///<reference path="./state/project-state.ts" />
+///<reference path="./util/validation.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CONSERTADO...
+
+
+
+
+
+
+
+
+
+
+--> agora está tudo mais organizado...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> FOLDER STRUCTURE MAIS ORGANIZADA...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AINDA NÃO ACABAMOS...
+
+
+
+
+
+
+
+
+-> PROFESSOR CRIA UM ARQUIVO DE 'base-component.ts',
+
+
+
+e aí 
+
+
+COLOCA NOSSA CLASS BASE DE 'Component'
+
+lá dentro,
+
+
+e aí enfia esse arquivo em uma pasta chamada de 'components'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... TAMBÉM VAMOS TER ARQUIVOS 'project-item.ts',
+
+
+
+'project-input.ts',
+
+
+'project.list.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... fiz isso com todos códigos do arquivo app.ts...
+
+não sobrou nada...
+
+
+
+
+
+
+
+
+---> OK... MAS HÁ ALGO QUE NÃO FIZEMOS CORRETAMENTE...
+
+
+
+
+
+
+
+
+
+OS 3 'components',
+
+
+que são 
+
+'project-list',
+
+'project-item' 
+
+e 
+
+'project-input'
+
+
+
+
+__ DEPENDEM___ DE 'Component'
+
+dependem dessa base class,
+
+
+POIS FAZEM INHERIT DELA...
+
+
+
+
+
+
+
+
+--> POR ISSO, VOCê É OBRIGADO A ESCREVER O CÓDIGO DE IMPORT 
+
+
+de namespaces 
+
+
+nesses arquivos, também,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+///<reference path="./base-component.ts" />
+
+namespace App {
+  export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
+    titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement;
+
+    constructor() {
+      super("project-input", "app", "afterbegin", "user-input");
+
+      this.titleInputElement = this.element.querySelector(
+        "#title"
+      ) as HTMLInputElement;
+      console.log(this.titleInputElement.value);
+      this.descriptionInputElement = this.element.querySelector(
+        "#description"
+      ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+      this.peopleInputElement = this.element.querySelector(
+        "#people"
+      ) as HTMLInputElement;
+
+      this.configure();
+    }
+
+    renderContent() {}
+
+    configure() {
+      this.element.addEventListener(
+        "submit",
+
+        this.submitHandler
+      );
+    }
+
+    @Autobind
+    private submitHandler(event: Event) {
+      ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+      event.preventDefault();
+      console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... .
+      console.log(this.titleInputElement.value); /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput = this.gatherUserInputs();
+      if (Array.isArray(userInput)) {
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+
+        console.log(title, desc, people, "LINE");
+        projectState.addProject(title, desc, people);
+
+        // const projectState = new ProjectState(); //singleton PATTERN  e 'private constructor'...
+        this.clearInputs();
+      }
+
+      this.clearInputs();
+    }
+
+    private gatherUserInputs(): [string, string, number] | void {
+      const enteredTitle = this.titleInputElement.value;
+      const enteredDescription = this.descriptionInputElement.value;
+      const enteredPeople = +this.peopleInputElement.value;
+
+      const titleValidatable: Validatable = {
+        value: enteredTitle,
+        required: true,
+        minLength: 5, ///lógica de validation, etc....
+      };
+
+      const descriptionValidatable: Validatable = {
+        value: enteredDescription,
+        required: true,
+        minLength: 5,
+      };
+
+      const peopleValidatable: Validatable = {
+        value: enteredPeople,
+        required: true,
+        min: 1,
+        max: 10,
+      };
+
+      if (
+        !validate(titleValidatable) ||
+        !validate(descriptionValidatable) ||
+        !validate(peopleValidatable)
+      ) {
+        alert("Invalid input, please try again.");
+        console.log("TEST");
+        return;
+      } else {
+        return [enteredTitle, enteredDescription, +enteredPeople];
+      }
+    }
+
+    private clearInputs() {
+      this.titleInputElement.value = "";
+      this.descriptionInputElement.value = "";
+      this.peopleInputElement.value = "";
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->ISSO VAI SOLUCIONAR SEU PROBLEMA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... 
+
+
+
+
+
+
+
+
+
+
+
+--> EM APP.TS 
+
+
+importamos tudo isso,
+
+
+
+
+
+
+
+MENOS O 'component' (pq ele já será importado/usado nos arquivos 'project-input.ts', 'project-list.ts', 'project-item.ts'... )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> 
+
+
+
+assim que adicionarmos esse import de 'base-compoment' 
+
+
+lá 
+
+
+
+
+em todos nossos files dependentes dele,
+
+
+
+
+
+
+nosso código passa a funcionar...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+ISSO SIGNIFICA QUE AGORA NOSSO CÓDIGO ESTÁ SPLITTADO;
+
+
+
+
+ELE FICA SPLITTADO DURANTE O DEVELOPMENT,
+
+
+
+MAS ESSE CODE É COMPILADO NA 'PRODUCTION'...
+
+
+
+
+
+
+
+
+
+-----> já temos 'filesplitting' com os namespaces, portanto....

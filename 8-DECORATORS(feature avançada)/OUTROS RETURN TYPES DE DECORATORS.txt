@@ -1,0 +1,1024 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA ÚLTIMA AULA,
+
+
+
+VIMOS A MALUQUICE DE DECORATORS que retornam 'NOVAS CLASSES/CLASSES QUE SUBSTITUEM OU IMPLEMENTAM A CLASS ORIGINÁRIA A QUE FORAM VINCULADOS ORIGINALMENTE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS FAZER UM MONTE DE COISAS INCRÍVEIS COM DECORATORS,
+
+
+
+DECORATOR FACTORIES 
+
+
+
+
+
+E OS RETURN VALUES DE 
+
+
+
+DECORATORS (
+
+
+
+    por meio do return de uma NOVA CLASS... replace da class em que 
+
+    'addamos' o 
+
+
+
+    decorator por uma 
+
+    CLASS COMPLETAMENTE DIFERENTE,
+
+    QUE 
+
+PROVAVELMENTE VAI 
+
+'BUILD UPON' 
+
+a 
+
+class 
+
+a que 
+
+esse decorator estava/está 
+
+vinculado...  
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, E VOCÊ PODE 'RETURN VALUES'
+
+
+
+
+
+EM OUTROS TIPOS DE DECORATORS,
+
+
+
+
+__ MAS _ NEM EM TODOS __ OS TIPOS DE DECORATORS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+tipos de decorators:
+
+
+
+
+
+1) CLASS DECORATORS (podemos retornar values, dentre eles CONSTRUCTOR FUNCTIONS/CLASSES)....
+
+
+
+
+
+
+
+2) ACCESSOR DECORATORS (podemos retornar values,)
+
+
+
+
+3) PROPERTY DECORATORS  (return de coisas são IGNORADAS nesse tipo de decorators, ignoradas pelo TYPESCRIPT)
+
+
+
+
+4) METHOD DECORATORS... (podemos retornar values)
+
+
+
+
+5) PARAMETER DECORATORS  (return de coisas são IGNORADAS nesse tipo de decorators, ignoradas pelo TYPESCRIPT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OS OUTROS DECORATORS EM QUE VOCÊ PODE FAZER 'RETURN' DE ALGO 
+
+
+
+__SÃO __OS DECORATORS__ QUE VOCÊ ADICIONA/VINCULA A __ METHODS__...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> TAMBÉM OS DECORATORS QUE VOCê ADICIONA A ___ 'ACCESSORS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO EXEMPLO DISSO,
+
+
+
+TEMOS AQUELE 
+
+
+
+
+DECORATOR DE 
+
+
+setter,
+
+
+
+o 'Log2'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) { ////decorator usado em um ACCESSOR (geeter/setter de uma class/object instanciado a partir de uma class)...
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+e:
+
+
+
+
+
+class Product2 {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO. (decorator em 'SETTER', que é um tipo de ACCESSOR...)
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NO CASO DO METHOD, 
+
+
+temos isto:
+
+
+
+
+
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {  ////decorator usado em um METHOD...
+    console.log('Method Decorator');
+console.log(target);
+console.log(name);
+console.log(descriptor);
+
+}
+
+
+
+
+
+
+
+
+
+
+class Product2 {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log5 ///decorator em 'METHOD'...
+    getPriceWithTax(@Log6 tax: number) {
+        return this._price * (1 + tax);
+    }
+
+
+  
+}
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK... ESSES 2 TIPOS DE DECORATORS __ ADMITEM __ O RETURN DE COISAS,
+
+
+
+
+RETURN DE COISAS __ QUE É _ __ USADO _ PELO TYPESCRIPT, SIM...
+
+
+
+
+
+
+
+
+
+
+
+
+------> JÁ OS DECORATORS EM 'PROPERTIES' E 'PARAMETERS' 
+
+
+
+
+
+
+
+__ NÃO__ SUPORTAM O RETURN DE COISAS, PQ 
+
+O 
+
+TYPESCRIPT NÃO VAI RESPEITAR ESSES RETURNS... -------> OU, ENTÃO, NÃO SÃO UTILIZADOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS O QUE VOCÊ PODE RETORNAR 
+
+
+EM 
+
+
+'ACCESSOR DECORATORS' 
+
+
+' 
+
+METHOD DECORATORS'?
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê PODE RETORNAR, DIZ O PROFESSOR,
+
+
+
+
+''''A BRAND NEW PROPERTY DESCRIPTOR''''...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ ___ ESSES 2 TIPOS DE 'DECORATOR'
+
+
+
+POSSUEM ESSE PARÂMETRO, nas suas 'funções', EM ___COMUM__:
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) { ////decorator usado em um ACCESSOR (geeter/setter de uma class/object instanciado a partir de uma class)...
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {  ////decorator usado em um METHOD...
+    console.log('Method Decorator');
+console.log(target);
+console.log(name);
+console.log(descriptor);
+
+}
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> AMBOS DECORATORS OBTÊm 
+
+
+o 
+
+
+'
+
+DESCRIPTOR '
+
+
+
+
+
+
+
+
+
+____ DA __ PROPERTY/METHOD a que 
+
+
+
+
+ESTÃO ANEXADOS.... ------> 
+
+
+
+
+
+
+
+
+
+
+
+ISSO ACONTECE PQ UM 
+
+'ACCESSOR' ´
+
+
+
+'KINDOF A METHOD'... (pq você tem uma function que acaba executada lá)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM, E 1 'PropertyDescriptor'
+
+
+
+É UMA COISA __JAVASCRIPT,
+
+
+
+NO CASO... 
+
+
+
+
+
+
+
+
+
+-------> PARA NOSSO DECORATOR DE 
+
+
+'Accessor',
+
+
+
+
+NOSSO 
+
+
+prop descriptor é ESTE:
+
+
+
+
+
+
+configurable: true,
+enumerable: false,
+get: undefined,
+set: f price (val)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ PARA O METHOD decorator,
+
+
+
+O DESCRIPTOR É ESTE:
+
+
+
+
+configurable: true,
+enumerable: false,
+value: f getPriceWithTax(tax)
+writable: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO TUDO É 'VANILLA JAVASCRIPT',
+
+
+PQ 
+
+
+
+
+
+VOCÊ 
+
+TEM PropertyDescriptors
+
+
+LÁ TAMBÉM... ----------> ELES TE DEIXAM 
+
+'
+DEFINIR' 
+
+
+
+
+
+UMA PROPRIEDADE __ EM MAIS DETALHE_... --------->   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E AQUI, COMO ESTAMOS FALANDO SOBRE UM METHOD,
+
+
+o 'value' 
+
+é 
+
+
+de 
+
+
+
+''
+f getPriceWithTax(tax)'''
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O IMPORTANTE É QUE VOCÊ PODE CONTROLAR SE ESSE METHOD É:
+
+
+
+
+
+1) writable  (ou seja, se pode ser ALTERADO APÓS TER SIDO CRIADO, após o object ter sido criado) 
+
+
+
+
+
+
+2) CONFIGURABLE:  OU SEJA, SE VOCê PODE DELETAR ESSA PROPERTY, essa configuração de properties...
+
+
+
+
+
+3) enumerable --> se ele aparece em LOOPS no seu object- -> PARA METHODS, ISSO É SETTADO COMO 'FALSE' por default --> SE VOCÊ USRA UM FOR IN LOOP EM UM OBJECT, ESSE METHOD _ NÃO SERÁ __ PRINTADO COMO UMA PROPERTY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA UM ACESSOR,
+
+TEMOS 
+
+'get' e 'set',
+
+essas propriedades...
+
+
+
+
+
+
+
+
+----------> LÁ, VOCÊ PODERIA, TAMBÉM, POR EXEMPLO,
+
+
+
+
+
+__rETORNAR _ UM NOVO 'DESCRIPTOR',
+
+ 
+
+
+
+ __ QUE __ TALVEZ _ SETTE UM 'SETTER' METHOD __ COMPLETAMETNE DIFERENTE,
+
+
+ OU ENTÃO QUE ADICIONA UMA 
+
+ FUNCIONALIDADE DE 
+
+ 'get'...
+
+
+
+
+
+
+
+
+ ---------> 
+
+
+
+
+
+
+
+
+ É POR ISSO QUE PODEOMS __ EDITAR__ 
+
+
+ NOSSO DECORATOR 
+
+
+
+
+ DE 'SETTER'.
+
+
+
+
+ COMEÇAMOS ASSIM:
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) { ////decorator usado em um ACCESSOR (geeter/setter de uma class/object instanciado a partir de uma class)...
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+AÍ VAMOS QUERER __ ESCREVER UM 'return' la no final....  --> E ESSE RETURN VAI RETORNAR UM OBJECT, É CLAOR...
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+
+    return {}
+}
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+DEPOIS DISSO,
+
+
+
+DEFINIMOS AO TYPESCRIPT,
+
+SETTAMOS QUE 
+
+
+ESSE ACESSOR DECORATOR VAI TER UM RETURN TYPE DE 'PropertyDescriptor':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ): PropertyDescriptor {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+
+    return {}
+}
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+AÍ, DENTRO DAQUELE 'RETURN',
+
+
+podemos 
+
+
+
+
+
+DEFINIR BEM DETALHADAMENTE CADA 'propriedade'
+
+
+naquele 'PropertyDescriptor':
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ): PropertyDescriptor {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+
+    return {
+            enumerable: xxx,
+            configurable: yy,
+            set: zzz,
+            get: qqqq
+    }
+}
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O PROFESSOR DIZ QUE VAI NOS MOSTRAR UM EXEMPLO LEGAL 
+
+DE USO 
+
+
+DE 
+
+
+
+'RETURN TYPES' EM METHOD DECORATORS,
+
+na próxima aula..... (
+
+
+    return de um PROPERTYDESCRIPTOR DIFERENTE...
+)

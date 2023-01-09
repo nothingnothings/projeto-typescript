@@ -1,0 +1,1012 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... TÍNHAMOS __ CRIADO__ E ASSOCIADO 
+
+
+um decorator TIPO ASSIM:
+
+
+
+
+
+
+
+function Logger(target: Function) {
+
+
+    console.log('Logging...');
+    console.log(target);
+}
+
+
+
+
+@Logger  ////isto aqui ASSOCIA AQUELE 'DECORATOR' a essa class.....
+class Person {
+
+        name = 'Max';
+
+
+
+        constructor() {
+            console.log('Creating person object...');
+        }
+
+
+
+}
+
+
+
+const person = new Person();
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+E DECORATORS SÃO SEMPRE EXECUTADOS 'NO MOMENT EM QUE _OCORRE__ O DEFINE DE SUA CLASS, NO RUNTIME'.... (e não quando essa class é instanciada, a instanciação é IRRELEVANTE)...[
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O PRÓXIMO PASSO É APRENDER A 
+
+DEFINIR UMA 
+
+
+
+
+'DECORATOR FACTORY'...
+
+
+
+
+
+
+
+
+
+
+
+--> DECORATOR FACTORIES
+ 
+
+
+
+
+
+
+
+ __ RETORNAM 'DECORATOR FUNCTIONS' a nós,
+
+
+
+ MAS __ NOS __ DEIXAM __ 
+
+
+
+
+
+
+
+
+
+______ CONFIGURAR___ 
+ESSES 
+
+
+DECORATORS,
+
+
+
+
+
+QUANDO 
+
+
+
+
+ASSIGNAMOS 
+
+ESSES DECORATORS ÀS COISAS (coisas como classes)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA MOSTRAR ESSA FEATURE,
+
+
+CONVERTEMOS 
+
+
+
+AQUELA NOSSA 'DECORATOR FUNCTION' 
+
+
+
+de 'Logger'
+
+
+
+EM UMA FACTORY...
+
+
+
+
+
+
+
+
+
+
+
+--------> PARA ESCREVER UMA DECORATOR FACTORY,
+
+
+
+ 
+DEVEMOS ___ COLOCAR O _ RETURN __DE UMA ANONYMOUS FUNCTION 
+
+
+
+
+
+
+NO INTERIOR 
+
+dessa decorator function....
+
+
+
+
+
+
+
+
+
+
+
+--------> e é ESSA 'ANON FUNCTION', retornada aqui,
+
+
+que 
+
+
+VAI 
+
+EXECUTAR AQUELA NOSSA LÓGICA DO CONSOLE.LOG....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+function Logger() {
+
+            return function(target: Function) { ///eis o código em questão....
+
+                        console.log('Logging...');
+                        console.log(target);
+            }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNIFICA QUE __ AGORA 
+
+
+'''TEMOS UMA FUNCTION QUE RETORNA UMA NOVA FUNCTION....'''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... 
+
+
+
+
+
+
+
+
+O QUE ISSO MUDA?
+
+
+
+
+
+
+
+
+
+
+--> bem, vai mudar DIRETAMENTE AQUELE 
+
+
+CÓDIGO DE CALL/ASSIGN de 
+
+
+
+nosso DECORATOR 
+
+a uma class (aquele '@Logger')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> isso significa que agora __ REALMENTE__ VAMOS QUERER __ 
+
+
+
+EXECUTAR 
+
+
+'@Logger',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Logger() {
+
+            return function(target: Function) { ///eis o código em questão....
+
+                        console.log('Logging...');
+                        console.log(target);
+            }
+}
+
+
+
+
+
+@Logger() ////EIS O CÓDIGO EM QUESTÃO.
+
+class Person { ////decorators são 'all about classes', na verdade...
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... VAMOS PRECISAR DAQUELE '()'
+
+LÁ,
+
+
+
+para 
+
+
+que _ ENTÃO 
+
+ESSA FUNCTION DE 
+
+
+
+'Logger',
+
+
+
+EXTERNA À '(target: Function) => {console.log(...)}' 
+
+
+
+
+
+SEJA __ EXECUTADA__ COM SUCESSO....
+
+
+
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... --> queremos, portanto, que a outer function seja EXECUTADA...
+
+
+
+
+
+
+
+
+o flow, na realidade, é este:
+
+
+
+
+
+
+
+
+
+
+1) ''''@Logger()''' é executado..
+
+
+
+
+
+
+
+2) isso faz com que 'function Logger() {}' SEJA EXECUTADA.... (a outer function)...
+
+
+
+
+
+
+
+
+3) isso, por sua vez, faz com que a INNER FUNCTIOn ('return (target: Function) => {console.log(...)}') SEJA __ EXECUTADA__...
+
+
+(OBS::: ESSA INNER FUNCTION É 'OUR VALID DECORATOR FUNCTION')...
+
+
+
+4) EXECUTADA ESSA INNER FUNCTION, ELA É '''ASSIGNED AS A DECORATOR''' à clase de 'Person'....
+
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+OK, MAS QUAL É A VANTAGEM DE 
+
+USAR 
+
+
+UMA 
+
+
+'DECORATOR FACTORY'
+
+
+em vez de um 'DECORATOR SIMPLES'?
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem... é pq 
+
+
+
+AGORA 
+
+
+
+
+PODEMOS COLOCAR __ ARGUMENTOS__ NESSA 
+
+
+'
+OUTER FUNCTION' (que é a factory propriamente dita)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------ TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Logger(argumento1: string, argumento2: number, argumento3: boolean) {  ////EIS O CÓDIGO EM QUESTÃO.
+
+            return function(target: Function) {
+
+                        console.log('Logging...');
+                        console.log(target);
+            }
+}
+
+
+
+
+
+@Logger('HEY', 122121, true)  ////EIS O CÓDIGO EM QUESTÃO.
+
+class Person { ////decorators são 'all about classes', na verdade...
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... 
+
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE 
+
+VAMOS PODER __ USAR __ PARÂMETROS que escrevemos 
+
+
+em 
+
+'@Logger()'
+ 
+
+
+
+
+ NESSA DECORATOR FACTORY....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+ 
+
+function Logger(logString: string) {  ////EIS O CÓDIGO EM QUESTÃO.
+
+            return function(target: Function) {
+
+                        console.log('Logging...');
+                        console.log(target);
+                        console.log(logString);
+            }
+}
+
+
+
+
+
+@Logger('LOGGING - A PERSON')  ////EIS O CÓDIGO EM QUESTÃO.
+
+class Person { ////decorators são 'all about classes', na verdade...
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE AGORA PODEMOS 
+
+ ''CUSTOMIZE THE VALUES THE DECORATOR FUNCTION USES WHEN  IT EXECUTES,
+
+
+ WITH __ OUR FACTORY FUNCTION'''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------> ISSO SIGNIFICA QUE 
+
+ AGORA 
+
+ VAMOS CHAMAR 
+
+
+
+ NOSSO DECORATOR LÁ 
+
+
+
+ em 
+
+
+ '@Logger('Hey')',
+
+
+
+
+ PQ 
+
+
+
+ NÃO VAMOS MAIS 
+
+ EXECUTAR 
+
+
+
+
+
+
+
+
+ A 'DECORATOR FUNCTION' diretametne,
+
+
+ e sim 
+
+
+
+ VAMOS _ RETORNAR 
+
+
+
+
+
+
+
+
+
+
+ UMA  '''''FUNCTION QUE VAI RETORNAR ESSA DECORATOR FUNCTION'''' ( ou seja, é uma 'DECORATOR FACTORY', daí que vem o nome)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> A VANTAGEM DISSO É QUE 
+
+  AGORA PODEMOS 
+
+
+
+  'PASS IN VALUES',
+
+
+  values que 
+
+  VÃO SER 
+
+  USADOS __ POR
+  
+
+
+
+  AQUELA 
+
+
+  'INNER RETURNED 
+DECORATED FUNCTION'...
+
+
+
+
+
+
+COM ISSO, O CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function Logger2(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+
+
+@Logger2('HEY')  /////quando criamos/usamos DECORATOR FACTORIES, somos obrigados a EXECUTAR as 'outer function' dessas factories, assim mesmo...
+//// ^^^^^^^^ 'HEY', essa string aí, é passada como sendo o PARAMETER de 'logString', lá naquela DECORATOR FACTORy... --> o valor de 'logString' é então REPASSADO AO DECORATOR EM SI, no interior dessa factory...
+
+class Person2 { ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+const person = new Person2();
+
+
+
+
+
+
+console.log(person);
+
+
+
+
+
+
+
+
+
+
+
+
+
+E O OUTPUT NO CONSOLE FICA ASSIM:
+
+
+
+
+
+
+
+'Logging'... --> vem da linha 1 _ NO DECORATOR__....
+
+
+
+'
+class Person {
+    constructor() {
+        this.name = 'Max';
+        console.log('Creating person object...');
+    }
+}
+' -------> VEM DA LINHA 2 NO DECORATOR....
+
+
+
+
+'HEY' --> LINHA 3 NO DECORATOR....
+
+
+
+
+
+'Creating Person object' ---> VEM DE DENTRO DO CONSTRUCTOR DA CLASS 'Person' (que é executada __ DEPOIS DO DECORATOR)...
+
+
+
+'>Person {name: 'Max}' ---> vem da linha de ''  console.log(person); ''' ----> que vem beeem depois do código de dentro do constructor da class 'Person'...
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+VEMOS O ANTIGO OUTPUT,
+
+
+
+
+MAS AGORA COM NOSSA 'CUSTOM LOGSTRING'
+
+
+aqui...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE USAR 
+
+
+
+
+DECORATOR FACTORIES _ 
+
+
+
+
+
+É ALGO QUE NOS DÁ MAIS PODER/POSSIBILDAIDE DE CONFIGURAR _ O QUE O __ 
+
+DECORATOR FAZ/FARÁ INTERNAMENTE....
+
+
+
+
+(
+
+
+    configurar o decorator, o interior do decorator, por meio 
+
+
+    dessa 
+
+
+    DECORATOR FACTORY....
+)

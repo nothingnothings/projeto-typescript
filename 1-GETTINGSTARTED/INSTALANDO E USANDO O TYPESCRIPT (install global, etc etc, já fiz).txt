@@ -1,0 +1,1337 @@
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR VAI USAR UM PROJEOT SIMPLES DE EXEMPLO...
+
+
+
+
+
+
+
+
+arquivo 'js-only.js'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+const button = document.querySelector('button');
+const input1 = document.getElementById('num1');
+const input2 = document.getElementById('num2');
+
+function add(num1, num2) {
+  return num1 + num2;
+}
+
+button.addEventListener('click', function () {
+  console.log(add(input1.ariaValueMax, input2.value));
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+TAMBÉM TEMOS UM ARQUIVO 'index.html'...
+
+
+
+
+
+
+EX:
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="js-only.js" defer></script>
+    <title>Understanding Typescript</title>
+  </head>
+  <body>
+    <input type="number" id="num1" placeholder="Number 1" />
+    <input type="number" id="num2" placeholder="Number 2" />
+    <button>Add</button>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+ESSE ARQUIVO INTERAge 
+
+com esse arquivo 
+
+'js-only.js'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EVENTLISTENER NO BUTTON,
+
+E ELE FAZ CONSOLE.LOG 
+
+
+DO 
+
+
+
+
+
+
+RESULTADO DAUQELA 
+
+
+
+
+FUNÇÃO,
+
+
+
+no console...
+
+
+
+
+
+
+
+
+
+
+
+-----> basta abrir esse index.html 
+
+
+
+
+na sua local machine...
+
+
+
+
+
+
+
+
+
+----> SE DIGITARMOS 10 e 5,
+
+
+
+
+
+CLICARMOS 'add',
+
+VEREMOS 
+
+
+
+105 ---> ERRO DE LÓGICA, não é um technical error -----> UMA _ FALHA_ DO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> FALHA __ DE 'TYPES', essencialmente... 
+
+
+
+
+--> É IMPORTANTE ENTENDER QUE ___ QUANDO VOCÊ ESTÁ NO JAVASCRIPT,
+
+QUANDO VOCÊ __ ACESSA__ O VALOR __ DE 
+
+
+
+
+UM 'INPUT FIELD' (elemento input, value desse input) ,
+
+VOCÊ __ OBRIGATORIAMENTE_ 
+
+
+
+VAI _ ACESSAR __ ESSE VALOR EM UM FORMATO 'STRING', e nunca 
+
+
+EM UM 
+
+FORMATO __ 'NUMBER'... (o que vem dos inputs são strings, essa é uma regra absoluta....)
+
+
+
+
+
+
+
+
+
+-------> PARA CONSERTAR, SERÍAMOS OBRIGADOS A ESCREVER ISTO:
+
+
+const button = document.querySelector('button');
+const input1 = document.getElementById('num1');
+const input2 = document.getElementById('num2');
+
+function add(num1, num2) {
+  return +num1 + +num2; /// OU ___ num1.parseInt() + num2.parseInt() // --> ISSO FARÁ COM QUE OS 2 VALORES SEMPRE SEJAM NUMBERS...
+}
+
+button.addEventListener('click', function () {
+  console.log(add(input1.ariaValueMax, input2.value));
+});
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+SE VOCÊ ADDA 2 STRINGS NO JAVASCRIPT,
+
+
+
+ELAS FICAM CONCATENADAS, E ESSA É A RAZÃO DE OBSERVARMOS 
+
+'105' em vez de '15'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OUTRO POSSÍVEL FIX SERIA ESTE:
+
+
+
+
+
+
+
+function add(num1, num2) {
+
+
+
+if (typeof num1 === "number" && typeof num2 === "number") {
+     return num1 + num2;
+} else {
+
+    const error = new Error('Invalid input');
+    throw error;
+}
+
+
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> O PROFESSOR TBM FALA DO CONVERT DE STRINGS EM NUMBERS, ETC ETC...
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODEMOS FAZER ISSO,
+
+
+
+
+
+PODEMOS FAZER ISSO NO JAVASCRIPT... --> 
+
+
+
+
+MAS 
+
+O 
+
+
+PROFESSOR 
+
+
+
+
+
+AFIRMA QUE 
+
+
+_TIVEMOS __ DE ESCREVER 
+
+
+1 
+
+
+
+CÓDIGO EXTRA __ PARA 1  ERRO _ (para solucionar um erro) 
+
+QUE 
+
+
+
+
+NEM DEVERIA TER ACONTECIDO, EM PRIMEIRO LUGAR.. ------> O PROFESSOR 
+
+
+
+
+QUER QUE O PASS DE STRINGS AQUI __ NEM __ MESMO SEJA__ POSSÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ELE QUER QUE ISSO SEJA UMA FUNCTION QUE SÓ OPERE COM NÚMEROS,
+
+
+PARA QUE 
+
+NEM MESMO 
+
+SEJA 
+
+
+
+NECESSÁRIO ESCREVER ESSE 'if typeof num1', 
+
+
+etc etc....
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS INSTALAR O TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+'npm install -g typescript'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NPM TOOL -> PARTE DO NODE PACKAGE...
+
+
+
+
+
+
+
+
+
+
+
+
+------> com o TYPESCRIPT 
+
+
+
+INSTALADO,
+
+
+PODEMOS USAR 
+
+AQUELE COMANDO 
+'tsc', 
+
+
+para 
+
+
+
+COMPILAR TODOS 
+
+OS 
+
+ARQUIVOS TYPESCRIPT EM 1 
+
+DETERMINADO FOLDEDR..
+.
+
+
+
+
+
+
+
+
+
+
+
+---------------> PROFESSOR CRIA UM NOVO ARQUIVO,
+
+
+'
+using-ts.ts',
+
+
+
+
+
+
+
+ARQUIVO TYPESCRIPT EM QUE VAMOS COPIAR  E COLAR O CÓDIGO DE 'js-only.js'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO FAZEMOS ISSO,
+
+
+
+IMEDIATAMENTE ERROS COMEÇAM A APARECER NO NOSSO ARQUIVO... (fica vermelho embaixo)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> TENHO QUE DEFINIR OS TYPES DESSAS COISAS, PARA RESOLVER ESSES ERROS (fazer o ts calar a boca)...
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO MEU CÓDIGO TYPESCRIPT,
+
+
+ESCREVO ALGO ASSIM:
+
+
+
+
+
+
+
+
+const button = document.querySelector('button') as HTMLButtonElement;
+const input1 = document.getElementById('num1') as HTMLInputElement;
+const input2 = document.getElementById('num2') as HTMLInputElement;
+
+function add(num1: number, num2: number) {
+  return num1 + num2; ///possível fix, sem o TYPESCRIPT: '+num1 + +num2' (converter em NUMBERs)
+}
+
+button.addEventListener('click', function () {
+  console.log(add(input1.value, input2.value));
+}); 
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+AGORA aquele 'add()'
+
+
+no console.log ESTÁ APITANDO, DIZENDO QUE 
+
+
+'input1.value'
+
+NÃO É PERMITIDO, JUSTAMENTE POR SER UMA __ STRING_..
+
+
+
+
+
+--> EX:
+
+
+
+Argument of type 'string' is not assignable to parameter of type 'number'
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO JÁ É UMA GRANDE
+
+
+VANTAGEM 
+
+DO 
+
+
+TYPESCRIPT ---> SE VOCÊ ESTIVER USANDO UM IDE BOM,
+
+
+VOCÊ 
+
+JÁ 
+
+VAI 
+
+TER UM 
+
+GRANDE SUPORTE 
+
+
+
+AO TYPESCIPRT,
+
+
+
+
+out-of-the-box....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> E SE VOCÊ DEIXAR AQUELE CÓDIGO DE 
+
+
+
+
+SELEÇÃO DOS INPUT FIELDS INTACTO,
+
+tipo assim:
+
+
+
+const input1 = document.getElementById("num1");,
+
+
+
+
+
+
+VOCÊ 
+
+
+__TAMBÉM VAI GANHAR UM ERRO EM 
+
+
+
+'add(input1.value, input2.value)'
+
+
+
+
+
+QUE SERÁ 
+
+
+'
+''AH, EU VERIFIQUEI ESSE ELEMENTO 'input1' E NÃO DESCOBRI NENHUMA PROPRIEDADE 
+
+
+'value'
+ 
+
+ no interior delE '''' --------> ISSO ACONTECE SE NÓS 
+
+
+
+ NAÕ ESCREVERMOS 
+
+
+
+
+
+ 'as HTMLInputElement',
+
+
+
+
+ LÁ EM 
+
+
+
+const input1 = document.getElementById('num1') as HTMLInputElement;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> COMO CADA 
+
+
+
+
+INPUT ELEMENT POSSUI ESSA 
+
+PROPRIEDADE 
+
+'value',
+
+
+
+
+
+
+PODEMOS A SELECIONAR COM 'input1.value',
+
+
+
+
+SE _ TIVERMOS_ DEFINIDO 
+
+ESSE 
+
+
+
+SELECTOR COMO 
+
+
+
+
+de tipo 'HTMLInputElement',
+
+
+
+
+
+o que fazemos por meio da keyword 'as'...
+
+
+
+
+
+
+
+
+
+IMPORTANTE!!!! --> O TYPESCRIPT ___ NÃO CHECA__ SEUS ARQUIVOS HTML,
+
+
+
+
+E SIM _ SÓ _ OS SEUS ARQUIVOS TS E JS (não tem acesso ao html)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ISSO FEITO,
+
+
+PROFESSOR 
+
+
+ESCREVE OUTRA 
+
+
+
+FEATURE DE SINTAXE DO TYPESCRIPT---->
+
+
+
+
+
+ele 
+
+
+escreve 
+
+'!' no final DO __ VALOR_ DE UMA CONSTANTE... --> 
+
+
+
+
+isso 
+
+significa, essencialmente,
+
+
+
+
+'O VALOR DESSA CONSTANTE/VARIABLE NUNCA EXISTIRÁ COMO 'NULL', pq SEMPRE ENCONTRAREMOS 1 VALOR......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> COMO SABEMOS QUE ESSE NEGÓCIO _SEMPRE__ SERÁ UM 'HTMLInputElement,
+
+
+
+
+
+__ USAMOS O 'TYPE CASTING' ('as') PARA ___ FORNECER AO TYPESCRIPT A INFORMAÇÃO DE QUE 
+
+TIPO 
+
+
+DE 
+
+ELEMENTO 
+
+ESSE 
+
+
+NEGÓCIO SERÁ...
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const button = document.querySelector('button')! as HTMLButtonElement;
+const input1 = document.getElementById('num1')! as HTMLInputElement; //// '!" ----> SEMPRE VAMOS TER ISSO COMO 'DEFINED'...
+const input2 = document.getElementById('num2')! as HTMLInputElement;
+
+function add(num1: number, num2: number) {
+  return num1 + num2; ///possível fix, sem o TYPESCRIPT: '+num1 + +num2' (converter em NUMBERs)
+}
+
+button.addEventListener('click', function () {
+  console.log(add(input1.value, input2.value));
+}); 
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+------> ISSO TUDO É SINTAXE TYPESCRIPT;
+
+
+O PROFESSOR PODE USAR ESSA EXCLAMAÇÃO '!' 
+
+
+
+e TYPECASTING _ JUSTAMENTE PQ ESTAMOS EM UM ARQUIVO 
+
+
+TYPESCRIPT,
+
+
+E VAMOS COMPILAR ISSO 
+
+EM 
+
+JAVASCRIPT... (no javascript essas features não ficam disponíveis)...
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+DEIXAMOS BEM CLARAS AS NOSSAS INTENÇÕES,
+
+
+
+
+
+E NOS FORÇAMOS A 'DOUBLE-CHECK' 
+
+
+
+o 
+
+
+código...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A GRANDE VANTAGEM É A ADIÇÃO DE 'types'...
+
+
+(
+
+    tipo aquilo que escrevi em 
+
+
+
+function add(num1: number, num2: number) {//isto aqui..
+  return num1 + num2; ///possível fix, sem o TYPESCRIPT: '+num1 + +num2' (converter em NUMBERs)
+}
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+-------> HÁ UM TYPE MAIS ESPECÍFICO,
+
+que é 
+
+'int' ou 'float'..
+
+
+
+
+
+
+
+
+
+
+
+------> COM ESSA SINTAXE EXTRA, QUE O COMPILER ENTENDE,
+
+ 
+ DIZEMOS QUE ESSAS 2 VARIABLES TEM DE SER 
+
+ DE TYPE 'numbr'...s
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E SE TENTAMOS COMPILAR ESSE CÓDIGO,
+
+
+
+ TAMBÉM
+
+
+ OBTEMOS 
+
+
+
+ ESSE 'error' ... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ELE COMPILA MESMO ASSIM,
+
+
+
+
+
+ MAS 
+
+
+
+ __ COM ESSE ERRO PIPOCANDO POR AÍ..
+
+
+
+
+
+
+
+
+
+--> DIGITE 'tsc' 
+
+
+para compilar seu código...
+
+
+
+
+e 
+
+
+tsc --init 
+
+
+
+PARA 
+
+PRODUZIR O ARQUIVO tsconfig.json...
+
+
+
+
+
+
+
+
+-------> POR DEFAULT, 
+
+O TYPESCRIPT 
+
+
+
+AINDA VAI COMPILAR 
+
+
+O NEGÓCIO PARA JAVASCRIPT,
+
+
+MAS 
+
+VAI 
+
+TE 
+
+DAR UM 
+
+
+ERRO DE COMPILE...
+
+
+
+
+''ARGUMENT OF TYPE STRING IS NOT ASSIGNABLE, etc etc'''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> mas esse comando 'SOLTO' de tsc 
+
+
+
+SÓ FUNCIONA SE VOCÊ 
+TIVER 
+
+ESCRITo
+
+
+
+'--init tsc'
+
+
+
+ANTERIORMENTE...
+
+(
+
+
+    se você não fizer isso,
+
+    você é obrigado a usar 
+
+
+    coisas como 
+
+
+    'tsc app.ts',
+
+
+
+
+    ETC ETC...
+)
+
+
+
+
+
+
+
+
+
+
+
+-> MAS QUANDO VOCÊ TERMINAR 
+
+
+DE 
+
+
+RODAR ESSES COMANDOS,
+
+LEMBRE-SE DE TROCAR 
+
+
+
+
+
+
+    <script src="js-only.js" defer></script>
+
+
+
+
+
+
+
+    POR
+
+
+
+
+    
+    <script src="using-ts.js" defer></script>
+
+
+
+
+
+
+
+
+
+(
+
+
+    PQ 
+
+
+
+
+
+
+    USAR O ARQUIVO 
+
+
+    'using-ts.ts'
+
+
+    NÃO FUNCIONA....
+)

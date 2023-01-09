@@ -1,0 +1,2335 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ok... CHEGA DE 'GENERIC FUNCTIONS'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAI FICAR MAIS 
+
+
+CLARO 
+
+
+CONFORME VAMOS AS UTILIZANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+------> GENERIC FUNCTIONS SÃO BEM IMPORTANTES, MAS NÃO SÃO TUDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS GENERIC CLASSES..
+
+
+
+
+
+
+
+---> COMO CRIAR UMA GENERIC CLASS,
+
+E 
+
+PQ 
+
+
+
+DEVEMOS AS UTILIZAR/CRIAR?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR CRIA UMA CLASS DE 
+
+'Storage'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSA CLASS TERÁ UMA PROPRIEDADE de 
+
+
+
+'data',
+
+
+
+
+QUE SERÁ __ PRIVATE__ (
+
+
+    ou seja, 
+
+    NÃO PODERÁ _ SER ALTERADA__ POR CÓDIGO EXTERNO __ 
+
+
+
+    A ESSA CLASS... ( )
+)
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class StorageData {
+    private data = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+}
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+ESSA PROPRIEDADE DE 'data'
+
+vai segurar esse array aí...
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ TEMOS UM METHOD De 'addItem',
+
+
+
+
+QUE TERÁ UM ARGUMENTO de 'item',
+
+
+
+
+e que 
+
+
+
+FARÁ O 
+
+PUSH 
+
+de 
+
+'item'
+
+para 
+
+dentro 
+
+
+
+do array de 'data'....
+
+
+
+
+
+
+
+--> TAMBÉM TEREMOS UM METHOD DE 'removeItem',
+
+
+que 
+
+
+
+
+vai 'take a addItem'
+
+
+
+E AÍ 
+
+VAI 
+
+
+'SPLICE''
+
+O ARRAY DE 'data'
+
+
+ 
+
+ PARA __ TIRAR_ _ESSE ITEM....
+
+
+
+
+
+
+
+
+
+ SPLICE VS FILTER --> splice ALTERA O ARRAY ORIGINÁRIO, filter não...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+class StorageData {
+    private data = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item) {
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE ESSE 
+
+
+
+'this.data.splice()'
+
+
+depende 
+
+
+daquele 
+
+
+'indexOf(item)',
+
+
+que 
+
+
+vai 
+
+nos dar O EXATO INDEX 
+
+
+em que esse item aí 
+
+
+estará existindo... 
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK...  TAMBÉM TEREMOS 
+
+
+
+'getItems()',
+
+em que 
+
+VAMOS 'RETURN '
+
+
+
+
+
+
+
+
+UMA __ CÓPIA__ 
+
+
+
+
+
+
+ DO ARRAY DE 'data',
+
+
+ POR MEIO 
+
+
+ daquele 
+
+
+ código do spread operator...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+ 
+class StorageData {
+    private data = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item) {
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+}
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+///ao escrever essa class, recebemos um MONTE DE ERRORS....
+
+
+
+
+
+
+
+
+
+
+
+--> errors... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) RECEBEMOS ERRORS PQ 
+
+
+O nome 'Storage' é um reserved name --> trocamos para 'storageData'...
+
+
+
+
+
+
+
+
+
+2) GANHAMOS OUTRO ERROR PQ NÃO ESPECIFICAMOS NADA DO QUE ESTAMOS 'STORING',
+
+
+não falamos coisa alguma sobre esse 'item', nada sobre seu 'type'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E O PROBLEMA '2' É EXATAMENTE 
+
+A RA~ZAO 
+
+PQ 
+
+
+PODEMOS _ tRANSFORMAR__ ISSO EM UMA 'GENERIC CLASS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> GENERIC CLASSES --> SÃO USADAS__ QUANDO VOCÊ __ NÃO SE IMPORTA__ 
+
+
+COM OS TYPES DE DATA QUE SERÃO armazenados ... --> VOCÊ VAI QUERER 
+
+QUE 
+SEJA 
+
+
+'UNIFORM DATA' (
+
+
+    ou seja,
+
+    SÓ STRINGS, SÓ NUMBERS, ETC ETC...
+)
+
+
+
+
+
+
+
+
+--> mas fora isso,
+
+'uniformized data',
+
+
+
+NÃO NOS IMPORTAMOS COM O TYPE DA DATA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> OK, MAS COMO TRANSFORMAMOS  ESSA CLASS EM UMA GENERIC CLASS?
+
+
+
+
+
+
+
+
+
+--> FAZEMOS ISSO com a MESMA SINTAXE DAS 
+
+
+
+
+'GENERIC FUNCTIONS'...
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+VAMOS ESCREVER 
+
+
+
+
+'<>' 
+
+
+E AÍ __ 
+
+
+O 'T' de Type.. --> 
+
+
+E AÍ,
+
+
+você vai 
+
+
+USAR O CLÁSSICO 'extends', provavelmente (extends --> são os 'CONSTRAINTS')....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class StorageData<T> { /////MESMA __ SINTAXE___ das 'generic functions'
+
+    private data = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item) { ///''você não disse o type de 'item'''....
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--->  CERTO.... DEFINIDO ESSE 'T', usado com GENERIC CLASSES/FUNCTIONS,
+
+
+
+
+o professor 
+
+
+vai mais para baixo 
+
+
+
+e escreve 
+
+
+
+
+'private data: T[] = [];',
+
+
+
+
+
+
+
+
+
+
+
+
+O QUE  SINALIZA__ QUE VAI __ QUERER __ QUE __ O ARRAY de 'data'
+
+
+
+
+
+NA NOSSA CLASS 
+
+
+
+
+SEJA ARMAZENADA 
+
+ 'DATA DESSE GENERIC TYPE ESPECÍFICO' 
+
+
+
+
+
+
+
+
+(
+
+
+    e vamos fazer a mesma coisa com TODOS NOSSOS METHODS....
+)
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class StorageData<T> { /////MESMA __ SINTAXE___ das 'generic functions'
+
+    private data = T[] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item: T) { ///''você não disse o type de 'item'''....
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item: T) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... COMO RESULTADO DESSE 
+
+
+
+
+'<T>',
+
+
+
+
+
+
+TEMOS QUE O METHOD de 
+
+'getItems'
+
+
+
+
+
+CORRETAMENTE 
+
+MOSTRA ESTE TYPE:
+
+
+
+
+
+
+(method) StorageData<T>.getItems(): T[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O RETURN TYPE TAMBÉM ESTÁ CORRETO ('T[]', uma string desse GENERIC TYPE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... --> E AGORA PODEMOS CRIAR DIFERENTES STORAGES,
+
+
+
+STORAGES DE STRINGS,
+
+
+DE 
+
+NUMBERS,
+
+
+DE 
+
+
+
+
+
+STRINGS,
+
+
+
+DE 
+
+
+qualquer coisa...
+
+
+
+
+
+
+
+
+
+
+
+
+-> meu código de call da class estava meio errado, aparentemente..
+
+
+
+
+
+
+
+
+
+
+
+
+--> EU HAVIA ESCRITO ASSIM:
+
+
+
+
+const newStorage = new StorageData();
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO AÍ _ NÃO NOS DIZ NADA__ SOBRE_ O 'TYPE' de coisas que serão ARMAZENADAS DENTRO DESSE OBJECT 'storageData'...
+
+
+
+
+(FICA TIPO ASSIM, O TYPE:   '''' constructor StorageData<unknown>(): StorageData<unknown> ''''' )
+
+
+
+
+
+
+--> PARA QUE CONSIGAMOS SABER ESSE TYPE/TYPESCRIPT SAIBA ESSE TYPE,
+
+é necessário escrever aquele <xxx> ,
+
+
+para especificar o TYPE...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+const newStorage = new StorageData<string>();
+
+
+
+
+
+
+
+
+
+--> SE FAZEMOS ISTO, O TYPE FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+constructor StorageData<string>(): StorageData<string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok......
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO COMPLETO FICA MEIO ASSIM:
+
+
+
+class StorageData<T> { /////MESMA __ SINTAXE___ das 'generic functions'
+
+    private data: T[] = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item: T) { ///''você não disse o type de 'item'''.... --> ''mas não vou querer saber esse type, pq essa é uma GENERIC CLASS'' --> armazena UMA COISA DE TYPE __ GENERIC_ (ou seja, qualquer coisa, desde que seja UNIFORME O STORAGE.... tudo string, ou tudo arrays, ou tudo numbers, etc)....
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item: T) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+// const newStorage = new StorageData(); 
+
+// ^^^^ ESSE CÓDIGO DE CIMA, DE INSTANCIAÇÃO, É UMA BOSTA MAL-ESCRITA, POIS NÃO FALA NADA SOBRE O 'type' QUE SERÁ __ USADO __ NO STORAGE DAQUELE ARRAY, nem nos methods no interior desse object criado a partir dessa function...
+
+///o type desse negócio fica um lixo, também:
+/// constructor StorageData<unknown>(): StorageData<unknown>  
+
+
+///para melhor type safety, escrevemos/instanciamos assim:
+
+
+const textStorage = new StorageData<string>(); 
+
+//o type disso fica assim:  '''''''constructor StorageData<string>(): StorageData<string> ''''
+
+
+
+
+textStorage.addItem(31); ///type safety em ação (e a ação das GENERAL CLASSES, junto com o 'T' delas e também uma INSTANCIAÇAÕ BEM FEITA, com o código de 'const textStorage = new StorageData<string>();')
+
+
+textStorage.addItem('ITEM');
+
+
+console.log(textStorage.getItems());
+
+
+textStorage.removeItem('ITEM');
+
+
+
+console.log(textStorage.getItems());
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO TUDO VAI FUNCIONAR, SIM...
+
+
+
+
+
+
+
+
+
+
+--> e temos type safety,
+
+
+PQ SE ESCREVEMOS ISTO:
+
+
+textStorage.addItem(31); 
+
+
+
+
+
+
+
+GANHAREMOS UM ERROR (por conta da instanciação de  ''' const textStorage = new StorageData<string>();  ''')
+
+
+
+
+
+
+
+
+
+
+
+------->   OK.... 
+
+
+
+
+
+
+
+
+
+
+
+MAS PQ __ CONSTRUIRÍAMOS UMA GENERIC CLASS DESSAS?
+
+
+
+
+
+
+
+
+
+
+
+
+---> UÉ, É EXATAMENTE PELA RAZÃO QUE O PROFESSOR MENCIONOU ANTES,
+
+
+
+TVZ__ NÃO QUEIRAMOS __ ARMAZENAR__ 'JUST TEXT',
+
+
+
+TALVEZ QUEÍRAMOS 
+
+
+
+
+
+USAR ESSA CLASS, INSTANCIÁ-LA , 
+
+
+
+PARA 
+
+
+
+CRIAR UM NOVO OBJECT EM QUE ARMAZENAMOS/TRABALHAMOS COM NUMBERS,
+
+
+e assim por diante... 
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const numberStorage = new StorageData<number>()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+--> E AINDA PODERÍAMOS FAZER A MESMA COISA, MAS COM UM UNION TYPE....
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+const someStorage = new StorageData<string | number>();
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+A VANTAGEM DISSO TUDO É 
+
+QUE 
+
+MANTEMOS NOSSO 
+
+
+CÓDIGO 'FLEXÍVEL'
+
+
+
+E, AO MESMO TEMPO,
+
+'STRONGLY TYPED'....
+
+
+
+
+
+
+
+
+
+
+
+-----> JavaScript is considered a “weakly typed” or “untyped” language. ...
+
+ For programmers coming from C++ or Java, two strongly typed languages,
+ 
+  this means that JavaScript will figure out what type of data you have and make the
+   necessary adjustments so that you don't have to redefine your different types of data.
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+STRONGLY TYPED CLASSES... ----> EXATAMENTE COMO VIMOS COM FUNCTIONS.. --> muito flexível,
+
+e ainda 
+
+COM 
+
+
+SUPORTE TYPESCRIPT PERFEITO... -->essa é a ideia por trás dos GENERIC TYPES (classes e functions)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------. OK.... --> MAS VAMOS TER UM PROBLEMA QUANTO A ESSA 
+
+
+
+
+CLASS DE 'dataStorage'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS QUE __ VAMOS__ TEr__ UM 'OBJECT STORAGE'...
+
+
+
+
+
+
+
+
+
+
+
+--> vamos instanciar assim:
+
+
+
+
+
+
+
+
+const objStorage = new DataStorage<object>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> CERTO, VAMOS 
+
+QUERER 
+
+PASSAR 'objects'
+
+
+a 
+
+essa constructor function/class....
+
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS QUERER ARMAZENAR OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> aí o professor escreve:
+
+
+
+
+
+
+
+
+const objStorage = new DataStorage<object>();
+
+
+objStorage.addItem({name: 'Max'});
+
+
+
+
+
+
+
+
+
+
+
+
+
+AÍ, COMPLEMENTAMOS, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+const objStorage = new StorageData<object>();
+
+
+objStorage.addItem({name: 'Max'});
+objStorage.addItem({name: 'Manu'});
+objStorage.removeItem({name: 'Manu'});
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OU SEJA,
+
+VAMOS ADICIONAR 
+
+
+2 ITEMS,
+
+E AÍ VAMOS TENTAR REMOVER O 
+
+ITEM 
+
+
+QUE É 
+
+
+'{name: Manu}' 
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO.... MAS AÍ 
+
+TEREMOS UM PROBLEMA,
+
+BASTA ANALISAR O CÓDIGO DE 'removeItem()',
+o method
+lá 
+
+
+em 
+
+'StorageData':
+
+
+
+
+
+
+
+
+
+    removeItem(item: T) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+-------> BEM....  O PROFESSOR EXPLICA QUE O ERRO, AQUI, FOI CAUSADO 
+
+
+PELO FATO
+
+
+
+DE 
+
+TRABALHARMOS COM __OBJECTS__ --> OBJECTS, EM JAVASCRIPT,
+
+SÃO
+
+
+REFERENCE TYPES.... ------> 
+
+
+
+
+
+
+
+
+
+
+
+OK... ----> aqui o problema é que 
+
+
+
+
+
+
+AQUELA LÓGICA DE 
+
+        this.data.splice(this.data.indexOf(item), 1);
+
+
+
+
+
+
+
+
+
+--> ESSA LÓGICA AÍ __ 'NÃO É BOA'
+
+
+
+QUANDO _ TRABALHAMOS _ COM 'NON PRIMITIVE VALUEs' (objects e arrays)...
+
+
+
+
+
+
+
+--> ISSO PQ 'indexOf',
+
+
+SE PASSAMOS 
+
+
+UM OBJECT,
+
+
+
+ISSO NÃO VAI FUNCIONAR.... 
+
+
+
+
+
+
+
+
+
+
+
+---> N VAI FUNCIONAR PQ __ ESTAMOS TRABALHANDO COM 'NON-PRIMITVE VALUEs'...
+
+
+
+
+
+
+
+
+
+--> pq se passamos um OBJECT a esse negócio,
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+'objStorage.addItem({name: 'Max'})',
+
+
+
+
+
+
+
+
+
+
+esse OBJECT QUE __ existe no INTERIOR DESSA FUNCTION, sendo passado,
+
+
+
+_ NÃO VAI __ SER O MESMO __ OBJECT__ 
+
+
+QUE PASSAREMOS 
+
+EM 
+
+
+'objStorage.removeItem({name: 'Max'})' 
+
+
+
+
+
+
+
+
+
+
+
+
+--> o objeto em 'removeItem' é UM __ OBJECT 'BRAND NEW' na memória,
+
+e tem um address COMPLETAMENTE DIFERENTE, e é por isso que esse código não funcionará, com essa lógica de 'indexOf'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+OK... O JAVASCRIPT VAI BASICAMENTE PROCURAR PELO ADDRESS DESSE object aí.... -> e não o encontrando,
+
+
+o que ele faz 
+
+É __ REMOVER__ O ÚLTIMO ELEMENTO NO ARRAY...
+
+
+(
+
+
+    pq quando ele NÃO ENCONTRAR NADA, ELE VAI RETORNAR '-1',
+
+
+
+    e o 
+
+
+    '-1'
+
+
+    SEMPRE FAZ COM QUE __ SEJA_ _REMOVIDO _ O ÚLTIMO ELEMENTO EM UM ARRAY,
+
+
+    ISSO 
+
+    É UM COMPORTAMENTO JAVASCRIPT COMUM...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... 
+
+
+
+
+
+
+
+
+
+-----> OK.... --> É POR ISSO 
+
+
+
+
+QUE ESSE NEGÓCIO SEMPRE VAI REMOVER __ O ÚLTIMO ELEMENTO __ DO ARRAY....
+
+
+
+
+
+
+
+
+
+
+
+
+--> para CONSERTAR ISSO AÍ,
+
+ 
+
+
+
+
+ __ PODERÍAMOS/PODEMOS COLOCAR UM 'IF CHECK',
+
+
+
+ checando se 
+
+
+
+ 'this.data.indexOf(item) === -1' ,
+
+
+
+
+
+ PARA __ AÍ __ 
+
+
+
+ RETORNAR vazio (para que não seja retornado o item errado)..
+
+
+
+
+
+
+
+
+
+ o código ficaria tipo assim, nessa versão:
+
+
+
+
+
+
+ removeItem(item: T) {
+
+
+     if (this.data.indexOf === -1) {
+         return;
+     }
+
+
+     this.data.splice(this.data.indexOf(item), 1); 
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK... MAS SE FIZÉSSEMOS ISSO,
+
+
+
+
+ SÓ CONSERTARÍAMOS ESSE BUG,
+
+
+
+ MAS 
+
+
+
+
+ __ o NEGÓCIO AINDA NAÕ FUNCIONARIA/FUNCIONARÁ COM OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+ ---> BEM, A ÚNICA MANEIRA PELA QUAL 
+
+
+
+
+ PODERÍAMOS 
+
+
+
+ FAZER ISSO FUNCIONAR 
+
+
+
+
+ COM OBJECTS,
+
+
+
+
+ É __ SE PASSÁSSEMOS _ O 
+
+ EXATO MESMO OBJECT 
+
+
+
+
+
+
+NA MEMÓRIA, 
+
+
+A ESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const objStorage = new StorageData<object>();
+
+
+
+
+const objectTest = {name: 'Manu'};
+
+
+objStorage.addItem({name: 'Max'});
+objStorage.addItem({name: 'Manu'});
+
+objStorage.addItem(objectTest); ///este add, com aquele remove ali e baixo, funcionarão...
+objStorage.removeItem({name: 'Manu'}); ////esse tipo de call NÃO FUNCIONARÁ... (vai remover 'O ÚLTIMO ELEMENTO DO ARRAY', sempre)...
+
+
+
+objStorage.removeItem(objectTest); //JÁ ESTE CÓDIGO VAI FUNCIONAR (pq estaremos passando 'the EXACT SAME OBJECT IN MEMORY', coisa que não fizemos naquele 'add-remove' de manu, ali de cima... )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OU SEJA,
+
+
+SE ADICIONARMOS E REMOVERMOS DESTA FORMA:
+
+
+
+
+objStorage.addItem(objectTest); ///este add, com aquele remove ali e baixo, funcionarão...
+objStorage.removeItem(objectTest); //JÁ ESTE CÓDIGO VAI FUNCIONAR (pq estaremos passando 'the EXACT SAME OBJECT IN MEMORY', coisa que não fizemos naquele 'add-remove' de manu, ali de cima... )
+
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO de 'removeItem()'
+
+
+FUNCIONARÁ.... (e 
+
+
+essa é 
+
+A ÚNICA MANEIRA 
+
+
+
+DE FAZER ISSO FUNCIONAR....
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> MAS SE VOCÊ QUER DEIXAR ESSA GENERIC CLASS MAIS ESPECÍFICA,
+
+RESTRITA APENAS A 'PRIMITIVE VALUES' (sem arrays ou objects),
+
+
+
+
+
+
+AÍ __ VOCê PODERIA 
+
+ESCREVER,
+
+
+lá 
+
+
+
+
+
+NOS 'CONSTRAINTS',
+
+
+
+algo assim:
+
+
+
+
+
+
+
+
+
+class DataStorage<T extends string | number | boolean > {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+/////class StorageData<T extends string | number | boolean> {   ////ESCREVA __ ASSIM _ SE VOCÊ QUISER QUE ESSA GENERIC CLASS__ SÓ TRABALHE COM 'strings', 'numbers' e 'booleans' no storage ( ou seja, SEM _ OBJECTS__ OU ARRAYS)...
+class StorageData<T> { /////MESMA __ SINTAXE___ das 'generic functions'
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+ISSO PQ 
+
+
+
+ESSA CLASS DE 'DataStorage',
+
+
+
+
+nessa versão de 'objects',
+
+
+
+
+SERIA 
+
+
+
+__ 
+
+
+
+MAIS COMPLEXA,
+
+E 
+
+PROVAVELMENTE 
+
+
+SÓ FUNCIONARIA COM OBJECTS (e não com primitive values) --> teríamos de fine-tunar 
+
+
+nossa retrieving logic, 
+
+etc etc.. (
+
+    talvez fizéssemos 
+
+    uns checks 
+
+    por IDS dentro dos objects, etc etc...
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE _ PODEMOS TER MAIS DE 1 'Generic type'
+
+
+
+QUANDO 
+
+
+
+
+TRABALHAMOS COM CLASSES... ---------> (ou seja, podemos ter mais do que apenas 'T')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E É CLARO QUE VOCÊ PODE TER __ METHODS__, COM SEUS __ PRÓPRIOS __ 
+
+
+GENERIC __ TYPES,
+
+
+
+
+_ DENTRO ___ DE SUAS CLASSES... (para casos em que você precisa de GENERIC TYPES exclusivos a certos methods, e não na class inteira)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> GENERIC CLASSES --> deixam sua vida mais fácil,
+
+e te dão uma combinação perfeita entre flexibilidade e 
+
+
+
+
+
+TYPE SAFETY,
+
+PQ 
+
+
+VAMOS SABER PERFEITAMENTE 
+
+o que 
+
+
+SERÁ ARMAZENADO EM CADA 'dataStorage',
+
+
+
+
+
+
+
+E
+
+
+
+essa combinação é a coisa legal que os generic types nos dão....

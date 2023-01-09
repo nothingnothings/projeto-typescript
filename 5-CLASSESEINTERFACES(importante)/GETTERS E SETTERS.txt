@@ -1,0 +1,1936 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... VIMOS CLASSES, E SUA RELAÇAÕ COM PROPERTIES E INHERITANCE....
+
+
+
+
+
+(tudo em typescript)...
+
+
+
+
+
+
+
+
+
+--> 
+
+ESSAS FEATURES SÃO TAMBÉM GERALMENTE SUPORTADAS EM JAVASCRIPT,
+
+
+
+
+JAVASCRIPT MODERNO... --> MAS É CLARO que 
+
+
+algumas coisas 
+
+não existme,
+
+como 
+
+TYPE ASSIGNMENTS,
+
+
+
+
+
+
+'protected/private/public'... (realmente só existem em typescript)....
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NÃO É SÓ ISSO QUE PODEMOS FAZER COM CLASSES..
+
+
+
+
+
+
+
+
+
+
+OUTRA FEATURE QUE TEMOS NO VANILLA JAVASCRIPT, E QUE VOCÊ TAMBÉM PODE USAR NO TYPESCRIPT,
+
+
+
+
+SÃO 
+
+
+'GETTERS'
+
+E 
+
+'SETTERS'...
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS VER ISSO 
+
+LÁ 
+
+
+NA CLASS DE 
+
+'AccountingDepartment' 
+
+
+
+
+
+
+
+
+
+
+-_> NESSA CLASS,
+TEREMOS 
+
+UMA 
+
+
+
+PROPRIEDADE 
+
+DE 
+
+'lastReport',
+
+
+
+QUE SERÁ __ PRIVATE__ ,
+
+
+E 
+
+DE 
+
+
+
+TYPE 'string'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+VAI SER TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+            private lastReport: string;
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+
+
+            this.lastReport = reports[0]
+    }
+
+    addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+
+
+        if (name === 'Max') {
+            return; //retorna 'void'...
+        }
+
+
+        this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+    }
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA, O QUE INTERESSA É ESTE CÓDIGO:
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+            private lastReport: string;
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+
+
+            this.lastReport = reports[0]
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+-------> queremos que essa propriedade de 'lastReport'
+
+
+SEGURE UM VALOR QUE SEJA 
+
+
+
+aquele parameter de 'reports'...,
+
+
+NO CASO 
+
+O _ PRIMEIRO _ VALOR NESSE ARRAY DE 'reports'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO.... --> 
+
+
+
+
+
+
+
+
+
+E VAOMS QUERER ACRESCENTAR LÓGICA àQUELE METHOD DE 'addReport'.... --> 
+
+
+VAMOS QURER 
+
+
+
+
+
+
+QUE 
+
+
+
+ALÉM DE FAZER PUSH de 1 report para dentro do array 'reports',
+
+
+
+ELE _ TAMBÉM _ DEFINA O 
+
+'lastReport'
+
+
+
+COMO 
+
+
+EQUIVALENTE 
+
+
+
+A 
+
+
+'text' (esse parâmetro aí)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+            private lastReport: string;
+
+
+    constructor(id: string, private reports: string[]) {
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+
+
+            this.lastReport = reports[0]
+    }
+
+    addEmployee(name: string) {
+
+
+        if (name === 'Max') {
+            return; //retorna 'void'...
+        }
+
+
+        this.employees.push(name); 
+    }
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+
+        this.lastReport = text; ////EIS O CÓDIGO EM QUESTAÕ.
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+    }
+    
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo.... O 'lastReport',
+
+NO CASO,
+
+É 
+
+
+'private'... -->  ISSO SIGNIFICA QUE 
+
+
+
+
+
+
+VAMOS SER CAPAZES DE O ACESSAR DENTRO DESSA CLASS,
+
+
+
+MAS 
+
+SEREMOS INCAPAZES 
+
+DE 
+ACESSAR 
+
+
+FORA DELA,
+
+com a 'dot notation'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------->  EXEMPLO DE FALHA NA TENTATIVA DE ACESSO COM A DOT NOTATION:
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            private lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+    }
+    
+
+
+
+
+
+
+const newAccounting = new AccountingDepartment2('ID21212', ['Report1', 'Report2']);
+
+
+
+
+
+
+
+console.log(newAccounting.lastReport); ///EXEMPLO DE FALHA NO GET desse 'lastReport', justamente por conta do uso da keyword de 'private'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... e nessa aula de agora,
+
+queremos _ CONSEGUIR ACESSO A 
+
+
+
+ESSE 'lastReport'
+
+
+__ NO LADO __ DE FORA DESSA CLASS QUE O POSSUI -->  PARA ISSO,
+
+
+
+
+VAMOS PRECISAR__ DE __ UM _________GETTER_________...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+''''GETTER'''' --> DEFINIÇÃO --> ''É ESSENCIALMENTE UMA 
+
+
+
+_PROPRIEDADE__ EM QUE __ VOCÊ EXECUTA UMA FUNÇÃO/METHOD em que 
+
+VOCê 
+
+RETRIEVA UM VALUE' ----------> a mera existência 
+
+de
+
+UM GETTER__ TE DEIXA,
+
+COMO __ DEVELOPER_, 
+
+ADICIONAR CÓDIGO MAIS COMPLEXO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OS GETTERS _ _SÃO CRIADOS __ DENTRO DE CLASSES... --> PARA CRIAR UM 
+
+
+GETTER,
+
+
+
+você 
+
+
+
+
+
+segue a formula 
+
+
+
+'get' + 'qualquerNome'....
+
+
+
+
+
+
+
+
+
+
+
+--> TIPICAMENTE O NOME DO GETTER _ VAI _ TER RELAÇAÕ PRÓXIMA COM A PROPRIEDADE 
+
+
+
+
+QUE VOCÊ ESTÁ TENTANDO ACESSAR DO LADO DE FORA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+AQUI, NO CASO, 
+
+PROFESSOR VAI O CHAMAR De 
+
+'mostRecentReport':
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            private lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+
+
+
+        get mostRecentReport ///////ESTE É O NOSSO GETTER...
+
+
+
+
+
+
+
+    }
+    
+
+
+
+
+
+
+const newAccounting = new AccountingDepartment2('ID21212', ['Report1', 'Report2']);
+
+
+
+
+
+
+
+console.log(newAccounting.lastReport); ///EXEMPLO DE FALHA NO GET desse 'lastReport', justamente por conta do uso da keyword de 'private'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS É IMPORTANTE ENTENDER__ QUE GETTERS__ 
+
+
+
+
+
+
+SÃO __ ESCRITOS__ COMO METHODS,
+
+
+
+
+
+POR ISSO VOCÊ TEM QUE 
+
+ESCREVER '()' 
+
+E ENTÃO '{}" ....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+get mostRecentReport() {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... DENTRO 
+
+DE UM GETTER, VOCê _ SEMPRE__ TEM QUE __ RETORNAR ALGUMA COISA (eles nunca vao retornar 'void', no caso)...
+
+
+
+
+
+
+--> AQUI, NO CASO, 
+
+VAMOS QUERER RETORNAR O VALOR DESSA PROPRIEDADE 'lastReport',
+
+
+QUE VAMOS QUERER ACESSAR DO LADO DE FORA DE NOSSA CLASS....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+get mostRecentReport() {
+
+
+return this.lastReport;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+        } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ok, NÓS RETORNAMOS ___ SÓ O VALOR _ DESSE 'lastReport'
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+
+
+
+TIPICAMENTE EM GETTERS VOCê VAI QUERER __ TER LÓGICAS MAIS COMPLEXAS...
+
+
+
+
+
+
+
+
+
+
+--> PARA DEIXAR ESSA LÓGICA MAIS COMPLEXA,
+
+PROFESSOR
+
+
+
+ESCREVE UM IF CHECK... --> vai checar 'SE NÓS JÁ TEMOS UM lastReport anterior'... (truthy),
+
+
+
+AÍ VAOMS QUERER 
+
+
+RETORNAR O LASTREPORT... --> caso contrário,
+
+
+
+VAMOS QUERER__ EXECUTAR OUTRO CÓDIGO, COMO O THROW DE UMA MENSAGEM DE ERRO....
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+
+
+
+         if (this.lastReport) {
+             return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+
+
+         }
+
+         throw new Error('No report found...');
+            
+        } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK,
+
+
+
+FICOU ASSIM:
+
+
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            if (this.lastReport) {
+                return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+            }
+
+            
+            throw new Error('No report found.');
+        } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, PORTNATO,
+
+
+
+ADICIONAMOS UMA LOGICAZINHA UM POUCO MAIS COMPLEXA PARA RETRIEVAR 
+
+
+O VALOR DESSA PROPRIEDADE....
+
+
+
+
+
+
+
+
+
+--> NÓS NÃO PODEMOS USAR A DOT NOTATION, SIM,
+
+MAS 
+
+
+_ PODEOMS __ 
+
+USAR ESSE 
+
+
+GETTER de 
+
+'mostRecentReport'
+
+
+
+
+_ PARA __ CONSEGUIR __ 
+
+
+o valor de 'lastReport',
+
+POR MEIO DE SUA LÓGICA...
+
+
+
+
+
+
+
+----------------> PARA CHAMAR UM GETTER,
+
+VOCÊ FAZ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+console.log(newAccounting.mostRecentReport); ///EXEMPLO DO __ USO __ DE 1 GETTER... --> VOCÊ SEMPRE VAI USAR GETTERS( 'get mostRecentReport') COMO __ PROPRIEDAEDS, e não comom FUNCTIONS ...
+
+///isso aqui, esse GETTER, vai nos dar o valor de 'lastReport'
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> VOCÊ UTILIZA OS GETTERS NORMALMENTE, SEM O USO DE '()'... (pq não são functions)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... 
+
+
+
+
+
+
+--> É CLARO QUE SE EXECUTARMOS NOSSO CÓDIGO COMO ELE ESTÁ, RECEBEREMOS AQUELE ERROR de 
+
+
+
+'report not found',
+
+
+ISSO 
+
+
+PQ 
+
+NÃO ADICIONAMOS NENHUM REPORT 
+
+
+
+ao nosso object, nativamente...
+
+
+
+
+(
+
+
+    por causa do if check 
+
+    de 
+
+
+
+    'if (this.lastReport)'.....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSE É UM 'GETTER'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> ALÉM DE 'getters',
+
+
+VOCê 
+PODE 
+
+DEFINIR 'setters'...
+
+
+
+
+
+
+
+
+
+
+
+
+----> SETTERS SÃO DEFINIDOS COM A KEYWORD 'set', lá na sua CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE COLOCAR QUALQUER NOME QUE VOCÊ QUISER,
+
+MAS TIPICAMENTE 
+
+
+VAI COLOCAR UM NOME _ RELACIONADO__ 
+
+
+ 
+
+'TO THE PROPERTY YOU WANNA SET'..
+
+
+
+
+
+(
+
+    no caso,
+
+    professor escreve 
+
+
+    um SETTER DE 'mostRecentReport',
+
+
+
+
+
+    PARA_ _ QUE __ NÓS TENHAMOS TANTO 1 GETTER PARA 'GET THE RESULT',
+
+
+    como 
+
+
+    1 SETTER PARA 'SET THE LAST RESULT'...
+)
+
+
+
+
+
+
+
+--> VOCê ESCREVERÁ ASSIm:
+
+
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            private lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            if (this.lastReport) {
+                return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+            }
+
+            
+            throw new Error('No report found.');
+        } 
+
+
+
+        set mostRecentReport() {}
+
+
+
+
+
+
+
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... ATÉ AGORA,
+
+
+BEM PARECIDO COM UM _ GETTEr__....
+
+
+
+
+
+
+
+
+
+
+---> ENTRETANTO,
+
+
+COM OS SETTERS __ VOCÊ __ É __ FORÇADO__ A PASSAR 1 PARÂMETRO...
+
+
+
+
+
+
+
+
+------> E ESSE PARÂMETRO É SEMPRE 
+
+
+'O VALOR QUE O USER TERIA PASSADO PARA DENTRO DO SEU CÓDIGO'...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            if (this.lastReport) {
+                return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+            }
+
+            
+            throw new Error('No report found.');
+        } 
+
+
+
+
+
+
+
+
+
+    set mostRecentReport(value: string) {
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+-------> NO CASO,
+
+
+
+O PROFESSOR VAI COLOCAR ESSE VALUE COMO SENDO UMA _STRING_.......
+
+
+
+
+
+
+
+
+
+
+
+E Aí__, DENTRO DO BODY DESSE SETTER,
+
+
+VOCÊ DEVE ESCREVER_ QUALQUER LÓGICA QUE VOCE QUISER PARA ENTÃO 
+'STORE'
+
+
+
+O VALOR QUE O USER VAI PASSAR...
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI, COMO ESTAMOS 'PASSING A VALUE FOR THE MOST RECENT REPORT',
+
+
+
+O PROFESSOR 
+
+VAI QUERER 
+
+
+SUBSTITUIR O ÚLTIMO ELEMENTO NO ARRAY DE 'this.reports'
+
+
+
+
+
+POR ESSe 'VALUE' (de tipo 'text') QUE 
+
+
+
+
+VAMOS ENVIAR POR MEIO DESSE 'setter'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+    set mostRecentReport(value: string) {
+            this.reports[this.reports.length - 1] = value; ///////ISSO VAI __ DEFINIR O VALOR DESSE NEGÓCIO COMO SENDO O VALUE QUE O USER PASSOU....
+
+    }
+
+
+
+
+
+
+--> agora basta ver se o código do professor ficou igual ao meu....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... COM ISSO,
+
+
+
+
+FAZEMOS COM QUE O ÚLTIMO ELEMENTO DO ARRAY DE 'reports'
+
+
+
+__ SEJA__ 
+
+
+
+SUBSTITUÍDO por isso aí...
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE PODEMOS ESCREVER ALGUMAS LÓGICAS ADICIONAIS, DE CHECK, aqui,
+
+
+PARA 
+
+
+
+DEIXAR ESSE SETTER MENOS 
+
+
+SIMPLES...
+
+
+
+ex:
+
+
+
+    set mostRecentReport(value: string) {
+
+            if(!value || this.reports.length =< 0 ) {
+                throw new Error('Something has gone wrong...');
+            }
+
+            this.reports[this.reports.length - 1] = value; ///////ISSO VAI __ DEFINIR O VALOR DESSE NEGÓCIO COMO SENDO O VALUE QUE O USER PASSOU....
+
+    }
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+CÓDIGO COMPLETO FICA ASSIM:
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            private lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            if (this.lastReport) {
+                return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+            }
+
+            
+            throw new Error('No report found.');
+        } 
+
+
+
+
+       set mostRecentReport(value: string) { /// ------> OK.... ATÉ AGORA, BEM PARECIDO COM UM _ GETTEr__.... ---> ENTRETANTO, COM OS SETTERS __ VOCÊ __ É __ FORÇADO__ A PASSAR/EXIGIR 1 PARÂMETRO...
+
+
+        if(!value || this.reports.length <= 0 ) {
+            throw new Error('Something has gone wrong...');
+        }
+
+
+
+        this.reports[this.reports.length - 1] = value; ///////ISSO VAI __ DEFINIR O VALOR DESSE NEGÓCIO COMO SENDO O VALUE QUE O USER PASSOU....
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO É OUTRA COISA QUE PODERÍAMOS FAZER...
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA BASTA TESTARMOS NOSSO SETTER...
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+escrevemos assim:
+
+
+
+
+
+
+
+
+
+
+newAccounting.mostRecentReport = 'REPORTNOVO' ///call/USO de um _ SETTER__... ( o '=' FAZ TODA A DIFERENÇA, PQ BASICAMENTE CONFIRMA QUE 'ESTAMOS SETTANDO ALGUMA COISA' NESSA PROPRIEDADE)... (bem diferente de um 'getter', portanto...)
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER, O CALL/USO DE UM SETTER É BEM __ DIFERENTE__ DO CALL DE UM 'getter'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMPARE OS 2:
+
+
+
+
+
+
+
+
+
+
+newAccounting.mostRecentReport;  ///////////CALL DE UM GETTER... 
+
+
+newAccounting.mostRecentReport = 'REPORTNOVO'; ///call/USO de um _ SETTER__... ( o '=' FAZ TODA A DIFERENÇA, PQ BASICAMENTE CONFIRMA QUE 'ESTAMOS SETTANDO ALGUMA COISA' NESSA PROPRIEDADE)... (bem diferente de um 'getter', portanto...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> os setter exigem aquele '=' 
+
+
+
+NOS SEUS CALL...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  },
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  }
+};
+
+// set fullName is executed with the given value. ///////ISTO É UM SETTER...
+user.fullName = "Alice Cooper"; ///setter....
+
+alert(user.name); // Alice
+alert(user.surname); // Cooper
+
+
+
+
+
+
+
+user.fullName; ///JA _ISTO É UM GETTER....
+
+
+
+
+------->
+
+
+
+
+
+
+
+OK... ESSES SÃO OS GETTERS E SETTERS,
+
+QUE PODEM 
+
+
+SER ÓTIMOS PARA 'ENCAPSULATE LOGIC',
+
+
+ 
+
+ E TAMBÉM 
+
+ __ PARA _ 'ADD EXTRA LOGIC'
+  
+  que 
+
+
+
+  será rodada quando
+
+  você tentar READ uma propriedaed ou __SET_ uma propriedade...

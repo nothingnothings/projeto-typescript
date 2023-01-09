@@ -1,0 +1,1313 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+
+MAS OUTRA FEATURE LEGAL,
+
+
+
+RELACIONADA A PROPERTIES E METHODS EM 
+
+
+
+CLASSES,
+
+
+
+QUE 
+
+EXISTE
+
+
+
+
+
+NO JAVASCRIPT TAMBÉM,
+
+QUANDO 
+
+VOCê 
+T
+RABALHA 
+
+
+
+COM 
+
+JAVASCRIPT ES6 e posteriores,
+
+
+
+
+
+
+
+
+
+
+
+__ SÃO PROPRIEDADES E METHODS __ ESTÁTICOS...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA KEYWORD TE 
+
+PERMITE 
+
+
+
+
+ADICIONAR METHODS E PROPRIEDADES __ QUE __ SÓ EXISTIRÃO __ NA CLASS EM SI,
+
+
+
+ausentes 
+
+
+
+
+NOS OBJETOS INSTANCIADOS A PARTIR DAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+----------> ISSO SIGNIFICA QUE 
+
+SÃO METHODS E PROPRIEDADES QUE 
+
+
+__ NÃO DEMANDAM__ 
+
+
+
+QUE VOCÊ 
+
+
+
+
+instancie um objeto para as utilizar....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+class NovaClass {
+
+
+
+    static metodoEstatico() {
+        console.log('exemplo');
+    }
+
+
+
+
+    metodoComum() {
+                console.log('exemplo');
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+const novoObjeto = new NovaClass();
+
+
+
+
+
+
+novoObjeto.metodoComum();
+
+
+
+
+
+
+
+NovaClass.metodoEstatico();
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+class NovaClass {
+  static metodoEstatico() { //vamos poder chamar isso _ SEM __ TER QUE _ INSTANCIAR OBJETOS A PARTIR DESSA CLASS ....
+    console.log('exemplo');
+  }
+
+  metodoComum() {
+    console.log('exemplo');
+  }
+}
+
+
+
+NovaClass.metodoEstatico(); //não precisamos instanciar coisa alguma...
+
+
+
+
+const novoObjeto = new NovaClass();
+
+novoObjeto.metodoComum();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> POR ESSA CARACTERÍSTICA,
+
+ACESSO DIRETO _ NA CLASS EM SI,
+
+
+
+__ FREQUENTEMENTE ESSA FEATURE 
+
+
+É 
+
+
+
+UTILIZADA PARA DEFINIR 'UTILITY FUNCTIONS',
+
+
+
+
+
+
+
+UTILITY FUNCTIONS EM QUE VOCÊ VAI QUERER 'GROUP/MAP' a uma class,
+
+
+
+
+
+OU ENTÃO __ CONSTANTES_ GLOBAIS__ QUE VOCÊ QUER/VAI QUERER 
+
+
+ARMAZENAR 
+
+
+EM 
+
+1
+ CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -------> 1 exemplo,
+
+
+ BUILTIN NO JAVASCRIPT EM SI,
+
+
+ E 
+ PARTE 
+
+
+ DO 
+
+
+ JAVASCRIPT NO BROWSER (e não definido por vocÊ/typescript) 
+
+
+
+
+ É 
+
+
+ JUSTAMENTE 
+
+
+
+
+
+ A CONSTRUCTOR FUNCTION/CLASS DE 
+
+
+
+ '
+
+ Math'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> ESSA É UMA CLASS/CONSTRUCTOR FUNCTION DISPONÍVEL GLOBALMENTE NO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+ --> em 'Math',
+
+
+ VOCÊ PODE 
+
+ ACESSAR 
+
+ COISAS COMO 'PI',
+
+
+ PARA CONSEGUIR O NÚMERO PI,
+
+
+
+
+ ou então 
+
+
+
+
+
+METHODS 
+
+
+
+para calcular coisas diversas,
+
+como 
+
+
+
+'pow()' (que calcula A POTÊNCIA DE UM CERTO NÚMERO)....
+
+
+
+
+
+
+
+
+
+
+---------> ESSES METHODS TODOS 
+
+
+SÃO 
+
+
+ESTÁTICOS,
+
+
+
+
+pq você não tem que escrever 
+
+
+
+'const math = new Math()' 
+
+
+
+PARA OS 
+
+UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCê ACESSA TODOS ESSES 
+METHODS E PROPRIEDADES__ DIRETAMENTE_ NA CLASSE EM SI.... --> é por isso que 
+
+dizemos que 
+
+
+'
+Math'
+
+
+
+ATUA MAIS COMO UM 'NAMING SPACE',
+
+
+como um 
+
+
+'GROUPING MECHANISM' 
+
+de diversas functions....
+
+
+
+
+
+
+
+
+
+
+------------> E ESSE 
+
+É 
+
+UM 
+
+COMMON USE-CASE 
+
+PARA 
+
+
+'STATIC METHODS' E PROPERTIES.... ------> você simplesmente 
+
+define 
+
+uma 
+
+
+class que vai ser de UTILITY, no seu código,
+
+
+e 
+
+aí 
+
+
+
+
+ADICIONA VÁRIOS DESSES METHODS 
+
+
+
+
+de 'utility', estáticos,
+
+nela....
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class NovaClass {
+  static metodoEstatico() { //vamos poder chamar isso _ SEM __ TER QUE _ INSTANCIAR OBJETOS A PARTIR DESSA CLASS ....
+    console.log('exemplo');
+  }
+
+  metodoComum() {
+    console.log('exemplo');
+  }
+}
+
+
+
+
+
+
+class UtilityClassExample { //essa feature dos 'static methods' FREQUENTEMENTE É USADA PARA DEFINIR 'UTILITY CLASSES', ou seja, CLASSES __ CUJO PROPÓSITO ÚNICO SERÁ DE 'SERVIR COMO AGRUPADORES DE METHODS UTILITY'... (exatametne como a class de 'Math', no javascript)....
+    static removeConsoleLogs() { 
+      //....
+    }
+  
+    static removeComments() {
+        ////....
+    }
+
+
+
+    static removeEventListeners() {
+        ///...
+    }
+
+
+    static cleanUp() {
+
+    }
+  }
+  
+  
+
+
+
+
+
+
+
+NovaClass.metodoEstatico(); //não precisamos instanciar coisa alguma...
+
+
+
+
+const novoObjeto = new NovaClass();
+
+novoObjeto.metodoComum();
+
+
+
+
+
+
+
+
+UtilityClassExample.cleanUp();
+
+
+UtilityClassExample.removeComments();
+
+
+
+UtilityClassExample.removeConsoleLogs();
+
+
+UtilityClassExample.removeEventListeners();
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+para exemplificar isso,
+
+
+
+
+ 
+ PROFESSOR __ 
+
+
+ QUER TER UM METHOD NA CLASs 'Department'
+
+
+
+
+ __ QUE __ SEJA CAPAZ DE 'CREATE EMPLOYEES'....
+
+
+
+
+
+
+
+
+
+
+ --> E VAMOS QUERER __ TER ESSE METHOD _ AÍ, A POSSIBILIDADE DE O CHAMAR,
+
+
+
+ __ SEM__ TER QUE _ _INSTANCIAR 'Department' (classe BASE.... -> commo essa class só é USADA PARA 'INHERITANCE' 
+
+
+ das outras, como 'ITDepartment', VAMOS __ QUERER_ QUE ESSE METHOD POSSA SER CHAMADO__ SEM INSTANCIAR esse 'Department')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK....  NÃO VAMOS QUERER TER QUE INSTANCIAR 'Department'
+
+ SÓ PARA PODER EXECUTAR UM UTILITY METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> é por isso que o professor escreve assim:
+
+
+
+
+
+
+
+
+class Department6 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+
+
+     static createEmployee(name: string) { //EIS O CÓDIGO EM QUESTÃO.
+
+
+
+      }
+    }
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... AÍ VAMOS QUERER RETORNAR UM OBJECT,
+
+com a propriedade 
+
+
+
+'name' 
+
+
+colocada em 1 propriedade de 'name':
+
+
+
+
+
+
+
+
+
+
+class Department6 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+
+
+     static createEmployee(name: string) { //EIS O CÓDIGO EM QUESTÃO.
+    return { name: name}
+
+
+      }
+    }
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+PARA USAR 'createEmployee',
+
+
+BASTA 
+
+RODAR UM CÓDIGO ASSIM:
+ 
+
+
+
+
+
+ const employee1 = Department7.createEmployee();
+
+
+
+
+console.log(employee1);
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+----> É UM STATIC METHOD PQ O CHAMAMOS DIRATEMENTE NA CLASS.... ( sem 
+
+
+a keyword de 'new', 
+
+
+
+),
+
+
+
+
+É POR ISSO QUE CHAMAMOS CLASSES com methods estáticos DE 'GROUPING MECHANISMS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCê TAMBÉM pode fazer a mesma coisa 
+
+
+
+
+
+com 
+
+
+
+propriedades, tipo assim:
+
+
+
+
+
+
+
+
+class Department6 {
+
+    
+    static fiscalYear = 2020; ////AGORA ISSO VAI FICAR DISPONÍVEL __ SEM TER QUE __ INSTANCIAR__ ESSA PROPRIEDADE...
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+
+
+     static createEmployee(name: string) { //EIS O CÓDIGO EM QUESTÃO.
+    return { name: name}
+
+
+      }
+    }
+
+
+
+
+
+
+
+console.log(Department6.fiscalYear); ////---> ISSO VAI DAR '2020', como ali em cima...
+
+
+
+
+
+
+
+
+
+
+ok.... ISSO FUNCIONA, NO CASO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... MAS 1 DETALHE SOBRE ESSAS PROPRIEDADES/METHODS ESTATICOS:
+
+
+
+
+
+
+
+
+QUANDO VOCÊ 
+
+OS DEFINE/ADICIONA EM UMA CLASS,
+
+
+VOCê 
+
+__ NÃO __ 
+
+
+
+
+VAI CONSEGUIR 
+
+ACESSAR ESSES VALORES/METHODS 
+
+
+
+
+
+em locais 'NON-STATIC'.... --------->  ISSO SIGNIFICA QUE 
+
+
+SE 
+
+VOCÊ 
+
+
+TENTAR 
+
+
+
+ACESSAR 
+
+
+o 
+
+'fiscalYear'
+ 
+
+
+
+ NO SEU CONSTRUCTOR, TIPO ASSIM:
+
+
+
+ class Department6 {
+
+    
+    static fiscalYear = 2020; ////AGORA ISSO VAI FICAR DISPONÍVEL __ SEM TER QUE __ INSTANCIAR__ ESSA PROPRIEDADE...
+    
+ 
+    constructor(private name: string, 
+
+                 
+        ) {
+
+               console.log(this.fiscalYear); /////////ISSO __ NÃO FUNCIONARÁ_...
+
+        }
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+ ------> ISSO NÃO FUNCIONA, RECEBEMOS UM ERROR DE 
+
+
+ ''
+
+Property 'fiscalYear' does not exist on type 'Department7'. 
+Did you mean to access the static member 'Department7.fiscalYear' instead?ts(2576)
+
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+------>
+
+
+
+
+O ESTRANHO É QUE 
+
+
+
+'this.fiscalYear'
+
+
+NÃO FUNCIONA BEM,
+
+
+mas 
+
+
+'Department7.fiscalYear'
+
+
+FUNCIONA,
+ 
+
+
+
+ O TYPESCRIPT NÃO NOS DÁ ERRO....
+
+
+
+
+
+
+
+
+
+
+
+ ----------> OK, MAS PQ 
+
+
+
+ 'this'
+
+
+ NÃO FUNCIONA? --> NÃO FUNCIONA PQ 
+
+
+ 
+
+ 'this'
+
+
+ SEMPRE VAI SE 
+
+ REFERIR 
+
+
+ "TO THE INSTANCE BASED ON THE CLASS''' --> e como __ NÓS _ NUNCA TEREMOS 'INSTANCES' 
+
+
+
+
+ COM NOSSOS METHODS/PROPRIEDADES ESTÁTICOS,
+
+
+
+
+
+ esse código é simplesmente INCORRETO...
+
+
+
+
+
+
+
+
+
+
+ (e por isso não funciona)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> AÍ O PROFESSOR FALA AQUILO QUE DESCOBRIMOS ANTES,
+
+
+ QUE 
+
+
+ DEVEMOS USAR 
+
+
+ 'Department7' no lugar de 'this',
+
+
+ tipo assim:
+
+
+
+
+
+
+
+
+
+     static fiscalYear = 2020;
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+       
+        ) {
+            console.log(Department7.fiscalYear); //isso aqui funciona (por alguma razão)
+            console.log(this.fiscalYear); //mas isto não funciona.....
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       ----------> OK, MAS PQ  'this' NÃO FUNCIONA? --> NÃO FUNCIONA PQ  'this' SEMPRE VAI SE  REFERIR   "TO THE INSTANCE BASED ON THE CLASS''' --> e como __ NÓS _ NUNCA TEREMOS 'INSTANCES'   COM NOSSOS METHODS/PROPRIEDADES ESTÁTICOS,  esse código é simplesmente INCORRETO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+OK... RESUMO:
+
+
+
+PARA CONSEGUIR ACESSO A PROPRIEDADES/METHODS __ ESTÁTICOS__ no lado de DENTRO DE SUA CLASS,
+
+
+USE O NOME DA CLASS MSM,
+
+
+
+e não 'this'...
+
+
+
+
+
+
+
+
+OBS::: PROPRIEDADES E METHODS ESTÁTICOS__ SÃO, SIM, INHERITADOS POR SUAS CLASSES inheriting....

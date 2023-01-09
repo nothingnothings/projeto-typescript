@@ -1,0 +1,952 @@
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA QUE APRENDEMOS SOBRE 'private/public'
+
+,
+
+
+
+PROFESSOR TAMBÉM QUER TORNAR 
+
+
+A 
+
+PROPRIEDADE 
+
+DE 
+
+
+'name'
+
+
+
+em uma PRIVATE PROPERTY....
+
+
+
+
+
+
+
+
+PRIVATE PROPERTY/METHOD ---------> OS VALORES ARMAZENADOS/HANDLADOS NESSA PROPRIEDADE/METHOD _NÃO PODERÃO SER FUÇADOS __ POR __ COMANDOS ESCRITOS NO LADO DE FORA DE NOSSA CLASS (e sim só por methods EXISTENTES NO SEU INTERIOR)....
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class Department2 {
+
+
+    private name: string;
+    private employees: string[]; //////////PRIVATE__ PROPERTY.... --> impede que __MODIFIQUEMOS ESSA PROPRIEDADE lá do lado de FORA Dessa class (somos obrigados a usar OS METHODS dessa class para modificar as propriedades, com isso)...
+    
+    
+    //essa keyword de 'private' É ALGO _ QUE __ CHAMAM DE 'modifier' no typescript...
+    ///o outro modifier que existe é o 'public', que é o DEFAULT (você não precisa escrever, já é o default de todas as coisas na sua class)... 
+
+
+
+
+
+
+
+
+    constructor (n: string, emp: string[]) {
+        this.name = n;
+        this.employees = emp;
+    }
+
+
+
+    // private fireEmployee(employeeId: string) { ///////TAMBÉM PODEMOS USAR 'private' COM __ METHODS__ nas nossas classes...
+
+    // }
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+    printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+    }
+
+
+
+    describe(this: Department) {
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... E EM 'Department', essa class,
+
+
+
+TEMOS 
+
+
+
+UMA PEQUENA INCONVENIÊNCIA....
+
+
+
+
+
+
+
+
+A INCONVENIÊNCIA É ESTA:
+
+
+
+
+------------------------------
+
+
+
+{
+
+
+
+
+private name: string;
+
+
+
+constructor(n: string) {
+    this.name = n;
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+------->  OU SEJA,
+
+TEMOS ESSE FIELD DE 'name',
+
+
+
+
+
+
+AÍ 
+
+_ CONSEGUIMOS UM 
+
+
+
+VALOR PARA ESSE FIELD LÁ NO CONSTRUCOTR,
+
+
+
+E AÍ __ ARMAZENAMOS 
+
+
+
+
+__ O VALOR ___ DESSE ARGUMETNO __, PARA ESSE FIELD,
+
+
+LÁ __ NO 
+
+
+
+CONSTRUCTOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ESSA SINTAXE É VÁLIDA,
+
+
+E PODEMOS CONTINUAR A UTILIZANDO...
+
+
+
+
+
+
+
+
+
+
+-> É UMA SINTAXE CLARA... ENTRETANTO,
+
+VOCÊ 
+
+FREQUENTEMENTE TERÁ CASES EM QUE 
+
+
+
+
+
+___ TODAS AS PROPRIEDADES_  __ QUE _ VOCê TEM (todos os FIELDS QUE VOCÊ TEM) 
+
+
+
+
+__ SERÃO/SÃO INICIALIZADOS NO CONSTRUCOTR.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE FREQUENTEMNTE VOCÊ VAI SE ENCONTRAR ESCREVENDO ALGO ASSIM:
+
+
+
+
+
+{
+
+
+
+
+private name: string;
+private employee: string[];
+private ids: string[];
+private ssss = number[];
+private xxx = number;
+
+
+
+constructor(n: string, emp: string[], ids: string[], ssss: number[], xxx: number) {
+    this.name = n;
+    this.employee = emp;
+    this.ids = ids;
+    this.ssss = ssss;
+    this.xxx = xxx;
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+------> VOCÊ VAI ACABAR REPETINDO ISSO 200 vezes 
+
+NO CONSTRUCTOR,
+
+
+
+
+
+
+
+
+
+TANTO NOS PARÂMETORS COMO 
+
+
+
+
+
+NA INICIALIZAÇÃO, VISTA EM 
+
+'this.ids = ids',
+
+
+etc etc....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> E VOCÊ _ NÃO __ PRECISA__ FAZER ISSO AI´...
+
+
+
+
+
+
+
+
+
+--> EM VEZ DE ESCREVER ESSE 'DOUBLE INITIALIZATION CODE',
+
+
+QUE 
+É UM ___ SACO_ DE ESCREVER,
+
+
+
+
+O PROFESSOR EXPLICA QUE 
+
+
+
+
+
+
+
+
+
+VOCê PODE __ 
+
+
+SE __ LIVRAR__ DOS 'FIELD DEFINITIONS'
+
+lá 
+
+de cima,
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+{
+
+
+
+
+///private name: string;
+///private employee: string[];
+///private ids: string[];
+////private ssss = number[];
+////private xxx = number;
+
+
+
+constructor(n: string, emp: string[], ids: string[], ssss: number[], xxx: number) {
+    this.name = n;
+    this.employee = emp;
+    this.ids = ids;
+    this.ssss = ssss;
+    this.xxx = xxx;
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ SE LIVRA DESSES FIELDS,
+
+
+
+E AÍ...
+
+
+
+
+
+
+
+
+VOCÊ TAMBÉM VAI SE LIVRAR DA INICIALIZAÇÃO NO CONSTRUCTOR, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+{
+
+
+
+
+///private name: string;
+///private employee: string[];
+///private ids: string[];
+////private ssss = number[];
+////private xxx = number;
+
+
+
+constructor(n: string, emp: string[], ids: string[], ssss: number[], xxx: number) {
+    //this.name = n;
+    ///this.employee = emp;
+    //this.ids = ids;
+    //this.ssss = ssss;
+    //this.xxx = xxx;
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ,
+
+AGORA,
+
+
+
+
+
+
+___ VOCê SÓ VAI PRECISAR ADICIONAR O 'ACCESS MODIFIER' 
+
+
+
+
+
+
+
+___ NA _ FRENTE__ DOS PARÂMETROS DE SEU CONSTRUCTOR...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA...
+
+
+
+
+
+
+
+
+
+VOCê VAI ATÉ OS PARÂMETROS E AÍ..
+
+
+
+1) se for PUBLIC ESSE FIELD/PROPRIEDADE  NO SEU OBJECT/CLASS, vocÊ deve adicionar 'public' no início do parâmetro....
+
+
+
+
+2) SE FOR 'private', COLOQUE 'private'...
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+{
+
+///private name: string;
+///private employee: string[];
+///private ids: string[];
+////private ssss = number[];
+////private xxx = number;
+//// yyyy = string;
+
+
+
+constructor(private name: string, private emp: string[], private ids: string[], private ssss: number[], private xxx: number, public yyyy: string) {
+    //this.name = n;
+    ///this.employee = emp;
+    //this.ids = ids;
+    //this.ssss = ssss;
+    //this.xxx = xxx;
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department3 {
+//   name: string; ///comente para fora TUDO ISSO....
+//   private employees: string[]; 
+///private name: string;
+///private employee: string[];
+///private ids: string[];
+////private ssss = number[];
+////private xxx = number;
+//// yyyy = string;
+
+
+
+//// VVVVVVV --> esse é o SHORTHAND PARA __ ADICIONAR __ PROPRIEDADES/fields __ na sua CLASS, sem precisar digitar tudo 500 vezes ali em cima e embaixo...
+constructor(private name: string, private employees: string[], private ids: string[], private ssss: number[], private xxx: number, public yyyy: string) {
+    // this.name = n; ///COMENTE PARA FORA TUDO ISSO...
+    // this.employees = emp;
+  }
+
+
+  addEmployee(employee: string) {
+    this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+
+  describe(this: Department) {
+    console.log('Department: ' + this.name);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+O CÓDIGO LIMPO FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department3 {
+
+
+
+constructor(private name: string, private employees: string[], private ids: string[], private ssss: number[], private xxx: number, public yyyy: string) {
+
+  }
+
+
+  addEmployee(employee: string) {
+    this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+
+  describe(this: Department) {
+    console.log('Department: ' + this.name);
+  }
+}
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE NESSE LOCAL VOCÊ __ TEM __ QUE ESCREVER 'public',
+
+
+PQ 
+
+
+
+
+ISSO SERÁ 
+
+
+UMA DECLARAÇÃO/INSTRUÇÃO  EXPLÍCITA
+ 
+
+
+PARA O TYPESCRIPT,
+
+QUE 
+
+DIZ PARA 
+
+ELE 
+
+QUE 
+
+
+
+'''VAMOS QUERER __ NÃO SÓ 
+
+
+PEGAR ESSES ARGUMENTOS NO CONSTRUCTOR,
+
+
+
+
+MAS __ TAMBÉM __ VAMOS QUERER_ _ CRIAR PROPERTIES PARA ESSA CLASS,
+
+
+COM 
+
+
+ESSES EXATOS MESMOS NOMES''' 
+
+
+
+
+
+
+
+
+(
+    isso significa que 
+
+    serão criadas 
+
+    propriedades de 
+
+
+
+
+    'name', 'employees',
+
+
+    'xxx',
+
+    'yyyy',
+
+
+
+    'ids',
+
+    etc, 
+
+
+    nesse exemplo....
+)
+
+
+
+
+
+
+
+
+
+
+--------> OK.... 
+
+
+
+
+
+
+
+
+
+
+ESSE É UM SIMPLES SHORTCUT PARA 
+
+ESSE 'DOUBLE INITIALIZATION CODE'.... 
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AÍ VOCÊ NÃO PRECISA ESCREVER TUDO MÚLTIPLAS VEZES,
+
+BASTA ESCREVER 1 VEZ SÓ...  
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> a única diferença é que 
+
+você 
+
+precisa 
+
+
+
+
+ESCREVEr 'public/private'...
+
+
+
+
+
+
+
+
+
+--> AJUSTAMOS UM POUCO O CALL DE NOSSA CLASS....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department3 {
+
+
+
+constructor(private name: string, private employees: string[], private ids: string[], private ssss: number[], private xxx: number, public yyyy: string) {
+
+  }
+
+
+  addEmployee(employee: string) {
+    this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+
+  describe(this: Department) {
+    console.log('Department: ' + this.name);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+const accounting = new Department('Arthur', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> certo.... acho que entendi, e já salvei bastante código, com isso...

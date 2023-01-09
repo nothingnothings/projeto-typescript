@@ -1,0 +1,816 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK, VIMOS UM MONTE DOS CORE TYPES QUE 
+
+ O 
+
+
+ TYPESCRIPT CONHECE...
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO,
+
+
+
+
+ VAMOS 
+
+ CRIAR UM NOVO ARQUIVO,
+
+ 'unionTypes.ts'....
+
+
+
+
+
+
+
+
+
+ -------> NESSE ARQUIVO,
+
+
+
+ PROFESSOR 
+
+ QUER 
+
+ NOS MOSTRAR OUTRO TYPE 
+
+ INTERESSANTE ENCONTRADO NO TYPESCRIPT,
+
+ O 
+
+
+
+
+ 'union type'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------------> PROFESSOR PEGA AQUELE CÓDIGO QUE ESTUDAMOS LÁ NO INÍCIO, AQUELA FUNÇAÕ BÁSICA DE 'add',
+
+
+ que era:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+
+
+
+     const result = n1 + n2;
+     if (showResult) {
+         console.log(phrase + result);
+
+     } else {
+
+         return result;
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> AGORA, NESSA FUNÇÃO 'add',
+
+
+
+ O PROFESSOR AGORA VAI QUERER 
+
+
+ SER MAIS _ FLEXÍVEL__ ACERCA _ DOS VALORES QUE_ VAMOS ACEITAR__ 
+
+
+
+ NESSA FUNÇAÕ... 
+
+ (
+
+
+
+     vamos querer aceitar __ TANTO __ NUMBERS COMO STRINGS...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> PARA ISSO, ACHO QUE PROFESSOR VAI ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+ function add(n1: number | string , n2: number | string ) {
+  const result = n1 + n2;
+
+  return result;
+}
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+PROFESSOR RENOMEIA A FUNÇÃO, 
+
+COLOCA O NOME DE 'combine',
+
+PQ ELA VAI AGORA FUNCIONAR COM TANTO 
+
+
+
+NUMBERS, QUANTO STRINGS...
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... MAS SE ESCREVEMOS ISTO:
+
+
+
+
+
+ function add(n1: number | string , n2: number | string ) {
+  const result = n1 + n2;
+
+  return result;
+}
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT NOS SOLTA UM __ ERROR_:
+
+
+
+
+
+
+''
+
+Operator '+' cannot be applied to types 'string | number' and 'string | number'.
+
+'
+''
+
+
+
+
+
+
+--> PARA CONSERTAR ESSE ERROR,
+
+PRECISAMOS DE ALGUNS IF CHECKS,
+
+
+CHECKS QUE FAÇAM COM QUE 
+
+
+sejam 
+
+CONCATENADAS AS STRNIGS (se os 2 valores forem strings)
+
+
+
+E 
+
+
+
+COM QUE 
+
+SEJAM ADIICONADOS OS NUMBERS ('' FOREM NUMBERS)....
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+ function combine(n1: number | string , n2: number | string ) {
+
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        const result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        const result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+  ----------------------------------
+
+
+
+
+
+
+
+  AGORA ESSA FUNÇÃO FUNCIONARÁ COM TANTO 'STRINGS' como 'numbers'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+
+
+
+
+
+
+
+
+  
+
+ function combine(n1: number | string , n2: number | string ) {
+
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        const result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        const result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+  console.log(combine('212', '45'));
+
+
+  console.log(combine(22, 51));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ->> UNION TYPES ---> SE TEMOS ALGUM LUGAR EM NOSSO APP, 
+
+
+
+
+
+  PODE SER O PARÂMETRO DE UMA CONSTANTE,
+
+  OU UMA 
+
+  VAR/COSNT QUE ESTAMOS USANDO EM ALGUM LUGAR... -------> EM ALGUM LUGAR EM QUE 
+
+  
+
+  ACEITAREMOS '2 KINDS OF VALUES' -----> com os union types dizemos que 
+
+
+
+
+  FICAMOS FINE COM TANTO 'NUMBERS' como 'STRINGS'...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> E VOCÊ PODE TER MAIS DE 2 TYPES, PODE TER QUANTOS TYPES QUISER..
+
+
+
+
+
+
+
+  EX:
+
+
+  
+
+  
+
+ function combine(n1: number | string | boolean , n2: number | string ) {
+
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        const result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        const result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+  ---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+  --> AÍ O PROFESSOR ESCREVE OS 'typeof'...
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+      if (typeof n1 === 'number' && typeof n2 === 'number') {
+        const result = n1 + n2;
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> OK.... MAS O PROFESSOR 
+
+
+
+    ESCREVE UMA OUTRA MELHORIA,
+
+
+
+
+    ELE COLOCA 
+
+
+
+
+    'result'
+
+    COMO UMA VARIÁVEL __ NO INÍCIO DESSA FUNÇÃO...
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+
+
+
+    
+  
+
+ function combine(n1: number | string | boolean , n2: number | string ) {
+
+     let result; 
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+ function combine(n1: number | string , n2: number | string ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... acho que entendi...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ASSIM QUE PODEMOS USAR UNION TYPES PARA SERMOS MAIS FLEXÍVEIS 
+
+
+A RESPEITO DE ALGO QUE FAZEMOS EM UMA FUNCTION, OU EM QUALQUER OUTRO LOCAL DE NOSSO CÓDIGO....
+
+
+
+
+
+
+
+
+
+--> ESSE RUNTIME TYPECHECK EXTRA,
+
+
+
+de 
+
+código 
+
+
+
+''
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+
+
+
+
+''
+
+
+
+
+
+NÃO SERÁ __ SEMPRE__ USADO QUANDO VOCÊ TRABALHA COM UNION TYPES,,
+
+
+
+MAS 
+
+ELE É COMUM..- ->  ISSO PQ 
+
+
+COM UNION TYPES 
+
+VOCÊ 
+
+
+
+_PODE__ SER MAIS FLEXÍVEL A RESPEITO DOS PARAMETERS QUE VOCÊ RECEBE,
+
+
+
+MAS 
+
+
+
+__DENTRO_ DA FUNÇÃO É CLAOR QUE 
+
+
+VOCÊ 
+TERÁ 
+
+
+LÓGICAS DIFERENTES 
+
+
+
+
+DE ACORDO COM __ 'THE EXACT TYPE YOU ARE GETTING' (para 
+
+que 
+
+sua função 
+
+seja 
+
+CAPAZ DE TRABALHAR COM DIFERENTES TYPES DE VALUES,
+
+MAS QUE 
+
+VAI ENTÃO 
+
+'DO SLIGHTLY DIFFERENT THINGS' 
+
+dependendo 
+
+
+DO TYPE QUE VOCÊ VAI RECEBER....
+
+
+
+ ) -------> É POR ISSO QUE 
+
+
+ FREQUENTEMNTE 
+
+
+
+ TEREMOS CHECKS DE 
+
+ 'typeof'
+
+
+ quando trabalhamos com UNION TYPES...
+
+
+
+
+
+
+
+
+
+
+ ------------->     MAS VOCÊ TAMBÉM TERÁ 
+
+
+
+ SITUAÇÕES EM QUE 
+
+
+
+ VOCÊ VAI ENCONTRAR 'UNION TYPES'
+
+
+ sem 
+
+
+
+ esses 'typeof 'checks... tudo depende da lógica que você terá de escrever...

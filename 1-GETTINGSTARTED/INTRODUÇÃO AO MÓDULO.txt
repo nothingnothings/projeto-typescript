@@ -1,0 +1,470 @@
+
+
+
+
+
+
+
+
+
+
+O QUE É O JAVASCRIPT, E PQ DEVEMOS O UTILIZAR?
+
+
+
+
+
+
+
+
+
+
+
+
+-_> É UM JAVASCRIPT SUPERSET -> ELE DEIXA O WRITE 
+
+DE 
+
+
+JAVASCRIPT 
+
+
+
+MAIS FÁCIL E MAIS 'PODEROSO'...
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, 
+
+VOCÊ
+
+
+TEM UMA 
+
+DESVANTAGEM ENORME:
+
+
+
+BROWSERS NÃO CONSEGUEM EXECUTAR TYPESCRIPT ... --> 
+
+
+
+ISSO SIGNIFICA QUE 
+
+
+OS 
+
+
+
+AMBIENTES QUE 
+
+
+
+UTILIZAMOS/EXECUTAMOS JAVASCRIPT
+
+
+
+
+_ NÃO SUPORTAM O TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TYPESCRIPT --> É UMA VERSÃO DE PROGRAMAÇÃO DO JAVASCRIPT... --> É UMA FERRAMENTA,
+
+
+UM COMPILADOR PODEROSO QUE 
+
+VOCÊ 
+
+
+RODA 
+
+POR CIMA 
+
+
+DO SEU CÓDIGO,
+
+
+PARA 
+
+OBTER 
+
+
+JAVASCRIPT COMO 
+
+
+OUTPUT...
+
+
+
+
+
+
+
+
+
+
+
+--> TYPESCRIPT ---> TODAS NOVAS FEATURES E VANTAGENS, MAS VOCê 
+
+
+CONSEGUE 
+
+
+
+
+CÓDIGO JAVASCRIPT NORMAL... ----> 
+
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO QUE ELE FAZ ISSO, COMO QUE TE DEIXA ADICIONAR NOVAS FEATURES, 
+
+AO MESMO 
+
+
+TEMPO QUE 
+
+DEIXA VOCÊ OUTPUTTAR 
+
+
+
+CÓDIGO 
+
+'NORMAL'/OLD JAVASCRIPT?
+
+
+
+
+
+
+
+
+
+
+--> POR MEIO DO COMPILADOR... --> ''FEATURES ARE COMPILED TO JS WORKAROUNDS, POSSIBLE ERRORS 
+
+ARE THROWN'... 
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT NÃO É MÁGICA; ELE NÃO VAI ADICIONAR COISAS QUE SÃO INCOMPATÍVEIS/NÃO FUNCIONAM 
+
+
+
+NO JAVASCRIPT NORMAL,
+
+
+
+MAS O QUE ELE _ PODE__ FAZER __ É ADICIONAR NOVAS FEATURES _ QUE 
+
+SÃO 
+
+MAIS FÁCEIS 
+
+PARA OS DESENVOLVEDORES,
+
+
+COMO 
+
+
+SINTAXE MELHOR...
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT TAMBÉM ADICIONA ALGO EXTRA,
+
+QUE 
+
+
+SÃO 
+
+'TYPES' ---> ELES TE DÃO UMA OPORTUNIDADE, COMO DESENVOLVEDOR,
+
+
+
+D
+E 
+
+__ IDENTIFICAR ERRORS NO SEU CÓDIGO __ ANTECIPADAMENTE,
+
+
+ANTES DE SEU SCRIPT RODAR E O ERRO ACONTECER DURANTE O RUNTIME, NO BROWSER... --> ELE TE DÁ MAIS DO QUE 
+
+
+
+MAIS FEATURES, MANEIRAS DE FAZER AS COISAS,
+
+
+
+PQ 
+
+
+ELE TE DÁ 
+
+ESSA ESPÉCIE DE 
+
+
+
+'ERROR CHECKING',
+
+
+que 
+
+faz 
+
+com que 
+
+erros 
+
+sejam
+
+
+'caught'
+
+
+e 
+
+'corrigidos'
+
+durante o developmnet...
+
+
+
+
+
+
+
+
+
+
+
+------> OK... AGORA VAMOS COM UM EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+function add (num1, num2) {
+    return num1 + num2; 
+}
+
+
+
+console.log(add('2', '3')); 
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSA FUNÇÃO __ DEVE FUNCIONAR APENAS COM NÚMEROS (eu vou querer isso)....
+
+
+
+
+
+
+
+
+
+
+
+--> PARA QUE ELA FUNCIONE APENAS COM NÚMEROS,
+
+
+
+
+
+
+POSSO RECORRER AO TYPESCRIPT...
+
+tipo assim:
+
+
+
+
+
+
+
+function add (num1: number, num2: number) { ////////POR MEIO DESSA ESCRITA, O CÓDIGO DE 'console.log()' INFERIOR VAI APITAR E DAR 'error', justamente pq ESTAMOS TENTANDO CHAMAR 'add' PASSANDO 2 STRINGS... (E só numbers serão permitidos)...
+    return num1 + num2; 
+}
+
+
+
+console.log(add('2', '3'));  
+
+
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+SE VOCê ADICIONAR 2 STRINGS, O JS VAI __ CONCATENÁ-LAS.... ( o resultado vai ser '23', aqui, por causa do javascript --> NÃO É UM TECHNICAL ERROR, MAS É UMA ___ LOGICAL __ MISTAKE,
+
+
+
+MISTAKE QUE PODE SER JUSTAMENTE CORRIGIDA PELO TYPESCRIPT)
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE NO JAVASCRIPT TEMOS 'MITIGATION STRATEGIES' --> poderíamos 
+
+
+adicionar um 
+
+
+
+'if check'
+ 
+
+
+ NA FUNÇÃO,
+
+ PARA CHECAR OS 
+
+
+ '
+ typeof' DOS INPUTS 
+
+ DURANTE O RUNTIME,
+
+
+ ETC ETC... 
+
+
+
+
+
+
+
+
+
+ --> TAMBÉM PODERÍAMOS SANITIZE E VALIDATE O USER INPUT, etc etc...
+
+
+
+
+
+
+
+
+
+
+
+ ---> E APESAR DE POSSÍVEL ESSES FIXES AÍ,
+
+
+
+
+
+ SERIA __ BEM _ MELHOR__ SE PUDÉSSEMOS CATCHEAR ERROS ASSIM DURANTE O DEVELOPMENT.. --> 
+
+
+
+
+ E O TYPESCRIPT 
+
+
+
+
+
+
+
+ NOS AJUDA COM ISOS,
+
+
+
+ PQ 
+
+ O 
+
+
+
+ '
+ TYPESCRIPT IS A TOOL THAT HELPS DEVELOPERS WRITE BETTER CODE;
+
+ developers can still write invalid code'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> ok... POR ISSO VAMOS O ESTUDAR...

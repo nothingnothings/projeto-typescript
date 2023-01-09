@@ -1,0 +1,834 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------->. PARA OUTPUTTAR 
+
+
+
+INFO MAIS IMPORTANTE SOBRE 
+
+UM 
+
+DETERMINADO 
+
+'PROJECT ITEM' (e não só o BÁSICO),
+
+
+
+
+
+PROFESSOR 
+
+EXPLICA QUE 
+
+
+DEVEMOS 
+
+IR 
+
+ATÉ 
+
+
+A CLASS DE 
+
+'ProjectItem':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+
+
+
+  private project: Project /////type de 'Project', type QUE NÓS MESMOS CRÍAMOS...
+
+
+  constructor(hostId: string, project: Project ) {
+
+
+
+
+
+
+    super(//////////////// templateId: string, hostElementId: string, insertPosition: "afterbegin" | "beforeend", newElementId?: string | undefined
+
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      project.id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    );
+
+
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople.textContent = people.toString();
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> LÁ,
+
+
+
+
+NESSE LOCAL EM QUE SÃO RENDERIZADOS NOSSOS 'ProjectItem',
+
+
+
+__ VAMOS QUERER_, NAQUELE LOCAL EM QUE SETTAMOS 
+
+o 
+
+
+conteúdo da tag de 
+
+'h3' (de id 'people"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUE É O NUMBER OF PERSONS,
+
+
+
+
+PODERÍAMOS MUDAR UM POUCO O OUTPUT,
+
+DIZER ALGO COMO 
+
+
+'x persons assigned'..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople.textContent = people.toString() + ' Persons assigned';
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+
+
+  --------------------------------------------
+
+
+
+
+
+
+
+
+  OK.... AGORA VEREMOS '5 PERSONS ASSIGNED'..
+
+
+
+
+
+
+
+
+
+
+
+
+  --> MAS ISSO AINDA ESTÁ MEIO POBRE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> PROFESSOR diz que isso ainda não está óptimo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> E SE TIVERMOS 
+
+
+
+
+  1 PROJETO QUE SÓ TEM 1 ÚNICA PERSON? aí o negócio ainda vai mostrar 'persons',
+
+  quando SÓ TEMOS 1 PERSON...
+
+
+
+
+
+
+
+
+
+
+  -------> UM __ GETTER__ PODE NOS AJUDAR COM ISSO... --> em vez de dizer 
+
+
+
+
+  'assigned persons',
+
+
+
+
+
+
+
+
+
+  O PROFESSOR VAI DEIXAR SÓ 
+
+
+  ' assigned'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ----> mas aí que entra a mágica:
+
+
+
+
+
+
+
+  o professor NÃO VAI QUERER APENAS OUTPUTTAR 
+
+
+
+  'this.project.people' ( o NUMBER DE PEOPLE AÍ),
+
+
+
+
+
+  E SIM __ QUER _ USAR UM 'getter',
+
+   
+
+   UM _ GETTER QUE 
+
+
+   VAI 
+
+
+
+   'RETORNAR O TEXTO ADEQUADO A ESSE OUTPUT'....
+
+
+
+
+
+
+
+
+
+
+
+
+   (
+
+
+       OU SEJA,
+
+
+       O GETTER VAI FORMATAR NOSSO 'VALOR NÚMERICO', 
+
+       fazer com que 
+       ele vire 
+
+       UM __ VALOR _ DE TEXTO, tipo 
+
+
+       'five persons assigned',
+
+
+       ou 
+
+       'one person assigned'...
+   )
+
+
+
+
+
+
+
+
+
+
+   --> PARA ISSO,
+
+   PRECISAMOS ESCREVER UM GETTER,
+
+
+   um 'private getter' (se for possível),
+
+
+
+
+
+
+
+   PROVAVELMETNE COM UMA ESCRITA TIPO 
+
+
+
+   'get persons {
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+   
+
+  get persons() {
+
+
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> { 
+
+
+  private project: Project /////type de 'Project', type QUE NÓS MESMOS CRÍAMOS...
+
+
+  constructor(hostId: string, project: Project ) {
+
+
+
+
+
+
+    super(//////////////// templateId: string, hostElementId: string, insertPosition: "afterbegin" | "beforeend", newElementId?: string | undefined
+
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      project.id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    );
+
+
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    // projectItemPeople.textContent = people.toString(); ////sem uso de GETTER...
+    projectItemPeople.textContent = this.persons; ///COM uso de GETTER...
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+
+  get persons() { ///getter para RETORNAR UM VALOR FORMATADO ADEQUADAMENTE DE 'persons' (one person assigned, two persons assigned, etc)....
+
+
+    if (this.project.people === 1) {
+
+      return 'One Person Assigned'
+
+    } else {
+
+      return `${this.project.people} Persons Assigned`
+    }
+
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+  get persons() { ///getter para RETORNAR UM VALOR FORMATADO ADEQUADAMENTE DE 'persons' (one person assigned, two persons assigned, etc)....
+
+
+    if (this.project.people === 1) {
+
+      return 'One Person Assigned'
+
+    } else {
+
+      return `${this.project.people} Persons Assigned`
+    }
+
+  }
+
+
+
+
+
+
+
+  ---------------------------------
+
+
+
+
+
+
+
+
+  OK... AGORA O GETTER realmente 
+
+
+
+
+  está bom..
+
+
+
+
+
+
+
+
+  --> só um problema,
+
+  não colocamos os getters lá no INÍCIO.... -----> 
+
+
+  A CONVENÇÃO É COLOCAR SEUS GETTERS E SETTERS _ LOGO __ ABAIXO__ DOS SEUS 'fields'...
+
+
+
+
+
+
+
+
+
+  --> por isso 
+
+  colocamos ele lá em cima...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------->  professor escreve:
+
+
+
+
+
+
+
+
+
+  get persons() {
+
+
+
+  }
+
+
+
+
+
+
+
+
+  --> UM GETTER É QUASE COMO UMA FUNCTION... --> 
+
+
+  VOCÊ SEMPRE DEVE RETORNAR UM VALUE...
+
+
+
+
+
+  --> O PROFESSOR VAI RETORNAR UM 
+  VALUE,
+
+  QUE SERÁ UM TEXT,
+
+
+
+
+
+
+A PARTIR 
+
+
+DO 
+
+NUMBER DE PEOPLE 
+
+QUE 
+
+
+TEMOS...
+
+
+
+
+
+
+--> SE TIVERMOS SÓ 1 PESSOA,
+
+
+retornamos 
+'One Person'...
+
+
+
+
+
+
+
+
+CASO CONTRÁRIO, 
+
+
+ESCREVEMOS 
+
+
+'x persons'....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+  get persons() { ///getter para RETORNAR UM VALOR FORMATADO ADEQUADAMENTE DE 'persons' (one person assigned, two persons assigned, etc)....
+
+
+    if (this.project.people === 1) {
+
+      return 'One Person Assigned'
+
+    } else {
+
+      return `${this.project.people} Persons Assigned`
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+PARA USAR ESSE GETTER,
+
+
+basta escrever 
+
+'this.persons'  ----------> 
+
+ISSO 
+
+
+JÁ 
+
+
+VAI 
+
+
+
+ACESSAR ESSE GETTER (ele é acionado como se FOSSE UMA PROPRIEDADE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, RODAMOS ISSO DE NOVO,
+ 
+ ISSO FUNCIONA....
+
+
+
+ brilhante.

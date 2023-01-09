@@ -1,0 +1,583 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> EU HAVIA COPIADO E COLADO AQUELE CÓDIGO Do autobind decorator que havíamos criado nas aulas passadas:
+
+
+
+
+
+ function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) { ///colocamos '_' e '_2' para indicar ao typescrpit uqe NÃO ESTAMOS INTERESSADOS NESSES VALORES, MAS AINDA VAMOS OS ACEITAR...
+    // function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true, 
+        get() {  //esse getter será algo novo/editado/adicionado __ NESSE METHOD EM QUE VAMOS COLOCAR ESSE DECORATOR...
+
+            
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+
+        }         
+
+        ///o código do GETTEr ('get')  --> VAI SER EXECUTADO  __ANTES__ DO CÓDIGO PROPRIAMENTE DITO de nosso method... (ele que faz o trabalho 'ANTECIPADO', por assim dizer... 'lays the ground'...)
+        }
+
+        return adjustedDescriptor;
+
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... MAS O PROFESSOR QUER NOS EXPLICAR DE NOVO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> professor vai reescrever aquele decorator....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DECORATORS SÃO FUNCTIONS, CERTo...
+
+
+
+
+
+
+
+
+
+--> PODEMOS OS DEFINIR COMO FUNCTIONS SIMPLES, OU COMO EXPRESSIONS...
+
+
+
+
+
+
+
+
+
+
+escrevemos assim;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, methodName: string, descriptor: PropertyDescriptor) {
+
+
+
+} 
+
+ 
+
+
+
+
+
+
+
+
+
+ --> ESSE É UM 'METHOD DECORATOR'... --> A PARTE IMPORTANTE É O TERCEIRO ARGUMETNO,
+
+
+ o 
+
+
+ 'descriptor',
+
+
+ QUE É O DESCRIPTOR DAQUELE METHOD....
+
+
+
+
+
+
+
+
+
+ --> SERÁ um 'PropertyDescriptor'
+
+
+
+ JUSTMAENTE PQ 
+
+
+ TODO METHOD É UMA 'PROPRIEDADE',
+
+
+
+ propriedade 
+
+ QUE 
+ SEGURA 
+
+
+
+ FUNCTION...
+
+
+
+
+
+
+
+
+
+
+ -------> OK... MAS PQ UM METHOD DECORATOR? É PQ A IDEIA 
+
+
+
+ É QUE 
+
+ PODEMOS 
+
+ ADICIONAR ISSO A MEHTODS COMO 
+
+ 'submitHandler',
+
+ e aí 
+
+ 'BE DONE WITH IT'...
+
+
+ TIPO ASSIM:
+
+
+
+
+
+ @Autobind 
+ submitHandler() {
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> PARA FAZER ISSO FUNCIONAR, DEVEMOS VOLTAR A NOSSA FUNCTION,
+
+ e aí 
+
+
+ COLOCAR ALGO NO FUNCTION BODY DESSE 
+
+
+ DECORATOR...
+
+
+
+ ex:
+
+
+
+ 
+
+
+function Autobind(target: any, methodName: string, descriptor: PropertyDescriptor) {
+
+
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+A PRIMEIRA COISA QUE O PROFESSOR VAI QUERER FAZER É 'OBTER ACESSO AO VALOR ORIGINAL DESSE MEHTOD'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+fará isso com a escrita 'descriptor.value'....
+
+
+
+
+
+
+eX:
+
+
+
+
+
+ 
+
+
+function Autobind(target: any, methodName: string, descriptor: PropertyDescriptor) {
+
+
+
+const originalMethod = descriptor.value;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PARTE INTERESSANTE DOS 'METHOD DECORATORS' é que 
+
+
+A COISA __ QUE __ VAMOS RETORNAR NELES, AO FINAL,
+
+
+É SEMPRE UM 
+
+
+
+'PropertyDescriptor',
+
+
+
+
+
+
+
+PropertyDescriptor 
+
+que vai 
+
+
+ESSENCIALMENTE SUBSTITUIR O ANTIGO ( ou seja, o valor ANTIGO DESSE METHOD)... --> e podemos definir 
+
+
+UM 
+
+
+
+'GETTER' nesse method --> 
+
+
+se fazemos isso, por meio da escrita de 
+
+
+'get() {}' 
+
+
+LÁ 
+
+
+
+NAS PROPRIEDADES desse method,
+
+
+
+
+NÓS PODEMOS __ ESSENCIALMENTE ALTERAR O COMPORTAMENTO 
+
+
+
+da execução de nosso method,
+
+
+tudo por meio de um código como 
+
+
+
+
+'originalMethod.bind(this)'....
+
+
+
+
+
+
+CÓDIGO COMPLETO FICA ASSim:
+
+
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, methodName: string, descriptor: PropertyDescriptor) {
+
+
+
+const originalMethod = descriptor.value;
+
+
+const adjustedDescriptor: PropertyDescriptor = {
+
+    configurable: true,
+    get() {
+        const boundFunction = originalMethod.bind(this);
+        return boundFunction;
+    }
+}
+
+
+return adjustedDescriptor;
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+OK... NO GETTER, VAMOS QUERER SETTAR essa 'boundFunction',
+
+
+POR MEIO 
+
+
+
+DO call de '.bind(this)'
+ 
+
+ NAQUELE ORIGINALMETHOD....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> RETORNAMOS O 'adjustedDescriptor',
+
+
+
+
+
+ E AÍ __ ISSO VAI __ FNCIONAr..
+
+
+
+
+
+
+
+
+
+ -----> 'EXPERIMENTAL SUPPORT FOR DECORATORS SHOULD BE ENABLED' --> vá até 'tsconfig.json'
+
+
+ E HABILITE A FUNÇÃ ODE 'experimentalDecorators'....
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> para consertar o warning de 'parameters nunca usados',
+
+
+
+ devemos só escrever 
+
+ '_', 
+
+
+ '_2' 
+
+ PARA EVITAR ISSO AÍ... (
+
+     isso é um HINT PARA O JAVASCRIPT/TYPESCRIPT DE QUE 
+
+VOCÊ 
+
+_SABE__ QUE NÃO VAI USAR ESSES VALUES, MAS VOC~E PRECISA OS ACEITAR PQ __ VAI QUERER USAR 
+
+O 
+
+PARAMETER QUE VEM LOGO DEPOIS DELES...
+
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+ --> OK.... NOSSO AUTOBIND DECORATOR ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE TIVERMOS UM PROJETO COM UM MONTE DE 
+
+
+
+
+ CALLS de '.bind(this)',
+
+
+
+
+
+ é ÚTIL ESSE DECORATOR AÍ....

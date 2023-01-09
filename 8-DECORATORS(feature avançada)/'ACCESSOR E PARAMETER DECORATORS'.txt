@@ -1,0 +1,1447 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DE PODER ADICIONAR 'DECORATORS'
+
+
+
+A PROPRIEDADES DE OBJECTS,
+
+
+
+
+VOCÊ PODE 
+
+ADICIONAR 
+
+
+
+
+
+
+
+
+
+
+DECORATORS A 'ACCESSORS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACCESSORS ---> SÃO 'GETTERS' E 'SETTERS',
+
+basicamente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> NESTA LIÇÃO,
+
+VEREMOS 
+
+
+
+COMO 
+
+
+COLOCAR DECORATORS EM GETTERS E SETTERS,
+
+
+
+e também em PARAMETERS DE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+OS DECORATORS DE 'ACCESSORS' (getters/setters)
+
+
+
+
+SÃO 
+
+
+MAIS COMPLEXOS,
+
+
+POR ISSO 
+
+
+ACEITAM/EXIGEM 
+
+
+
+
+
+3 ARGUMENTOS, em vez de 1/2.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> 
+
+
+
+
+
+
+PROFESSOR CRIA UM 
+
+
+
+DECORATOR DE NOME 'Log2'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'Log2'...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+function Log2(target)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PARAMETROS:
+
+
+
+
+
+
+
+
+
+1) SERÁ O 'target' desse decorator...  -----> VAI SER OU O __PROTOTYPE__ (se for um ACCESSOR de UM _ OBJECT/instance)
+                                -   ----------> OU VAI SER A CONSTRUCTOR FUNCTION que contém esse acessor...
+
+
+                            
+                            (COMO NÃO SABEMOS QUAL SERÁ O 'TYPE' exatamente, se seRÁ UM ACCESSOR DE UMA INSTANCIA OU DA CLASS EM SI, ESCREVEMOS 
+                            'target: any'...)
+
+
+
+
+
+
+
+
+
+
+2) O NOME DO 'member' com que estamos lidando (é o nome do accessor, no final das contas)... -----> colocamos um type de 'string'...
+
+
+
+
+
+
+
+
+
+
+3) POR FIM, TEREMOS UM 'descriptor', QUE SERÁ UM 'PROPERTY DESCRIPTOR'... -------> O TYPE DESSE NEGÓCIO SERÁ 'PropertyDescriptor', que é um TYPE BUILTIN NO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+ 
+ ISSO FEITO,
+
+ VAMOS QUERER __ ADICIONAR ___ ESSE 'decorator' 
+
+
+
+
+
+ A UM DE NOSSOS SETTER,
+
+
+ TALVEZ O SETTER EXISTENTE EM 'Product',
+
+
+ tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+
+
+ 
+class Product {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO.
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+OK.. MAS QUAL SERÁ O RESULTADO NO CONSOLE?
+
+
+
+
+
+
+
+
+1) 'Accessor Decorator' (primeiro print de nosso decorator)....
+
+
+
+
+
+
+
+2) O 'target' em si, QUE __ SERÁ __  O __ PROTOTYPE ___ DE NOSSO OBJETO EM QUE O SETTER EXISTE...  (objeto instanciado)...
+
+
+
+
+
+
+
+
+3) O 'name' de nosso ACCESSOR, que no caso será 'price '( pq era o acessor de 'set price(val: number)'....)
+
+
+
+
+
+
+
+4) por fim, TEMOS UM 'PROPERTY DESCRIPTOR' object.... ->  ESSE OBJECT 
+
+
+nos diz algumas coisas,
+
+
+como o fato de que 
+
+
+
+
+'''UMA SETTER FUNCTION FOI DEFINIDA, MAS UMA GETTER FUNCTION NÃO'''... --> isso pq 
+
+
+
+SÓ DEFINIMOS 1 'setter' para o 'price',
+
+
+
+___ E NENHUM GETTER__... ('set getter')...
+
+---> VEMOS TAMBÉM QUE ELE 'NAÕ É ENUMERABLE' (enumerable: false),
+
+
+
+
+MAS QUE É 
+
+
+'configurable' (o que significa que pdoemos ALTERAR ESSA DEFINIÇÃO, a deletar, etc)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.. ISSO TUDO  EXISTE,
+
+E É ASSIM QUE 
+
+
+
+PODEMOS 'ADD' 
+UMA 
+
+DECORATOR 
+
+A 
+
+
+
+
+1 ACCESSOR (setter/getter),
+
+
+E AÍ 
+
+
+
+O QUE 
+
+PODEMOS ACESSAR
+DENTRO DESSE ___ DECORATOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS ALÉM DE 
+
+
+
+
+
+1) CLASSES,
+
+
+
+2) PROPRIEDADES__ 
+
+
+
+
+3) SETTERS/GETTERS,
+
+
+
+
+
+
+
+TAMBÉM TEMOS A OPÇÃO__ DE ADICIONAR 
+
+
+'DECORATORS'
+
+A METHODSS... 
+
+
+
+
+
+
+
+
+
+
+
+------> PROFESSOR 
+
+
+
+
+APLICA 
+
+
+
+
+
+
+
+um 'log3'
+
+
+Ao nosso method de 
+
+
+
+
+
+
+'getPriceWithTax()'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) {
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+function Log3()
+
+
+
+
+ 
+class Product {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO.
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS AÍ SURGE A PERGUNTA:
+
+
+QUAIS 
+
+
+PARÂMETROS UM DECORATOR DE 'METHOD'
+
+
+recebe?
+
+
+
+
+
+
+
+
+
+
+--> O DECORATOR DESSE TIPO __ TAMBÉM__ RECEBE 3 ARGUMENTOS:
+
+
+
+
+
+
+
+
+1) target --> (se for instance method, VAI QUERER O PROTOTYPE DO OBJECT ), se for um 'static method', SERÁ A CONSTRUCTOR FUNCTION EM SI..
+
+
+
+
+
+
+
+2) o name _ (string ou symbol)....
+
+
+
+
+
+
+
+
+
+
+3) POR FIM, O 'descriptor',
+
+que deverá ser de type 'PropertyDescriptor'....
+
+
+
+
+
+
+
+(
+
+
+    OU SEJA,
+
+    SÃO OS MESMOS ARGUMENTOS DE NOSSO 'ACCESSOR'...
+)
+
+
+
+
+
+
+
+
+
+
+
+O FORMATO, PORTANTO, SERÁ ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {
+        console.log('Method Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+
+}
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+COM ISSO,
+
+SALVAMOS ESSE NEGÓCIO 
+
+E 
+
+
+
+O INCORPORAMOS AO NOSSO 'METHOD', method de 
+
+
+''
+
+getPriceWithTax'...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+ 
+class Product2 {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO. (decorator em 'SETTER', que é um tipo de ACCESSOR...)
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+    @Log5 ///decorator em 'METHOD'...
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+AÍ O OUTPUT NO CONSOLE SERÁ ESTE:
+
+
+
+
+
+
+
+
+1) 'Method decorator' 
+
+
+
+
+
+
+2) {constructor: f, getPriceWithTax: f, set price}    (É O __ 'PROTOTYPE' da CLASS que segura esse method... )
+
+
+
+
+
+
+3) o 'name' do method....
+
+
+
+
+4) o DESCRIPTOR  do method em si,
+
+
+que 
+
+diz 
+
+
+'enumerable: false,
+configurable: true,
+value: getPriceWithTax(tax),
+writable: true'...
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-->> OK, TEMOS O EXATO MESMO 
+
+
+
+
+OUTPUT DE ANTES,
+
+
+mas 
+
+agora 
+
+
+com 
+
+um 
+
+'DESCRIPTOR'
+
+um pouco diferente daquele dos 'accessors' (
+
+
+    pq 
+
+
+
+    temos 
+
+
+
+    uma propriedade de 'value',
+
+    e outra 
+
+    de 
+
+    'writable'... --> lá no accessor, tínhamos 'get' e 'set'....
+) ------> MAS ISSO É 
+
+
+SÓ UMA 
+
+DIFERENÇA JAVASCIRPT,
+
+
+NADA DE TYPESCRIPT NISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+-->  OK.... MAS ISSO QUER DIZER QUE 
+
+
+TEMOS 
+
+NOSSA 
+
+
+TERCEIRA DECORATOR FUNCTION, ADICIONADA A UM METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O ÚLTIMO TIPO DE DECORATOR 
+
+
+É 
+
+
+
+AQUELE 'USADO EM PARAMETERS'...
+
+
+
+
+
+
+
+
+
+
+
+--> para demonstrar seu funcionamento, professor cria 
+
+
+
+
+
+
+um 
+
+'Log4',
+
+
+
+
+QUE 
+
+ELE 
+
+VAI 
+
+
+INCORPORAR/ASSIGNAR 
+
+Àquele 
+
+
+parâmetro de 
+
+
+'tax',
+
+
+lá em 
+
+
+'getPriceWithTax'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+function Log6 {
+
+
+}
+
+
+
+
+
+
+class Product2 {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO. (decorator em 'SETTER', que é um tipo de ACCESSOR...)
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+    @Log5 ///decorator em 'METHOD'...
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+--> e é claro que você pdoe 
+
+
+adicionar 
+
+
+'parameter decorators'
+
+
+EM 
+
+
+
+QUAISQUER PARAMETERS QUE VOCê QUISER... (mas não é necessário)...
+
+
+
+
+
+
+--> eles podem ser adicionados de forma INDEPENDENTE A CADA PARAMETER QUE VOCÊ TIVER....
+
+
+
+
+
+CERTO.... MAS OS 
+
+
+
+
+
+parametros desse 
+
+
+'Descriptor' 
+
+em si 
+
+
+
+VÃO FICAR UM POUCO DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+ARGUMENTOS:
+
+
+
+
+
+1) target --> MESMA COISA DE ANTES... -> COLOCAMOS 'any'...
+
+
+
+
+
+
+2) name --> isso não vai ser o nome do _ PARAMETER EM SI, MAS __ SIM __ DO METHOD EM QUE USAMOS ESSE PARAMETER E ESTE DECORATOR.... (colocamos 'string'....)
+
+
+
+
+
+
+
+
+3) POR FIM, ___ O ÚLTIMO ARGUMENTO SERÁ DIFERENTE, NÃO SERÁ O 'PROPERTY DESCRIPTOR' (descriptor),  MAS _ SIM __ 
+
+
+um 'position', que DIRÁ A ___'''''POSIÇÃO'''' DO ARGUMENTO NAQUELE METHOD ESPECÍFICO... --> 
+
+
+e isso sempre será um NUMBER, PQ É O NUMBER QUE DITARÁ A POSITION..
+
+
+
+
+
+
+(
+
+    tax, por exemplo, é o ARGUMENT 1,
+
+
+    ÚNICO NESSE METHOD DE 'getPriceWithTax(tax)'...
+)
+
+
+
+
+
+
+
+
+OK.... 
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+function Log6(target: any, name: string, ////decorator usado em um PARAMETER DE UM METHOD.... (tax)...
+     position: number) {   ///é a 'posição'/ordem desse PARAMETER naquele method específico... (é isso que 'position' representa)...
+    console.log('Parameter Decorator');
+console.log(target);
+console.log(name);
+console.log(position);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO COMPLETO:
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor ) { ////decorator usado em um ACCESSOR (geeter/setter de uma class/object instanciado a partir de uma class)...
+
+
+    console.log('Accessor Decorator');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+
+
+
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {  ////decorator usado em um METHOD...
+    console.log('Method Decorator');
+console.log(target);
+console.log(name);
+console.log(descriptor);
+
+}
+
+
+function Log6(target: any, name: string, ////decorator usado em um PARAMETER DE UM METHOD.... (tax)...
+     position: number) {   ///é a 'posição'/ordem desse PARAMETER naquele method específico... (é isso que 'position' representa)...
+    console.log('Parameter Decorator');
+console.log(target);
+console.log(name);
+console.log(position);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+class Product2 {
+        title: string;
+
+    constructor(
+      
+        title: string,
+        private _price: number ) { 
+
+            this.title = title;
+    }
+
+
+    @Log2 //////EIS O CÓDIGO EM QUESTÃO. (decorator em 'SETTER', que é um tipo de ACCESSOR...)
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+    @Log5 ///decorator em 'METHOD'...
+    getPriceWithTax(@Log6 tax: number) {
+        return this._price * (1 + tax);
+    }
+
+
+  
+}
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... NOSSO OUTPUT SERÁ ASSIM:
+
+
+
+
+
+
+1) 'Parameter decorator' 
+
+
+
+2)  {constructor: f, getPriceWithTax: f, set price}    (É O __ 'PROTOTYPE' da CLASS que segura esse method com esse parameter )
+
+
+
+
+
+
+3) 'getPriceWithTax' --> é o NOME DO METHOD EM QUE USAMOS ESSE PARAMETER...
+
+
+
+
+
+
+
+
+
+
+
+4) depois, o INDEX/NÚMERO __ DO ARGUMENTO, QUE SERÁ '0' ( 
+
+    ou seja,
+
+
+    o primeiro argumento tem um indexador de 0 nesse method...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+-->  OK.... É ASSIM QUE PODEMOS ADICIONAR DECORATORS NO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+--> PROFESSOR VAI MOSTRAR ALGUNS EXEMPLOS NESSE MÓDULO...
+
+
+
+
+
+
+-_> ELE VAI NOS MOSTRAR LIBRARIES/FRAMEWORKS QUE FAZEM USO PESADO DE DECORATORS,
+
+
+PARA 
+
+NOS MOSTRAR O PODER QUE DECORATORS PODEM TER.....

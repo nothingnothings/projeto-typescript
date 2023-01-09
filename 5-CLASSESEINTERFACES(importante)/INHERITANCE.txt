@@ -1,0 +1,2923 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> TRABALHAMOS BASTANTE COM NOSSA CLASS DE 'Department'...
+
+
+
+
+
+
+
+
+
+
+SEU ESTADO ATUAL É ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        // this.id = 'd2'; ////ISSO _NÃO FUNCIONARÁ, JUSTAMENTE POR CONTA DA KEYWORD de 'readonly' nessa propriedade específica de 'id'..
+
+        /// é por isso que 'readonly' ADICIONA _ 'TYPE SAFETY' extra aos seus projetos..
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+    -------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>  ok... e aí o professor criou um department,
+
+por meio de um códiog como este:
+
+
+
+
+
+
+
+'const accounting = new Department('d1', 'Accounting');' 
+
+
+
+
+
+
+BEM, PARA O APP QUE 
+
+ESTMAOS 
+
+
+
+CONSTRUINDO 
+
+,
+
+
+É CLARO QUE VAMOS PRECISRA DE 1 DEPARTMENT... --> ENTRETANTO,
+
+
+
+
+TAMBÉM 
+V
+AMOS PRECISAR DE MAIS INFO 
+
+
+
+
+
+ACERCA 
+
+DOS 
+
+
+
+
+'DIFERENTES TIPOS DE DEPARTMENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EX: VAMOS TER UM DEPARTAMENTO DE IT, que terá um name,
+
+terá employees,
+
+
+
+
+MAS __ QUE TAMBÉM TERÁ 'ADMINS', 
+
+
+
+
+algo que _ SÓ O 
+
+DEPARTMENT DE 
+
+IT TERÁ.... (exclusivo a ele)...
+
+
+
+
+
+
+
+
+
+
+
+----> O DEPARTMENT DE ACCOUNTING TAMBÉM 
+
+
+PODE TER AS MESMAS COISAS,
+
+
+
+MAS __ TALVEZ__ 
+
+TENHA __ 
+
+
+
+'REPORTS'
+
+um array de reports que 
+
+ele gera...
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+TVZ TENHAMOS UMAS 'BASIC PROPERTIES',
+
+
+existentes 
+
+EM 
+
+CADA 
+
+UM 
+
+
+DESSES OBJECTS CRIADOS A PARTIR DA CLASS 
+
+'Department',
+
+
+MAS 
+
+
+
+
+
+AÍ __ VAMOS __ TER ALGUMAS PROPRIEDADES 
+
+
+
+ESPECÍFICAS 
+
+(
+
+
+
+    SPECIALIZED VERSIONS OF THESE DEPARTMENTS,
+
+WITH 
+
+
+AREA-SPECIFIC PROPERTIES, owned by each specific department....
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E A INHERITANCE PODE NOS AJUDAR A IMPLEMENTAR ALGO ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, TEMOS NOSSO DEPARTMENT BASE/BÁSICO, QUE É ESTE:
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+    
+    
+    
+
+
+
+
+    ----------> AGORA DEVEMOS __ CRIAR NOSSOS 'SPECIALIZED DEPARTMENTs'...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+O PROFESSOR 
+
+
+
+CRIA 
+
+
+
+UMA 
+
+NOVA 
+
+CLASS, 
+
+
+'ITDepartment'...
+
+
+
+
+
+
+
+
+
+
+
+
+----> ahhhhh acho que agora me lembro... sei onde o professor quer chegar... ele quer nos mostrar a keyword de 'extends',
+
+que 
+
+faz com que 
+
+
+PROPRIEDADES E METHODS DE UMA 'CLASS BASE'
+
+sejam 
+
+TRANSFERIDOS/INHERITADOS PELAS 'CHILD CLASSES'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+no caso, ele provavelmente fará algo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+BEM... O QUE INTERESSA É QUE NESSA NOVA class 
+
+VAMOS QUERER 
+
+UTILIZAR 
+
+
+O 'NAME', O 'ID'
+
+
+
+E OS EMPLOYEES 
+
+
+
+
+DO 
+
+
+DEPARTMENT 'BASE',
+
+
+É CLARO,
+
+MAS 
+
+TAMBÉM VAMOS QUERER ADICIONAR NOSSAS PRÓPRIAS FEATURES...
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS 'INHERIT' A CLASS DE 'Department'
+
+
+POR MEIO 
+
+
+
+DA KEYWORD DE 'extends' (touché, foi o que pensei)...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO VAI HERDAR AS PROPRIEDADES/METHODS DA CLASS DE 'Department'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMPORTANTE:::: VOCÊ SÓ PODE __ 'INHERIT' DE 1 ÚNICA CLASS,
+
+
+
+não pode fazer extend de várias classes....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok... estamos inheritnaod de 'Department'....
+
+
+
+
+
+
+
+
+
+
+
+
+----> UMA CONSEQUÊNCIA DISSO,
+NO CASO, é que vamos poder  criar 1 novo departamento de 'ITDepartment'
+
+
+
+
+
+POR MEIO DE UMA SINTAXE SIMILAR A DE 'Department',
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+const ITguys =  new ITDepartment('d1', 'TECHNOLOGY');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E, SIM, 
+
+VAMOS PODER 
+
+
+ESCREVER ALGO ASSIM _ MESMO __ a 
+
+
+CLASSE 
+
+DE 
+
+
+'ITDepartment'
+
+
+
+ESTANDO _ VAZIA_-....
+
+
+
+
+
+
+
+
+
+
+
+--> SE SALVARMOS ISSO,
+
+
+
+
+VERMEOS __ QUE _ 
+
+
+
+
+
+
+SERÁ CRIADO UM OBJETO 'ITDepartment'
+
+
+
+
+
+ASSIM MSM... ------> ISSO ACONTECE/ACONTECEU PQ 
+
+
+QUNADO 
+
+
+NÓS INHERITAMOS 
+
+DE 
+
+OUTRA CLASS,
+
+
+
+a CLASS QUE 
+
+INHERITA __ AUTOMATICAMENTE __ CONSEGUE __ TODAS AS PROPRIEDADES/METHODS 
+
+
+
+
+
+
+
+QUE A 'BASE CLASS'
+
+tem,
+
+
+
+INCLUSIVE _ SEU __ CONSTRUCTOR... -->  ISSO SIGNIFICA QUE:
+
+
+
+
+
+
+
+
+
+A) SE NÓS NÃO ADICIONARMOS/ESCREVERMOS UM _ CONSTRUCTOR_ DEDICADO__ LÁ  NA CLASS DE 'ITDepartment',
+
+_ NÓS __ VAMOS FICAR __ COM O MESMO CONSTRUCTOR DE 'Department'...
+
+
+
+
+
+
+
+
+(
+
+    ISSO SIGNIFICA QUE CHAMAMOS MAGICAMENTE O CONSTRUCTOR DE NOSSA 'BASE CLASS'
+
+
+    com os argumentos que passamos
+
+
+
+    a esse constructor da CLASS QUE INHERITOU...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS É CLARO QUE 
+
+
+
+PODEMOS 
+
+
+
+
+
+ADICIONAR NOSSO PRÓPRIO CONSTRUCTOR,
+
+
+
+BASTA ESCREVER ASSIM:
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+
+    constructor() {
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+const ITguys =  new ITDepartment('d1', 'TECHNOLOGY');
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+ISSO FEITO,
+
+SE ESCREVERMOS ISSO,
+
+
+RECEBERMOS _ ERROS __ TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+PQ RECEBEMOS ERRORS:
+
+
+
+1) PQ ___ NÃO TEMOS SLOTS PARA os parâmetros que escrevemos em 'new ITDepartment()'....
+
+
+
+
+
+
+
+
+
+
+
+
+2) NO CASO, 
+
+O PROFESSOR QUER __ QUE ___ A 
+
+PROPRIEDADE 
+
+
+'name'
+
+
+
+
+DESSA CLASS DE 'constructor'
+
+
+SEMPRE FIQUE COMO 'IT',
+
+
+pq
+
+é ÓBVIO QUE 
+
+
+
+O NAME 
+
+DISSO,
+
+
+DENTRO DE UMA CLASS DE '
+
+
+ITDepartment',
+
+
+
+VAI 
+
+SER 
+
+
+'IT'....
+
+
+
+
+
+
+
+
+
+
+-----> ENTRETANTO,
+
+
+O 
+
+PROFESSOR AINDA VAI QUERER ACEITAR UM 'id' 
+
+
+NO CONSTRUCTOR DESSA CLASS,
+
+
+
+mas...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Department4 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+
+    constructor(id: string) { ////EIS O CÓDIGO EM QUESTAÕ.
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+const ITguys =  new ITDepartment('d1', 'TECHNOLOGY');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+MAS AGORA O PROFESSOR VAI QUERER __ FORWARDAR__ ESSE VALOR, esse 'id',
+
+
+EXATAMENTE COMO O 'fixed name' de 'IT' ,
+
+
+
+
+
+
+__ PARA __ O CONSTRUCTOR_ 
+
+
+
+
+
+
+
+DE 'Department' (inherited class)... ----------> PARA ISSO,
+
+
+
+
+PARA 
+
+
+FAZER 
+
+
+
+ESSA OPERAÇÃO/DECLARÇAÕA ,
+
+
+
+
+temos 
+
+
+UMA KEYWORD 
+
+
+
+
+
+
+
+
+QUE USAMOS NESSAS OCASIÕES,
+
+QUE 
+
+É 
+
+A 
+
+
+FAMOSA 
+
+
+KEYWORD 
+
+
+'super' ...
+
+
+
+
+
+
+
+
+
+
+-> VAMOS CHAMAR 
+
+'super()'
+
+PARA 
+
+
+
+
+DIZER 
+
+
+QUE 
+
+'QUEREMOS QUE ESSA PROPRIEDADE SEJA PASSADA AO CONSTRUCTOR 
+
+
+
+
+
+
+
+DA CLASS QUE ESTA CLASS INHERITOU'.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ _ QUANDO VOCÊ ESCREVE UM CONSTRUCTOR EM UMA 'INHERITING CLASS',
+
+
+VOCÊ É _ OBRIGADO__ A ESCREVER 'super()'
+
+
+DENTRO DO CONSTRUCTOR,
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+
+        super()
+    }
+}
+
+
+
+
+
+
+
+
+
+----------- 
+
+
+
+
+
+
+'super()' 
+
+
+
+
+
+SEMPRE __ VAI _ CHAMAR__  O CONSTRUCTOR _ DA 'BASE CLASS',
+
+
+
+ou seja,
+
+
+
+O CONSTRUCTOR DE 
+
+'Department'....
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE NÓS,
+
+NESSE CASO,
+
+
+podemos _ ESCREVER VALORES DENTRO DO 'super()',
+
+
+VALORES QUE SERÃO _ PASSADOS COMO SUCESSO ao constructor 
+
+
+
+
+de 'Department', a 'INHERITED CLASS',
+
+
+
+
+
+
+__... --> e devemos passar todos esses parâmetros EM ORDEM, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+     
+
+
+
+class ITDepartment extends Department4 {
+
+        //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+
+        super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', 'ID25')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... PASSEI VALORES PARA TODOS ESSES ARGUMETNOS,
+
+
+
+
+valores para os argumetnos de 
+
+
+
+
+''name'',
+
+''employees',
+
+''ids'',
+
+''ssss'',
+
+
+''xxx',
+
+''yyyy'
+
+
+e 
+
+'id''
+
+
+
+
+
+
+
+
+
+
+
+
+--> CLARO QUE ESSE 'id '
+
+está errado, aí... --> pq eu vou querer, como o professor explicou,
+
+PASSAR 
+
+O 
+
+
+
+id 
+
+
+
+
+que RECEBI NESSE CONSTRUCTOR DE 'ITDepartment',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+     
+
+
+
+class ITDepartment extends Department4 {
+
+        //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+
+        super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+}
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+class ITDepartment extends Department4 {
+
+        //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+
+        super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+    }
+}
+
+
+
+
+const ITGuys = new ITDepartment('ID25'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AQUI TEMOS OUTRA REGRA, REGRA QUE EU HAVIA ESQUECIDO...
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DO CONSTRUCTOR DA 'INHERITED CLASS',
+
+
+
+
+__
+
+É ÓBVIO QUE TEMOS QUE CHAMAR 'super()'.... ------> ENTRETANTO,
+
+
+HÁ AQUELA REGRA DE 
+
+
+
+''''
+
+
+você 
+
+
+SÓ PODE __ 
+
+FAZER COISAS COM A KEYWORD DE this',
+
+dentro do constructor, 
+
+
+
+
+__________ DEPOIS___ DO CALL DE 'super()'.... 
+
+
+''''
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+
+
+SE VOCÊ FOR USAR A KEYWORD 'this',
+VOCÊ 
+
+TEM QUE ESCREVER SEU CÓDIGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+        //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+
+        super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+
+        this.novaPropriedade = id;
+    }
+}
+
+
+
+
+const ITGuys = new ITDepartment('ID25'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+ novaPropriedade: string
+
+        //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+    constructor(id: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+        // this.novaPropriedade = id; ////ver explicação em '(g)'
+        super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+
+        this.novaPropriedade = id;  //// '(g)' SE VOCÊ FOR __ ADICIONAR QUAISQUER NOVAS PROPRIEDADES nessa sua nova class, VOCÊ __ SÓ PODE FAZER COISAS COM A KEYWORD DE 'this' __ DEPOIS __ DO CALL de 'super()'..
+    }
+}
+
+
+
+
+const ITGuys = new ITDepartment('ID25'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ALTERNATIVAMENTE,
+
+
+
+se você quer adicionar essas propriedades 
+
+
+POR MEIO DO 'SHORTHAND DE INICIALIZAÇÃO' 
+
+
+do 
+
+
+
+TYPESCRIPT,
+
+
+você pode fazê-lo,
+
+
+basta 
+
+escrever assim:
+
+
+
+
+'constructor(id: string, public novaPropriedade: string) {
+    super(...).
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+ 
+       constructor(id: string, public novaPropriedade: string) { ///EIS O CÓDIGO EM QUESTÃO.
+   
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+
+           this.novaPropriedade = id; //EIS O CÓDIGO EM QUESTÃO.
+       }
+   }
+
+
+
+
+
+
+const ITGuys = new ITDepartment('ID25', 'entraEmNovaPropriedade'); 
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO EXEMPLO DO PROFESSOR,
+
+
+ELE 
+
+
+
+ADICIONA UM 
+
+ARRAY DE STRINGS NO CONSTRUCTOR,
+
+tipo assim:
+
+
+
+
+
+
+class ITDepartment extends Department {
+
+    constructor(id: string, public admins: string[]) {
+
+        super(id, 'IT');
+        this.admins = admins;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+--> NA VERDADE,
+
+COM O SHORTCUT PODEMOS ATÉ MESMO 
+
+
+OMITIR 'this.admins = admins'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+   
+   
+           //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+   
+           // this.novaPropriedade = id; ////ver explicação em '(g)'
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+
+        //    this.novaPropriedade = id; //isto pode ser omitido, pois já escrevemos aquele shorthand de 'public novaPropriedade: string'...
+        
+        //    this.novaPropriedade = id;  //// '(g)' SE VOCÊ FOR __ ADICIONAR QUAISQUER NOVAS PROPRIEDADES nessa sua nova class, VOCÊ __ SÓ PODE FAZER COISAS COM A KEYWORD DE 'this' __ DEPOIS __ DO CALL de 'super()'..
+       }
+   }
+
+
+
+
+
+
+const ITGuys = new ITDepartment('ID25', 'entraEmNovaPropriedade'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> SE VOCê QUISER DEFINIR PROPRIEDADES NA SUA CLASS,
+
+
+SEMPRE FAÇA _ DEPOIS_ DO CALL DE 
+
+'super()'
+
+
+no constructor 
+
+
+de 
+
+sua 
+class que faz inherit....
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR INSTANCIA ESSA CLASS:
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+class ITDepartment extends Department {
+
+    constructor(id: string, public admins: string[]) {
+
+        super(id, 'IT');
+    
+    }
+}
+
+
+
+
+
+
+
+
+const accounting = new ITDepartment('d1', ['Max', 'Manu']) 
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+SALVAMOS TUDO ISSO...
+
+
+
+COMPILAMOS SEM ERRORS...
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+NO OUTPUT NO CONSOLE,
+
+VEMOS: 
+
+
+
+'Department (d1): IT' ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE CONSOLE.LOGGARMOS ESSA 
+
+CONSTANTE 
+
+
+
+
+
+
+que instanciou esse object,
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+class ITDepartment extends Department {
+
+    constructor(id: string, public admins: string[]) {
+
+        super(id, 'IT');
+    
+    }
+}
+
+
+
+
+
+
+
+
+const accounting = new ITDepartment('d1', ['Max', 'Manu']) 
+
+
+
+console.log(accounting);
+
+
+
+
+
+
+
+
+
+--------> VEMOS 
+
+
+
+
+NO OUTPUT DO CONSOLE ISTO AQUI:
+
+
+
+
+
+
+ITDepartment {
+
+
+    id: "d1",
+    name: "NEW NAME",
+    employees: Array(2),
+    admins: Array(1)
+}
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+OK..... --> ISSO SIGNIFICA QUE  VAMOS TER TODAS AS PROPRIEDADES (e methods) de 
+
+nossa 
+
+BASE-CLASS 
+
+
+
+de 
+
+
+'Department'...
+
+
+
+
+
+
+
+
+
+----> PARA EXEMPLIFICAR ISSO,
+
+
+
+
+O PROFESSOR 
+
+
+
+
+CRIA UMA NOVA CLASS,
+
+
+DE ACCOUNTNIG,
+
+
+
+
+e escreve assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment extends Department {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super(id, 'Accounting');
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+AÍ TEMOS NOSSAS 'ACCOUNTING SPECIFIC THINGS'....
+
+
+
+
+
+
+
+--> ESSA PROPRIEDADE 'reports'
+
+
+será 
+
+PRIVATE, no caso...
+
+
+
+
+
+
+
+--> também 
+
+
+colocamos uma function de 'addReport',
+
+
+que 
+
+VAI 
+
+__ADICIONAR__ 1 'report'
+
+A ESSE 
+
+
+STRING array de 'reports'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class AccountingDepartment extends Department {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super(id, 'Accounting');
+    }
+
+
+
+
+    addReport(text) {
+
+        this.reports.push(text);
+    }
+}
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+-_> TAMBÉM 
+
+VAMOS 
+
+
+
+TER 
+
+
+UM RETURN DE NOSSOS REPORTS, EM UMA FUNÇÃO TIPO 'getReports'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super(id, 'Accounting');
+    }
+
+
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNIFICA QUE 
+
+AGORA 
+
+TEMOS UMA VERSÃO BEM ESPECIAL DE 'Department',
+
+
+
+
+COM 
+
+PROPERTIES QUE O DEPARTMENT LEGATÁRIO NÃO TEM,
+
+
+
+E COM 
+
+METHODS QUE ELE TAM´BEM NÃO TEM....
+
+
+
+
+
+ex:
+
+
+
+
+
+class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super(id, 'Accounting');
+    }
+
+
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+---------------------- 
+
+
+
+
+
+
+
+
+OK..... 
+
+
+
+
+COM ISSO,
+
+
+
+
+
+PODEMOS CRIAR NOVOS OBJETOS, dessa vez de 'AccountingDepartment'....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+   
+   
+           //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+   
+           // this.novaPropriedade = id; ////ver explicação em '(g)'
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+
+        //    this.novaPropriedade = id; //isto pode ser omitido, pois já escrevemos aquele shorthand de 'public novaPropriedade: string'...
+
+        //    this.novaPropriedade = id;  //// '(g)' SE VOCÊ FOR __ ADICIONAR QUAISQUER NOVAS PROPRIEDADES nessa sua nova class, VOCÊ __ SÓ PODE FAZER COISAS COM A KEYWORD DE 'this' __ DEPOIS __ DO CALL de 'super()'..
+       }
+   }
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+const ITGuys = new ITDepartment('ID25', 'entraEmNovaPropriedade'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+const AcGuys = new AccountingDepartment('ID26', ['entraEmNovaPropriedade1', 'entraEmNovaPropriedade2']);
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... tudo certo....
+
+
+
+
+
+
+
+
+
+
+---> AÍ PODEMOS CHAMAR os methods de nossos objects que vamos criando...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+
+   
+   
+           //'id: string' --> é a coisa que você vai instanciar __ NESSA CLASS DE 'ITDepartment'...
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+   
+           // this.novaPropriedade = id; ////ver explicação em '(g)'
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+
+        //    this.novaPropriedade = id; //isto pode ser omitido, pois já escrevemos aquele shorthand de 'public novaPropriedade: string'...
+
+        //    this.novaPropriedade = id;  //// '(g)' SE VOCÊ FOR __ ADICIONAR QUAISQUER NOVAS PROPRIEDADES nessa sua nova class, VOCÊ __ SÓ PODE FAZER COISAS COM A KEYWORD DE 'this' __ DEPOIS __ DO CALL de 'super()'..
+       }
+   }
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+const ITGuys = new ITDepartment('ID25', 'entraEmNovaPropriedade'); ///chamamos/instanciamos com APENAS 1 VALOR __ JUSTAMNETE__ PQ O CONSTRUCTOR DESSE NEGÓCIO SÓ ACEITA/EXIGE 1 ÚNICO VALOR (o resto dos valores está meio 'hardcoded', como visto ali em cima)....
+
+
+
+
+
+const acGuys = new AccountingDepartment('ID26', ['entraEmNovaPropriedade1', 'entraEmNovaPropriedade2']);
+
+
+
+
+
+
+
+
+acGuys.addReport('Something went wrong...');
+
+
+
+
+
+acGuys.getReports();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+COM ISSO,
+
+
+PERCEBEMOS QUE 
+
+OS OBJECTS 
+
+
+
+'Department' 
+
+de 
+
+accounting 
+
+TERÃO 
+
+
+ESSA PROPRIEDADE DE 'reports' 
+
+e 
+esses methods especiais,
+
+
+ao passo 
+que 
+
+
+
+os objects 'Department' de TI 
+
+
+não 
+
+as terão...
+
+
+(tudo por causa da INHERITANCE, EM QUE INHERITAMOS ALGUMAS FEATURES, E ADICIONAMOS OUTRAS FEATURES...)

@@ -1,0 +1,1853 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... PODEMOS RETORNAR, PORTANTO,
+
+
+
+ALGO 
+
+
+__ EM 'METHOD DECORATORS' ---> esse algo 
+
+
+
+
+será um 'descriptor' (PropertyDescriptor) 
+
+
+
+QUE 
+
+
+VAI 
+
+
+NOS PERMITIR 
+'CHANGE 
+
+
+THE METHOD',
+
+
+
+
+OU __ TROCAR__ A CONFIGURAÇÃO DO METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E É ISSO QUE VAMOS QUERER FAZER AQUI,
+
+
+no nosso código...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PRIMEIRAMENTE 
+
+O PROFESSOR VAI ATÉ  O NOSSO INDEX.HTML,
+
+
+
+
+
+
+
+E LA 
+
+
+ADICIONA UM BUTTON, de 'click me'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, LÁ NO NOSSO 'app.ts',
+
+
+vamos querer 
+
+
+QUE QUANDO ESSE BUTTON 
+
+FOR CLICADO,
+
+
+
+SEJA 
+
+
+
+EXECUTADO UM METHOD NO NOSSO OBJECT.... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+PROFESSOR 
+
+CRIA UMA 
+
+NOVA CLASS, 
+
+DE 
+
+
+'printer',
+
+
+
+EM QUE 
+
+VAMOS 
+
+TER UMA 
+
+SIMPLES 
+
+PROPRIEDADE 
+
+de 
+
+
+
+'message',
+
+
+
+
+tipo 'This works!' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> AÍ O PROFESSOR VAI TER UM METHOD DE 
+
+'showMessage',
+
+ 
+ QUE SIMPLESMENTE FARÁ O CONSOLE.LOG DESSA PROPRIEDADE 'message' (ou seja, é mei qeu uma dummy class)...
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+
+
+ class Printer {
+     message: 'This works!';
+
+
+     showMessage() {
+         console.log(this.message); 
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> FAZEMOS TODO UM SETUP,
+
+
+ SETUP QUE FOI ESTE AQUI:
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+class Printer {
+
+
+
+
+  message = 'This works';
+
+
+
+        constructor() {
+        
+        }
+
+  showMessage() {
+      console.log(this.message); 
+  }     
+
+}
+
+
+
+const newPrinter = new Printer();
+
+
+const button = document.querySelector('button') as HTMLButtonElement;
+
+
+
+
+button.addEventListener('click', newPrinter.showMessage )
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS QUANDO 
+
+
+
+FAZEMOS ESSE CONSOLE.LOG,
+
+
+
+
+vemos 
+
+'UNDEFINED' 
+
+
+no console,
+
+E NÃO 
+
+
+
+
+a nossa message de 
+
+
+'this works!' --> A RAZÃO PARA ISSO 
+
+
+
+É 
+
+QUE 
+
+
+
+
+__ SE EM UM EVENTLISTENER _ VOCê APONTAR A UMA FUNCTION QUE DEVE SER EXECUTADA,
+
+
+VOCÊ PRECISA FAZER AQUELA 
+
+FIRULA 
+
+
+
+DO 
+
+BIND  
+
+
+
+
+
+
+
+
+
+
+
+(
+
+
+    ou seja,
+
+
+    precisa escrever algo como 
+
+
+
+    'button.addEventListener('click', p.showMessage.bind(this))
+)
+
+
+
+
+
+
+
+
+
+-_> tentei escrever assim,
+
+
+
+
+MAS NÃO DEU CERTO..
+
+
+
+
+
+
+
+
+
+-- >PROFESSOR EXPLICA QUE ISSO ACONTECE JUSTAMENTE PQ 
+
+
+A 
+
+
+'this'
+
+keyword 
+
+
+
+LÁ 
+
+DENTRO 
+
+
+DO METHOD de 
+
+'Printer' 
+
+
+
+
+__ NÃO VAI TER A MESMA 'REFERENCE'  
+
+
+
+
+
+
+QUE TEREMOS SE ESCREVERMOS SÓ 
+
+
+
+''
+
+
+const p = new Printer();
+
+p.showMessage(); ---> O CONTEXTO DESSE 'THIS' será __ diferente_...
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> Ok....
+
+
+
+
+
+
+
+
+
+
+'p.showMessage() '--> 'this' vai se REFERIR AO PRINTER, MSM...
+
+
+
+
+
+
+
+
+
+
+
+--> já 'p.showMessage',
+
+
+
+DENTRO DE UM EVENTLISTENER,
+
+VAI __ 
+
+
+
+TER UM 'THIS', UM VALOR DE THIS, QUE SERÁ EQUIVALENTE AO 'CALLER' do
+
+evento.... ( ou seja, é o BUTTON.... será apontado ao BUTTON, e o button não tem nenhuma propriedade/method de
+
+'showMessage', por isso ganhamos UNDEFINED...)
+
+
+
+
+
+
+
+
+
+-_> QUEREMOS 
+
+
+
+TER UM WORKAROUND PARA ISSO -->  o workaround 
+
+MAIS COMUM É 
+BINDAR 
+
+
+
+'newPrinter.showMessage' 
+
+
+
+AO VALOR DE 
+
+
+
+'newPrinter',
+
+
+
+
+
+PARA QUE QUNADO ESSA FUNCTION FOR EXECUTADA,
+
+
+
+
+__ O THIS _ SE REFIRa__ AO 
+
+
+
+
+
+'OBJECT INSTANCIADO'....
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS FOI EXATAMENTE ISSO QUE ESCREVI, E AINDA NÃO DEU CERTO...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+button.addEventListener('click', newPrinter.showMessage.bind(newPrinter));
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+AH, EU SOU MT BURRO... -> É PQ 
+
+É UM EVENTLISTENER, VOCÊ PRECISA _ CLICAR__ NO BUTTON__ para ter esse console.log....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE WORKAROUND COMUM... já o vimos várias vezes...
+
+
+
+
+
+
+
+
+
+
+
+
+--> seria legal se talvez fosse possível 
+
+
+
+
+__ TER UM 'DECORATOR' 
+
+para 
+
+
+fazer 
+
+
+
+
+__ _BIND__ DESSE NEGÓCIO, do 'this' keyword,
+
+
+AUTOMATICAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS CONSTRUIR UM DECORATOR QUE VAMOS PODER ADICIONAR ÀQUELE METHOD DE 
+
+'showMessagE'
+
+
+ 
+
+ ___ QUE__ VAI _ AUTOMATICAMENTE__ BINDAR 
+
+ 'this'
+
+
+
+
+ à 'surrounding class' (ou seja,
+ 
+ 
+ 
+ 
+ à CLASS  de 
+
+ 'Printer' nesse EXEMPLO,
+
+
+ MAS _ NÃO VAI INTERESSAR ONDE 
+
+ ESSE METHOD EXISTIR
+ ,
+
+
+
+ PQ ELE SEMPRE VAI QUERER FAZER O SEU' THIS' SE REFERIR 
+
+
+
+ à CLASS ONDE RESIDIR... tudo graças a esse method decorator de
+ 'AUTOBIND'...
+ 
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO,
+
+
+
+ PROFESSOR ADICIONA UMA NOVA DECORATOR FUNCTION,
+
+
+
+ DE NOME 
+
+
+ 'Autobind'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> será assim:
+
+
+
+
+
+
+
+
+
+
+
+
+ function Autobind() {
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+ ----->  EX:
+
+
+
+
+
+
+ function Autobind() {
+
+
+
+    
+}
+
+
+
+class Printer2 {
+  message = 'This works';
+
+  constructor() {}
+
+  showMessage() {
+    console.log(this.message);
+  }
+
+  showMessage2() {
+    return this.message;
+  }
+}
+
+const newPrinter2 = new Printer();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... ISSO AÍ SERÁ NOSSA DECORATOR FUNCTION...
+
+
+
+
+
+
+
+
+
+-----> E DENTRO DELA, VAMOS RECEBER UM PUNHADO DE ARGUMENTS..
+
+
+
+
+
+--> são aqueles que já aprendemos:
+
+
+
+
+
+
+
+
+1) O __ TARGET__ 
+
+
+
+2) o NAME_ DO METHOD EM QUE VAMOS USAR ESSE DECORATOR 
+
+
+
+
+3) a propriedade de 'PropertyDescriptor',  que é O QUE VAI EDITAR O ACTUAL METHOD 
+
+em que vamos colocar esse decorator (por meio do return de um 'PropertyDescriptor' alterado)..
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> RELEMBRANDO:
+
+
+
+
+-> o target --> É UMA CONSTRUCTOR FUNCTION, SE ADICIONAMOS ESSE DECORATOR A UM 'static method'      
+            --> E É/SERÁ ___ O __ PROTOTYPE DO OBJECT COM QUE TRABALHAMOS/TRABALHAREMOS, se for 1 method em 1 INSTÂNCIA/OBJETO criado a partir de uma class...
+
+
+
+
+
+
+
+
+
+
+
+            ---> MAS COMO AQUI VAMOS O ADICIONAR A UM 'INSTANCE METHOD', colocamos any (ou então o 'prototype' do object)..
+        
+
+
+
+
+
+
+
+
+
+CERTO..
+
+
+
+
+
+
+
+
+
+
+ATÉ AÍ, TUDO BEM....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O DESCRIPTOR É A PARTE IMPORTANTE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE TEMOS ESSES 3 ARGUMENTOS, ARGUMENTOS PADRÃO DE DECORATORS,
+
+
+
+
+DEVEMOS 
+
+
+
+
+
+
+
+____ ALTERAR___ AS CARACTERÍSTICAS
+
+
+
+DA KEYWORD 'this' dentro desse method --> QUEREMOS/VAMOS QUERER 
+
+QUE 
+
+A 
+
+KEYWORD 'this'
+
+SEMPRE 
+
+
+ SE REFIRA __ AO __ _OBJECT__ QUE ESSE METHOD de 'showMessage()' pertencer... --> 
+
+
+
+
+
+
+
+
+
+ PARA CONSEGUIRMOS FAZER ISSO,
+
+ PRIMEIRAMENTE PRECISAMOS DE ACESSO  _____ AO 'METHOD' QUE DEVERÁ 
+
+
+ SER 
+
+
+
+ CHAMADO.... (que é esse próprio method)...
+
+
+
+
+
+
+
+
+ --> para conseguir essa informação,
+
+ basta 
+
+
+ usar o argumento de 'descriptor',
+
+
+ pq ele tem as seguintes propriedades:
+
+
+
+
+
+
+
+ 'configurable,
+ enumerable,
+ value,
+ writable'
+
+
+
+
+
+
+
+ --> NO VALUE, temos 'f showMessage()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> OK.... 
+
+
+
+
+--> O VALUE DESSA PROPRIEDADE É UMA FUNÇÃO, NESSE CASO (uma propriedade é, na verdade, uma function, nesse caso... )
+
+
+
+
+
+
+ POR ISSO, 
+
+
+
+
+
+
+
+ PODEMOS EXTRAIR O 'originalMethod'
+
+
+
+
+ TUDO POR MEIO DA ESCRITA DE 'descriptor.value '-------> 
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+ 
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+
+
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO PRÓXIMO PASSO,
+
+
+professor cria uma const de 
+
+'adjustedDescriptor',
+
+
+
+
+
+
+
+
+QUE, NO FIM, SERÁ 
+
+
+A COISA QUE 
+
+VAMOS RETORNAR...
+
+
+
+
+
+
+
+
+
+
+---> ISSO SERÁ UM OBJECT,
+
+
+OBJECT DE TIPO 'PropertyDescriptor' ( terá esse formato)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+ 
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+
+
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+    const adjustedDescriptor: PropertyDescriptor = {
+
+    }
+
+}
+
+
+
+------------------------------------------
+
+
+
+
+AÍ ADICIONAMOS, DENTRO DESSE NEG´CIO,
+
+
+
+
+TODAS AS PROPRIEDADES TÍPICAS DE UM 'PropertyDescriptor'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        ....
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> A ÚNICA COISA QUE VAMOS TER QUE ALTERAR, nesse negócio,
+
+
+
+
+
+
+é _ A ESCRITA DE UM GETTER, por meio de 'get'....
+
+
+
+
+
+
+
+-------------> ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get: ...
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O GETTER É ESCRITO ASSIM:
+
+
+
+
+
+
+
+
+
+get() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DELE, VAMOS 
+
+
+EXECUTAR UMA LÓGICA EXTRA....
+
+
+
+
+
+
+
+
+
+
+--> LÓGICA EXTRA QUANDO OS USERS TENTAREM ___ aCESSAR__ ESSA PROPRIEDADE... --> OU SEJA,
+
+
+
+
+
+
+SEMPRE QUE UM USER TENTAR ACESSAR 
+
+
+
+'newPrinter.showMessage()',
+
+
+
+
+ELE __ 
+
+VAI 
+
+CONSEGUIR AQUELE RUN DAQUELE CÓDIGO DE 'console log daquela message',
+
+
+
+MAS _ ANTES___ DISSO,
+
+ANTES __ DA FUNCTION/METHOD PROPRIAMENTE DITO 
+
+
+SER 
+
+EXECUTADO,
+
+
+
+
+
+__ O CÓDIGO DO 'GETTER' será respeitado e EXECUTADO ANTECIPADAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... DENTRO DO BODY DESSE GETTEr,
+
+
+PROFESSOR DIZ UQE VAMOS UQERER 
+
+
+
+
+
+TER UMA CONSTANTE DE 'boundFunction',
+
+
+
+EM QUE 
+
+
+
+VAMOS armazenar o  __ CALL ___ DAQUELE 'originalMethod' constante (que segura NOSSA FUNCTION do method, como value)... --> 
+
+
+
+
+MAS ALÉM DE FAZER ISSO, 
+
+
+ESSE NOSSO GETTER JÁ VAI CHAMAR 
+
+
+'.bind(this)'
+
+
+EM CIMA 
+
+
+
+desse 'originalMethod',
+
+
+tipo assim:
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get() {
+
+
+            const boundFunction = originalMethod.bind(this);
+        }
+    }
+
+    return adjustedDescriptor;
+
+
+}
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS AGORA A GRANDE PERGUNTA É 
+
+
+
+''a que o "this" se refere, dentro desse getter body?' 
+
+
+
+
+
+
+
+
+
+-----> BEM, VOCÊ DEVE CONSIDERAR QUE _ ESSE 'this' foi escrito 
+
+DENTRO DESSE 'GETTER METHOD'- -->  E O TRUQUE 
+
+
+
+
+APARECE AGORA:
+
+
+o 
+
+
+
+'GETTER METHOD' 
+
+__ VAI _ SER CHAMADO/TRIGGADO,
+
+
+SEMPRE_, 'PELO CONCRETE OBJECT A QUE ELE PERTENCE' -------> ou seja,
+
+
+
+
+
+
+O 
+
+'this'
+
+dentro do GETTER METHOD __ VAI _  SEMPRE__ SE REFERIR  
+
+
+
+
+
+_ AO 'OBJECT' EM QUE __ DEFINIMOS O GETTER...
+
+
+
+(
+
+
+
+    ISSO QUER DIZER QUE O GETTER É COMO 
+
+    UM 'EXTRA LAYER'  
+
+
+    __ DE PROTEÇÃO __ ENTRE 
+
+
+
+
+    A FUNCTION QUE ESTÁ SENDO EXECUTADA (boundFunction) 
+
+
+    NO OBJECT A QUE ELA PERTENCE ('newPrinter')  ___ 
+
+
+
+    E 
+
+
+
+    _ O EVENTLISTENER EM Si...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> PORTANTO,
+
+ESSE 'this' aí 
+
+VAI 
+
+SE REFERIR AUTOMATICMAENTE AO OBJECT EM QUE ORIGINALMENTE DEFINIMOS 
+
+ESSE 'method' de 
+
+
+'showMessage()'  ( e qualquer outro method em que colocarmos esse decorator)...
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO SIGNIFICA QUE PODEMOS 
+
+BINDAR SAFELY 
+
+
+
+ESSE 'this' 
+
+para o ORIGINAL METHOD,
+
+
+
+
+
+BASTA ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get() {
+
+
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+        }
+    }
+
+    return adjustedDescriptor;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get() {  //esse getter será algo novo/editado/adicionado __ NESSE METHOD EM QUE VAMOS COLOCAR ESSE DECORATOR...
+
+            
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+
+        }         
+
+        ///o código do GETTEr ('get')  --> VAI SER EXECUTADO  __ANTES__ DO CÓDIGO PROPRIAMENTE DITO de nosso method... (ele que faz o trabalho 'ANTECIPADO', por assim dizer... 'lays the ground'...)
+        }
+
+        return adjustedDescriptor;
+
+}
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... RETORNADO ESSE 'adjustedDescriptor',
+
+
+ELE VAI _ 
+
+OVERWRITTAR O 'VELHO DESCRIPTOR' desse nosso method.... --> agora basta adicionar/incorporar esse 
+
+DECORATOR NO NOSSO METHOD DE 'showMessage()'....
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO COMPLETO:
+
+
+
+
+
+
+
+
+
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) { ///colocamos '_' e '_2' para indicar ao typescrpit uqe NÃO ESTAMOS INTERESSADOS NESSES VALORES, MAS AINDA VAMOS OS ACEITAR...
+    // function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get() {  //esse getter será algo novo/editado/adicionado __ NESSE METHOD EM QUE VAMOS COLOCAR ESSE DECORATOR...
+
+            
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+
+        }         
+
+        ///o código do GETTEr ('get')  --> VAI SER EXECUTADO  __ANTES__ DO CÓDIGO PROPRIAMENTE DITO de nosso method... (ele que faz o trabalho 'ANTECIPADO', por assim dizer... 'lays the ground'...)
+        }
+
+        return adjustedDescriptor;
+
+}
+
+
+
+class Printer2 {
+  message = 'This works';
+
+  constructor() {}
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+
+  showMessage2() {
+    return this.message;
+  }
+}
+
+const newPrinter2 = new Printer();
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> OK.... AGORA O 'THIS' SEMPRE ESTÁ SENDO SETTADO CORRETAMENTE NO CALL DE METHODS EM EVENTLISTENERS,
+
+
+
+
+
+em todos os methods de nossas classes...
+
+
+
+
+
+
+
+
+
+
+--> OK.... ESSE FOI UM EXEMPLO DE COMO PODEMOS USAR 'DECORATORS' 
+
+PARA 
+
+FACILITAR NOSSA VIDA, EVITAR DE CHAMAR 'bind' 
+
+
+POR TODA PARTE....

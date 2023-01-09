@@ -1,0 +1,768 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA É HORA DE UM STATE MANAGEMENT NO COMPONENT DE 'App.tsx'... 
+
+
+
+
+
+
+
+
+
+
+meu código atualmente está assim (acho que já consegui adicionar o state management de maneira uniforme):
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+
+import NewTodo from './components/NewTodo';
+// function App() {
+//   return (
+//     <div className="App">
+
+//     </div>
+//   );
+// }
+
+interface AppProps {}
+
+const App: React.FC<AppProps> = (props) => {
+  //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  // const todos = [
+  //   {
+  //     id: 't1',
+  //     text: 'Finish the course',
+  //   },
+  //   {
+  //     id: 't2',
+  //     text: 'Finish the job',
+  //   },
+  //   {
+  //     id: 't3',
+  //     text: 'Graduate',
+  //   },
+  // ];
+
+  const [todos, setTodos] = useState([
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+////use isto se você quer TER UMA __ CLASS__ (uma class normal, sem ser código react), uma CLASS na sua const...
+// const App: React.ClassicComponent = () => {
+//   return (
+//     <div className="App">
+
+//     </div>
+//   );
+// }
+
+export default App;
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK...
+
+
+
+
+
+
+
+
+
+--> o professor importa o hook de 'useState',
+
+coisa bem normal....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+aí ele vai usar esse hook, coisa bem normal,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+  const [todos, setTodos] = useState([
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+
+
+
+
+
+
+
+
+  ----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+  OK.... O PROFESSOR TAMBÉM FEZ ISSO...
+
+
+
+
+
+
+
+
+  --> em 'todoAddHandler',
+
+
+  o professor
+
+
+  VAI CHAMAR 
+
+  'setTodos()',
+
+
+
+
+  E AÍ 
+
+
+
+  VAMOS QUERER 
+
+
+  ADICIONAR UM NOVO OBJECT, AO MESMO TEMPO QUE SPREADAMOS O ARRAY-state ANTIGO...
+
+
+
+
+
+
+
+
+
+OK..... --> MAS O PROFESSOR, AO ESCREVER  ISTO:
+
+
+
+
+
+
+
+
+
+
+const todoAddHandler = (text: string) => {
+
+    setTodos([{id: Math.random().toString(), text: text}])
+}
+
+
+
+
+
+
+
+RECEBE UM ___ ERRO___:
+
+
+
+
+
+'Argument of type '{id: string; text: string;}[]' 
+
+
+is not assignable to parameter of type 'SetStateAction<never[]>' ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> BASICAMENTE, ISSO DIZ QUE NÃO PODEMOS ASSIGNAR ESSE TYPE AÍ A UM ARRAY QUE 
+
+
+'EXPECTS US TO HAVE AN ARRAY OF NOTHING' (
+
+
+
+
+    é pq 
+
+    aquele 'useState()' 
+
+    está com um EMPTY ARRAY,
+    tipo assim:
+
+
+
+    'useState([])'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> QUANDO INICIALIZAMOS NOSSO STATE COMO UM ___ EMPTY ARRAY,
+
+
+POR MEIO DESTE CÓDIGO:
+
+
+
+
+
+
+const [todos, setTodos] = useState([]);
+
+
+
+
+
+
+
+
+,
+
+
+
+___O  TYPESCRIPT__ AUTOMATICAMENTE 'INFERE' __ COMO __ NOSSO 
+
+
+STATE DEVERÁ SE PARECER....
+
+
+
+
+
+
+
+
+
+
+--> E SE ESCREVÊSSEMOS ASSIM:
+
+
+
+const [todos, setTodos] = useState('');
+
+
+
+
+
+
+
+
+
+-> O TYPESCRIPT __ AUTOMATICAMENTE 'INFERERIA'
+
+que 
+
+
+esse state seria de uma STRING....
+
+
+
+(
+
+
+    aí só seriam aceitos 'setTodos()' que passassem STRINGS como parâmetros...
+)
+
+
+
+
+
+
+
+
+
+---> é por isso que o typescript está fazendo EXPECT DE um array de 'nothing'...
+
+
+
+
+
+
+
+
+
+-----> é claro que NÃO QUEREMOS ISSO.... ------> PARA CONSERTAR ISSO,
+
+
+
+PRECISAMOS 
+
+
+
+'''DIZER AO TYPESCRIPT COMO NOSSO ARRAY DEVE SE PARECER AO LONGO DO TEMPO'''...
+
+
+
+
+
+
+
+
+
+
+--> bem, se passamos o mouse em cima de 'useState()',
+
+PERCEBEMOS QUE ISSO __ TAMBÉM É UMA 'GENERIC FUNCTION'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE PODEMOS_ DEFINIR/ESTIPULAR__ A ESTRUTURA__ QUE 
+
+EXISTIRÁ 
+
+NO NOSSO STATE,
+
+
+POR MEIO DO USO DE '<>'...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+const [todos, setTodos] = useState<>([]);
+
+
+
+
+
+
+
+
+OK, MAS COMO ESCREVEMOS ISSO?
+
+
+
+
+
+
+
+
+
+--> DEVEMOS DIZER QUE NOSSO ARRAY DEVERÁ SER UM _ ARRAY__ DE OBJECTS,
+
+
+
+
+com propriedade de 'id', que é uma string,
+
+
+e 'text', que é uma stirng...
+
+
+
+--> DENTRO De '<>',
+
+
+
+DEVEMOS PASSAR A ESTRUTURA DESSE NEGÓCIO, TIPO ASSIM:
+
+
+
+
+
+
+
+
+  const [todos, setTodos] = useState<{id: string; text: string;}[]>([   ////useState __ TAMBÉM ___ É UMA 'GENERIC FUNCTION' (ou seja, function que pode ser manipulada com '<>')...
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ---------> CLARO QUE ESCREVER ESSE NEGÓCIO ASSIM,
+
+
+  INLINE,
+
+
+  É 
+
+  'FINE'.... --> MAS COMO VAMOS PRECISAR DESSE CÓDIGO EM MÚLTIPLAS PARTES 
+
+
+
+
+
+  DO APP,
+
+
+
+  O PROFESSOR 
+
+  VAI 
+
+
+  CRIAR UM NOVO ARQUIVO, ACTUALLY,
+
+
+
+
+
+
+  que chamará de 'todo.model.ts',
+
+
+
+
+  em que TEREMOS A INTERFACE QUE DEFINIRÁ A ESTRUTURA DE NOSSOS OBJETOS 'Todo',
+
+  que 
+
+
+  serão usados 
+
+
+  nessa definição dessa generic function type também,
+
+
+  tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  todo.model.ts:
+
+
+
+
+
+
+
+export interface Todo {
+    id: string;
+    text: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+App.tsx:
+
+
+
+
+
+
+
+  const [todos, setTodos] = useState<Todo[]>([  ///OBS::: VERSÃO COM OUTSOURCE DO INNERTYPE DE 'Todo'.... 
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+
+
+
+
+
+
+
+  ------------------------------------------
+
+
+
+
+
+
+
+
+  oK, basicamente exportamos essa interface a utilizamos em 'App.tsx'...
+
+
+
+
+
+
+
+
+
+
+
+  --> ISSO DEIXA NOSSO CÓDIGO MAIS FÁCIL DE LER E COMPREENDER,
+
+
+  e nosso state update segue funcionando..
+
+
+
+
+
+
+
+
+
+
+
+
+  --> É BEM IMPORTANTE ESPECIFICAR BEM  __O TIPO _ DE DATA__ COM QUE VOCÊ VAI TRABALHAR NOS SEUS ARRAYS,
+
+
+  QUANDO VOCÊ TRABALHA COM O TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+  --> COM ISSO,
+
+
+
+
+
+  ESSE NEGÓCIO FUNCIONA...
+
+
+
+
+
+
+
+
+  ---_> A LÓGICA DO PROFESSOR DE UPDATE DO STATE AINDA NÃO ESTÁ CORRRETA,
+
+
+  PQ ELE PRECISA USAR O SPREAD OPERATOR...

@@ -1,0 +1,563 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... QUANDO TRABALHAMOS COM 'UNION TYPEs',
+
+
+
+
+como 
+
+
+'input1: number | string',
+
+
+
+
+
+
+PODE SER BEM 
+
+CHATO 
+
+
+TER QUE 
+
+
+
+'REPEAT THE UNION TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+
+
+PODE SER BEM RUIM/REDUNDANTE TER QUE ESCREVER ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+input1: number | string,
+input2: number | string 
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE 
+
+
+É BEM MAIS CONVENIENTE USAR A FEATURE DO 'type alias',
+
+
+
+que 
+
+
+te 
+
+deixa 
+
+CRIAR TYPES (resumo de types, representações de types, no meio do seu código),
+
+
+
+QUE 
+
+
+
+PODEM ENTÃO SER REFERENCIADOS EM QUALQUER LOCAL DE SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+type input = string | number; 
+
+
+
+
+
+
+
+
+
+
+
+
+function combine(
+
+    input1: input,
+    input2: input
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type input = string | number;
+
+
+
+
+
+function combine(n1: input,  ///EXEMPLO DE USO DE 'TYPE ALIAs' (no caso , alias de 'input').... --> salva a repetiçaõ de várias vezes de 'string | number' nos seus parâmetros...
+    
+    
+    n2: input) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+ --> CERTO... E A KEYWORD 'type'
+
+ NÃO EXISTE NO JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. MAS  OS TYPE alias 
+
+
+GERALMENTE 
+
+
+SÃO ESCRITOS COM inicial maiúscula....
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+o professor 
+
+
+
+testa com esta 
+
+escrita:
+
+
+
+
+
+
+
+
+
+
+
+
+type Combinable = number;
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type aliases 
+
+são bons de ser usados 
+
+PARA 
+
+
+
+SUBSTITUIR/REPRESENTAR UNION TYPES...
+
+
+
+(
+
+    como 
+
+    'string | number'...
+)
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+ISSO NOS DEIXA SALVAR UM PCO DE CÓDIGO EXTRA...
+
+
+
+
+
+ 
+
+É CLARO QUE PODEMOS USar 
+
+TYPE ALIASES 
+
+
+PARA 
+
+QUALQUER TYPE SETUP 
+
+que 
+
+
+gostaríamos de armazenar em um 'alias',
+
+
+
+
+como isto aqui:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Result = "stringResult" | "numberResult"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Input = string | number;
+
+
+
+type Result = 'stringResult' | 'numberResult'
+
+
+
+
+function combine3(n1: Input,  ///EXEMPLO DE USO DE 'TYPE ALIAs' (no caso , alias de 'input').... --> salva a repetiçaõ de várias vezes de 'string | number' nos seus parâmetros...
+    
+    
+    n2: Input,
+    
+    // resultConversion?: 'stringResult' | 'numberResult'
+    resultConversion?: Result //exemplo de uso de LITERAL TYPE + UNION TYPE + TYPE ALIAS...
+    
+    ) {
+        let result;
+
+        if (typeof n1 === 'number' && typeof n2 === 'number') {
+            result = n1 + n2;
+        } 
+        
+        if (typeof n1 === 'string' && typeof n2 === 'string' ) {
+            result = n1 + n2;
+        } 
+    
+        if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number')) {
+            return;
+        } 
+    
+        if (typeof n1 === 'number' && typeof n2 === 'string' && resultConversion)  {
+            result = n1 + n2;
+        } 
+    
+        return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------
+
+
+
+
+
+EX:
+
+
+
+
+
+
+   resultConversion?: Result //exemplo de uso de LITERAL TYPE + UNION TYPE + TYPE ALIAS...
+
+
+
+
+
+
+ok.... ISSO SIGNIFICA QUE 
+
+
+
+TYPE ALIASES SÃO MT ÚTEIS,
+
+E QUE 
+VOCÊ 
+
+
+PODE 
+
+
+ENCODAR 
+
+
+TYPE DEFINITIONS MAIS COMPLEXAS 
+
+
+DENTRO DE SEUS 'TYPE NAMEs',
+
+
+E 
+
+aí as utilizar em qualquer lugar de seu código,
+
+
+
+
+
+EM QUE VOCÊ PRECISA EXATAMENTE DESSE 'TYPE SETUP' (
+
+
+
+    para evitar typos, ser claro nas suas intenções,
+
+    e codar mais rápido...
+)

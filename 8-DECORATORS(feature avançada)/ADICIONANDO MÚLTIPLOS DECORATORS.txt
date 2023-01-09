@@ -1,0 +1,1245 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... VIMOS UM EXEMPLO DE DECORATOR MAIS 'ÚTIL'...
+
+
+
+
+
+
+
+que foi este:
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface PersonInterface {
+  name: string;
+}
+
+function WithTemplate(template: string, hookId: string) {
+  ////decorator FACTORY.. (outer function)....
+
+  ///VVVVVV DECORATOR function em SI....
+  return function (
+    // target: Function ///sim, professor (e nós) SABEMOS QUE VAMOS RECEBER A CLASS/constructor function ASSIGNADA A ESSE DECORATOR como __ argumento, aqui, mas isso NÃO IMPORTA... (pq não vamos utilizar essa constructor function aqui para nada)....
+    // _: Function //// EM VEZ DISSO, escrevemos um '_', UNDERSCORE, que basicamente _ SINALIZA__ AO JAVASCRIPT QUE __ NÃO VAMOS PRECISAR DESSE PARÂMETRO/ARGUMNETO...
+    /// ^^^^   '''yea, eu SEI QUE VOU RECEBER ESSE PARÂMETRO,  __ MAS EU NÃO PRECISO DELE, POIS NÃO O UTILIZAREI'''...
+
+    target: any ////também chamado de 'constructor', por alguns desenvolvedores, pq SEMPRE ESSE ARGUMENTO SERÁ UMA CONSTRUCTOR FUNCTION/CLASS..., smepre serão elas passadas como esse parâmetro..
+    /////^^^^^---> SE QUEREMOS USAR ALGUMA DAS PROPRIEDADES DA CLASS ASSIGNADA A ESSA 'DECORATOR FUNCTION', __ DEVEMOS __ SETTAR O TYPE DE 'any', e não 'Function'...
+  ) {
+    const element = document.getElementById(hookId);
+    console.log(element);
+    let p: PersonInterface;
+    p = new target(); ///sim, podemos usar a class/CONSTRUCTOR function assignada ao nosso decorator __ PARA __ INSTANCIAR_ novos objects ( se queremos USAR ALGUMA DAS PROPRIEDADES DO OBJECT na lógica de nosso decorator)....
+
+    if (element) {
+      ///se esse element REALMENTE EXISTIR no nosso código html de 'index.html'....
+
+      element.innerHTML = template; /// por favor, redefina o html (innerHTML) desse elemento, faça que seja igual ao 'template' argument...
+     const paragraph = document.querySelector('p')!;
+     console.log(paragraph);
+      paragraph.innerHTML = p.name;
+    }
+
+    return;
+  };
+}
+
+@WithTemplate(
+  //vai assignar nossa DECORATOR FACTORY a essa class de 'Person3'...
+
+  `<h1>My Person Object: </h1>
+    <p></p>
+  `, ///1o argumento, 'template'... (vai ser o código html que vai ser inserido naquele local do DOM...)
+
+  'app' ///2o argumento, 'hookId' (local do DOM em que vamos querer renderizar esse template desse decorator)....
+)
+class Person4 implements PersonInterface {
+  ////decorators são 'all about classes', na verdade...
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR QUER ACABAR COM NOSSA 'INTRODUÇÃO'
+
+aos 
+decorators 
+
+
+por meio 
+
+
+
+
+
+
+
+
+do show 
+
+
+
+de 
+
+
+
+OUTRA COIAS QUE 
+
+DEVEMOS 
+
+SABER:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCÊ PODE ADICIONAR MAIS DE 1 DECORATOR A 1 MESMA CLASS, 
+
+
+
+
+
+
+
+
+
+
+
+
+OU COISA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+PROFESSOR 
+
+
+COLOCA 
+
+
+AMBOS OS DECORATORS QUE CODAMOS ANTES,
+
+'@Logger' 
+
+
+e 
+
+
+'@WithTemplate',
+
+
+EM CIMA __ 
+
+
+
+
+da class de 'Person'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+interface PersonInterface {
+    name: string;
+  }
+  
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+
+    return function (
+    
+  
+      target: any 
+    ) {
+      const element = document.getElementById(hookId);
+      console.log(element);
+      let p: PersonInterface;
+      p = new target(); 
+  
+      if (element) {
+       
+        element.innerHTML = template; 
+       const paragraph = document.querySelector('p')!;
+       console.log(paragraph);
+        paragraph.innerHTML = p.name;
+      }
+  
+      return;
+    };
+  }
+  
+
+  function Logger3(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+@WithTemplate( //////////// MÚLTIPLOS DECORATORS, STACKADOS....
+    `<h1>My Person Object: </h1> 
+      <p></p>
+    `, 
+
+    'app'
+  )
+@Logger3('HEY')  
+class Person5 implements PersonInterface {
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+SE SALVAMOS ISSO,
+
+
+esse STACK DE DECORATORS 
+
+na nossa class,
+ 
+ tipo assim:
+
+
+
+
+@WithTemplate( //////////// MÚLTIPLOS DECORATORS, STACKADOS....
+    `<h1>My Person Object: </h1> 
+      <p></p>
+    `, 
+
+    'app'
+  )
+@Logger3('HEY')  
+class Person5 implements PersonInterface {
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> VEREMOS QUE 
+
+
+
+todas as coisas 
+
+
+
+VÃO ACONTECER 
+
+
+(
+
+
+    o código/lógica dos 2 decorators 
+
+
+    SERÁ EXECUTADA....
+)
+
+
+
+
+
+
+
+
+
+
+--> AÍ ISSO TRAZ UMA IMPORTANTE PERGUNTA:
+
+
+
+
+'''qual é a ordem seguida 
+
+
+na execuçaõ desses 
+
+
+
+decorators'''?  ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+QUAL DECORATOR É EXECUTADO PRIMEIRO?
+
+
+
+
+
+
+
+
+
+--> PARA ISSO PRECISAMOS COLOCAR UNS CONSOLE.LOGS A MAIS NOS 2,
+
+para 
+ver 
+
+QUAL EXECUTA PRIMEIRO..
+
+
+
+
+
+
+
+---->  
+
+
+
+
+
+
+
+OK... 
+
+
+
+
+
+
+
+
+
+
+AÍ VAMOS FICAR COM UM CÓDIGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface PersonInterface {
+    name: string;
+  }
+  
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+
+    return function (
+    
+  
+      target: any 
+    ) { 
+
+
+        console.log('Rendering template...');
+      const element = document.getElementById(hookId);
+      console.log(element);
+      let p: PersonInterface;
+      p = new target(); 
+  
+      if (element) {
+       
+        element.innerHTML = template; 
+       const paragraph = document.querySelector('p')!;
+       console.log(paragraph);
+        paragraph.innerHTML = p.name;
+      }
+  
+      return;
+    };
+  }
+  
+
+  function Logger3(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+@WithTemplate( //////////// MÚLTIPLOS DECORATORS, STACKADOS....
+    `<h1>My Person Object: </h1> 
+      <p></p>
+    `, 
+
+    'app'
+  )
+@Logger3('HEY')  
+class Person5 implements PersonInterface {
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+  ---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> O PROFESSOR, A ORDEM DELE, ESTAVA ASSIM:
+
+
+
+
+
+@Logger3('HEY')  
+class Person5 implements PersonInterface {
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+@WithTemplate( //////////// MÚLTIPLOS DECORATORS, STACKADOS....
+    `<h1>My Person Object: </h1> 
+      <p></p>
+    `, 
+
+    'app'
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+'LOGGER' EM CIMA,
+
+
+'withTemplate'
+
+
+
+
+EM BAIXO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NO CONSOLE.LOG,
+
+
+
+
+
+
+
+
+
+
+
+vimos um print ASSIM:
+
+
+
+
+
+
+
+
+1) 'Rendering Template' ( ou seja, código de 'WithTemplate')....
+
+
+
+
+
+2) 'Creating person object' (ou seja, código de 'Logger")...
+
+
+
+
+
+
+
+
+
+
+
+------> OU SEJA,
+
+
+
+
+ISSO NOS DIZ 
+
+
+QUE 
+
+
+
+
+
+
+
+
+
+ELES 
+
+
+
+EXECUTAM 
+
+'DE BAIXO PARA CIMA'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O DECORATOR MAIS DE BAIXO É EXECUTADO ANTEs...
+
+
+
+
+
+
+
+é assim:
+
+
+
+
+
+
+2 
+
+
+
+1 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface PersonInterface {
+    name: string;
+  }
+  
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+
+    return function (
+    
+  
+      target: any 
+    ) { 
+
+
+        console.log('Rendering template...');
+      const element = document.getElementById(hookId);
+      console.log(element);
+      let p: PersonInterface;
+      p = new target(); 
+  
+      if (element) {
+       
+        element.innerHTML = template; 
+       const paragraph = document.querySelector('p')!;
+       console.log(paragraph);
+        paragraph.innerHTML = p.name;
+      }
+  
+      return;
+    };
+  }
+  
+
+  function Logger3(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+@WithTemplate(  //executa DEPOIS do primeiro (ordem de execução de decorators é DE baixo para cima)....
+    `<h1>My Person Object: </h1> 
+      <p></p>
+    `, 
+
+    'app'
+  )
+@Logger3('HEY')   /////executa primeiro
+class Person5 implements PersonInterface {
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+IMPORTANTE!!!! 
+
+
+
+
+
+
+
+
+
+--> PROFESSOR AQUI ESTÁ FALANDO DAS 'ACTUAL DECORATOR FUNCTIONS' (
+
+
+    ou seja, as functions retornadas __ DENTRO__ DAS 'decorator factories'
+)
+
+
+
+
+
+
+
+
+
+
+--> AS DECORATOR FACTORIES,
+
+
+
+
+POR OUTRO LADO,
+
+
+
+__EXECUTAM __ ANTES___ DAS DECORATOR FUNCTIONS QUE ELAS MESMAS RETORNAM...
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA EXEMPLIFICAR ISSO,
+
+professor coloca console.logs 
+
+nas factories também....
+
+
+
+
+ex
+
+
+
+
+
+
+
+
+
+
+interface PersonInterface {
+    name: string;
+  }
+  
+
+
+
+
+
+
+  
+
+  function Logger3(logString: string) {  ///esta é uma 'decorator factory'...
+
+    console.log('LOGGER FACTORY');
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); ////flow:    @Logger2('HEY') ---> logString -> console.log(logString);
+}
+
+
+}
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    console.log('TEMPLATE FACTORY');
+    return function (
+    
+  
+      target: any 
+    ) {
+      const element = document.getElementById(hookId);
+      console.log(element);
+      let p: PersonInterface;
+      p = new target(); 
+  
+      if (element) {
+       
+        element.innerHTML = template; 
+       const paragraph = document.querySelector('p')!;
+       console.log(paragraph);
+        paragraph.innerHTML = p.name;
+      }
+  
+      return;
+    };
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+@Logger3('HEY')/// //executa DEPOIS do primeiro (ordem de execução de decorators é DE baixo para cima)....
+@WithTemplate(///executa PRIMEIRO (mesmo estando EMBAIXO)... 
+    `<h1>My Person Object: </h1>
+      <p></p>
+    `, 
+
+    'app'
+  )
+class Person5 implements PersonInterface { 
+
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -------> NO OUTPUT DO CONSOLE, VEMOS ISTO:
+
+
+
+
+
+
+
+
+  LOGGER FACTORY 
+    TEMPLATE FACTORY 
+    Rendering template (WithTemplate)...
+    Creating person object.... (LoGGER)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ENTÃO A ORDEM DE EXECUÇAÕ 
+
+
+
+DOS 
+
+
+COISOS 
+
+
+
+QUE 'PRODUZEM' as decorator functions 
+
+
+_ É 
+
+
+NORMAL...
+
+
+
+
+
+
+---> a única coisa que 
+
+
+
+
+é uma exceção,
+
+no caso,
+é O 
+
+EXECUTE DAS DECORATOR FUNCTIONS.. (Baixo-cima)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HMMMMM ----> E PARECE QUE 
+
+
+
+___ A CRIAÇAÕ__ DESSAS 
+
+DECORATOR FUNCTIONS,
+
+
+NA MEMORY,
+
+É 
+
+FEITA 
+
+NA ORDEM 
+
+EM QUE 
+
+ESPECIFICAMOS 
+
+
+
+
+aqueles calls de 
+
+
+''
+
+
+
+
+@Logger3('HEY')
+@WithTemplate(
+    `<h1>My Person Object: </h1>
+      <p></p>
+    `, 
+
+    'app'
+  )
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+
+--> isso significa que 
+
+'LOGGER' SERÁ _ CRIADO_ ANTES,
+
+MAS __ EXECUTADO DEPOIS...
+
+
+
+
+--> E SIGNIFICA QUE 'withTemplate'
+
+
+SERÁ __ CRIADO __ DEPOIS, MAS EXECUTADO ANTES... 
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ISSO É SÓ ALGO QUE VOCÊ DEVE SABER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... COM ISSO TEMOS UMA INTRODUÇÃO BÁSICA A DECORATORS,
+
+
+
+
+
+e pq 
+
+podem ser úteis (especialmente se você já pensa em frameworks como o ANGULAR)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS VER OUTROS LOCAIS EM QUE PODEMOS ADICIONAR DECORATORS,
+E
+
+ o que 
+
+ podemos 
+
+
+ fazer 
+
+
+
+ nesses locais...
+
+
+
+
+ 

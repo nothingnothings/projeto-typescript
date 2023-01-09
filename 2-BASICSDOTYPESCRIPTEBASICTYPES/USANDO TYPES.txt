@@ -1,0 +1,1040 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'CORE TYPES' --> 
+
+
+
+
+
+
+
+HÁ MTOSSS 
+
+
+TYPES 
+
+
+
+
+
+no javascript.... --->  O TYPESCRIPT SABE AINDA MAIS ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JAVASCRIPT CONHECE ALGUNS DATA TYPES..
+.
+
+
+
+
+
+
+
+
+
+--> TYPESCRIPT TEM TANTOS TYPES QUE ELE TE DEIXA ESCREVER SEUS PRÓPRIOS 
+
+TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TYPES CONHECIDOS PELO JAVASCRIPT QUE TAMBÉM SÃO CONHECIDOS PELO TYPESCRIPT (core types)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> UM TYPE CORE MT USADO É O 'NUMBER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SÓ EXISTE 1 'NUMBER TYPE' no javascript e no typescript...
+
+
+
+
+
+
+
+
+
+1, 5.3, -10 
+
+
+
+
+
+
+
+ESSES 3 VALORES __ SÃO NUMBERS__.. -> (
+
+
+    OUTRAS LINGUAGENS DE PROGRAMAÇÃO 
+    POSSUEM 'SPECIAL INTEGER TYPES',
+
+
+
+
+    FLOAT E DOUBLE TYPES,
+
+    COISAS ASSIM... --> 
+
+    O JAVASCRIPT NÃO TEM ISSO,
+
+    E O TYPESCIRPT TAMBÉM NÃO...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> number- ----> TODOS NUMBERS, SEM DIFERENCIAÇÃO ENTRE 'INTEGERS' E 'FLOATS'...
+
+
+
+
+
+
+
+
+
+
+
+--> OUTRO CORE TYPE, A 'STRING' --->   TEXTO ---> 
+
+
+você 
+
+pode definir 
+
+
+
+de maneiras: 
+
+
+
+
+'Hi', 
+
+"Hi",
+`Hi` ---> TEMPLATE LITERALS, JAVASCRIPT MODERNO... --> STRINGS MODERNAS EM QUE PODEMOS INJETAR DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> TUDO ISSO SÃO TEXT VALUES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM,
+ 
+
+
+ TEMOS O DATA TYPE DOS 'BOOLEAN' ---> true, false --> MT IMPORTANTE QUANDO TRABALHAMSO COM IF STATEMENTS...
+
+
+
+
+
+
+
+
+
+ ----> NO JAVASCRIPT TENHO O CONCEITO DE 'TRUTHY/FALSY' (0 é FALSE)... ------> MAS O 'BOOLEAN DATA TYPE' __SÓ __ CONHECE 'TRUE/FALSE', nada mais do que isso...
+
+
+
+
+
+
+
+
+
+
+ --> ESSE CONCEITO DE 'truthy/falsy', típico do javascript, __ É __ ALGO QUE__ NÃO POSSUI RELAÇÃO 
+
+ COM DATA TYPES,
+
+ E SIM 
+ É UM 
+
+ 'BEHIND THE SCENES WORK' 
+
+ que o javascript FAZ __ DURANTE__ O RUNTIME,
+
+ QUANDO
+ ELE 
+
+ VÊ ALGUNS VALORES E IF CONDITIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ numbers, strings e booleans....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> TEMOS OUTROS DATA TYPES, COMO OBJECTS E ARRAYS, MAS OS VEREMOS DEPOIS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEVEMOS __ VER O QUE O TYPESCRIPT FAZ COM ESSES TYPES,
+
+ E  O QUE PODEMOS
+
+ FAZER 
+
+
+
+ COM ELE,
+  
+  COM ESSES TYPES...
+
+
+
+
+
+
+
+
+  --> COPIAMOS E COLAMOS AQUELE 'EXEMPLODEPROJETO',
+
+
+  lá 
+
+  no módulo anterior....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ----> LÁ, O PROFESSOR NOS MOSTROU QUE TUDO PRECISAMOS FAZER É ESCREVER 
+
+
+  'npm start'
+
+
+  PARA 
+
+
+
+  'SPIN UP THIS LIVE DEV SERVER'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OK... -----> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  VAMOS OBTER UM ARQUIVO 'app.js' 
+
+
+  ASSMIQ UE 
+
+  COMPILARMOS 
+
+  O 
+
+  ARQUIVO 
+
+  'app.ts'
+
+
+  POR MEIO DE 
+
+  'tsc app.ts' (ou 'tsc', depois que escreveu 'tsc --init')...
+
+
+
+
+
+
+
+
+
+
+
+  -------> CERTO....
+
+
+
+
+
+
+
+
+
+  --> AGORA TEMOS ESSE SETUP EM QUE PODEMOS ESCREVER CÓDIGO TYPESCRIPT, e entõa o compilar em código javascript,
+
+  para ver o que ele faz...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> AGORA VAMOS QUERER VER 
+
+  ESSES 
+
+
+  CORE DATA TYPES,
+
+
+  para 
+
+  ver como trabahar com eles....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> professor adiciona uma nova constante,
+
+
+
+
+
+  'function add(n1, n2) {
+      return n1 + n2;
+  }
+  '
+
+
+
+
+
+
+
+
+
+
+
+  FUNÇÃO BEM SIMPLES, NADA DE TYPESCRIPT NELA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> AGORA TEMOS 2 variables,
+
+  que vamos preencher com NUMBERS..
+
+
+
+
+
+
+
+
+
+  aí o professor escreve:
+
+
+
+
+
+
+
+
+  function add(n1, n2) {
+      return n1 + n2;
+  }
+
+
+
+
+  const number1 = 5;
+  const number2 = 2.8;
+
+
+
+
+
+  const result = add(number1, number2);
+  console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> ISSO VAI NOS DAR UM CÁLCULO,
+
+
+  UM CÁLCULO DE NUMBER1 + NUMBER2... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> CHECAMOS: 7.8 
+
+
+
+
+
+
+
+
+
+
+  --> VOCÊ PODE PENSAR QUE ESTÁ TUDO BEM,
+
+
+
+
+
+
+
+
+
+  MAS ___ O PROBLEMA__ É QUE 
+
+
+  NÃO 
+
+
+  DEFINIMOS 
+
+  O 
+
+  DATA 
+
+  TYPE 
+
+
+
+
+
+
+  ali...
+
+
+
+
+
+
+
+
+
+
+
+  --> MAS DIGAMOS QUE FAZEMOS UMA CAGADA,
+
+
+  TROCAMOS 
+
+  o 5 por '5' (uma STRING) ----> AÍ VAMOS GANHAR 
+
+
+
+  '52.8'
+
+  COMO 
+
+  UM OUTPUT,
+
+  e NÃO 
+
+
+
+
+
+
+  '7.8' 
+
+
+
+
+
+
+
+
+
+  ------> ISSO TERÁ ACONTECIDO PQ A NOSSA FUNÇÃO CONCATENOU ESSES 2 VALORES COMO _ STRINGS__ (temos 1 number e uma string....)  -----> 
+
+
+
+
+
+
+
+  AÍ ELE EVITA O 'NaN' (not a number)...
+
+
+
+
+
+
+
+
+  --> JAVASCRIPT CONCATENOU O 2.8 EM 
+
+  '2.8',
+
+
+  uma string,
+
+  E ENTÃO RETORNOU O RESULTADO....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1, n2) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PQ EU ESCREVERIA UM CÓDIGO DESSES, ERRADO? 
+
+EU SOU O DESENVOLVEDOR, NUNCA FARIA ISSO... ----------> bem,
+
+
+
+OUTRAS PESSOAS PODERÃO 
+
+
+
+FAZER ESSE ERRO,
+
+
+
+OU SEU 
+
+USER 
+
+
+INPUTTOU ISSO AÍ,
+
+
+
+
+E AÍ 
+
+
+DEU ESSE PROBLEMA__ 
+
+
+(
+
+    ou então você 
+
+    trabalha com um 
+
+    TIME, etc etc... --> não é impossível 
+
+
+
+    obter esses errors, mas é difícil
+
+
+
+    de os DETECTAR,
+    E É AÍ 
+
+    QUE 
+
+    O 
+
+    TYPESCRIPT PODE NOS AJUDAR....
+)
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS DIZER, POR MEIO DO TYPESCRIPT,
+
+QUE 
+
+ESSAS 2 CONSTNATES 
+
+
+
+SÃO DE TYPE 
+
+
+'number'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2);
+console.log(result);
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+OK, AGORA SABEMOS _ QUE _ 
+
+
+ESSA FUNÇÃO SEMPRE VAI TER QUE 
+
+RECEBER __ NMBERS____...
+
+
+
+
+
+
+
+
+
+
+
+--> DIZEMOS AO TYPESCRIPT: 
+
+'ESSES 2 DEVEM SEMPRE SER DE VALOR NUMBER,
+
+E O PASS DE OUTROS TYPES NÃO DEVE SER PERMITIDO'...
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... ----> se tentarmos compilar 
+
+esse negócio mesmo assim,
+
+
+
+GANHAMOS AQUELE ERROR 
+
+de 
+'Argument of type '5' is not assignable, etc etc'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- O TYPESCRIPT _ SÓ _ NOS AJUDA __ DURANTE A COMPILAÇÃO...(e não durante o runtime)... 
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE O TYPESCRIPT, SEU SISTEMA,
+
+SÓ TE AJUDA DURANTE _ O DEVELOPMENT__ (antes do código ser compilado)..
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS LÁ NO DEVELOPMENT,
+
+É EXTREMAMENTE 
+
+
+ÚTIL,
+
+
+PQ 
+
+ADICIONA + UM PASSO DE 'SANITIZAÇÃO'...
+
+
+
+
+
+
+
+
+
+
+certo...
+.
+
+
+
+
+
+
+
+
+
+
+------>  ELE COMPILA MESMO ASSIM, MESMO COM O ERRO (comportamento default, podemos mudaR)...
+
+
+
+
+
+
+
+
+OBS:::: NUNCA DEIXE 'app.ts'
+
+e 
+
+'app.js'
+
+ABERTOS 
+
+NO IDE AO MESMO TEMPO,
+
+PQ 
+AÍ 
+
+VOCÊ 
+PODE GANHAR ERROS 
+
+ACERCA 
+
+DE 
+
+'DUPLICATE FUNCTION LIMITATIONS' (fechar o arquivo .js CONSERTA ESSE PROBLEMA)...

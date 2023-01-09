@@ -1,0 +1,229 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ACABAMOS COM 'INTERFACES' E 'CLASSES'
+
+
+
+
+
+
+
+
+
+
+
+--> examinamos as classes e o que podemos fazer com elas....
+
+
+
+
+
+
+
+
+
+
+--> CLASSES NO TYPESCRIPT --> SÓ 'BUILD UPON' AS 
+
+CLASSES QUE JÁ EXISTEM NO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> INTERFACES --> SÃO OUTRA COISA,
+
+SÓ EXISTEM 
+
+
+
+NO TYPESCRIPT --> SÃO UMA FEATURE QUE TE AJUDAM 
+
+A 
+
+
+ESCREVER CÓDIGO BEM EXPLÍCITO, CLARO...
+
+
+
+
+
+
+
+
+
+--> interfaces --> FAZEM/DIZEM COMO 
+
+CERTAS CLASSES (ou objects/functions em geral ) DEVEM TER CERTAS 
+
+FEATURES/ESTRUTURA,
+
+
+
+
+
+
+
+___ E PODEM __ SER USADOS COMO FUNCTION TYPES....
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM __ TE DEIXAM __ DEFINIR 'OPTIONAL PROPERTIES',
+
+
+
+e TAMBÉM OPTIONAL METHODS... (como 'greet?()' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> E AGORA, COMO RECÉM VIMOS,
+
+
+
+
+QUANDO SÃO COMPILADAS,
+
+
+
+NÃO SÃO 
+
+
+
+TRADUZIDAS EM JAVASCRIPT.... (nada é emitido para essas interfaces, o código é simplesmente 'dumped')....
+
+
+
+
+
+
+
+
+
+
+
+------> ainda assim,
+
+
+
+
+INTERFACES SÃO UMA FEATURE PODEROSA PARA 'FORÇAR'
+
+suas classes e objects a ter certa estrutrua....
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE AS SUBSTITUIR POR CUSTOM TYPES, SE QUISER,
+
+mas é bem mais comum 
+
+USAR 
+
+UMA INTERFACE PARA ISSO, se você quer descrever um object e o implementar.... (
+
+
+)
+
+
+
+
+
+
+
+
+----> se você quer trabalhar com objects e tal,
+
+
+
+é melhor usar interfaces para descrever as classes/objects....
+
+
+
+
+JavaScript-Private-Public-Fields
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Class_fields
+
+Prototypes-Inheritance-in-JavaScript
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+
+
+
+
+
+
+
+
+When initializing fields, this refers to the class constructor. 
+You can also reference it by name, and use super to get the superclass constructor (if one exists).
+
+
+class ClassWithStaticField {
+  static baseStaticField = 'base static field'
+  static anotherBaseStaticField = this.baseStaticField
+
+  static baseStaticMethod() { return 'base static method output' }
+}
+
+class SubClassWithStaticField extends ClassWithStaticField {
+  static subStaticField = super.baseStaticMethod()
+}
+
+console.log(ClassWithStaticField.anotherBaseStaticField)
+// expected output: "base static field"
+
+console.log(SubClassWithStaticField.subStaticField)
+// expected output: "base static method output"
+
+

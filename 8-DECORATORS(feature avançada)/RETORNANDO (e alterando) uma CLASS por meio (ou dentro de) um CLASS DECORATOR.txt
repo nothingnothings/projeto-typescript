@@ -1,0 +1,2110 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ANTES DE PROSSEGUIR,
+
+
+
+antes de ver coisas mais avançadas com eles,
+
+
+
+
+VOCÊ 
+
+TEM QUE 
+
+
+COMPREENDER 
+
+
+
+QUE 
+
+
+ALGUNS DECORATORS,
+
+
+
+como 
+
+
+
+'class decorators' e 'METHOD DECORATORS',
+
+
+
+
+
+
+SÃO __ CAPAZES__ DE 
+
+
+
+FAZER 
+
+
+'RETURN' DE ALGO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM.... ---> O PROFESSOR NÃO VAI RETORNAR 'QUALQUER COISA EM QUALQUER DECORATOR'... -->  
+
+
+
+
+
+
+
+
+
+POR 'return de algo',
+
+
+O PROFESSOR 
+
+
+NÃO QUER 
+
+DIZER 
+
+
+
+A 'DECORATOR FUNCTION EM SI'
+
+que é 
+
+retornada 
+
+
+pela 
+
+'DECORATOR FACTORY' (
+
+
+    ou seja,
+
+    não está falando 
+
+
+    DISTO:
+
+
+
+
+
+
+
+
+function Logger2(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { //////PROFESSOR NÃO ESTÁ FALANDO DISTO, DA DECORATOR FUNCTION EM SI....
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); 
+}
+
+
+}
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+
+PROFESSOR ESTÁ FALANDO 
+
+
+
+
+
+
+
+
+
+'''DO RETURN DE UM VALUE __ NO INTERIOR__ DA DECORATOR FUNCTION''' --> e nos nossos códigos-exemplos 
+
+
+
+
+
+que vimos até agora,
+
+
+não tivemos nada disso...
+
+
+
+
+
+
+
+
+
+
+
+
+--------------> BEM.... NESSA DECORATOR FUNCTION DE 
+
+
+
+
+
+
+
+'WithTemplate',
+
+
+
+
+NÓS __ PODEMOS, SIM, ACTUALLY RETORNAR ALGUMA COISA:
+
+
+
+
+
+
+
+
+
+
+function Logger2(logString: string) {  ///esta é uma 'decorator factory'...
+
+    return function(target: Function) { 
+
+        console.log('Logging...');
+        console.log(target);
+        console.log(logString); 
+}
+
+
+}
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-------> E __ AS COIASS QUE VOCÊ É CAPAZ DE RETORNAR, E O QUE O TYPESCRIPT É CAPAZ DE USAR,
+
+
+
+__DEPENDE__ DO 'TYPE' _ DE DECORATOR COM O QUAL VOCê ESTÁ TRABALHANDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> COMO AQUI ESTAMOS TRABALHANDO COM UM 'CLASS DECORATOR',
+
+
+
+
+
+
+
+
+PODEMOS RETORNAR:
+
+
+
+
+
+
+
+
+
+A) UMA NOVA CONSTRUCTOR FUNCTION, QUE  ___ VAI __ SUBSTITUIR A VELHA CONSTRUCTOR FUNCTION (
+
+    ou seja,
+
+
+    QUE VAI SUBSTITUIR__ A CLASS_ _A QUE VOCÊ 
+
+
+    ADICIONOU O DECORATOR,
+
+
+
+    no caso,
+
+
+
+    'Person'...
+
+)
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+        return function(
+     
+            target: any 
+            ) { 
+
+        const element = document.getElementById(hookId);
+
+        console.log(element);
+        let p: PersonInterface;
+        p = new target();
+
+
+        if (element) { 
+            element.innerHTML = template; 
+            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+        }
+
+
+        return; ////aqqui vamos/podemos RETORNAR UMA CONSTRUCTO FUNCTION QUE VAI SUBSTITUIR A CONSTRUCTOR FUNCTION/CLASS A QUE ATRIBUÍMOS ESSE 'CLASS DECORATOR', originalmente...
+        }
+
+
+}
+
+
+
+
+
+
+
+
+
+@WithTemplate(
+
+'<h1>Exemplo</h1>',
+'app'
+)
+class Person3 { ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE AQUI PODEMOS 
+
+
+
+
+
+
+RETORNAR UMA NOVA CONSTRUCTOR FUNCTION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODERÍAMOS RETORNAR UMA NOVA CONSTRUCTOR FUNCTION, sim,
+
+
+
+
+(sintaxe velha)... 
+
+
+
+
+OU ENTÃO 
+
+PODEMOS SÓ FAZER 
+
+
+
+
+RETURN DE UMA __ NOVA CLASS_,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ __ 'CLASS' --> NOS DEIXA USAR SYNTATIC SUGAR PARA _ CRIAR UMA CONSTRUCTOR FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+
+escrevemos assim:
+
+
+
+
+
+
+
+ 
+
+ 
+function WithTemplate(template: string, hookId: string) {
+        return function(
+     
+            target: any 
+            ) { 
+
+        const element = document.getElementById(hookId);
+
+        console.log(element);
+        let p: PersonInterface;
+        p = new target();
+
+
+        if (element) { 
+            element.innerHTML = template; 
+            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+        }
+
+
+        return class... ;
+        }
+
+
+}
+
+
+
+
+
+
+
+
+
+@WithTemplate(
+
+'<h1>Exemplo</h1>',
+'app'
+)
+class Person3 { ////decorators são 'all about classes', na verdade...
+    name = 'Max';
+  
+    constructor() {
+      console.log('Creating person object...');
+    }
+  }
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ E ESSA __ SERÁ UMA CLASS ANÔNIMA (sem nome).... --> 
+
+
+
+
+
+
+ MAS NÓS PODEMOS, __ E VAMOS_,
+
+
+
+EXTENDER O parâmetro 'target/constructor'
+
+
+
+QUE 
+
+
+RECEBEMOS 
+
+
+NO NOSSO DECORATOR....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+ 
+function WithTemplate(template: string, hookId: string) {
+        return function(
+     
+            target: any 
+            ) { 
+
+        const element = document.getElementById(hookId);
+
+        console.log(element);
+        let p: PersonInterface;
+        p = new target();
+
+
+        if (element) { 
+            element.innerHTML = template; 
+            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+        }
+
+
+        return class extends target {
+
+        }
+
+        }
+
+
+}
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function(
+ 
+        target: any 
+        ) { 
+
+    const element = document.getElementById(hookId);
+
+    console.log(element);
+    let p: PersonInterface;
+    p = new target();
+
+
+    if (element) { 
+        element.innerHTML = template; 
+        (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+    }
+
+
+    return class extends target {         ////aqqui vamos/podemos RETORNAR UMA CONSTRUCTO FUNCTION QUE VAI SUBSTITUIR A CONSTRUCTOR FUNCTION/CLASS A QUE ATRIBUÍMOS ESSE 'CLASS DECORATOR', originalmente...
+                                             ///essa constructor function retornada aqui _ VAI __ SER ANÔNIMA (sem nome), e vai __ FAZER 'INHERIT' da class originária (ou seja, de 'target/constructor', por meio de 'extends')...
+    
+
+   
+
+
+
+    }
+
+}
+
+
+};
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+VAMOS QUERER INHERITAR A 
+
+
+
+
+CONSTRUCTOR FUNCTION/CLASS ORIGINAL _ PQ __ VAMOS QUERER MANTER TODAS AS PROPRIEDADES E METHODS DA 
+
+
+FUNCTION ORIGINAL... --> NÓS NÃO PRECISAMOS FAZER ISSO OBRIGATORIAMENTE,
+
+MAS O PROFESSOR QUER, nesse caso...
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ O PROFESSOR EXPLICA QUE 
+
+DENTRO 
+
+
+DESSA NOVA CLASS/CONSTRUCTOR RETORNADA,
+
+
+
+PODEMOS 
+
+
+ADICIONAR NOVAS FUNCIONALIDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR 
+
+
+ADICIONA UM 
+
+
+NOVO 
+
+'constructor(){}' 
+
+
+
+
+DENTRO 
+
+
+
+DESSA 
+
+
+
+CLASS.... --------> TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function(
+ 
+        target: any 
+        ) { 
+
+    const element = document.getElementById(hookId);
+
+    console.log(element);
+    let p: PersonInterface;
+    p = new target();
+
+
+    if (element) { 
+        element.innerHTML = template; 
+        (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+    }
+
+
+    return class extends target {         ////aqqui vamos/podemos RETORNAR UMA CONSTRUCTO FUNCTION QUE VAI SUBSTITUIR A CONSTRUCTOR FUNCTION/CLASS A QUE ATRIBUÍMOS ESSE 'CLASS DECORATOR', originalmente...
+                                             ///essa constructor function retornada aqui _ VAI __ SER ANÔNIMA (sem nome), e vai __ FAZER 'INHERIT' da class originária (ou seja, de 'target/constructor', por meio de 'extends')...
+    
+        constructor() {
+
+        }
+   
+
+
+
+    }
+
+}
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function(
+ 
+        target: any 
+        ) { 
+
+    const element = document.getElementById(hookId);
+
+    console.log(element);
+    let p: PersonInterface;
+    p = new target();
+
+
+    if (element) { 
+        element.innerHTML = template; 
+        (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+    }
+
+
+    return class extends target {         ////aqqui vamos/podemos RETORNAR UMA CONSTRUCTO FUNCTION QUE VAI SUBSTITUIR A CONSTRUCTOR FUNCTION/CLASS A QUE ATRIBUÍMOS ESSE 'CLASS DECORATOR', originalmente...
+                                             ///essa constructor function retornada aqui _ VAI __ SER ANÔNIMA (sem nome), e vai __ FAZER 'INHERIT' da class originária (ou seja, de 'target/constructor', por meio de 'extends')...
+
+                                             ///poderemos adicionar NOVAS FUNCIONALIDADES à class de 'Person' que vinculamos a esse decorator...
+
+            constructor() { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+            }
+
+
+
+    }
+
+}
+
+
+};
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... chamamos super... --> AÍ DENTRO DISSO PODEMOS ESCREVER QUALQUER LÓGICA QUE QUISERMOS...
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+PODEMOS _ MUDAR__ TODA AQUELA LÓGICA DE 'TEMPLATE RENDERING',
+
+
+
+aquelas linhas de 
+
+''''''''''''''''''''''''''''''''''''''''''''''''''
+   const element = document.getElementById(hookId);
+
+    console.log(element);
+    let p: PersonInterface;
+    p = new target();
+
+
+    if (element) { 
+        element.innerHTML = template; 
+        (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+    }
+
+
+''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+
+
+
+
+
+
+__ TIRAR ELA DO CONTEXTO/INTERIOR DE NOSSA DECORATOR FUNCTION DE 'WithTemplate',
+
+E AÍ __ COLOCAR__ TODA ESSA LÓGICA__ DENTRO 
+
+
+DO 'constructor() {
+
+}' 
+
+
+
+
+DESSA 'RETURNED CONSTRUCTOR FUNCTION'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function(
+ 
+        target: any 
+        ) { 
+
+    return class extends target {         ////aqqui vamos/podemos RETORNAR UMA CONSTRUCTO FUNCTION QUE VAI SUBSTITUIR A CONSTRUCTOR FUNCTION/CLASS A QUE ATRIBUÍMOS ESSE 'CLASS DECORATOR', originalmente...
+                                             ///essa constructor function retornada aqui _ VAI __ SER ANÔNIMA (sem nome), e vai __ FAZER 'INHERIT' da class originária (ou seja, de 'target/constructor', por meio de 'extends')...
+
+                                             ///poderemos adicionar NOVAS FUNCIONALIDADES à class de 'Person' que vinculamos a esse decorator...
+
+            constructor() { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                        console.log(element);
+                        let p: PersonInterface;
+                        p = new target();
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+                            }
+                        }
+                 }
+
+                    }
+                };
+
+
+
+
+
+    -----------------------------
+
+
+
+
+
+
+ISSO SIGNIFICA QUE AGORA ESTAMOS TENTANDO SUBSTITUIR A CLASS/CONSTRUCTOR FUNCTION
+
+
+
+
+
+
+
+VINCULADA A ESTE Decorator
+
+
+
+
+___ COM UMA NOVA CLASS, COM UMA NOVA CONSTRUCTOR FUNCTION,
+
+
+
+
+EM QUE 
+
+AINDA EXECUTAMOS A LÓGICA VELHA,
+
+MAS 
+EM QUE 
+
+
+TAMBÉM ADICIONAMOS NOSSA NOVA LÓGICA...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIIFCA QUE 
+
+
+
+AGORA 
+
+
+ESSE 'TEMPLATE' 
+
+
+SÓ SERÁ RENDERIZADO AO DOM  
+
+
+
+
+
+
+
+SE NÓS __ REALMENTE__ 
+
+
+
+
+
+INSTANCIARMOS 
+
+
+
+
+
+
+
+O OBJECT de 'Person'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS DAÍ OBTEMOS UM PEQUENO ERROR/AVISO
+
+
+EM 
+
+
+'
+''
+
+
+@WithTemplate(
+
+    `<h1>My Person Object: </h1>`,
+
+    'app'
+)
+
+
+
+
+
+'''
+
+
+
+
+
+--> DIZ QUE ' O TYPE NÃO ESTÁ CORRETO'... --------->  PARA CONSERTAR ISSO,
+
+
+
+PODEMOS __ TRANSFORMAR__ NOSSA 
+
+
+
+DECORATOR FUNCTION EM UMA 'GENERIC FUNCTION',
+
+em que 
+
+
+RECEBEMOS UM TYPE DE VERDADE (genérico, 'T')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ COLOCAMOS, DEIXAMOS CLARO, POR MEIO DE UM CONSTRAINT,
+
+
+
+UMA COISA ___BEEEEM BIZARRA...
+
+
+
+
+
+
+
+
+----------> a sintaxe agora fica BEM COMPLICADA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO, NO MOMENTO, ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function<T extends>(
+ 
+        target: T
+        ) { 
+
+    return class extends target {       
+
+            constructor() { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                        console.log(element);
+                        let p: PersonInterface;
+                        p = new target();
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+                            }
+                        }
+                 }
+
+                    }
+                };
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO....  
+
+
+
+
+
+
+
+
+
+AÍ VAMOS QUERER 
+
+
+
+''''DEIXAR CLARO QUE 
+
+
+
+"T" É UMA CONSTRUCTOR FUNCTION, SEMPRE SERÁ UMA ___ CONSTRUCTOR FUNCTION___...'''' -----> 
+
+
+
+
+fazemos isso por meio de um CONSTRAINT ('extends'), constraints com um 
+
+VALOR ___bEEEM ESPECÍFICO E DIFÍCIL....
+
+
+
+
+
+ESTE VALOR... -->  só o obtemos se 
+
+ESCREVERMOS UMA EXPRESSÃO ___DIFÍCIL ____ ENSINADA PELO PROFESSORR.....
+
+
+
+
+
+
+
+
+
+a expressão começa com 
+
+
+
+'{}',
+
+POIS ESSE TYPE É UM __ OBJECT TYPE__...
+
+
+
+
+
+
+
+
+
+--> NESSE OBJECT TYPE,
+
+
+definimos primeiramente uma propriedade de 
+
+
+'new' ---->  ESSA É UMA 'RESERVED KEYWORD',
+
+
+
+mas o que ela faz É BASICAMENTE DIZER AO TYPESCRIPT QUE 
+
+''''ESSE É UM OBJECT QUE PODE SER "new'ed"'''', ou seja,
+
+
+
+QUE VAI SER UM OBJETO/FUNCTION QUE ___ PDOERÁ SER CHAMADO COM 
+
+a keyword de 'new'
+
+PARA INSTANCIAR UM NOVO OBJETO...
+
+
+
+
+
+
+
+--> 
+
+ATÉ AGORA, ESTÁ ASSIM:
+
+
+
+'<T extends {new} >' 
+
+
+
+
+
+
+
+
+
+
+MAS É CLARO QUE ESSE 
+
+
+
+'
+new',
+
+
+esse METHOD/FUNCTION 
+
+
+
+QUE __ O OBJETO BASEADO EM 
+
+
+'T'
+
+
+
+terá,
+
+
+
+
+
+
+
+
+_ VAI__ RECEBER___ QUALQUER QUANTIDADE DE PARAMETERS  (uso de REST PARAMETERS, '...args'),
+
+
+
+
+
+
+PARA __ QUE SEJAM ACEITOS QUANTOS PARÂMETROS QUISERMOS, EM 
+
+
+
+
+
+
+VÁRIOS ARRAYS DE TIPO 'any':
+
+
+
+
+
+
+
+
+'<T extends {new(...args: any[])} >' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, ISSO SIGNIFICA QUE DEIXAMOS BEM FLEXÍVEL 
+
+
+O CRITÉRIO 
+DOS ARGUMENTS QUE PODEM/VÃO SER PASSADOS 
+
+
+
+
+
+
+AO CONSTRUCTOR DA CLASS QUE 
+
+
+VAMOS TENTAR MUDAR ('Person")...
+
+
+
+
+
+
+
+
+-----> POR FIM,
+
+
+VAMOS QUERER QUE ESSA FUNCTION __ RETORNE_ UM OBJECT...( por isso, ':{}').....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+<T extends {new(...args: any[]): {}} >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO COMPLETO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function<T extends {new(...args: any[]): {}} >(
+ 
+        target: T
+        ) { 
+
+    return class extends target {       
+
+            constructor() { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                        console.log(element);
+                        let p: PersonInterface;
+                        p = new target();
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = p.name;
+                            }
+                        }
+                 }
+
+                    }
+                };
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, 
+
+
+
+COPIAMOS O TRECHO 
+
+
+'...args: any[]'
+
+
+
+PARA DENTRO 
+
+DE NOSSO constructor(){},
+
+
+
+
+
+PARA UQE 
+
+O CONSTRUCTOR TAMBÉM 
+
+
+
+SEJA CAPAZ DE 
+
+
+
+
+ACEITAR OS ARGUMENTS PASSADOS à CLASS ORIGINÁRIA DE 'Person':
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function<T extends {new(...args: any[]): {}} >(
+ 
+        target: T
+        ) { 
+
+    return class extends target {       
+
+            constructor(...args: any[]) { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = this.name;
+                            }
+                        }
+                 }
+
+                    }
+                };
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+MESMO COM TUDO ISSO,
+
+
+recebemos um error typescript em 
+
+'this.name' -------> ISSO OCORRE/OCORREU 
+
+
+
+
+
+PQ 
+O 
+
+TYPESCRIPT VAI PENSAR que 
+
+
+'NÃO SEI SE ESSA PROPRIEDADE NAME VAI REALMENTE 
+
+
+
+EXISTIR NA CLASS A QUE VOCÊ ADICIONARÁ ESSE DECORATOR DE 'WithTemplate''''.. --> 
+
+
+
+
+para CONSERTAR ISSO,
+
+
+
+
+DEVEMOS 
+
+
+
+escrever 
+
+'name: string'
+
+
+
+LA 
+
+
+
+naquele ':{}' (RETURN TYPE DAQUELA CONSTRUCTOR FUNCTION TYPE)..
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+function WithTemplate(template: string, hookId: string) {
+    return function<T extends {new(...args: any[]): {name: string}} >(
+ 
+        target: T
+        ) { 
+
+    return class extends target {       
+
+            constructor(...args: any[]) { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = this.name;
+                            }
+                        }
+                 }
+
+                    }
+                };
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... bem confuso.... AGORA SE SALVAMOS TUDO ISSO E RECARREGAMOS,
+
+
+ainda recebemos 'Max'
+
+
+
+na page....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A COISA INTERESSANTE É QUE 
+
+
+SE 
+
+
+
+
+TIRARMOS O CÓDIGO DE INSTANCIAMENTO,
+
+
+
+
+
+
+
+____ AQUELE 'const person = new Person()',
+
+
+
+
+
+
+
+
+
+VEREMOS QUE ___ O 'Max'
+
+
+
+VAI __ SUMIR __DE NOSSO DOM... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> TODOS OS DECORATORS AINDA SERÃO EXECUTADOS,
+
+
+MAS NADA 
+
+
+SERÁ 
+
+
+
+
+
+_RENDERIZADO NA TELA,
+
+
+se não instanciarmos 
+
+
+
+
+nossa class... -----------> 
+
+
+
+
+
+
+
+
+
+A CONSTRUCTOR FUNCTION NO INTERIOR DE NOSSO DECORATOR _ ACABA SUBSTITUINDO __ 
+
+
+
+
+
+A CONSTRUCTOR FUNCTION/CLASS 
+
+
+
+ORIGINÁRIA VINCULADA A ELE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> SIM.... MAS COMO O PROFESSOR chamou 
+
+
+'super'
+
+la 
+
+em 
+
+
+
+
+
+ return class extends target {       
+
+            constructor(...args: any[]) { 
+
+                super();  //vai estabelecer contato com o 'target', ou seja, com a class de 'Person' a que vinculamos este decorator.....
+
+                        const element = document.getElementById(hookId);
+                         if (element) { 
+                            element.innerHTML = template; 
+                            (element.querySelector('p') as HTMLParagraphElement).innerText = this.name;
+                            }
+                        }
+                 }
+
+                    },
+
+
+
+
+
+
+
+
+
+
+        NÓS ACABAMOS 
+
+
+        '
+        SAVING' the original class ------>  ISSO SIGNIFICA QUE 
+
+
+
+        TUDO QUE 
+
+        INICIALIZAMOS 
+
+
+
+
+
+        LÁ 
+
+
+
+
+
+
+
+        em 
+
+
+
+
+
+        '
+        ''''''
+
+
+
+        class Person6 { ////decorators são 'all about classes', na verdade...
+name = 'Max';
+
+constructor() {
+  console.log('Creating person object...');
+}
+}
+
+
+
+'
+'''
+
+
+AINDA É EXECUTADO/INICIALIZADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------> MAS, POR TRÁS DAS CENAS,
+
+
+ O PROFESSOR SUBSTITUIU A CLASS ORIGINÁRIA POR ESSA 'CUSTOM CLASS'
+
+
+
+
+
+
+ DO DECORATOR,
+
+ e isso 
+
+
+ NOS DEIXA 
+
+
+ ADICIONAR __ LÓGICA EXTRA,
+
+
+
+
+
+ LÓGICA QUE __ DEVERÁ RODAR QUANDO A CLASS FOR INSTANCIADA --> DO NADA,
+
+
+
+
+
+
+ AGORA SOMOS CAPAZES DE ADICIONAR _ LÓGICA QUE __ NÃO É 
+
+
+
+
+
+
+
+ ___ EXECUTADA_ 'WHEN THE CLASS IS DEFINED',
+
+
+
+ MAS SIM QUNADO É 
+
+
+
+
+ __INSTANCIADA__ ( ou seja,
+ 
+ 
+ 
+ uma grande diferença 
+ 
+ 
+ em relação a decorators padrão.... )
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> É UM BOM PRIMEIRO EXEMPLO DO 'PODER TOTAL' dos decorators,
+
+
+
+ que pode ser acessado se você entende o que vocÊ pode fazer com eles...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E VOCÊ PODE OS DEFINIR NÃO SÓ COMO 'FUNCTIONS',
+
+
+
+
+ ou com 
+
+
+ factory functions ------------> EM ALGUNS DECORATORS, como o CLASS DECORATOR,
+
+
+
+ VOCê 
+
+
+ PODE 
+
+
+
+ __ TAMBÉM 'RETORNAR ALGO' 
+
+ para 
+
+
+
+
+ SUBSTITUIR A COISA 'A QUE VOCê ASSIGNOU O DECORATOR',
+
+
+
+
+
+
+
+
+ __ COM UMA NOVA CLASS,
+
+ QUE PODE 
+ 
+
+ 'IMPLEMENT' A  VELHA CLASS,
+
+
+
+ MAS QUE AO MESMO TEMPO PODE 'ADD ITS NEW, CUSTOM LOGIC'...
+
+
+ (
+
+     por isso o nome é de 'decorators'...
+ )

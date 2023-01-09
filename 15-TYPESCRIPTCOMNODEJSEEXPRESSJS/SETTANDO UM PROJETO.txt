@@ -1,0 +1,525 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> VOCÊ PODE ESTAR PENSANDO QUE VAMOS PRECISAR DE UM SETUP COMPLEXO, COM WEBPACK E UM MONTE DE FIRULAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NA VERDADE, NÃO VAMOS PRECISAR DISSO...
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+
+
+VAMOS SIMPLESMENTE USAR O COMANDO 'tsc'
+
+PARA COMPILAR NOSSOS ARQUIVOS,
+
+
+E AÍ 
+
+O 
+
+COMANDO 'node xxx' 
+
+para EXECUTAR NOSSOS ARQUIVOS JS COMPILADOS...
+
+
+
+
+
+
+
+
+
+
+
+----> É TUDO ISSO QUE PRECISAMOS...
+
+
+
+
+
+
+
+-> AINDA ASSIM, O PROFESSOR VAI INICIALIZAR NOSSO PROJETO COM 'npm init',
+
+
+tudo para que consigamos uma PACKAGE.JSON...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS CRIAR UMA NORMAL NODE APPLICATION,
+
+
+
+
+
+por isso vamos instalar tpps,
+
+como o 
+
+
+
+EXPRESS,
+
+E TAMBÉM 
+
+
+
+O PROFESSOR VAI QUERER INSTALAR UMA TOOL ADICIONAL,
+
+QUE 
+
+
+VAI 
+
+
+
+ACELERAR NOSSO PROCESSO DE DEVELOPMENT (provavelmente será nodemon, ou algo assim)..
+
+
+
+
+
+
+
+
+
+
+
+--> OK, RODAMOS NPM INIT...
+
+
+
+
+
+
+
+
+
+
+
+--> confirmamos as settings,
+
+ tudo normal...
+
+
+
+
+
+
+
+
+
+
+ --> DEPOIS DISSO,
+
+
+
+ PROFESSOR VAI TAMBÉM RODAR 'tsc --init',
+
+
+ TUDO PARA QUE ESSE PROJETO TAMBÉM SEJA INICIALIZADO 
+
+
+
+
+
+ COMO UM PROJETO TYPESCRIPT,
+
+
+ fazendo com que aquele arquivo de 'tsconfig' apareça..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> OK... --> TEREMOS ESSE ARQUIVO, QUE PODEREMOS FINETUNE para nossos requisitos... --> 
+
+
+ a primeira coisa que o professor vai querer fazer é TROCAR A OPÇÃO 'target' 
+
+ de 'es5'
+
+
+ PARA 'es2018' -----> PODEMOS USAR ATÉ ALGO AINDA MAIS AVANÇADO, DEPENDENDO DA VERSÃO DO NODE QUE 
+
+
+ USAMOS...
+
+
+
+
+
+
+
+
+
+
+
+ --------> OK.... ---> já 'module' pode ficar como 'commonjs',
+
+
+
+
+ MAS __ 
+
+
+
+ O 
+
+ 'moduleResolution'
+
+
+ DEVE SER ALTERADO,
+
+
+ E DEVE FICAR COMO 'node',
+
+
+
+ em vez de 'classic'.... --> ESSA OPÇÃO APENAS 'DIZ AO TYPESCRIPT COMO SEUS IMPORTS E ARQUIVOS DEVERÃO FUNCIONAR EM CONJUNTO'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PRECISAMOS SETTAR ISSO COMO 'NODE' PARA QUE TUDO FUNCIONE CORRETAMENTE....
+
+
+
+
+
+
+
+
+
+
+ --> OK, O 'outDir'
+
+
+ vamos colocar como './dist',
+
+
+
+ E o 
+
+ 'rootDir' 
+
+
+ COMO 
+
+ SENDO 
+
+
+ o 
+ NOSSO SOURCE,
+
+
+ portanto 
+
+ './src'...
+
+
+
+
+
+ (
+
+
+
+     PQ QUEREMOS SEPARAR NOSSO SOURCE CODE TYPESCRIPT E O ACTUAL OUTPUt...
+ )
+
+
+
+
+
+
+ O ACTUAL OUTPUT É O CÓDIGO JAVASCRIPT QUE SERÁ EXECUTADO COM A AJUDA DO NODE....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEPOIS DISSO,
+
+ ESTAMOS FINE COM O 'strict mode',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> SALVAMOS TUDO ISSO,
+
+
+ E AGORA O PROFESSOR CRIA UM folder de 'src',
+
+ e outro de 'dist'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR QUER CONSTRUIR NOSSO APP COM O TYPESCRIPT,
+
+
+
+
+
+NO FOLDER DE 'src'....
+
+
+
+
+
+
+
+
+
+
+--> COMO VAMOS QUERER USAR O EXPRESSJS 
+
+COM NOSSO 
+
+
+PROJETO,
+
+instalamo-no com 
+
+
+
+'npm install --save express' ,
+
+
+
+
+e depois INSTALAMOS SEUS TYPES, com 
+
+
+
+
+'npm install --save-dev @types/express'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... --> ISSO NOS DÁ O EXPRESS.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CONSEGUIMOS ESSE FRAMEWORK,
+
+etc etc...
+
+
+
+
+
+--> TAMBÉM VAMOS INSTALAR A PACKAGE DO BODY-PARSER,
+
+e também seus types..
+
+
+
+
+
+
+
+
+--> o body-parser vai nos ajudar com o parsing do CÓDIGO JSON ENVIADO E RECEBIDO NO SERVER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... ---> QUANTO ÀS DEVELOPMENT DEPENDENCIES,
+
+
+PROFESSOR QUER INSTALAR O NODEMON,
+
+
+
+QUE É UMA FERRAMENTA QUE NOS AJUDA 
+
+
+A 
+
+
+RODAR UM ARQUIVO COM O NODE,
+
+
+MAS QUE 
+
+AÍ 
+
+
+FAZ 'WATCH' 
+
+
+
+DA FILE 
+
+
+
+E O FOLDER EM QUE A FILE ESTÁ , ASSIM COMO TODOS OS SUBFOLDERS... --> sempre que uma file for alterada,
+
+
+ele 
+
+
+
+re-executa o server... 
+
+
+
+
+
+
+
+
+
+--> OK... --> ISSO É BOM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... POR ENQUANTO, É ISSO... ----> VAMOS PRECISAR DE MAIS ALGUMAS DEV DEPENDENCIES, MAS POR ENQUANTO ESTÁ OK...

@@ -1,0 +1,480 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... NOSSO CÓDIGO BÁSICO DA CLASS HAVIA FICADO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+}
+
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+
+
+
+
+
+console.log(shiningApartment);
+
+
+
+
+
+
+
+
+
+
+-->a VERSÃO 
+
+
+
+JAVASCRIPT DESSE CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"use strict";
+class Department {
+    constructor(n, z) {
+        this.name = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS';
+        this.name = n;
+        this.number = z;
+    }
+}
+const shiningApartment = new Department('salao', 55);
+console.log(shiningApartment);
+//# sourceMappingURL=app.js.map
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AS 2 IMPORTANTES MUDANÇAS ENTRE ESSES 2 CÓDIGOS SÃO:
+
+
+
+
+
+
+1) os 'key-type' pairs __ SOMEM (no root da nossa class)....
+
+
+
+
+
+
+2) o  '= DEFAULT' que você escreveu ali __ VAI_ APARECER LÁ NO TOPO (pq a escrita de baixo, 'this.name = z' vai o SUBSTITUIR, NO FLOW DESSE CÓDIGO...)....
+
+
+
+
+3) OS TYPES NO CONSTRUCTOR _ TAMBÉM VÃO SUMIR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o field 'name' não vai existir 
+
+na class mais (no root),
+
+
+no caso... ---> ISSO NA VERDADE 
+
+
+
+É 
+
+SUPORTADO EM ALGUMAS VERSÕES DO JAVASCRIPT (como ES7, e não o 6)....
+
+
+
+
+
+
+
+
+
+
+--> O TYPE ASSIGNMENT 
+
+
+__ NO ROOT SOME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE MUDARMOS 
+
+
+
+
+
+
+o 'target', lá em 
+
+
+'tsconfig.json'
+
+,
+
+
+
+
+DE 
+
+'es6' 
+
+para 
+
+'es5' (Versão mais antiga),
+
+
+AS COISAS 
+
+
+FICAM INTERESSANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE SALVAMOS TUDO ISSO, O QUE VEMOS 
+
+LÁ 
+
+
+
+em 'app.js' 
+
+
+SERÁ ALGO TOTALMENTE DIFERENTE...
+
+
+
+
+será isto:
+
+
+
+
+
+
+
+
+var Department = (
+    
+    
+    function () {
+        function Department(n) {
+            this.name = n;
+        }
+        return Department;
+    }());
+
+
+
+var accounting = new Department('Accounting');  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O QUE DIABOS É ISSO? 
+
+
+
+
+
+
+
+
+----> O QUE TEMOS AQUI É UMA 'GAMBIARRA',
+E AQUILO QUE 
+
+CHAMAMOS 
+DE 
+
+'CONSTRUCTOR FUNCTIOn' ----------> UMA __ CONSTRUCTOR FUNCTION,
+
+
+NO CASO,
+
+É 
+
+ALGO QUE 
+
+
+É 
+
+
+'BUILTIN' 
+
+
+no javascript,
+
+
+
+e 
+
+que 
+
+EXISTE DESDE __ BASICAMENTE__ SEMPRE ... ------>  E ESSE CÓDIGO, ESSA ESCRITA,
+
+É 
+
+
+ESSENCIALMENTE 
+
+
+
+'VANILLA JS' way 
+
+
+
+
+
+
+
+DE ___ CRIAR___ 'OBJECT BLUEPRINTS'.... --------> É UMA FUNÇAÕ QUE 
+
+
+
+É 
+
+
+CHAMADA 
+
+
+COM A AJUDA 
+
+de 
+
+
+
+'new XXX()' ----------> 
+
+
+
+
+
+E 
+
+ESSA FUNCTION, 
+
+MAGICAMENTE,
+
+
+AINDA QUE 
+
+
+
+
+
+__ NÃO TENHA __ NENHUM RETURN STATEMENT 
+
+
+NO SEU INTERIOR,
+
+
+
+ACABA RETORNANDO UM NOVO OBJECT,
+
+OBJECT QUE TERÁ/TEM 
+
+
+
+ESSA PROPRIEDADE 
+
+de 
+'name'.... ---------> ESSE CONCEITO DE INSTANCIAÇÃO NÃO É NOVO,
+
+
+NÃO É ALGO INTRODUZIDO PELO 
+JAVASCRIPT MODERNO/TYPESCPRIT..
+
+
+
+
+
+
+
+
+
+
+-> BLUEPRINTS PARA OBJECTS,
+
+NO PASSADOA,
+
+
+
+
+ERAM CRIADAS POR MEIO DE CONSTRUCTOR FUNCTIONS COMO ESSA.. (e isso era um saco)... --> 
+
+
+É POR ISSO QUE 
+
+O 
+
+JAVASCRIPT MODERNO INTRODUZIU ESSAS CLASSES COM ESSA SINTAXE CLEAN....
+
+
+
+
+
+
+
+
+
+
+
+---------> E O TYPESCRIPT É TÃO FORTE QUE TE DEIXA ESCOLHER 
+
+QUAL SINTAXE 
+
+
+
+
+USAR NA COMPILAÇÃO 
+
+
+DE 
+
+
+SEU CÓDIGO....

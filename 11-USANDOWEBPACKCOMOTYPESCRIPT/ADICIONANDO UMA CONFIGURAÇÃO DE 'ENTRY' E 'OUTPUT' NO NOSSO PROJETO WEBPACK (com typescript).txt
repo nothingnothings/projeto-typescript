@@ -1,0 +1,595 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... para começar, devemos ir até o arquivo 'tsconfig.json',
+
+
+
+
+
+EM QUE DEVEMOS ASSEGURAR QUE ALGUMAS OPÇÕES DEVEM FICAR PREENCHIDAS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ EM 'target',
+
+ 
+ VOCê DEVE SETTAR 'es5' ou 'es6' 
+
+
+
+
+
+
+
+
+
+
+ --> ISSO PQ O WEBPACK E O TS-LOADER 
+
+
+ VAO USAR 
+
+
+ ESSE TARGET PARA DETERMINAR COMO SEU CÓDIGO DEVERÁ SER TRANSFORMADO....
+
+
+
+
+
+
+
+
+
+
+ --> DEVE SER COMPILADO EM CÓDIGO QUE RODA EM BROWSERS MAIS VELHOS, OU SÓ EM NOVOS...
+
+
+
+
+
+
+
+
+
+
+ JÁ MODULE DEVE FICAR COMO 'es2015'...
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> VOCE TAMBÉM QUER MODIFICAR SEU 'outDir',
+
+ se quiser que o código fique compilado em outro diretório...
+
+
+
+
+
+
+
+ -->JÁ 'ROOTdIR'
+
+
+
+
+ voce vai tirar, pq o webpack já vai determinar automaticamente qual local 
+
+
+ seus arquivos 'brutos' vao ficar....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK.... TUDO CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------.EM GERAL, ESSAS SETTINGS ESTÃO FINE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ADICIONAMOS UMA NOVA CONFIG FILE AO LADO DO 'tsconfig.json',
+
+
+
+ QUE SERÁ A CLÁSSICA 
+
+
+ webpack.config.js 
+
+
+
+
+
+
+
+
+
+ ---> ESSE É UM ARQUIVO QUE SERÁ USADO PARA CONFIGURAR CORRETAMENTE NOSSO 
+
+
+ webpack com nosso projeto......
+
+
+
+
+
+
+
+
+
+
+
+ --> O WEBPACK CONFIG.JS 
+
+
+
+
+ usa JAVASCRIPT,
+
+ PARTICULARMENTE A SINTAXE NODEJS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS USAR A CLÁSSICA SINTAXE DE 
+
+ 'module.exports = {
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> EXPORTAMOS ESSE OBJETO JAVASCRIPT,
+
+ MAS O QUE INTERESSA É QUE 
+
+ O 
+
+
+ WEBPACK PRECISA SABER DE ALGUMAS KEY PIECES OF INFORMATION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ MAIS IMPORTANTE ___ ---> O WEBPACK PRECISA SABER QUAL É  A 'ENTRY FILE' 
+
+ DE SEU PROJEOT, ARQUIVO QUE COMEÇA TUDO...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEFINIDO O ENTRY FILE,
+
+
+ O WEBPACK 
+
+
+
+ VAI CHECAR 
+
+  O ARQUIVO POR SEUS IMPORTS,
+
+
+
+
+  E AÍ VAI COMPILAR TUDO ADEQUADAMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> BEM, MAS PARA FAZER COM QUE O WEBPACK FUNCIONE CORRETAMENTE,
+
+  VOCê PRECISA TIRAR TODOS OS '.js'
+
+
+
+
+  NOS SEUS IMPORTS, PQ O WEBPACK JÁ VAI FAZER ISSO AUTOMATICAEMTNE (
+
+
+      se vocÊ não fizer isso, ele vai procurar por arquivos '.js.js',
+
+      o que causará erros...
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> CERTO... MAS AGORA PRECISAMOS ESCREVER A PROPRIEDADE 'entry'
+
+
+
+
+  nesse OBJETO EXPORTABLE,
+
+
+  
+
+
+  que vai ficar assim:
+
+
+
+
+
+
+
+
+
+
+
+  module.exports = {
+      entry: "./src/app.ts"
+  }
+
+
+
+
+
+
+
+
+
+  -------> ISSO FEITO, PROFESSOR ADICIONA UMA KEY DE 'output',
+
+
+  QUE SERÁ UM OBJETO..
+
+
+
+
+
+
+
+  --> DENTRO DISSO, TEMOS UMA PROPRIEDADE 'filename',
+
+  em que colocamos 
+
+  O NOME DO ARQUIVO QUE SERÁ O 'BUNDLE' DE TOODS SEUS CÓDIGOS/arquivos..
+
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+  
+
+  module.exports = {
+      entry: "./src/app.ts",
+
+      output: {
+          filename: 'bundle.js'
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICA QUE TAMBÉM PODEMOS ESCREVER 
+
+
+'[contentHash]' 
+
+
+
+
+
+
+
+
+SE QUISERMOS QUE O WEBPACK NOS AJUDE COM O 'CACHING' no browser (
+    página sempre terá de ser recarregada,
+
+    nunca ficará 'cacheada'....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ALÉM DO FILENAME,
+
+VOCÊ TAMBÉM TEM QUE ESPECIFICAR O 'PATH' em que o output deverá ser written to...
+
+
+
+
+
+
+
+--> VAMOS COLOCAR 
+
+
+
+
+
+O FOLDER DE DIST,
+
+MAS AQUI HÁ UM PORÉM... -------> O WEBPAKC _ EXIGE__ QUE AQUI VOC~e ESCREVA 
+
+ESSE PATH USANDO UM 'ABSOLUTE PATH',
+
+algo que 
+
+
+É OBTIDO POR MEIO DO USO DA PACKAGE DE 'path',
+
+LÁ DO NODE...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+const path = require('path');
+  
+
+  module.exports = {
+      entry: "./src/app.ts",
+
+      output: {
+          filename: 'bundle.js',
+          path: path.join(__dirname, 'dist');
+      }
+  }
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... USAMOS ESSA SINTAXE DE IMPORTS,
+
+
+IMPORTAMOS O 'path' ... (core nodejs module)
+
+
+
+
+
+
+
+
+
+--------> AÍ O PROFESSOR 
+
+
+
+
+
+usa o method de 'resolve()' em vez de 
+
+
+'join()'...
+
+
+
+
+
+
+
+
+
+--> AÍ ELE ESCREVE AS MESMAS COISAS,
+
+
+
+'resolve(__dirname, 'dist')'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... COM ISSO, FICAMOS COM UM 'ENTRY POINT' E UM 'OUTPUT POINT',
+
+
+
+
+
+MAS ___ VOCê AINDA NÃO ESTÁ DIZENDO AO WEBPACK 
+
+'''O QUE FAZER COM AS TYPESCRIPT FILES''' 
+
+(
+
+    pq, por default, o webpack é só um bundler, funcionalidades extras como 
+
+    COMPILAÇAO DE CÓDIGO TYPESCRIPT, 
+    precisam ser declaradas/especificadas....
+)
+
+
+
+
+
+
+
+
+-----> OK... --> FAREMOS ISSO NA PRÓXIMA AULA..

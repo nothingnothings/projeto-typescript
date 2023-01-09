@@ -1,0 +1,1 @@
+{"version":3,"file":"DiscriminatedUnions.js","sourceRoot":"","sources":["../src/DiscriminatedUnions.ts"],"names":[],"mappings":";AA6DA,SAAS,UAAU,CACf,MAAc;IAId,IAAG,cAAc,IAAI,MAAM,EAAE;QACzB,OAAO,CAAC,GAAG,CAAC,qBAAqB,GAAG,MAAM,CAAC,YAAY,CAAC,CAAA;KAC3D;IAGD,IAAG,aAAa,IAAI,MAAM,EAAE;QACxB,OAAO,CAAC,GAAG,CAAC,qBAAqB,GAAG,MAAM,CAAC,WAAW,CAAC,CAAA;KAC1D;AAEL,CAAC"}

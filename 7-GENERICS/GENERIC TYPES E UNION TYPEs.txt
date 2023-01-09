@@ -1,0 +1,928 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> 1 COMUM FONTE DE CONFUSÃO É 
+
+A DIFERENÇA ENTRE
+
+
+
+
+
+
+
+
+
+
+
+
+GENERICS (functions, classes, types) VS __ UNION _ TYPES__ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PQ VOCÊ CONFUNDIRIA OS 2?
+
+
+
+
+
+
+
+
+
+BEM, DEVEMOS CITAR 
+
+
+
+UMA CLASS COMO EXEMPLO.... usaremos a de 'StorageData':
+
+
+
+
+
+
+class StorageData<T> {
+
+    private data: T[] = [] ///obs: 'private' IMPEDE o inherit das classes herdeiras..... (é 'protected' que deixa essas propriedades existirem, mas ainda bloqueia o acesso por fora)...
+
+
+
+
+
+
+
+    addItem(item: T) { ///''você não disse o type de 'item'''.... --> ''mas não vou querer saber esse type, pq essa é uma GENERIC CLASS'' --> armazena UMA COISA DE TYPE __ GENERIC_ (ou seja, qualquer coisa, desde que seja UNIFORME O STORAGE.... tudo string, ou tudo arrays, ou tudo numbers, etc)....
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item: T) {
+
+
+        this.data.splice(this.data.indexOf(item), 1); //// -1 //// --> se chamamos essa lógica com um OBJECT sendo passado como 'item', ACABAMOS REMOVENDO O ÚLTIMO ELEMENTO NESSE ARRAY, SEMPRE___ (pq o 'indexOf' vai retornar '-1') --> -1 significa que NENHUM ELEMENTO IGUAL A ESSE OBJECT FOI ENCONTRADO.... -> e o comportamento PADRÃO de '-1' É fazer 'START FROM THE END OF THE ARRAY', no javascritp...
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> NO EXEMPLO DO PROFESSOR, HAVIA SIDO ESCRITA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+33
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE ESTAMOS ACEITANDO 'GENERIC TYPES'
+
+
+
+COM BASE NESSES TYPES ESPECÍFICOS de 'string' 'number' e 'boolean',
+
+
+
+
+
+
+
+
+
+
+__ O QUE PODERÍAMOS FAZER É _ REESCREVER 
+
+
+
+
+NOSSA CLASS,
+
+
+
+
+PARA ENTÃO DEIXÁ-LA ASSIm:
+
+
+
+
+
+
+
+
+class DataStorage {
+        private data: (string | number | boolean)[] = []
+
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA,
+
+PODERÍAMOS ESCREVER ASSIM PARA __ ENTÃO __ 
+
+
+DIZER 
+
+
+'''vamos querer armazenar 
+
+QUAISQUER DESSES TYPES dentro desse array'''....
+
+
+
+
+
+
+
+
+---> AÍ, 
+
+
+
+NO RESTO DOS METHODS, FARÍAMOS A MESMA COISA:
+
+
+
+
+
+
+
+class DataStorage {
+        private data: (string | number | boolean)[] = []
+
+
+
+
+    addItem(string | number | boolean) {
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(string | number | boolean) {
+
+
+        this.data.splice(this.data.indexOf(item), 1); //// -1 //// --> se chamamos essa lógica com um OBJECT sendo passado como 'item', ACABAMOS REMOVENDO O ÚLTIMO ELEMENTO NESSE ARRAY, SEMPRE___ (pq o 'indexOf' vai retornar '-1') --> -1 significa que NENHUM ELEMENTO IGUAL A ESSE OBJECT FOI ENCONTRADO.... -> e o comportamento PADRÃO de '-1' É fazer 'START FROM THE END OF THE ARRAY', no javascritp...
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... MAS QUAL É O PROBLEMA COM ESSE APPROACH?
+
+
+
+
+
+
+
+
+A PRIORI,
+
+
+PODE PARECER QUE 
+
+CONSEGUE A MESMA COISA 
+
+
+QUE O APPROACH ANTERIOR,
+
+
+
+
+QUE 
+
+é 
+
+
+'''aceitar qualquer tipo de type/data'''
+
+
+
+nesse array....
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+
+
+
+
+
+O QUE ISSO AÍ, ESSA MUDANÇA NO NOSSO CÓDIGO, FAZ, É ALGO __ TOTALMENTE DIFERENET...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE ESTAMOS DIZENDO AQUI É :
+
+
+
+
+'''vamos armazenar QUALQUER COISA NO INTERIOR DESSE ARRAY,
+
+DESDE QUE SEJAM STRINGS, NUMBERS OU BOOLEANS'''....
+
+
+
+
+
+
+
+
+
+
+
+
+--> '''E, AÍ, TAMBÉM VAMOS ADICIONAR QUALQUER TIPO DE DATA,
+
+OU UMA STRING, UM NUMBER, OU BOOLEAN'....
+
+
+
+
+
+
+--> MESMA COISA PARA O 'REMOVING'...
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS QUAL É O PROBLEMA?
+
+
+
+
+
+
+
+
+
+
+
+1o problema/diferença ------> NÃO ESTAMOS DIZENDO  ''''' OU ISSO SERÁ UM ARRAY DE STRINGS, OU SERÁ UM ARRAY DE BOOLEANS, OU SERÁ UM ARRAY DE NUMBERS'''...
+
+
+(
+
+    ou seja, não será um ARRAY UNIFICADO em 1 valor/data type...
+)
+
+
+
+
+
+
+
+em vez disso,
+
+
+estmaos dizendo '''TEMOS UM ARRAY QUE PODE TER OU BOOLEANS, OU NUMBERS, OU STRINGS, __ TUDO __MISTO_....
+
+
+
+
+
+
+
+
+
+
+--------> PARA CONSERTAR ISSO,
+
+
+SERÍAMOS FORÇADOS 
+
+
+A ESCREVER ISTO AQUI:
+
+
+
+
+
+
+'''private data: string[] | number[] | boolean[] = [];''' 
+
+
+
+
+(
+
+    AGORA, SIM, É: '1 ARRAY DE STRINGS', OU '1 ARRAY DE NUMBERS', OU 'UM ARRAY DE BOOLEANS'
+)
+
+
+
+
+
+
+
+
+
+
+-> PODERÍAMOS FAZER ISSO,
+
+SIM,
+
+
+
+
+
+MAS ___ AÍ_ iMEDIATAMENTE CONSEGUIRÍAMOS ERRORS NOS NOSSOS METHODS....
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class DataStorage {
+ private data: string[] | number[] | boolean[] = []; ///fix bosta....
+
+
+
+
+    addItem(string | number | boolean) { //ERROR aqui...
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(string | number | boolean) { ////ERROR AQUI...
+
+
+        this.data.splice(this.data.indexOf(item), 1); 
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ERROR NESSES 2 METHODS...
+
+
+
+
+
+
+
+
+
+    addItem(string | number | boolean) {
+
+
+
+
+
+
+
+--> ISSO PQ 
+
+
+
+
+SE AQUELE ARRAY ALI FOR SETTADO 
+
+como 
+
+'boolean array',
+
+
+NAÕ VAMOS PODER SETTAR NEM FAZER 'push'
+
+DE 
+
+1
+ 
+
+ NUMBER OU STRING,
+
+
+ por exemplo... (
+
+
+     e é por isso que apita um erro, aqui...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK...  ENTÃO O PROBLEMA, AQUI, COM UNION TYPES,
+
+ É QUE 
+
+ VAMOS __ ACEITAR__ QUALQUER UM DESSES VALORES/TYPES
+
+
+
+ __ TODA__ VEZ QUE UM METHOD FOR CHAMADo... 
+
+
+
+
+
+
+
+
+ (
+
+
+     ISSO SIGNIFICA QUE 
+
+     NÃO ESTAMOS DIZENDO, COMO COM OS 'generic types',
+
+
+
+     algo como 
+
+     'HEY, SE VOCÊ DECIDIU POR ESTE TYPE,
+
+     VOCÊ TEM QUE 
+
+
+     CONTINUAR COM ELE, SEM MUDAR DO NADA''...
+ )
+
+
+
+
+
+
+
+
+
+
+
+ -> EM VEZ DISSO,
+
+
+ ESTAMOS DIZENDO 
+
+
+ ''SEMPRE QUE VOCÊ CHAMAR ESSE METHOD DE 'addItem',
+
+ VOCê ESTÁ LIVRE PARA 
+
+
+
+
+ __ USAR QUALQUER UM DESSES TYPES NO CALL DO PARÂMETRO''' --> E É _EXATAMETNE O QUE __ NÃO QUEREMOS,
+
+
+ ISSO AÍ,
+
+ nesse caso específico........
+
+
+
+
+
+
+
+
+
+
+
+ --> E SE ALTERAMOS ISSO 
+
+
+
+ PARA O SETUP ANTERIOR, 
+ DOS GENERIC TYPES,
+
+
+
+ ASSIM:
+
+
+
+
+
+
+
+
+class DataStorage<T extends string | number | boolean> {
+        private data: T[] = [];
+
+
+
+
+
+
+          addItem(item: T) { ///''você não disse o type de 'item'''.... --> ''mas não vou querer saber esse type, pq essa é uma GENERIC CLASS'' --> armazena UMA COISA DE TYPE __ GENERIC_ (ou seja, qualquer coisa, desde que seja UNIFORME O STORAGE.... tudo string, ou tudo arrays, ou tudo numbers, etc)....
+        this.data.push(item);
+    }
+
+
+    
+    removeItem(item: T) {
+
+
+        this.data.splice(this.data.indexOf(item), 1); //// -1 //// --> se chamamos essa lógica com um OBJECT sendo passado como 'item', ACABAMOS REMOVENDO O ÚLTIMO ELEMENTO NESSE ARRAY, SEMPRE___ (pq o 'indexOf' vai retornar '-1') --> -1 significa que NENHUM ELEMENTO IGUAL A ESSE OBJECT FOI ENCONTRADO.... -> e o comportamento PADRÃO de '-1' É fazer 'START FROM THE END OF THE ARRAY', no javascritp...
+    }
+
+
+
+    getItems() {
+        return [...this.data];
+    }
+
+
+
+
+
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AQUI, COM ESSE SETUP,
+
+
+ESTAMOS 
+
+DIZENDO:
+
+
+
+
+
+
+
+
+
+'''VOCÊ DEVE ESCOLHER, 1 ÚNICA VEZ,
+
+QUAL TIPO DE DATA VOCÊ _ VAI ARMAZENAR,
+
+E 
+AÍ 
+
+VOCÊ 
+
+SÓ É CAPAZ/TEM PERMISSÃO PARA ADICIONAR/ALTERAR/REMOVER ESSE TIPO EXATO DE DATA'''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... isso significa que 
+
+
+OS 
+
+GENERIC TYPES _ NOS DÃO 
+
+MAIS TYPE-SAFETY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> UNION TYPES 
+
+são ótimos se você quer ter uma function 
+
+
+
+
+
+
+
+
+
+QUE VOCÊ PODE CHAMAR COM 
+QUALQUER 1 DESSES TYPES 
+
+
+
+
+SEMPRE QUE VOCÊ A CHAMA...
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ GENERIC TYPES SÃO __ ÓTIMOS __ QUANDO VOCÊ QUER 
+
+
+'LOCK-IN UM CERTO TYPE',
+
+
+
+TIPO 
+
+USAR 
+
+
+
+1 MESMO 'TYPE'
+
+AO LONGO __ DE TODA UMA MESMA 
+
+'CLASS INSTANCE'...
+
+
+
+
+
+
+
+
+
+--> USAR O MESMO TYPE 
+
+AO LONGO DE UMA 
+
+FUNCTION...  ---------> É AÍ __ QUE VOCÊ _ VAI QUERER __ UM GENERIC TYPE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ VAI QUERER 'UNION TYPES'
+
+quando você quer ser flexível,
+
+QUANDO VOCÊ TEM 
+
+
+
+IF CHECKS __ PARA CADA _ 
+
+
+
+
+TIPO DE DATA PASSADA,
+
+
+
+
+
+
+if checks EM CADA METHOD,
+
+para 
+
+
+
+cada FUNCTION CHAMADA..
+
+
+
+
+
+
+
+
+
+
+
+GENERIC TYPES --> FAZEM 'LOCK-IN' de um type...
+
+
+
+
+
+
+
+
+
+
+
+
+UNION TYPES --> 'ABREM' os types possíveis (Que devem ser então regulados por meio de IF CHECKS)....

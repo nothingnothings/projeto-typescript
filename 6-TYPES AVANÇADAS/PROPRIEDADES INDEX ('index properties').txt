@@ -1,0 +1,1770 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK... DEPOIS DE TODAS AQUELAS FEATURES DE 'type casting',
+
+
+'intersection types',
+
+
+'discriminatedUnions' 
+
+
+
+e 
+
+
+'type guards',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__DEVEMOS__ VOLTAR_ A FEATURES__ QUE NOS AJUDAM A ESCREVER CÓDIGO FLEXÍVEL.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> este conteúdo ainda tem relaçaõ com TYPES (typescript, duh),
+
+
+
+MAS __ É UM TÓPICO 
+
+
+QUE NÃO FOCA _ TANTO NOS TYPES EM SI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA ISSO,
+
+
+PROFESSOR QUER COMEÇAR COM 
+
+
+
+
+
+os 
+
+
+
+
+
+
+'INDEX TYPES' ------------> É UMA __ FEATURE__ QUE __
+
+
+
+
+
+
+
+
+__ NOS DEIXA__ CRIAR OBJECTS __  QUE SÃO ___ MAIS FLEXÍVEIS__ A RESPEITO DAS __ PROPRIEDADES__ 
+
+QUE 
+
+
+ELES 
+
+
+
+PODERÃO TER...
+
+
+
+
+
+
+
+
+(
+
+
+
+    ou seja, 'conjuntos de propriedades', penso eu....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS O QUE O PROFESSOR QUER DIZER POR ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, DIGAMOS QUE __ VOCÊ ESTÁ ESCREVENDO UM APP EM QUE __ VOCÊ _ ESTÁ __ VALIDANDO O USER INPUT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> TEMOS MÚLTIPLOS INPUT FIELDS,
+
+
+E dependendo do que o user inputta,
+
+
+
+
+
+VAMOS QUERER 
+
+'STORE' E 'SHOW'
+
+DIFERENTES 
+
+MENSAGENS DE ERRO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO, SE FOR UM FIELD DE 'email',
+
+VAMOS QUERER 
+
+CHECAR 
+SE 
+
+O NEGÓCIO É REALMENTE UM EMAIL,
+
+ 
+
+ e se não for,
+
+
+ VAMOS QUERER 
+
+
+
+
+ ,MOSTRAR UMA MENSAGEM DE ERRO PRÓPRIA,
+
+
+
+
+   
+PROVAVELMENTE EM UM 'ERROR CONTAINER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR AÍ QUE VAMOS COMEÇAR...
+
+
+
+
+
+
+
+
+
+
+-_> PROFESSOR CRIA UMA NOVA INTERFACE,
+
+em 1 novo arquivo....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer {
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+--> ESSA INTERFACE VAI SER UM OBJECT (por isso uma interface), 
+
+
+ 
+
+ MAS _ ESSA INTERFACE/OBJECT __ dEVERÁ_ SER FLEXÍVEL QUANTO ÀS PROPRIEDDAES QUE 
+
+
+
+
+
+ ELA SEGURARÁ...
+
+
+
+
+
+
+
+
+
+
+
+ ---------> NO FINAL DAS CONTAS,
+
+
+
+ NOSSO OBJETIVO É 
+
+
+
+ CRIAR OBJECTS EM QUE 
+
+
+
+ TEREMOS 
+
+ UM 
+
+ 'error identifier',
+
+
+
+
+ QUE GERALMETNE __ SERÁ O FIELD 'id'  
+
+
+
+
+ DO INPUT FIELD A QUE O 
+
+
+
+ ERROR PERTENCE...
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+     <input type="email" id="email" value="Your email">
+
+
+
+
+
+
+
+
+
+
+
+-------> ok...
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ PARA ISSO, VAMOS QUERER __ tER UMA PROPRIEDADE 
+
+
+
+
+ __ PARA __ CADA 'TIPO DE ERRO'.... (para cada input field, em outras palavras)...
+
+
+
+
+
+
+
+
+
+
+ tipo assim:
+
+
+
+
+
+ 
+
+
+
+
+
+interface ErrorContainer {
+
+
+
+       // email: 'Not a valid email';
+        ///username: 'Not a valid username';
+    
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... --> COISAS COMO ESSAS DEVEM SER ARMAZENADAS NESSA 
+
+
+INTERFACE/OBJECT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROBLEMA COM ISSO, NO CSAO,
+
+
+
+
+É QUE 
+
+
+
+'WE WONT KNOW IN ADVANCE WHAT __ PROPERTY NAMES __ WE 
+
+ARE GONNA 
+
+
+HAVE IN THERE'....
+
+
+
+
+
+
+
+
+
+
+
+-----> sim, você poderia dizer '''ah, nós teremos esses fields de email e username'''...
+
+
+
+
+
+
+
+
+
+
+
+-> ENTRETANTO, QUEREMOS QUE ESSA INTERFACE/CONTAINER_ SEJA __ FLEXÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+-_> ISSO QUER DIZER QUE VAMOS QUERER __ SER CAPAZES _ DE USAR __ 
+
+
+ESSA 'interface'
+
+EM __ QUALQUER __ FORM QUE TIVERMOS NA NOSSA WEBPAGE...
+
+
+
+
+
+
+----> e é claro que PROVAVELMENTE TEREMOS __DIFERENTES__ FORMS,
+
+COM DIFERENTES INPUTS,
+
+COM DIFERENTES IDENTIFIERS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+
+
+
+NÃO VAMOS QUERER NOS RESTRINGIR A APENAS ESCREVER 'email' e 'username' fields..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> além disso,
+
+
+
+
+
+MESMO QUE SEMPRE TIVÉSSEMOS SÓ OS FIELDS DE 'username' e 'email',
+
+
+
+
+
+___ SÓ TIVÉSSEMOS ESSES INPUT FIELDS E SÓ QUISÉSSEMOS ARMAZENAR ERRORS PARA ELES,
+
+
+
+
+
+
+
+
+
+
+O _ QUE __ DIABOS FARÍAMOS SE 
+
+
+
+
+
+
+
+APENAS O EMAIL FOSSE INVÁLIDO,
+
+
+
+e o 'username' fosse válido, em uma hipótese?
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, É CLARO,
+
+
+
+
+NESSE OBJECT PODERÍAMOS ARMAZENAR 'null' PARA O 
+
+
+
+
+USERNAME.... --> MAS O PROFESSOR QUER ALGO __ MAIS ELEGANTE_,
+
+
+
+ELE QUER _ QUE 
+
+
+
+ESSA PROPRIEDADE __ SEJA SÓ __ 'OMITIDA'
+
+
+QUANDO ISSO OCORRER... --> TUDO PARA QUE TENHAMOS UM 
+
+
+
+
+
+OBJECT QUE _ SÓ ___ SEGURA__ PROPERTIEs __ PARA __iNPUTS__ QUE REALMENTE TENHAM UM 'ERROR'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ELE QUER ISSO JUSTAMENTE PARA QUE POSSAMOS 'LOOP THROUGH THIS OBJECT',
+
+
+
+COM A AJUDA DE UM 'FOR IN LOOP',
+
+
+
+PARA__ FAZER READ__ DE QUAISQUER PROPERTIES 
+
+
+
+
+
+QUE TEREMOS (sendo excluídas as propriedades OMITIDAS, que não estarão armazenando um error)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RESUMINDO:
+
+
+
+
+
+
+
+PRECISO DE _ UM OBJECT__ QUE SEJA __ BEM CLARO__ QUANTO AO 'VALUE TYPE' (
+
+
+    pq _SABEMOS__ QUE O TYPE DE TODAS ESSAS PROPERTIES SERÁ __ DE STRING__...
+),
+
+
+
+
+MAS QUE AO MESMO TEMPO _ NÃO É ESPECÍFICO/claro quanto 
+
+
+AO 
+
+
+
+_NÚMERO EXATO_ DE 
+
+
+
+
+
+
+
+
+PROPERTIES QUE VAMOS TER,
+
+
+
+NEM O EXATO NOME QUE CADA PROPERTY TERÁ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> PARA CENÁRIOS COMO ESSE,
+
+
+PODEMOS USAR 'INDEX TYPES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA USAR INDEX TYPES,
+
+
+
+
+
+
+
+___ DEFINIMOS ELES COM 
+
+
+o uso de 
+
+'[]' 
+
+NA INTERFACE...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+interface ErrorContainer {
+
+
+
+       // email: 'Not a valid email';
+        ///username: 'Not a valid username';
+    
+
+    []
+}
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+AÍ, ISSO FEITO,
+
+
+
+
+VAMOS ESCREVER 'QUALQUER NAME DE NOSSA ESCOLHA'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor escolhe o nome de 'prop'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DE ESCREVER 'prop',
+
+
+
+
+
+
+VAMOS FAZER + OU - UM 'key-type' pair..
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+interface ErrorContainer {
+
+
+
+       // email: 'Not a valid email';
+        ///username: 'Not a valid username';
+    
+
+[prop: xxxx]
+}
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+NESSE 'xxx',
+
+VAMOS INCLUIR 
+
+
+
+
+'O VALUE TYPE DESSA PROPRIEDADE'... ------>
+
+
+
+
+
+
+
+
+E EM UM OBJETO,
+
+podemos ter 
+
+'strings',
+
+
+'numbers' 
+
+
+E 
+
+
+'symbols' 
+
+
+
+
+
+
+__ COMO PROPRIEDADES....
+
+
+
+
+
+
+(
+
+
+VOCÊ NÃO PODE USAR BOOLEAN, NO CASO....
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+----> COMO O PROFESSOR VAI QUERER STRINGS Como nomes de propriedaeds,
+
+
+
+
+ELE ESCREVE ASSIm:
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer {
+
+[prop: string] ///agora todas as propriedades nesse object vão ter names que serão STRINGS....
+}
+
+
+
+
+
+
+
+
+
+
+
+-_> 'username' e 'email', por exemplo, são strings válidas....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK..... ------> CERTO.... --> 
+
+
+
+
+
+
+
+
+
+MAS NÃO VAMOS ACABAR POR AÍ.... --> depois de escrever 
+
+
+'[prop:string]',
+
+
+PRECISAMOS _ FALAR DO 'TYPE' DO __ VALUE_ QUE ESSE NEGÓCIO VAI ARMAZENAR....
+
+
+
+
+
+
+
+
+
+
+--> para isso, escrevemos ':' + O TYPE DO VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO QUEREMOS 'string' nesse valor, escrevemos assim:
+
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer {
+
+[prop: string]: string ///agora todas as propriedades nesse object vão ter names que serão STRINGS, COM VALORES DE 'STRING' também...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer { //queremos que essa interface/object formado a partir dessa interface _ TENHA VÁRIAS PROPERTIES, properties que se omitem/escondem dependendo do case... (pq vamos querer ter 1 propriedade para CADA INPUT FIELD no nosso html, para que consigamos fazer error handling em todos eles ao mesmo tempo)....
+
+
+    [prop: string]: string ///agora todas as propriedades nesse object vão ter names que serão STRINGS ('[prop: string]' ), COM VALORES DE 'STRING' também... ':string' ....
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COM ISSO [prop:string],
+
+
+
+
+ESTAMOS 
+
+DIZENDO:
+
+'
+
+
+
+
+''não sei qual será essa exata property, nem seu nome,
+
+
+
+nem sei 
+ O NÚMERO DE PROPERTIES QUE TEREI NESSE OBJECT,
+
+
+
+
+ MAS SEI __ QUE CADA PROPERTY QUE SERÁ ADICIONADA A ESSE OBJECT 
+
+
+DEVERÁ TER UM PROPERTY NAME QUE É UMA STRING, E O VALOR DESSA PROPERTY TAMBÉM DEVE SER DE 'string'....'''
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS É CLARO QUE __ AINDA__ PODEMOS ADICIONAR 'pre-defined properties'
+
+
+
+NESSA INTERFACE,
+
+
+
+ENTRETANTO 
+
+
+
+__ ESSAS PROPERTIES PRÉ DEFINIDAS__ __ PRECISAM__ SER DO MESMO TYPE desse 
+
+'[prop: string]: string',
+
+
+
+
+
+
+
+
+
+
+
+
+
+(OU SEJA, DEVERÃO SER DE 'type' STRING)...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer { //queremos que essa interface/object formado a partir dessa interface _ TENHA VÁRIAS PROPERTIES, properties que se omitem/escondem dependendo do case... (pq vamos querer ter 1 propriedade para CADA INPUT FIELD no nosso html, para que consigamos fazer error handling em todos eles ao mesmo tempo)....
+
+    ///esta é uma index property....
+    [prop: string]: string ///agora todas as propriedades nesse object vão ter names que serão STRINGS ('[prop: string]' ), COM VALORES DE 'STRING' também... ':string' ....
+
+
+
+    id: string; ///ainda PODEMOS ADICIONAR 'PRE-DEFINED' PROPERTIES no nosso código, além daquela 'INDEX PROPERTY' vista ali em cima... ---> ENTRETANTO ,O __ TYPE_ DE NOSSAS PROPERTIES PRÉ-DEFINIDAS DEVE SER IGUAL AO TYPE DAQUELE 'index Property'...
+
+
+
+    /// exemplo2: number;//// não é permitido (Property 'exemplo2' of type 'number' is not assignable to 'string' index type 'string'.ts(2411)) ---> ver explicação logo acima...
+
+
+    exemplo: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... PODEMOS ADICIONAR QUAISQUER OUTRAS PROPRIEDADES 
+
+
+QUE 
+
+QUISERMOS,
+
+AQUI,
+
+
+mas 
+
+
+TODAS DEVERÃO SER DE TYPE STRING... (é uma restrição À criação de um object desses)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... MAS QUAL É A CONSEQUÊNCIA DA CRIAÇÃO DE 
+
+
+
+
+
+UMA INTERFACE DESSAS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> BEM, O PROFESSOR PODE CRIAR UMA CONSTANTE DE nome 'errorBag',
+
+QUE TERÁ COMO 'TYPE'
+
+essa interface aí, de ErrorContainer'....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface ErrorContainer { //queremos que essa interface/object formado a partir dessa interface _ TENHA VÁRIAS PROPERTIES, properties que se omitem/escondem dependendo do case... (pq vamos querer ter 1 propriedade para CADA INPUT FIELD no nosso html, para que consigamos fazer error handling em todos eles ao mesmo tempo)....
+
+    ///esta é uma index property....
+    [prop: string]: string ///agora todas as propriedades nesse object vão ter names que serão STRINGS ('[prop: string]' ), COM VALORES DE 'STRING' também... ':string' ....
+
+
+
+    id: string; ///ainda PODEMOS ADICIONAR 'PRE-DEFINED' PROPERTIES no nosso código, além daquela 'INDEX PROPERTY' vista ali em cima... ---> ENTRETANTO ,O __ TYPE_ DE NOSSAS PROPERTIES PRÉ-DEFINIDAS DEVE SER IGUAL AO TYPE DAQUELE 'index Property'...
+
+
+
+    /// exemplo2: number;//// não é permitido (Property 'exemplo2' of type 'number' is not assignable to 'string' index type 'string'.ts(2411)) ---> ver explicação logo acima...
+
+
+    exemplo: string;
+}
+
+
+
+
+
+const errorBag: ErrorContainer = {}; ///EIS O CÓDIGO EM QUESTÃO.
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+EX:
+
+
+
+
+
+interface ErrorContainer { 
+    [prop: string]: string;
+
+
+
+    id: string; 
+
+
+
+    exemplo: string;
+}
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+QUANDO VAMOS ESCREVER NOSSO OBJECT, FAZMEOS ASSIM:
+
+
+
+
+
+interface ErrorContainer { 
+    [prop: string]: string;
+
+
+
+    id: string; 
+
+
+
+    exemplo: string;
+}
+
+
+
+
+
+
+
+const errorBag: ErrorContainer = {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> SE DEIXAMOS __ NOSSO OBJECT __ vAZIO, ELE _ JÁ SERÁ CONSIDERADO 'VALID' .... --> pq 
+
+
+
+
+o número de propriedades 
+
+
+
+
+dentro de 'errorBag'
+
+
+
+PODERÁ SER 
+
+
+QULQUER UM,
+
+
+
+
+
+
+A ÚNICA NECESSIDADE É QUE CADA PRORPIEDADE TENHA UM NOME no formato 'string',
+
+
+e 
+
+que 
+
+
+
+
+TENHA 
+
+
+UM VALOR DE STRING, TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... MAS SE TIVERMOS ALGUMAS PROPRIEDADES 'PRÉ-DEFINIDAS',
+
+
+somos 
+
+obrigados 
+
+
+
+
+a colocar propriedades
+
+que satisfaçam sua existência...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer { 
+    [prop: string]: string;
+
+
+
+    id: string; 
+
+
+
+    exemplo: string;
+}
+
+
+
+
+
+
+
+
+
+
+const errorBag: ErrorContainer = {
+        id: 'asasjasoasjaso',
+        exemplo: 'UMA STRING'
+}
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO SERÁ 'OK'.... ------> 
+
+
+
+
+
+
+E AGORA, ALÉM DISSO,
+
+PODEMOS SETTAR __ INFINITAs_ PROPRIEDADES 
+
+DENTRO DESSA CLASS,
+
+
+
+que isso _NÃO VAI __ DAR ERRORS 
+
+
+
+
+
+com nossa interface...
+
+
+
+
+
+
+
+
+
+
+-_> OBS:::: SE USARMOS UM 'number' NO PROPERTY NAME, NÃO RECEBEREMOS UM ERRO (pq numbers podem ser interpretados, pelo javascript, COMO STRINGS, também)...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const errorBag: ErrorContainer = {
+        id: 'asasjasoasjaso',
+        exemplo: 'UMA STRING',
+        1: 'OUTRA STRING', ///-_> OBS:::: SE USARMOS UM 'number' NO PROPERTY NAME, NÃO RECEBEREMOS UM ERRO (pq numbers podem ser interpretados, pelo javascript, COMO STRINGS, também)...
+        // 2: 125; //a única coisa REALMENTE PROIBIDA É COLOCAR, NESSE EXEMPLO, propriedades com VALORES QUE SEJAM DE 'number' (pq definimos na nossa interface que as propreidades deverão ser de 'string, conforme visto em ':string' ...).
+
+        email: 'Your email was invalid',
+        username: 'Passed username was invalid',
+        password: 'Inputted password was invalid',
+        zipCode: 'Invalid Zipcode' ////podemos colocar QUALQUER PROPRIEDADE AQUI DENTRO, tudo por causa daquela linha de  ''     [prop: string]: string;''  
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> MAS SE ALTERARMOS O NOSSO TYPE DE 'prop'
+
+
+para ser NUMBER,
+
+
+
+
+
+
+AÍ __ SOMOS OBRIGADOS A ESCREVER 
+
+
+
+com numbers, tipo assim:
+
+
+
+
+
+
+
+const errorBag: ErrorContainer = {
+        0: 'asasjasoasjaso',
+        exemplo: 'UMA STRING',
+        1: 'OUTRA STRING', 
+        2: 'OUTRA OUTRA STRING';
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSE É UM 'ERRORBAG' QUE PODERÍAMOS CONSTRUIR, COM 
+
+
+
+esse 'Error Container' class,
+
+
+
+
+QUE NOS DÁ FLEXIBILIDADE EXTRA 'ANTECIPADAMENTE',
+
+pq 
+
+
+
+
+
+
+nos deixa aberta a QUANTIDADE DE PROPERTY NAMES,
+
+
+
+E OS PROPERTY NAMES EM SI(pq não sabemos, in advance, quais property names vamos querer)....

@@ -1,0 +1,108 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-_> SAINDO DO BÁSICO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEREMOS UNS CONCEITOS AVANÇADOS DE TYPING OFERECIDOS PELO TYPESCRIPT,
+
+
+
+QUE PODEM SER 
+
+
+CONVENIENTES/ ÚTEIS EM CERTOS PROJETOS SEUS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->VEREMOS VÁRIOS CONCEITOS:
+
+
+
+
+
+1) INTERSECTION TYPES  -----> O QUE SÃO, E PQ PODEM SER ÚTEIS....
+
+
+
+
+
+
+
+
+
+
+2) TYPE GUARDS -->  O QUE SÃO, E O QUE PODEMOS FAZER COM ELES...
+
+
+
+
+
+
+
+
+
+
+3) DISCRIMINATED UNIONS (tópico interessante)....
+
+
+
+
+
+
+
+
+
+
+4) TYPE CASTING ---> FEATURE EM QUE __ VOCÊ 'DIZ AO TYPESCRIPT SOBRE O TYPE DE ALGO, para casos em que 
+o typescript NÃO SABE QUAL É O TYPE DE ALGO POR  conta própria'....
+
+
+
+
+
+
+
+
+
+
+
+5) FUNCTION OVERLOADS --> NEAT FEATURE __ que nos deixa 
+
+
+
+ESCREVER FUNCTIONS MAIS FLEXÍVEIS,
+
+
+
+COM SUPORTE TYPESCRIPT MELHORADO...

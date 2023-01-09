@@ -1,0 +1,58 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> PARA ACABAR ESTE APP, ADICIONAMOS UM POUCO DE STYLING....
+
+
+
+
+
+
+
+
+--> 'NewTodo.css' 
+
+
+
+e 
+
+'TodoList.css'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... UM STYLING BEM SIMPLES....
+
+
+
+
+
+--> nosso app dummy está acabado....
+
+
+
+
+
+
+
+
+
+--> certo... mais algum passo?

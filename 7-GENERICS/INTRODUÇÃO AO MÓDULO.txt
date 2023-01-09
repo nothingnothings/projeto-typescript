@@ -1,0 +1,177 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> GENERICS___ 
+
+
+
+
+
+
+
+
+
+
+ --> CÓDIGO FLEXÍVEL__ E REUTILIZÁVEL....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------> NESSE MÓDULO, VEREMOS 
+
+ UM CONCEITO CHAMADO DE GENERICS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> OS GENERICS EXISTEM SÓ NO TYPESCRIPT... ---> 
+
+
+
+
+
+
+
+
+
+ O CONCEITO DE 'GENERIC TYPES' 
+
+
+
+
+
+
+ EXISTE EM 
+
+
+
+ ALGUMAS OUTRAS LINGUAGENS DE PROGRAMAÇÃO..
+
+
+
+
+
+
+
+
+
+
+
+ --> EXISTEM EM 'C#' (c sharp)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS ESSE CURSO NÃO É SOBRE C SHARP,
+
+
+ POR ISSO DEVEMOS 
+
+ VER O QUE 
+
+ SÃO GENERICS,
+  
+
+
+
+
+
+
+
+  __ O QUE SÃO NO TYPESCRIPT,
+
+
+
+  E COMO O UTILIZAMOS LÁ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1) o que são generics 
+
+
+
+
+  2) CONSTRUÍREMOS NOSSAS PRÓPRIAS 'GENERIC FUNCTIONS' e 'GENERIC CLASSES'....
+
+
+
+
+
+
+
+
+
+
+  3) VEREMOS _ 'GENERIC CONSTRAINTS',
+
+
+  O QUE SÃO E PQ É BOM AS UTILIZAR....
+
+
+
+
+
+
+
+
+
+  4) VEREMOS ALGUNS 'SPECIAL TYPESCRIPT TYPES',
+
+  TYPES QUE __ TAMBÉM SÃO GENERIC, E QUE SÓ PODEREMOS ENTENDER AGORA...

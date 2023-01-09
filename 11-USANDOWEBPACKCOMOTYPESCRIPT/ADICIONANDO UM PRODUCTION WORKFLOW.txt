@@ -1,0 +1,559 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÓS PREPARAMOS NOSSO DEV WORKFLOW NA ÚLTIMA AULA,
+
+
+
+
+com aquele código de :
+
+
+
+
+
+
+
+
+
+
+
+
+ const path = require("path");
+
+module.exports = {
+  entry: "./src/app.ts",
+  mode: 'development',
+  output: {
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist"),
+    publicPath: 'dist', ///necessário para fazer o 'WEBPACK-DEV-SERVER 'funcionar corretamente, com auto-reload....
+    
+
+},
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'inline-source-map',
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AGORA, PARA O MODO DE PRODUCTION,
+
+
+
+TIPICAMENTE VAMOS QUERER UM WORKFLOW DIFERENTE...
+
+
+
+
+
+
+
+ARQUIVO 
+
+
+'webpack.config.prod.js' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA FAZER O WEBPACK USAR ESSE ARQUIVO DE CONFIG ESPECÍFICO,
+
+vocÊ deve coloca rno script 
+
+isto:
+
+
+
+
+
+
+webpack webpack.config.prod.js' .....
+
+
+
+
+
+
+
+
+--> TROCAMOS O MODE para 'production',
+
+
+
+
+
+
+
+
+
+
+
+DEPOSIS 
+
+
+deixamos 'entry'..
+
+
+
+
+
+
+
+
+
+
+
+--> EM' OUTPUT',
+
+
+REMOVEMOS O 'public',
+
+PQ EM PRODUCTION 
+
+
+
+
+VAMOS QUERER RODAR O SCRIPT 
+
+
+
+DO WEBPACK E AÍ 
+
+N 
+
+
+
+'SERVE TEMPORARILY ON A LOCAL SERVER'...
+
+
+
+
+
+
+
+
+
+--> em 'devtool' 
+
+deixamos 'NONE',
+
+pq não qeuremos nenhum SOURCEMAP (
+
+    em production não vamos precisar deles....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ALÉM DISSO,
+
+O PROFESSOR ADICIONA UMA ENTRY DE 'PLUGINS',
+
+
+
+
+
+
+
+e aí define como um ARRAY..
+
+
+
+
+
+
+
+
+--> PLUGINS SÃO 'EXTRA EXTENSIONS',
+
+que você pode 
+adicionar ao seu workflow webpack...
+
+
+
+
+
+
+(
+
+    eles basicamente são aplicados ao projeto inteiro, output inteiro...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''MODULE e rules'''  SÃO APLICADOS EM 1 'FILE PER FILE' BASIS...
+
+
+
+
+
+
+
+
+
+'PLUGINS' são aplicados AO GENERAL WORKFLOW....
+
+
+
+
+
+
+
+
+
+
+
+--> aqui o professor vai querer adicionar um plugin que AUTOMATICAMENTE DELETA TUDO 
+
+NO FOLDER DE 'dist' _aNTES__ DE 
+
+
+
+ESCREVER NOVO OUTPUT NELE (isso fará com que sempre tenhamos o mais recente output nesse folder)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+PROFESSOR ADICIONA UM NOVO PACKAGE,
+
+
+
+'clean-webpack-plugin'
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI NOS AJUDAR A LIMPAR O FOLDER DE 'dist'
+
+SEMPRE QUE _ RECONSTRUÍRMOS NOSSO PROJECT...
+
+
+
+
+
+
+
+
+
+--> PARA APLICAR ESSE PLUGIN NO PRODUCTION WORKFLOW DO WEBPACK,
+
+
+
+
+professor tem que importá-lo..
+
+
+
+
+
+
+
+
+fica tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const path = require("path");
+
+const CleanPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  entry: "./src/app.ts",
+  mode: 'production',
+  output: {
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist"),
+
+
+},
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'none',  //desnecessários na production
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+};
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+AÍ ADICIONAMOS A KEY:
+
+
+
+
+
+
+
+const path = require("path");
+
+const CleanPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  entry: "./src/app.ts",
+  mode: 'production',
+  output: {
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist"),
+
+
+},
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'none',  //desnecessários na production
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+  plugins: [
+      new CleanPlugin.CleanWebpackPlugin()
+  ]
+};
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI DIZER AO WEBPACK QUE -__ ANTES- dE EELE__ ESCREVER ALGO AO 
+
+FOLDER DE 'dist',
+
+ELE DEVE _ lIMPAR- TUDO QUE ESTÁ LÁ DENTRO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS COM O SETUP QUASE CONCLUÍDO...
+
+
+
+
+
+
+
+
+
+
+-> o script desse negócio será de 
+
+
+'webpack --config webpack.config.prod.js'...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+{
+  "name": "novoprojetoexemplo2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server",
+    "start2": "webpack-dev-server",
+    "run:build": "webpack",
+    "run:production": "webpack --config webpack.config.prod.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/webpack": "^5.28.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "lite-server": "^2.6.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.3"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK, AGORA NOSSO ARQUIVO SERÁ 'BUILT FOR PRODUCTION'...
+
+
+
+
+
+
+
+
+
+
+--> TEREMOS O CÓDIGO REALMENTE OPTIMIZADO PARA PRODUCTION,
+
+
+
+e é o que realmente colocamos em um server, se queremos deployar nosso app....

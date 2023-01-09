@@ -1,0 +1,277 @@
+ 
+
+
+
+
+
+
+
+
+ --> OK... MAS E SE VOCê TIVER UMA LIBRARY QUE NAÕ TEM 'TYPES' 
+
+
+
+
+
+
+
+
+
+ --> LIBRARIES DE MERDA...
+
+
+
+
+
+
+
+
+
+ --> COM O LODASH, TÍNHAMOS UMA TYPE PACAKGE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS E SE VOCE TIVER UM CÓDIGO JAVASCRIPT, NO SEU ARQUIVO INDEX.HTML,
+
+
+
+ em que vocÊ define uma VARIÁVEL GLOBAl,
+
+
+TIPO assim:
+
+
+
+
+
+
+<script>
+    var GLOBAL = "THIS IS SET";
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+agora se vocÊ quiser utilizar isso DE DENTRO 
+
+
+
+DO SEU CÓDIGO TYPESCRIPT, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'console.log(GLOBAL);'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE TENTARMOS FAZER ISSO,
+
+
+RECEBEMOS UM __ ERROR__ no ide....
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT NÃO GOSTA DESSA COISA 
+
+
+DE 'GLOBAL'...
+
+
+
+
+
+
+
+
+
+
+------> mas como consertar esse error, então
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS OUTRA SINTAXE, ENTÃO, DISPONÍVEL NO TYPESCRIPT....
+
+
+
+
+
+
+
+
+-> É O COMANDO 'DECLARE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCE PODE DECLARAR CERTAS VARIABLES AO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+'declare var GLOBAL: string' ----------> 
+
+
+
+
+COM ISSO, VOCê ESTÁ DECLARANDO AO TYPESCRIPT QUE ESSA VARIÁVEL SERÁ UMA STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+também 
+
+
+
+declare var GLOBAL: any 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO DIZ AO TYPESCRIPT '''n se preocupe, essa variável existirá''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE SALVAMOS ISSO TUDO, 
+
+
+NÃO RECEBEMOS ERRORS, 
+
+E AÍ 
+
+
+
+
+CONSEGUIMOS VER ESSE OUTPUT 
+
+
+
+NO CHROME....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE COMANDO É IMPORTANTE,
+
+
+PQ TE DEIXA 
+
+DECLARAR CERTAS FEATURES 
+
+QUE 
+
+VOCê SABE QUE EXISTEM, MAS QUE O TYPESCRIPT NÃO SABE...

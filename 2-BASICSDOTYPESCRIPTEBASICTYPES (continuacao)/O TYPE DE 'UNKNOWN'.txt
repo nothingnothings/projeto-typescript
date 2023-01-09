@@ -1,0 +1,767 @@
+
+
+
+QUASE ACABAMOS O BÁSICO DO TYPESCRIPT, E SOBRE OS CORE TYPES..
+
+
+
+
+
+
+
+
+
+--> HÁ MAIS 2 TYPES IMPORTANTES, QUE IMPORTAM 
+
+DE TEMPOS EM TEMPOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CRÍAMOS uma nova variable,
+
+de type 'unknown'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+let userInput: unknown;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE É 'UNKNOWN' PROVAVELMENTE PQ 
+
+
+NÃO SABEMOS AINDA O QUE O USER INPUTTARÁ,
+
+SE SERÁ UMA STRING, UM NUMBER... NÃO SABEMOS...
+
+
+
+
+
+
+
+
+
+
+
+-----> 
+
+O PONTO INTERESSANTE DO 
+
+
+
+UNKNOWN É QUE 
+
+podemos 
+
+
+
+DEFINIR 
+
+A COISA QUE DEFINIMOS COMO UNKNOWN 
+
+
+_COMO QUALQUER COISA...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+let userInput: unknown;
+
+
+
+userInput: 5;
+
+
+userInput = 'Max';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, A PRINCÍPIO O _ UNKNOWN__ É EXATAMENTE IGUAL A 'any'..
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, O UNKNOWN É __DIFERENTE__.... DE ANY...
+
+
+
+
+
+
+
+
+
+
+
+------> ESSE CÓDIGO, ATÉ AGORA,
+
+FUNCIONA... ---------> 
+
+
+
+
+
+
+
+
+
+
+
+
+MAS SE FUTRICARMOS UM POUCO,
+
+
+
+EVENTUALMENTE VAMOS RECEBER UM ERRO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUTRICAR COMO
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, 
+
+SE NÓS TIVERMOS OUTRA VARIABLE,
+
+COMO 
+
+'userName',
+
+
+E ESSE NEGÓCIO FOR DE TYPE 'string'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+let userInput: unknown;
+let userName: string;
+
+
+
+userInput: 5;
+userInput: 'Max';
+
+
+
+
+
+
+
+
+
+-----------> CERTo... -----> O USERNAME TAMBÉM NÃO ESTARÁ INITIALIZED,
+
+
+
+MAS AÍ VAMOS DEFINIR 
+
+
+
+'userName = userInput'...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+let userInput: unknown;
+let userName: string;
+
+
+
+userInput = 5;
+userInput = 'Max';
+
+
+
+
+userName = userInput; ////ISSO CAUSARÁ UM ERROR ('type unknown is not assignable to type string');
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ISSO SIGNIFICA QUE 
+
+
+
+'userName' QUER __ UMA STRING,
+
+
+
+E  o
+
+'UNKNWON'
+
+
+n SERÁ GARANTIDAMENTE UMA STRING....
+
+
+
+
+
+
+
+
+
+
+
+--> SIM, NÓS SETTAMOS USERNAME como sendo UMA STRING, logo antes 
+
+
+do 'userName = userInput',
+
+
+
+
+MAS ISSO __ SÓ __ É O CASE NESSA LINHA 
+
+
+__ ESPECÍFICA (
+
+    ou seja,
+
+    O 'userInput'
+
+    PODE CONTINUAR__ 'HOLDING ANY POSSIBLE TYPE',
+
+
+    PQ ELE _TECNICAMENTE__ PODERÁ 
+
+
+    SEGURAR QUALQUER TYPE,
+
+    PQ ELE VAI CONTINUAR SENDO 'UNKNOWN'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, O ERRO VAI __ EMBORA___ SE DEFINIRMOS  O TYPE DESSA VARIABLE 
+
+
+ 
+
+
+ COMO SENDO 'any' -------> PQ SE FIZERMOS ISSO,
+
+
+ USAMOS 'any',
+
+ QUE 
+ É 
+
+ O 
+
+
+
+ TYPE MAIS FLEXÍVEL DO TYPESCRIPT, É O TYPE QUE BASICAMENTE FAZ O TS DIZER 
+
+ ''eu desisto, faça o que você quiser com essa variable''...
+
+
+
+
+
+
+
+
+
+
+
+ --> E O UNKNOWN AINDA É MAIS _ RESTRICTIVE_ DO QUE __ 
+
+
+ O 'any'...
+
+
+
+
+
+
+
+
+
+
+
+ --> COM O UNKNOWN, PRIMEIRAMENTE 
+
+
+ PRECISAMOS _______cHECAR___ O TYPE_ QUE 
+
+
+ ESTÁ 
+
+ 'CURRENTLY STORED' na variable,
+
+ ANTES 
+
+
+__ DE ENTÃO PODER ASSIGNAR 
+
+
+
+
+ESSA VARIABLE A ALGO COMO UMA STRING (por exemplo)...
+
+
+
+
+
+
+
+
+--------> NO CASO, SE QUEREMOS QUE UMA STRING SEJA ASSIGNADA A ESSA VARIABLE,
+
+
+podemos 
+
+
+
+
+
+USAR UM IF CHECK,
+
+
+
+
+if check de 
+
+
+'se o type de userINput for DE STRING',
+
+vamos querer 
+
+
+DEFINIR 'userInput'
+
+
+COMO EQUIVALENTE A 'userName':
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+let userInput: unknown;
+let userName: string;
+
+
+
+userInput = 5;
+userInput = 'Max';
+
+
+if (typeof userInput === 'string') {
+    userName = userInput
+}
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... COM UNKNOWN TEMOS QUE CHECAR O TYPE QUE ESTÁ ATUALMENTE 
+
+ARMAZENADO EM UMA VARIABLE,
+
+ANTES DE ENTÃO 
+
+
+ARMAZENAR ALGUM VALOR NESSA VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO SIGNIFICA QUE IF CHECKS COMO 
+
+
+'if (typeof userInput === 'string)' 
+
+
+
+SÃO AUTOMATICAMENTE DETECTADOS PELO TYPESCRIPT...
+
+
+
+
+
+
+-----> NO IF STATEMENT,
+
+
+SE CHECAMOS PELO 'TYPE' DE STRING,
+
+
+ESTAMOS BASICAMENTE DIZENDO QUE ESSE TYPE DA VARIABLE DE 'UNKNOWN'
+
+DEVERÁ 
+
+SER CONVERTIDA
+
+
+
+em 'string'....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+"use strict";
+// let userInput: unknown;
+// let userName: string;
+// userInput = 5;
+// userInput = 'Max';
+// userName = userInput; ////ISSO CAUSARÁ UM ERROR ('type unknown is not assignable to type string');
+let userInput;
+let userName;
+let userPassword;
+userInput = 5;
+userInput = 'Max';
+if (typeof userInput === 'string') { ///isso vai evitar o erro visto logo acima...
+    userName = userInput;
+    console.log('ENTERED1');
+}
+if (typeof userInput === 'number') {
+    userPassword = userInput;
+    console.log('ENTERED2');
+}
+//unknown é mais RESTRICTIVE DO QUE O 'any'...
+// --> SIM, NÓS SETTAMOS USERNAME como sendo UMA STRING, logo antes 
+// do 'userName = userInput',
+// MAS ISSO __ SÓ __ É O CASE NESSA LINHA 
+// __ ESPECÍFICA (
+//     ou seja,
+//     O 'userInput'
+//     PODE CONTINUAR__ 'HOLDING ANY POSSIBLE TYPE',
+//     PQ ELE _TECNICAMENTE__ PODERÁ 
+//     SEGURAR QUALQUER TYPE,
+//     PQ ELE VAI CONTINUAR SENDO 'UNKNOWN'...
+// )
+
+
+
+
+
+
+
+
+
+========> NO CASO, APENAS TEREMOS O CONSOLE.LOG DE 'entered1'...
+
+
+
+
+
+
+
+
+(pq o type estará defined como 'string', e nada mais)...
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE 
+
+
+EU PRECISO 
+
+
+
+
+TER UM CHECK EXTRA DE 'typeof'
+
+
+PARA 
+
+CONSEGUIR 
+
+
+
+
+
+, COM O UNKNOWN,
+
+ASSIGNAR UM 
+
+VALOR DE 'UKNOWN'
+
+
+
+A UM 
+
+
+
+
+VALUE COM UM FIXED TYPE (como 'string')...
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE 
+
+O 
+
+UNKNOWN É MELHOR DO QUE O ANY 
+
+  
+
+  SE VOCE 
+
+
+
+  'NÃO SABE O QUE  VOCE VAI ARMAZENAR LÁ DENTRO,
+
+
+  MAS 
+
+  SEI O QUE VOU QUERER FAZER COM ISSO EVENTUALMENTe' --> se vocÊ tiver esse case,
+
+
+  adicione um if check 
+
+
+
+  DE TYPEOF 
+
+
+
+  __ PARA ASSEGURAR QUE O QUE VOCê QUER FAZER _ PODE __ SER FEITO...
+
+
+
+
+
+
+
+
+
+
+
+  --> UNKNOWN É MELHOR DO QUE 
+
+  ANY PQ 
+
+  __ VOCê 
+
+
+  TEM UM POUQUINHO DE TYPE CHECKING,
+
+  MELHOR DO QUE NADA...
+
+
+
+
+
+
+
+  -> UNKNOWN É MELHOR DO QUE ANY, MAS  VOCÊ N DEVE USAR TODA HORA...

@@ -1,0 +1,979 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NAMESPACES SÃO NICE, SIM,
+
+MAS SÃO LIMITADOS...
+
+
+
+
+
+
+
+
+
+
+--> NAMESPACES NÃO SÃO PERFEITOS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS 1 PROBLEMA NA ÚLTIMA LIÇÃO,
+
+
+
+EM QUE O PROFESSOR MANUALMENTE ADICIONOU AS DEPENDENCIES NECESSÁRIAS 
+
+A CADA 
+
+ARQUIVO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> se removemos algumas dependencies ABSOLUTAMENTE NECESSÁRIAS de alguns 
+
+de nossos arquvios,
+
+
+
+
+
+o typescript é BURRO,
+
+
+e acaba compilando mesmo assim (sem dar nenhum aviso/problema),
+
+
+
+E AÍ SOMENTE DURANTE O RUNTIME PERCEBEMOS QUE 
+
+
+
+
+AQUELE ARQUIVO ESTÁ COM DEPENDENCIES FALTANDO,,, 
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO NÃO É IDEAL... --> SEU CÓDIGO PODE/PODE NÃO FUNCIONAR,
+
+
+
+A DEPENDER 
+
+
+
+SE 
+
+ALGUM OUTRO ARQUIVO IMPORTA 
+
+ESSE 
+
+'DRAG DROP MODULE'
+ 
+ de que precisamos...
+
+
+
+
+
+
+
+
+
+
+
+ --> isso é bem dangerous, ruim... --> 
+
+
+
+
+ nós acabamos dependendo do fato/nocao de 
+
+
+
+ '''AH, ESSE ARQUIVO CENTRAL (como 'app.ts') 
+
+ VAI HANDLAR TODOS NOSSOS IMPORTS PARA NÓS''... --> 
+
+
+
+ SE EM UM MOMENTO POSTERIOR ALTERAMOS/APAGAMOS ESSE ARQUIVO,
+
+
+
+
+
+
+
+
+ NÓS __ VAMOS ALTERAR ALGO TOTALMENTE NÃO RELACIONADO, E CRASHAREMOS NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> É POR ISSO QUE PRECISAMOS DE STATEMENTS CLAROS,
+
+
+
+ IMPORTS/EXPORTS QUE 
+
+ DECLARAM BEM O QUE PRECISAMOS /VAMOS QUERER 
+
+ DE 
+
+ 1 CERTO ARQUIVo....
+
+
+
+
+
+
+
+
+
+ ---> NÓS CONSEGUIMOS ESSE BEHAVIOR COM O 'ES6 MODULES'...
+
+
+
+
+
+
+
+
+
+
+
+ --> BROWSERS MODERNOS 
+
+ SUPORTAM ISSO NATIVAMENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> BROWSER MODERNO BASICAEMNTE BAIXA TODAS AS DEPENDENCIES DE  1
+  
+
+  ARQUIVO QUANDO ELE É EXECUTADO...
+
+
+
+
+
+  --. MAS O TYPESCRIPT TAMBÉM SUPORTA ESSA FEATURE,
+
+
+  E ADICIONA TYPESCRIPT SUPPORT UQANDO O UTILIZAMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+  -->OK, MAS COMO 'ES6 MODULES' FUNCIONAM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  CRIAMOS UM NOVO FOLDER DE 'PROJECT',
+
+
+
+  E AÍ 
+
+
+
+  BRINCAMOS...
+
+
+
+
+
+
+
+
+
+  --> VAMOS COMEÇAR COM O CÓDIGO DE 'drag-drop-interfaces.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> A PRIMEIRA COISA QUE FAZEMOS É __ A REMOÇÃO DAQUELE NAMESPACE DE 
+
+
+
+
+  'namespace App {}'
+
+
+
+
+
+
+
+
+
+
+
+  --> ENTRETNATO, MANTEMOS A KEYWORD DE 'export ...'
+
+
+
+  NAS NOSSAS COISAS,
+
+  NAS 2 INTERFACES...
+
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+
+
+
+  export interface Draggable {
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ESSA KEYWORD EXISTE NO JAVASCRIPT, DE FORMA DEFAULT, E TAMBÉM NO TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+  -> ela significa QUE VOCE EXPORTA ESSA COISA X DESSE ARQUIVO Y,
+
+
+
+  e qeu vocÊ PODE ENTÃO 
+
+  IMPORTAR 
+
+  ESSA 
+
+  ESTRUTURA 
+  LÁ 
+
+  EM UM ARQUIVO Z,
+
+
+  diferente....
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> PARA IMPORTAR ALGUMA COISA NO FORMATO ES6 MODULE,
+
+
+  você escreve assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  import { 
+       
+  } from '../..'....
+
+
+
+
+
+
+
+
+
+
+
+  AÍ VOCÊ PODE TER NAMED EXPORTS,
+
+  OU EXPORTS 
+
+
+  DEFAULT...
+
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+
+
+
+
+  LÁ NO APP.TS:
+
+
+
+
+
+
+
+
+
+
+
+  import { Draggable } from '../models/drag-drop-interfaces.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------------> TIRAMOS TODAS NOSSAS NAMESPACES, E USAMOS ESSE 'export/import'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TERMINEI O SPLIT COM O ES6 MODULES....
+
+
+
+
+CÓDIGO FICOU assim;
+
+
+
+
+    
+import { ProjectInput } from "./components/project-input";
+
+import { ProjectList } from "./components/project-list";
+
+
+
+
+const projectInput = new ProjectInput(); /// É ISTO QUE vai fazer toda a diferneça (pq nós temos 'this.attach() ).
+
+const activeProjectList = new ProjectList('active'); ////render de nossas 2 project lists.
+const finishedProjectList = new ProjectList('finished');
+
+
+
+
+
+
+
+
+
+BEM MAIS PRÁTICO DO QUE NAMESPACES....
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS O PROFESSOR FALA QUE DEVEMOS SEMPRE COLOCAr 
+
+
+'.js'
+
+ao final dos imports,
+
+
+e não 
+
+'deixar solto' (
+
+    eu não fiz isso...
+)
+
+
+
+
+
+
+
+
+
+
+--> E, DE FATO, ISSO RESULTOU EM ERRORS... --> pq 
+agora 
+
+
+nossos files js 
+
+ESTÃO TENTANDO 
+
+
+FAZER IMPORT DE COISAS COMO '.ts',
+
+quando nossos arquivos TEM QUE SER '.js'...
+
+
+
+
+
+
+
+
+
+->OK, ALTEREI TUDO, MAS AINDA ESTOU RECEBENDO UM ERROR:
+
+
+
+Uncaught ReferenceError: define is not defined
+    at bundle.js:7
+
+
+
+    define("components/base-component", ["require", "exports"], function (require, exports) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR MENCIONA ESSE ERROR...
+
+
+
+
+
+
+
+
+
+
+
+---> ele mostra nosso arquivo 'bundle.js'...
+
+
+
+
+
+
+
+
+
+
+
+--> A FONTE DESSE ERROR RESIDE LÁ EM 'tsconfig.json'...
+
+
+
+
+
+
+
+--> LÁ EM 'module',
+
+
+NÃO DEVEMOS USAR AQUELA OPÇÃO DE 'amd' (usada com NAMESPACES),
+
+
+
+e sim 
+
+
+DEVEMOS USAR ___ A OPÇÃO 'es2015'... (ecmascript 6)...
+
+
+
+
+
+
+
+
+
+
+
+
+>>>> SE DEIXAMOS ESSA OPTION,
+
+
+
+DIZEMOS QUE QUEREMOS USAR 'ECMASCRIPT 6',
+
+
+
+
+
+
+__ E QUE QUEREMOS DEIXAR NOSSOS IMPORTS E EXPORTS COMO ESTÃO,
+
+pq 
+
+aí os browsers modernos entenderão nosso código...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+SE OBSERVARMOS NOSSO FOLDER DE 'dist',
+
+
+VEREMOS 
+
+QUE 
+
+
+
+VAMOS OBTER BASICAMENTE O MESMO LAYOUT DE FOLDERS/ARQUIVOS DO TYPESCRIPT,
+
+mas em um  FORMATO 
+
+
+
+JAVASCRIPT... (
+
+    posteriormente podemos usar ferramentas como WEBPACK para compilar tudo isso em 1 único arquvo....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> COMO RESULTADO DISSO,
+
+PRECISAMOS VOLTAR AO ARQUIVO 'index.html'
+
+
+
+E NOVAMENTE COLOCAR O ARQUIVO 'app.js'
+
+
+
+COMO 
+
+
+SOURCE DE NOSSOS SCRIPTS... (TIRAR AUQELE 'BUNDLE'0...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---_> CERTO.... SUCESSO....
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA NOSSO APP ESTÁ FUNCIONANDO COMO ANTES,
+
+
+MAS AGORA COM EXPORTS/IMPORTS ES6....
+
+
+
+
+
+
+
+
+
+
+MSA É CLARO QUE O PROFESSOR NOS FALA DE UM ÚLTIMO DETALHE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE GANHA UM ERROR,
+
+
+'Cannot use import statement outside a module' ---->
+
+
+
+
+
+
+
+PARA CONSERTAR ESSE ERROR,
+
+VOCê PRECISA ADICIONAR O ATTRIBUTE DE type, com valor de 'MODULE',
+
+
+
+
+NA SUA LINHA HTML DO SCRIPT,
+
+tipo assim:
+
+
+
+
+
+    <script type="module" src="dist/app.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ISSO FAZ NOSSO CÓDIGO FUNCIONAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> MAS O PROFESSOR DIZ QUE DEVEMOS REMOVER 'defer' (mas eu não removi)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> se olharmos a ABA 'NETWORK',
+
+
+
+    OBSERVAMOS UM MONTE DE 
+
+
+
+    REQUESTS DIFERENTES DE JS... (para cada 1 de nossos arquivos .js)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --. ISSO É RUIM, É CLARO,
+
+    QUEREMOS QUE ISSO IMPORTE APENAS 1 ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> AGORA CLARAMENTE DECLARAMOS O QUE QUEREMOS DE CADA ARQUIVO.......
+
+
+
+
+
+
+
+
+
+
+
+    --> E SE OMITIMOS UM IMPORT, O TYPESCRIPT RECLAMA DE NÓS,
+
+    POR ISSO QUE ESSE 
+
+
+
+    APPROACH É MELHOR DO QUE O NAMESPACES...
+
+
+
+
+
+
+
+
+
+    --> ANGULAR PROJECTS ---> 
+
+
+
+    SE VOCê USOU TYPESCRIPT COM ESSES PROJECTS,
+
+
+
+    VOCê 
+
+
+    PODE ESTAR ACOSTUMADO COM O  'NÃO ADD DE '.js'
+
+
+    AO 
+
+
+    FINAL DESSES IMPORT STATEMENTS (
+
+
+
+        assim que adicionarmos o WEBPACK,
+
+        não precisaremos mais colocar essas extensions, também...
+
+    )
+
+
+    MAS SE VOCê NÃO TIVER A AJUDA DE UMA TOOL COMO O WEBPACK,
+
+    VOCê __ PRECISA__ ADICIONAR ESSAS EXTENSOES...

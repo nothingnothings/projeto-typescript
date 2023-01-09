@@ -1,0 +1,2110 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> HÁ MAIS UMA FEATURE INTERESSANTE QUE O PROFESSOR QUER NOS MOSTRAR....
+
+
+
+
+
+
+
+
+
+--> É A FEATURE DO 'PRIVATE CONSTRUCTOR'...
+
+
+
+
+
+
+
+
+
+
+--> PRIVATE CONSTRUCTORS..
+
+
+
+
+
+
+
+--> O QUE SÃO PRIVATE CONSTRUCTORS,
+
+
+
+
+
+
+E ___ QUAL É SUA UTILIDADE?
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, EXISTE UM PADRÃO EM 'OOP' (object-oriented programming) 
+
+
+
+
+
+
+
+_ QUE __ É CHAMADO DE '
+
+singleton'...
+
+
+
+
+
+
+
+
+
+
+'SINGLETON PATTERN' -----> ESSE PADRÃO É ALL ABOUT 
+
+
+
+SEMPRE 
+
+GARANTIR 
+
+
+
+
+QUE VOCÊ __ TENHA __ APENAS 1 ÚNICA 
+
+
+
+
+'INSTANCE'
+
+
+
+
+DE 
+
+
+
+1 CLASS...--------> ISSO PODE SER ÚTIL, NO CASO,
+
+
+
+EM 
+
+
+
+__SITUAÇÕES EM QUE VOCê __  (por alguma razão ) NÃO PODE  
+
+
+USAR 
+
+
+STATIC METHODS/PROPERTIEs... --------->  MAS ESSE PATTERN É ÚTIL 
+
+
+TBM 
+
+QUANDO 
+
+VOCê 
+
+
+
+
+____ QUER ASSEGURAR QUE 
+
+VOCê 
+
+
+NÃO 
+
+CRIE MÚLTIPLOS OBJECTS 
+
+
+
+COM BASE EM 
+1
+ CLASS ------------> VOCÊ ESSENCIALMENTE VAI QUERER TER 
+
+
+
+ APENAS 
+
+
+ 1 
+ OBJECT 
+
+
+ COM 
+
+
+ BASE 
+
+EM 
+
+
+1 
+CLASS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> DIGAMOS QUE 
+
+PARA NOSSA CLASS DE 'AccountingDepartment',
+
+
+VAMOS QUERER _ CRIAR ___ APENAS 1 
+
+OBJECT 
+
+
+COM BASE NESSA CLASS....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class AccountingDepartment2 extends Department5 {
+
+
+            private lastReport: string;
+
+
+        constructor(id: string, private reports: string[]) {
+                // super(id, 'Accounting');
+                super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id);
+                this.lastReport = reports[0]
+        }
+    
+        addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+    
+    
+            if (name === 'Max') {
+                return; //retorna 'void'...
+            }
+    
+            
+            this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+        }
+    
+    
+        addReport(text: string) {
+            this.lastReport = text;
+            this.reports.push(text);
+        }
+    
+    
+        getReports() {
+            console.log(this.reports);
+            return this.reports;
+        }
+
+
+        get mostRecentReport() { ///EXEMPLO __ DE __ UM __ GETTER_...
+
+            if (this.lastReport) {
+                return this.lastReport; ////GETTERS__ SEMPRE__ RETORNAM __ PROPRIEDADES DE NOSSA CLASS.... (servem para ACESSAR OS VALORES DESSAS PROPRIEDADES __ NO LADO __ DE FORA__ DE NOSSAS CLASSES.... isso pq quando você define 'private/protected em uma PROPRIEDADE, nas suas classes, VOCê __ NÃO CONSEGUE __ ACESSAR O VALOR DESSA PROPRIEDADE POR MEIO DA DOT NOTATION, no lado de fora... para isso, para conseguir esse valor, ou você usa UM METHOD, OU ENTÃO UM GETTER, ambos definidos dentro da sua class...)
+            }
+
+            
+            throw new Error('No report found.');
+        } 
+
+
+
+
+       set mostRecentReport(value: string) { /// ------> OK.... ATÉ AGORA, BEM PARECIDO COM UM _ GETTEr__.... ---> ENTRETANTO, COM OS SETTERS __ VOCÊ __ É __ FORÇADO__ A PASSAR/EXIGIR 1 PARÂMETRO...
+
+
+        if(!value || this.reports.length <= 0 ) {
+            throw new Error('Something has gone wrong...');
+        }
+
+
+
+        this.reports[this.reports.length - 1] = value; ///////ISSO VAI __ DEFINIR O VALOR DESSE NEGÓCIO COMO SENDO O VALUE QUE O USER PASSOU....
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+
+const onlyAccountingDepartment = new AccountingDepartment('xx', 'yy', 'zz');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> VAMOS QUERER APENAS 1 
+
+
+
+
+
+    OBJECT DISSO __ _JUSTAMENTE__ PQ SÓ TEMOS 
+
+    1 ÚNICO 
+
+
+    'accounting department'
+
+
+
+    na nossa empresa...
+
+
+
+
+
+
+
+
+
+--> TALVEZ TENHAMOS MAIS DE 1 'ITDepartment',
+
+
+MAS 
+
+TEMOS 
+
+
+exatamente 1 único 
+
+
+
+accounting department..
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM.... PARA  
+__-FORÇAR ISSO,
+
+
+E PARA 
+
+
+
+_EVITAR__ QUE 
+
+SEJAM
+
+CRIADOS MÚLTIPLOS 
+
+
+
+'ac deparment'
+
+
+objects no nosso código,
+
+
+
+
+
+E _ PARA __ EVITAR QUE __ 
+
+
+
+
+CHAMEMOS 
+
+'new AccountingDepartment()'
+
+
+
+
+
+MÚLTIPLAS VEZES,
+
+
+
+
+
+
+
+PODEMOS _ TRANSFORMAR__ 
+
+O 
+
+
+
+CONSTRUCTOR___ 
+
+
+
+
+
+
+__ DESSA class de 'AccountingDepartment'
+
+
+
+
+_ EM UMA 
+
+
+CLASS __ PRIVADA___ (private)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> FAZEMOS ISSO POR MEIO DA ESCRITA DE 'private'
+
+
+NA FRENTE DO __ CONSTRUCTOR__ DA CLASS QUE QUEREMOS 'PRIVATIZAR'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department8 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    // super(id, 'Accounting');
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+}
+
+const onlyAccountingDepartment = new AccountingDepartment3('xx', 'yy', 'zz'); //////// NÃO PODEMOS CHAMAR 'new'/instanciar essa class JUSTAMENTE POR CAUSA DO USO Da keyword de 'private' no constructor dessa class....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O QUE FAZ ESSe 'private constructor() {
+
+}' ?
+
+
+
+
+
+
+
+
+---> ELE ASSEGURA QUE SEJA __ IMPOSSÍVEL__ 
+
+
+O 
+
+CALL DE 
+
+'new AccountingDepartment()'...
+
+
+
+
+ 
+
+
+
+
+
+
+
+ -------> EX:
+
+
+
+
+
+ 
+const onlyAccountingDepartment = new AccountingDepartment3('xx', 'yy', 'zz'); //////// NÃO PODEMOS CHAMAR 'new'/instanciar essa class JUSTAMENTE POR CAUSA DO USO Da keyword de 'private' no constructor dessa class....
+    ////Constructor of class 'AccountingDepartment3' is private and only accessible within the class declaration.ts(2673)
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+OK.... 'POR SER PRIVATE, 
+
+ESSE CONSTRUCTOR __ SÓ É ACESSÍVEL __ DO LADO DE DENTRO DE SUA CLASS'''.... --> é claro que 
+
+ISSO 
+
+
+
+
+PODE PARECER ESTRANHO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESSE CONSTRUCTOR É REALMENTE SÓ CAPAZ DE SER ACESSADO PELO LADO DE DENTRO DA 'CLASS',
+
+
+
+
+
+___ COMO ___ PODEMOS 'GET INSIDE THE CLASS'
+
+
+
+se 
+
+não podemos justamente 
+
+
+CRIAR 
+
+OBJECTS A 
+
+PARTIR DESSA CLASS (com 'new XXXX()')? 
+
+
+
+
+
+
+
+
+
+
+
+---------> A RESPOSTA É, NO CASO,
+
+
+
+
+
+'STATIC METHODS' -->
+
+
+
+
+
+
+
+
+
+
+
+STATIC METHODS SÃO A RESPOSTA.... --------------> VOCê AINDA PODE USAR __ STATIC METHODS,
+
+
+
+E VAI 
+
+OS 
+
+UTILIZAR/CHAMAR 
+
+
+
+NA 
+
+CLASS 
+
+de 
+
+
+'AccountingDepartment'
+
+
+EM SI....
+
+
+
+(pq esses methods não precisam ser INSTANCIADOS PARA SEREM UTILIZADOS)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+
+const onlyAccountingDepartment = new AccountingDepartment3('xx', 'yy', 'zz'); //////// NÃO PODEMOS CHAMAR 'new'/instanciar essa class JUSTAMENTE POR CAUSA DO USO Da keyword de 'private' no constructor dessa class....
+    ////Constructor of class 'AccountingDepartment3' is private and only accessible within the class declaration.ts(2673)
+
+
+
+
+///ok, não podemos MAIS INSTANCIAR ESSA CLASS.... como vamos criar um objeto 'AccountingDepartment', então, a partir dessa class?
+
+
+
+///a resposta é: 'STATIC METHODS' --> vamos chamar um static METHOD _ DIRETAMENTE__ NA NOSSA CLASS COM CONSTRUCTOR PRIVATE, para então _ CRIAR_ 1 OBJETO....
+
+
+
+
+//isso faz com que A CLASS de 'AccountingDepartment3' NÃO PRECISE SER INSTANCIADA, ESSENCIALMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... PARA ISSO,
+
+
+VAMOS 
+
+CRIAR 
+
+
+
+UM 
+
+STATIC METHOD 
+
+LÁ 
+
+
+em 'AccountingDepartment' --------> 
+
+
+
+VAMOS CHAMAR 
+
+
+
+ESSE METHOD DE 
+
+
+'getInstance(){}',
+
+
+MAS PODERIA SER QUALQUER OUTRA COISA...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+
+    static getInstance() {////EIS O METHOD EM QUESTÃO...
+
+    }
+
+
+
+
+}
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+BEM, O QUE ESSE METODO  'CUSTOM' DE getInstance
+
+VAI 
+
+FAZER __ É __:
+
+
+
+
+
+A) CHECAR __ SE JÁ EXISTE UMA 'INSTANCE' DE 'AccountingDepartment' NO CONTEXTO GLOBAL de nosso código....
+
+
+
+
+
+
+
+
+B) SE INEXISTIR ATUALMENTE UMA INSTANCE, ELE __ VAI _ INSTANCIAR UM OBJETO DESSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PARA ISSO,
+
+
+PARA _ _INSTANCIAR UM 'AccountingDepartment',
+
+
+
+PROFESSOR 
+
+
+
+
+
+ESCREVE/ADICIONA UMA PROPRIEDADE ESTÁTICA 
+
+de 
+
+
+nome 'instance'
+
+
+
+
+NO ROOT 
+
+
+de nossa class 'AccountingDepartment'...
+
+
+
+
+
+
+
+
+-----------> E SERÁ , TAMBÉM,
+ 
+ UMA 
+
+ PROPRIEDADE 'private' (sim, podemos combinar STATIC COM PRIVATE)....
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+
+  private static instance:  ///////EIS O CÓDIGO EM QUESTÃO....
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+
+    static getInstance() {////EIS O METHOD EM QUESTÃO...
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+OK, MAS QUAL SERÁ O 'TYPE'
+
+
+DESSA PROPRIEDADE?
+
+
+
+
+
+
+
+
+
+
+----> será de type 'AccountingDepartment'
+
+EM SI,
+
+
+nossa class,
+
+PQ 
+
+É 
+
+ISSO QUE VAMOS QUERER ARMAZENAR NESSA PROPRIEDADE...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+
+  private static instance: AccountingDepartment; ///////EIS O CÓDIGO EM QUESTÃO....
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+
+    static getInstance() {////EIS O METHOD EM QUESTÃO...
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+  private static instance: AccountingDepartment3 //sim, podemos combinar 'private' com 'static', combinar seus efeitos....
+        ///VAMOS QUERER que o type dessa propriedade SEJA _ A NOSSA CLASS EM SI.... (vamos usar essa propriedade 'instance' para _ INSTANCIAR NOSSA CLASS, com a ajuda do method 'getInstance'..)
+
+
+
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    // super(id, 'Accounting');
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK... VAMOS ARMAZENAR UMA INSTANCE 
+
+de 
+
+
+'AccountingDepartment'
+
+
+
+DENTRO DESSA PROPRIEDADE...
+
+
+
+
+
+
+
+
+
+--> e essa propriedade é ESTÁTICA (ou seja, SÓ EXISTE  DENTRO DESSA CLASS...)
+
+
+
+
+
+
+--> e é PRIVATE ( ou seja, só é acessível DE DENTRO DESSA CLASS, POR MEIO DE METHODS)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PQ DEFINIMOS ESSA INSTANCE, essa propriedade,
+
+dentro de nossa class?
+
+
+
+
+
+
+--> É PQ VAMOS USAR 
+
+
+ESSA 
+
+
+PROPRIEDADE EM UM IF CHECK,
+
+
+LÁ 
+
+
+
+NO METHOD DE 'getInstance()'..
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+
+    }
+}
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+SE 'this.instance' ESTIVER COMO 'set',
+
+
+
+
+
+
+ESTIVER DEFINIDA ,
+
+
+
+
+
+
+
+__ VAMOS QUERER _ RETORNAR_ A INSTANCE EM SI...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+  static getInstance() {
+    if (this.instance) { //HIPÓTESE EM QUE __ JÁ TEMOS UMA INSTANCE ARMAZENADA...
+        return this.instance;
+    } 
+     this.instance = new AccountingDepartment3('sss', ['aa', 'bb'])  //HIPÓTESE EM QUE __ NÃO TEMOS UMA INSTANCE ARMAZENADA, TEMOS QUE CRIAR UMA NOVA INSTANCE...
+    return this.instance;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OU SEJA,
+
+
+
+VAMOS 
+
+
+
+
+USAR ESSE METHOD DE 'getInstance()'
+
+
+PARA ___ REALMENTE 'GET AN INSTANCE'....
+
+
+
+
+
+
+
+
+
+
+
+--> NO CASO, VAMOS CHAMAR ISSO LÁ 
+
+NO LADO DE FORA DE NOSSA CLASS,
+
+
+como um static method.... 
+
+
+
+
+(
+
+    AGORA VAMOS RETORNAR A INSTANCE QUE JÁ TEMOS, OU SE NÃO TEMOS,
+
+    CRÍAMOS UMA NOVA INSTANCE E A RETORNAMOS...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS A VANTAGEM, AQUI, É QUE 
+
+ESSE CÓDIGO 
+
+
+
+de 
+
+
+
+
+''
+     this.instance = new AccountingDepartment3('sss', ['aa', 'bb'])  //HIPÓTESE EM QUE __ NÃO TEMOS UMA INSTANCE ARMAZENADA, TEMOS QUE CRIAR UMA NOVA INSTANCE...
+    return this.instance;
+
+
+
+    ''
+
+
+
+
+
+
+SÓ PODE/PODERÁ  SER EXECUTADO 1 ÚNICA VEZ... -------> PQ QUANDO NÓS JÁ TIVERMOS UMA 
+
+
+
+INSTANCE,
+
+
+NÓS VAMOS RETORNAR APENAS ESSA INSTNACE,
+
+
+E NUNCA MAIS VAMOS CRIAR OUTRA INSTANCE... 
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+  private static instance: AccountingDepartment3 //sim, podemos combinar 'private' com 'static', combinar seus efeitos....
+        ///VAMOS QUERER que o type dessa propriedade SEJA _ A NOSSA CLASS EM SI.... (vamos usar essa propriedade 'instance' para _ INSTANCIAR NOSSA CLASS, com a ajuda do method 'getInstance'..)
+        ///--> e essa propriedade é ESTÁTICA (ou seja, SÓ EXISTE  DENTRO DESSA CLASS...)
+        ///--> e é PRIVATE ( ou seja, só é acessível DE DENTRO DESSA CLASS, POR MEIO DE METHODS)....
+
+
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    // super(id, 'Accounting');
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+  static getInstance() {
+    if (this.instance) { //HIPÓTESE EM QUE __ JÁ TEMOS UMA INSTANCE ARMAZENADA...
+        return this.instance;
+    } 
+     this.instance = new AccountingDepartment3('sss', ['aa', 'bb'])  //HIPÓTESE EM QUE __ NÃO TEMOS UMA INSTANCE ARMAZENADA, TEMOS QUE CRIAR UMA NOVA INSTANCE...
+    return this.instance;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AGORA, NO CASO,
+
+
+VAMOS TER A POSSIBILIDADE DE CRIAR __ APENAS 1 ÚNICO OBJETO 'AccountingDepartment3',
+
+
+
+
+E NENHUM OUTRO.. .-------> 
+
+
+
+
+
+
+
+
+
+e agora 
+
+
+VAMOS 
+
+
+CRIAR ESSE OBJETO, NO NOSSO CÓDIGO,
+
+POR MEIO DO CALL DE 
+
+
+
+
+'AccountingDepartment3.getInstance()',
+
+
+
+
+
+
+E NÃO 
+
+
+POR 
+
+'const objeto = new AccountingDepartment3' 
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+  private static instance: AccountingDepartment3 //sim, podemos combinar 'private' com 'static', combinar seus efeitos....
+        ///VAMOS QUERER que o type dessa propriedade SEJA _ A NOSSA CLASS EM SI.... (vamos usar essa propriedade 'instance' para _ INSTANCIAR NOSSA CLASS, com a ajuda do method 'getInstance'..)
+        ///--> e essa propriedade é ESTÁTICA (ou seja, SÓ EXISTE  DENTRO DESSA CLASS...)
+        ///--> e é PRIVATE ( ou seja, só é acessível DE DENTRO DESSA CLASS, POR MEIO DE METHODS)....
+
+
+
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    // super(id, 'Accounting');
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+  static getInstance() {
+    if (this.instance) { //HIPÓTESE EM QUE __ JÁ TEMOS UMA INSTANCE ARMAZENADA...
+        return this.instance;
+    } 
+     this.instance = new AccountingDepartment3('sss', ['aa', 'bb'])  //HIPÓTESE EM QUE __ NÃO TEMOS UMA INSTANCE ARMAZENADA, TEMOS QUE CRIAR UMA NOVA INSTANCE...
+    return this.instance;
+  }
+
+
+}
+
+
+
+
+
+const newObject = AccountingDepartment3.getInstance();
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+OK....... MAS A VANTAGEM É QUE SE EU TENTAR 
+
+
+
+
+CONSEGUIR ESSA INSTANCE__ DE NOVO_,
+
+
+VOU CONSEGUIR __ A MESMA INSTANCE,
+
+
+
+
+E NAO UMA INSTANCE DISTINTA... (
+
+    isso 
+
+
+
+    evita confusões no nosso código...
+)
+
+
+
+
+
+
+
+
+
+
+
+ISSO QUER DIZER QUE COM ESTE CÓDIGO AQUI:
+
+
+
+    const onlyAccountingDepartmentLegitWorking = AccountingDepartment3.getInstance(); ///código que vai FUNCIONAR, ao contrário do de cima... (e este não dará erros nem nada)... ---> E SÓ 1 ÚNICA INSTÂNCIA DE 'AccountingDepartment3' poderá existir, justamente por conta da LÓGICA DENTRO DE 'getInstance' (aquele if check)....
+
+    // const onlyAccountingDepartmentLegitWorking2 = AccountingDepartment3.getInstance(); /// isso naõ vai nos dar um novo objeto, e sim VAI __ SÓ NOS DAR__ UM POINTER AO MESMO OBJETO visto em  '' const onlyAccountingDepartmentLegitWorking = AccountingDepartment3.getInstance();''
+    // const onlyAccountingDepartmentLegitWorking3 = AccountingDepartment3.getInstance();
+    // const onlyAccountingDepartmentLegitWorking4 = AccountingDepartment3.getInstance();
+
+
+
+
+
+
+
+
+
+
+
+--> TEREMOS __ SEMPRE A MESMA 'INSTANCE',
+
+ESTAREMOS 
+
+TRABALHANDO COM __ A MESMA INSTANCE__ (todas essas consts estão com POINTERS A UMA MESMA INSTANCE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE É O PADRÃO 'SINGLETON',
+
+
+
+
+QUE É 
+
+CRIADO 
+
+COM A AJUDA 
+
+
+
+
+DA KEYWORD de 'private'
+
+
+TANTO NO SEU CONSTRUCTOR ('private constructor()' )
+
+
+
+
+
+COMO EM UMA 
+
+
+
+PROPRIEDADE 'instance' ('private static instance)' 
+
+
+
+NA SUA CLASS..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class AccountingDepartment3 extends Department8 {
+  private lastReport: string;
+
+  private static instance: AccountingDepartment3 //sim, podemos combinar 'private' com 'static', combinar seus efeitos....
+        ///VAMOS QUERER que o type dessa propriedade SEJA _ A NOSSA CLASS EM SI.... (vamos usar essa propriedade 'instance' para _ INSTANCIAR NOSSA CLASS, com a ajuda do method 'getInstance'..)
+        ///--> e essa propriedade é ESTÁTICA (ou seja, SÓ EXISTE  DENTRO DESSA CLASS...)
+        ///--> e é PRIVATE ( ou seja, só é acessível DE DENTRO DESSA CLASS, POR MEIO DE METHODS)....
+        ////(g)
+
+    ///(g)
+ private constructor(id: string, private reports: string[]) { ///esse 'private' TRANSFORMA NOSSO CONSTRUCTOR EM UM 'PRIVATE CONSTRUCTOR',  o que faz com que __ SÓ SEJA PERMITIDA_ A CRIAÇÃO DE 1 ÚNICO 'object' vinculado a essa class....
+    
+    // super(id, 'Accounting');
+    super(
+      'Accounting',
+      ['a', 'b', 'c'],
+      ['c1', 'x2'],
+      [1, 5, 7],
+      122121,
+      'asasojasOsaj',
+      id
+    );
+    this.lastReport = reports[0];
+  }
+
+  addEmployee(name: string) {
+    if (name === 'Max') {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+
+  addReport(text: string) {
+    this.lastReport = text;
+    this.reports.push(text);
+  }
+
+  getReports() {
+    console.log(this.reports);
+    return this.reports;
+  }
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value || this.reports.length <= 0) {
+      throw new Error('Something has gone wrong...');
+    }
+
+    this.reports[this.reports.length - 1] = value;
+  }
+
+
+
+  static getInstance() {////(g)
+    if (this.instance) { //HIPÓTESE EM QUE __ JÁ TEMOS UMA INSTANCE ARMAZENADA...
+        return this.instance;
+    } 
+     this.instance = new AccountingDepartment3('sss', ['aa', 'bb'])  //HIPÓTESE EM QUE __ NÃO TEMOS UMA INSTANCE ARMAZENADA, TEMOS QUE CRIAR UMA NOVA INSTANCE...
+    return this.instance;
+  }
+
+
+}
+
+const onlyAccountingDepartment = new AccountingDepartment3('xx', 'yy', 'zz'); //////// NÃO PODEMOS CHAMAR 'new'/instanciar essa class JUSTAMENTE POR CAUSA DO USO Da keyword de 'private' no constructor dessa class....
+    ////Constructor of class 'AccountingDepartment3' is private and only accessible within the class declaration.ts(2673)
+
+
+
+
+    const onlyAccountingDepartmentLegitWorking = AccountingDepartment3.getInstance(); ///código que vai FUNCIONAR, ao contrário do de cima... (e este não dará erros nem nada)... ---> E SÓ 1 ÚNICA INSTÂNCIA DE 'AccountingDepartment3' poderá existir, justamente por conta da LÓGICA DENTRO DE 'getInstance' (aquele if check)....
+
+    // const onlyAccountingDepartmentLegitWorking2 = AccountingDepartment3.getInstance(); /// isso naõ vai nos dar um novo objeto, e sim VAI __ SÓ NOS DAR__ UM POINTER AO MESMO OBJETO visto em  '' const onlyAccountingDepartmentLegitWorking = AccountingDepartment3.getInstance();''
+    // const onlyAccountingDepartmentLegitWorking3 = AccountingDepartment3.getInstance();
+    // const onlyAccountingDepartmentLegitWorking4 = AccountingDepartment3.getInstance();
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE É UM APPROACH QUE CERTAMENTE NÃO UTILIZAREMOS TODA HORA,
+
+
+
+
+
+
+
+O PATTERN SINGLETON PODE SER ÀS VEZES ÚTIL,
+
+
+mas 
+
+é 
+
+bom saber 
+
+dele... ----------> É BOM SABER SOBRE ELE, E SOBRE COMO PODEMOS FACILMENTE O IMPLEMENTAR COM O TYPESCRIPT,
+
+
+
+graças aos 
+
+PRIVATE CONSTRUCTORS...

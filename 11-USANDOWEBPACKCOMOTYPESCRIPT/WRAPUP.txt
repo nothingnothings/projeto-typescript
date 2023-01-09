@@ -1,0 +1,91 @@
+
+
+
+
+
+
+
+
+
+
+ADICIONAMOS WEBPACK,
+
+
+TOOL QUE FACILITA O BUNDLE DE DIVERSOS ARQUIVOS EM 1 ÚNICO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> WEBPACK É UM MUST-USE.... 
+
+
+
+
+
+
+
+
+
+--> TOOL MAIS PROMINENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALTAMENTE CONFIGURÁVEL...
+
+
+
+
+--> DOCS OFICIAIS DO WEBPACK...
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSO SETUP JÁ NOS DEIXA COMPILAR TODOS NOSSOS ARQUIVOS TYPESCRIPT EM ARQUIVOS JAVASCRIPT..
+
+
+
+
+
+
+
+
+-> JÁ TEMOS UM PRODUCTION SETUP,
+
+
+que podemos 
+deployar a um server, etc etc..
+
+
+
+
+
+--> WEBPACK É UMA CORE TOOL...

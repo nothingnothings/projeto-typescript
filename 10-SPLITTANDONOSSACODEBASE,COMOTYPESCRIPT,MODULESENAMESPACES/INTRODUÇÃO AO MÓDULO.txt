@@ -1,0 +1,167 @@
+
+
+
+
+
+
+
+
+
+
+
+--> O PROJETO QUE TERMINAMOS NO ÚLTIMO MÓDULO FICOU COM UM CÓDIGO GIGANTE,
+
+TUDO EM UM MESMO ARQUIVO (péssimo para managear)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 1 MONTE DE CÓDIGO, TUDO EM 1 MESMO ARQUIVO,...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É MELHOR SPLITTAR ESSE ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> CÓDIGOS MAIS ELABORADOS 
+
+
+
+E APPS,
+
+
+
+com bem mais código...
+
+
+
+
+
+
+
+
+
+
+
+--> COLOCAR TUDO ISSO EM 1 SÓ ARQUIVO É LOUCURA....
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ QUER:
+
+
+
+WRITE MODULAR CODE....
+
+
+
+
+
+
+
+
+
+
+
+--> SPLIT YOUR CODE INTO MODULES...
+
+
+
+
+
+
+
+
+
+
+---> EXPORTAR E IMPORTAR 
+
+
+ENTRE ESSES MODULES,
+
+
+
+
+FILES SERÃO CONECTADAS 
+
+PELO TYPESCRIPT/BROWSER/ALGUMA BUILD TOOL,
+
+
+E NÃO POR VOCÊ.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NESTE MÓDULO, VEREMOS AS 2 MAIN OPTIONS PARA ORGANIZAR NOSSO CÓDIGO EM MÚLTIPLOS ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+
+DEPOIS VEREMOS __ cOMO APLICAR-__ ISSO,
+
+EM 1 DEMO PROJECT...
+
+
+(
+
+    para ver como splittar nosso c´digo...
+)

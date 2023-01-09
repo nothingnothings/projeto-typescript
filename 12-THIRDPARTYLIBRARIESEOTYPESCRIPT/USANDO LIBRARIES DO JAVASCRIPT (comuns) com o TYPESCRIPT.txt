@@ -1,0 +1,638 @@
+
+
+
+
+
+
+
+
+
+
+------> COMEÇAMOS COM UMA LIBRARY DE UTILITY BEM FAMOSA,
+'lodash'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE EXEMPLO FUNCIONA COM QUALQUER LIBRARY JAVASCRIPT QUE VOCê QUER USAR,
+
+
+
+desde lodash até 'jquery'...
+
+
+
+
+
+
+
+
+
+
+
+--> MODULOS DEDICADOS SOBRE TYPESCRIPT COM NODEEXPRESS, etc....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PARA LIBRARIES MAIS SIMPLES COMO JQUERY E LODASH,
+
+
+professor 
+
+ENSINA UM APPROACH QUE FUNCIONA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LODASH --> É UMA LIBRARY JAVASCRIPT --->
+
+
+
+
+
+PODEMOS O INSTALAR COMO QUALQUER PACKAGE JAVASCRIPT,
+
+
+é independente do typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+npm install --save lodash........
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> instalado o lodash,
+
+
+
+
+
+
+
+
+importaríamos ele....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> SE QUEREMOS USAR O LODASH,
+
+PODEMOS SÓ O IMPORTAR LÁ NO 'app.ts,'
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+import xxx from 'lodash'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO JÁ NOS DÁ UM ERRO:
+
+
+
+
+
+
+
+'COULD NOT FIND A DECLARATION FILE FOR MODULE LODASH'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E AÍ TEREMOS OUTRO PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+se escrevemos 
+
+
+
+'console.log(xxx.shuffle(1, 2, 3))' ---------->
+
+
+
+
+
+
+
+
+
+
+
+SE TENTAMOS USAR ESSE METHOD DO LODASH,
+
+
+
+
+
+
+__ GANHAMOS UM ERROr__... -> se inicamos o webpack server,
+
+VEREMOS UQE 
+
+ELE 
+
+NOS DÁ UM ERROR,
+
+
+
+'declaration file for module loadhs'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA 
+
+
+
+AQUI, NO CASO, É QUE __ O LODASH É UMA 'SIMPLES JAVASCRIPT LIBRARY',
+
+
+
+
+
+O QUE SIGNIFICA QUE É BUILT FOR JAVASCRIPT, E SÓ PARA O JAVASCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> se procurarmos pelo lodash no 
+
+
+
+node_modules, veremos que TODOS CÓDIGOS SERÃO js...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----. o problema é que o typescript NÃO ENTENDE O QUE EXISTE NESSA PACKAGE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... o lodash FUNCIONA, na verdade, mas o typescript NÃO COMPREENDE 
+
+QUE ELE FUNCIONA JUSTAMENTE 
+
+PQ 
+
+ELE USA JAVASCRIPT, E NÃO TYPESCIRPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> N EXISTE VERSÃO TYPESCRIPT DO LODASH, NÓS TEMOS QUE 'LIVE WITH IT'..
+
+
+
+
+
+
+
+
+--> ESSE É UM CENÁRIO BEM COMUM... --. errors de TYPESCRIPT com 
+
+
+pacakges que só existem no javascript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM ANNOYING... --> TEMOS QUE TRADUZIR ESSAS PACKAGEs__ EM TYPESCIPRT__..
+
+
+
+
+
+
+
+E ISSO, AINDA BEM, É POSSÍVEL.. --------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO PODEMOS TRADUZIR LIBRARIES 
+
+
+
+JAVASCRIPT EM 
+
+TYPESCIRPT
+
+
+
+
+
+
+
+
+
+
+
+
+----> TALVEZ PELO 'TYPES' 
+
+
+
+
+--> TOUCHE.... --> TEMOS QUE INSTALAR OS 'types'
+
+
+de nossos packages...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. tipo:
+
+
+
+
+
+
+
+
+npm install --save-dev @types/lodash 
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+------. ISSO VAI CORRIGIR ESSES ERROS CHATOS.....(Vai adicionar suporte typescript a essas features javascript)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> como isso FUNCIONA
+
+
+
+
+
+
+
+
+--> D.TS FILES --> DECLARATION TS FILES.... --> 
+
+
+
+ESSES ARQUIVOS NÃO POSSUEM LÓGICA
+,
+
+
+E SIM 
+
+INSTRUÇÕES AO 
+
+
+TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES FILES SÓ 
+
+
+DÃO UMA TRADUÇAÕ DO JAVASCRIPT PRO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+------> OK...
+ 
+
+
+ --> d.ts 
+
+ FILES PODEM SER ESCRITOS POR CONTA PRÓPRIA,
+
+
+
+
+
+ MAS ISSO NÃO É NECESSÁRIO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> SE VOCE ESTA TRABALHANDO COM UMA LIBRARY QUE NÃO POSSUI NATIVE TRANSLATION FILES,
+
+
+
+
+ INSTALAR ESSES TYPES É A SOLUCAO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ENTENDI...
+
+
+
+
+
+
+
+--> AGORA O ERRO SUMIU...
+
+
+
+
+
+
+--> RELEMBREI OS 'TYPES'...
+
+
+
+
+
+
+
+
+
+
+
+--> E AGORA TEMOS AUTO-COMPLETION, excelente....
+
+
+
+
+
+--> ISSO TE DEIXA USAR VANILLA JS 
+
+EM PROJETOS TYPESCRIPT,
+
+por meio desses 'translation packages'..

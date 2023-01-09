@@ -1,0 +1,1305 @@
+ 
+
+
+
+
+
+
+
+
+
+ ANTES DE EXPLORARMOS USE-CASES MAIS ÚTEIS PARA DECORATORS,
+
+
+
+
+
+
+
+
+ O PROFESSOR QUER 
+
+
+ NOS MOSTRAR 
+
+ TODOS OS OUTROS 
+
+ LOCAIS EM QUE 
+
+ PODEMOS ADICIONAR DECORATORS (fora classes)...
+
+
+
+
+
+
+
+
+
+
+ --> É CLARO QUE PODEMOS ADICIONAR A CLASSES,
+
+
+
+
+ MAS 
+ HÁ 
+
+ OUTROS LOCAIS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------------> PARA ISSO,
+
+
+ PARA DEMONSTRAR,
+
+ PROFESSOR 
+
+
+
+ CRIA UMA CLASS....
+
+
+
+
+
+
+
+
+
+
+ ------>  PROFESSOR EXPLCIA QUE 
+
+
+
+
+ '''TODOS OS DECORATORS EXIGEM A EXISTÊNCIA DE UMA CLASS,
+
+
+ MAS NINGUÉM __ NOS OBRIGA _ A ADICIONAR TODOS OS DECORATORS DIRETAMENTE 
+
+
+ NESSA CLASS''''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> digamos QUE TEMOS 
+
+ uma 
+
+
+
+ class de 'Product',
+
+
+
+
+ com um 
+ TITLE 
+
+
+
+ ,
+
+
+
+
+ DE TIPO STRING,
+
+
+
+ e aí 
+
+
+ ASSIGNAMOS 
+
+
+ UM VALOR 
+
+
+
+ COM O CONSTRUCTOR... 
+
+ (
+
+
+     podemos usar aquele shortcut útil, para assignar tudo de uma só vez)...
+ )
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+ class Product {
+
+
+    constructor(public title: string, public price: number ) {
+
+    }
+
+
+
+
+    getPriceWithTax(tax: number) {
+
+
+    }
+
+
+
+
+}
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+ok, 
+
+temos essas propriedades de 'title' e 'price',
+
+e aí 
+
+
+
+ESSE METHOD de 'getPriceWithTax'...
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... DENTRO DO METHOD,
+
+
+VAMOS RETORNAR 
+
+
+'this.price'  VEZES 
+
+'1 + tax' .... ------> ESSE SERÁ NOSSO UTILITY METHOD...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+ class Product {
+
+
+    constructor(public title: string, public price: number ) {
+
+    }
+
+
+
+
+    getPriceWithTax(tax: number) {
+           return  this.price * (1 + tax);
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> PODEMOS, TAMBÉM,
+
+DEFINIR 1 SETTER E 1 GETTER,
+
+
+só para exemplificar...
+
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS DEFINIR 1 'setter'
+
+
+(
+
+
+
+
+    para isso, antes deixamos 'TITLE' e 'PRICE'
+
+    como 
+
+    PRIVATE..
+)
+
+
+
+
+
+
+
+
+
+
+
+--->  para fazer isso funcionar,
+
+professor 
+
+
+
+renomeia price para '_price',
+
+
+e o deixa como PRIVATE...
+
+
+
+(
+    para que não seja possível o acessar diretamente,
+
+
+    e sim SÓ 
+
+
+
+    COM UM ___ GETTER__
+
+
+
+    .. e seu valor só poderá ser alterado por meio de um SETTER...
+
+)
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+class Product {
+    
+
+    constructor(public title: string, private _price: number ) {
+
+    }
+
+
+
+    set price(val: number) {
+        this._price = val;
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... NAQUELE SETTER VAMOS 
+
+querer definir o '_price'
+
+como 
+
+sendo igual ao parameter que recebemos...
+
+
+
+
+--> mas antes disso,
+
+
+VAMOS CHECAR se 
+'val'
+ 
+
+ NÃO É 0... (maior do que 0),
+
+ para que 
+
+ PREÇOS NEGATIVOS NÃO SEJAM ACEITOS...
+
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+
+
+class Product {
+    
+
+    constructor(public title: string, private _price: number ) {
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+OK... AGORA 
+
+
+TEMOS
+
+
+
+
+1 CLASS 
+com várias coisas, 
+
+
+COM 1 METHOD,
+
+
+
+COM 1 SETTER,
+
+
+
+
+
+
+
+E PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E A TODAS ESSAS COISAS PODEMOS __ DEFINIR/assignar 'DECORATORS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+COMEÇAMOS COM UM 
+
+'LOGGING DECORATOR',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function NewLogger() { ///eis o código em questão...
+
+
+    return function() {
+
+    }
+
+}
+
+
+
+
+
+class Product {
+    
+
+    constructor(public title: string, private _price: number ) {
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... EU USEI A SINTAXE DAS 'DECORATOR FACTORIES',
+
+
+mas 
+
+tvz 
+
+
+
+essa sintaxe não seja a adequada ao ADD DE DECORATORS 
+
+
+
+em 'properties'
+
+de classes....
+
+
+
+
+
+
+
+
+
+
+
+--------> N PODEMOS usar nosso decorator antigao de 'logger' pq 
+
+ELE 
+ESTAVA 'FINE-TUNED' para funcioanr SÓ EM CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI O PROFESSOR NÃO VAI QUERER TER UMA 'DEC FACTORy',
+
+
+POR ISSO 
+
+SIMPLIFICAMOS ESSA FUNCTION....
+
+
+
+ex:
+
+
+
+
+
+
+
+
+function NewLogger() {
+     
+}
+
+
+
+class Product {
+    
+
+    constructor(public title: string, private _price: number ) {
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, QUE 
+
+ARGUMENTOS ESSA 
+
+'DEC FUNCTION'
+
+
+
+
+recebe 
+
+
+__DEPENDE__ 
+
+
+DO LOCAL EM QUE QUEREMOS O UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO,
+
+
+
+
+
+PODEMOS _ _ADICIONAR__ DECORATORS __A  PROPRIEDADES...
+
+
+
+BASTA ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function NewLogger() {
+     
+}
+
+
+
+class Product {
+    
+
+    constructor(public title: string, private _price: number ) {
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function NewLogger() { ///é nosso DECORATOR....
+     
+}
+
+
+
+
+
+
+class Product {
+    
+
+    constructor(@NewLogger public title: string, private _price: number ) { //podemos usar DECORATORS TAMBÉM  na versão 'shortcut' do assign de propriedades na nossa class, na verdade...
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE VOCÊ ADICIONA UM DECORATOR A UMA PROPRIEDADE,
+
+
+VOCÊ 
+
+
+
+RECEBE 
+
+2 
+
+ARGUMENTOS, SEMPRE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+1o ARGUMENTO) --> É O 'TARGET' da PROPRIEDADE... -> E PARA UMA 'INSTANCE PROPERTY', como esta que temos aqui,
+
+
+
+(
+
+
+    OU SEJA,
+
+É UMA PROPRIEDADE_ QUE É CHAMADA EM CADA INSTANCE,
+
+SE VOCÊ TRABALHA COM ELA....
+     
+) ----------> 
+
+
+
+
+SE VOCê ESTÁ 
+
+
+COM UMA 'INSTANCE PROPERTY',
+
+
+
+o 
+
+
+
+target DEVERÁ SER O 'PROTOTYPE'  DO OBJECT QUE FOI CRIADO.... 
+
+
+
+
+
+
+
+
+
+
+----------> JÁ SE ESTIVÉSSEMOS COM UMA 'STATIC PROPERTY/FUNCTION',
+
+
+o target __ SERIA__ A CONSTRUCTOR FUNCTION, em vez disso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> COMO O PROFESSOR __ NÃO SABE__ QUAL É A ESTRUTURA EXATA QUE 
+
+
+ESSE 'object'
+
+
+de 'target'
+
+VAI TER,
+
+
+
+
+_ ELE  DEFINE UM TYPE DE 'any'...
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O SEGUNDO ARGUMENTO É O 'propertyName'... ------->  (o formato desse nome.... será string, geralmente)...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+function NewLogger(target: any, propertyName: string | Symbol) { ///é nosso DECORATOR....
+     
+}
+
+
+
+
+
+
+class Product {
+    
+
+    constructor(@NewLogger public title: string, private _price: number ) { //podemos usar DECORATORS TAMBÉM  na versão 'shortcut' do assign de propriedades na nossa class, na verdade...
+
+    }
+
+
+
+    set price(val: number) {
+        if(val > 0) {
+            this._price = val;
+
+        } else {
+            throw new Error('Invalid price set - should be positive!');
+        }
+
+    }
+
+
+    getPriceWithTax(tax: number) {
+        return this._price * (1 + tax);
+
+    }
+
+
+  
+}
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK... AÍ NESSE DECORATOR VAMOS FAZER UM CONSOLE.LOG DE 
+
+'Property Decorator',
+
+
+
+
+
+PARA 
+
+VER QUANDO 
+
+ESSE DECORATOR (Sua lógica) será executada...
+
+
+
+
+
+
+
+--> TAMBÉM VAMOS CONSOLE.LOGGAR 'target' 
+
+
+e 
+
+
+'propertyName'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... com isso, se salvamos tudo isso e voltamos ao output do 
+
+
+'console'
+
+no chrome,
+
+
+
+VEMOS ESTE OUTPUT AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+'Property Decorator!'
+
+
+
+
+{ constructor: f, getPriceWithTax f, set price}
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO VOCê PODE OBSERVAR,
+
+
+ESSE OBJECT ÁI É O 
+
+'PROTOTYPE'
+
+de nosso object.. (
+
+    ISSO PQ NÃO ESTAMOS VENDO 
+
+
+    'price' 
+
+    e 
+
+    'title', essas propriedades,
+
+    aqui... 
+) --------------------> MAS ESTAMOS VENDO 'getPriceWithTax' e o SETTER,
+
+
+
+
+E ESSAS COISAS REALMENTE SÃO ARMAZENADAS NO 'PROTOTYPE' 
+
+de nossos object...
+
+
+
+
+
+
+
+
+
+
+--> NÓS TAMBÉM VEMOS 'title', que é o 'propertyName'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS QUANDO ESSE 'LOGGER' executa, na verdade?
+
+
+
+
+
+
+
+
+
+
+--> BEM, COMO VOCÊ PODE PERCEBER,
+
+
+
+
+COMO NUNCA INSTANCIAMOS 
+
+
+ESSA CLASS DE 
+
+
+'Product',
+
+
+
+
+ELE __ BASICAMENTE_ 
+
+
+
+
+
+EXECUTA__ 
+
+
+QUANDO __ SUA 'CLASS DEFINITION' é registrada PELO JAVASCRIPT... (
+
+
+    ou seja,
+
+
+    ESSA LÓGICA DO DECORATOR __ É EXECUTADA 
+
+
+QUANDO VOCÊ DEFINE 
+
+ESSA SUA 'PROPERTY' no 
+
+javascript,
+
+como parte daquela constructor function/class,
+ 
+
+
+ no final das contas...
+
+)

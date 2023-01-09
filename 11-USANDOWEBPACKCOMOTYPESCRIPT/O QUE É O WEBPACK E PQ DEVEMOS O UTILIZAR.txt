@@ -1,0 +1,364 @@
+
+
+
+
+
+
+
+NOSSO PROJETO ESTÁ USANDO ES6MODULES,
+
+
+E ESTÁ COM A DESVANTAGEM DE TER QUE REALIZAR UM MONTE DE 
+
+HTTP REQUESTS 
+
+PARA 
+
+
+
+
+CONSEGUIR 
+
+
+
+
+CARREGAR NOSSO APp...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PRECISAMOS DO WEBPACK,
+
+
+DO INSTALL DO WEBPACK,
+
+
+para conseguir 
+
+MANAGEAR NOSSO PROJECT E COMPILAR TODOS NOSSOS ARQUIVOS EM 1 ÚNICO DOCUMENTO...
+
+
+
+
+
+
+
+
+
+
+
+--> basta ver o waterfall no chrome devtools...
+
+
+
+
+--> O OVERHEAD  (espaço em branco)
+ 
+
+ NA WATERFALL É O TEMPO QUE 
+ O 
+
+ BROWSER TOMA PARA ENVIAR 
+
+
+ SEU 
+
+
+ ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE VOCE DEPLOYAR SEU APP NA WEB,
+
+
+
+
+ TER UM MONTE DE REQUESTS VAI CERTAMENTE DEIXAR SEU APP MAIS LENTO....
+
+
+
+
+
+
+
+
+
+
+
+ --> queremos reduzir o número de http requests..
+
+
+
+
+
+
+
+
+ --> PRECISAMOS DO WEBPACK...
+
+
+
+
+
+
+
+
+
+
+ --> INSTALAMOS O WEBPACK COM 
+
+ 'npm install --save webpack'...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> DOCS EXTENSIVOS E COMPREENSIVOS DO WEBPACK...
+
+
+
+
+
+
+
+
+
+ --> NESSE CURSO USAREMOS ALGUMAS FEATURES QUE NOS AJUDARÃO COM O TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+ --> WEBPACK --> É UMA '
+
+ BUNDLING E ORCHESTRATION TOOL'..
+
+
+
+
+
+
+
+ ---> É UMA TOOL QUE REDUZ O NÚMERO DE HTTP REQUESTS 
+
+ PQ VAI BUNDLAR TODOS NOSSOS ARQUIVOS EM 1 ÚNICO ARQUIVO...
+
+
+
+
+
+
+ --> TAMBÉM OPTIMIZA NOSSO PROJETO 
+
+ E 
+
+
+
+
+
+ TAMBÉM PERMITE UQE ADICIONEMOS __MAIS BUILD STEPS,
+
+ MAIS BUILD TOOLS,
+
+ COMO FERRAMENTAS QUE NOS AJUDAM COM CSS E ETC...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> bem, antes de começar, temos  
+
+ NOSSO SETUP NORMAL:
+
+
+ ''MULTIPLE TS FILES E IMPORTS (http requests, multiple)''' 
+
+ (
+
+     TAMBÉM É POSSÍVEL QUE ficamos com CÓDIGO NÃO OPTIMIZADO,
+
+
+     NÃO TÃO PEQUENO.... --. QUEREMOS TER ´CODIGO PERFEITAMENTE LEGÍVEL,
+
+
+     MAS 
+
+     QUE 
+
+     CONSIGA SER 
+
+
+     COMPRIMIDO,
+
+
+
+
+     FUNCTION NAMES BEM CURTOS,
+
+     PARA TER MENOS CÓDIGO...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ALÉM DISSO,
+
+
+ NO NOSSO SETUP TEMOS ESSE 'EXTERNAL DEV SERVER '(
+
+
+     que é uma PACKAGE EXTRA QUE 
+
+     PRECISA SER EXECUTADA,
+
+
+     MÃO...
+ )
+
+
+
+
+
+
+
+ ---> SERIA MELHOR SE TIVÉSSEMOS 1 ÚNICO COMANDO QUE FAZ TUDO,
+
+
+ QUE 
+
+
+
+
+ SPINS UP NOSSO SERVER,
+
+ OPTIMIZA NOSSO CÓDIGO E FAZ TUDO...
+
+
+
+
+
+ É AÍ QUE O WEBPACK NOS AJUDA... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> FAZ CODE BUNDLES, REDUZ NÚMERO DE IMPORTS...
+
+
+
+
+
+
+
+
+
+
+ --> OPTIMIZA (MINIFICA) NOSSO CÓDIGO,
+
+
+
+ FICAMOS COM MENOS COISAS PARA BAIXAR...
+
+
+
+
+
+ --> MAIS BUILD STEPS PODEM SER ADICIONADAS FACILMENTE...
+
+
+
+
+
+
+
+
+
+ --> VEREMOS UM EXAMPLE SETUP NO NOSSO PROJETO,
+
+
+ E COMO PODEMOS USAR WEBPACK LÁ..
+
+
+
+
+
+
+
+
+ In the next lecture, we will use a third-party tool (Webpack) to create a new project. This tool, under the hood, uses NodeJS - a software which you need to download as part of the next lecture.
+
+You will learn about the details in the next lectures but make sure that you DON'T use NodeJS version 17 for the moment! Because at the moment, due to a bug, the created project won't work with that version.
+
+Instead, download the LTS version of NodeJS. You can download that version via this link (use the "LTS" version): https://nodejs.org/en/downl
+
+
+
+
+
+
+
+
+
+

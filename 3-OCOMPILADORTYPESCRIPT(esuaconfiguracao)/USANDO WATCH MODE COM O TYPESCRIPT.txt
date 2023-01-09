@@ -1,0 +1,276 @@
+
+
+
+
+
+
+PARA COMEÇARMOS,
+
+
+
+  O PROFESSOR QUER ASSEGURAR QUE 
+
+  NÃO TENHAMOS 
+
+  QUE 
+
+  RE-EXECUTAR 
+
+
+  'tsc'
+
+
+  A CADA 
+
+
+  MUDANÇA QUE REALIZARMOS NO NOSSO CÓDIGO... 
+
+
+
+
+
+
+
+
+  ISSO PQ 
+
+
+
+  É MT SUBÓTIMO SEGUIR ESSE PROCEDIMENTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> OK, PQ ATÉ AGORA SEMPRE TEMOS QUE 
+
+
+
+
+  SALVAR O ARQUIVO, DPS RODAR TSC,
+
+
+  E DEPOIS 
+
+
+  RODAR 
+
+  OO 
+
+
+
+  ARQUIVO .js ....
+
+
+
+
+
+
+
+
+
+
+
+  --------> PARA SE LIVRAR DISSO,
+
+  PODEMOS ENTRAR NO 'WATCH MODE'..
+
+
+
+
+
+
+
+
+  ---> ELE VAI WATCH UMA FILE,
+
+  E SEMPRE QUE 
+
+  O 
+
+  ARQUIVO MUDAR,
+
+
+  O 
+
+  TYPESCRIPT VAI 'RECOMPILE'..
+
+
+
+
+
+
+
+
+
+
+
+
+  --> PARA ISSO,
+
+  ESCREVEMOS O MESMO COMANDO (
+
+      'tsc xxx',
+
+
+      
+  )
+
+
+
+
+
+  MAS AÍ ESCREVEMOS 
+
+
+
+  '--watch'
+
+
+
+  AO FINAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> OK... MAS AQUI TENHO UM PROBLEMA:
+
+
+
+
+
+
+  E SE EU QUISER RODAR A VERSÃO 'tsconfig.json'
+
+
+
+  DE 
+
+
+
+
+  MEU TYPESCRIPT COMPILER,
+
+  com 
+  
+
+  'tsc' solto,
+
+
+
+
+
+  COMO FACO 
+
+
+  O WATCH DESSA FORMA, ENTao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OK, 
+
+
+  MAS MESMO ASSIM ESCREVEMOS 
+
+
+  'app.ts --watch' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> SEMPRE QUE SALVARMOS 
+  O ARQUIVO,
+
+
+  ELE 
+
+  SERÁ 
+
+
+  RE-COMPILADO,
+
+  E O 
+
+  NOSSO SERVER 
+
+
+  SERÁ 
+
+
+
+
+  RESETTADO (lite-server)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> OK.... MAS AÍ O PROFESSOR FALA DA GRANDE DESVANTAGEM 
+
+  DE QUE 
+
+
+  ATÉ AGORA SÓ ESTAMOS 
+
+  ESPECIFICAMENTE TARGETTANDO 1 ÚNICO ARQUIVO.... --> TIPICAMENTE,
+
+
+
+
+  EM PROJETOS MAIORES,
+
+  RARAMENTE FOCAREMOS EM 1 SÓ ARQUIVO...

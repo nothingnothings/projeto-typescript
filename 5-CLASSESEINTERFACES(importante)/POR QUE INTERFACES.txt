@@ -1,0 +1,392 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA QUE SABEMOS SOBRE AS FEATURES PODEROSAS DAS INTERFACES,
+
+
+POR MEIO DESTE CÓDIGO:
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase + ' ' + this.name);
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION.... (essa propriedade NÃO EXISTE NAQUELA INTERFACE)...
+
+
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+////OBS::: VOCê PODE IMPLEMENTAR__ MAIS DE 1 INTERFACE__ EM 1 MESMA CLASS.... (algo que não acontece com INHERITANCE, com extends)...
+
+
+            static age = 30; ////isso não foi definido na INTERFACE, mas podemos escrever mesmo assim.... (só temos que satisfazer o 'BARE MININUM' das condições da interface)...
+
+
+
+
+        greet(phrase: string) { ///satisfeita a condição de 'greet()' de nossa interface...
+                console.log(phrase);
+        }
+
+
+
+        constructor(public name: string) { ///satisfeita a condição de 'name' de nossa interface... (por meio desse shorthand)...
+
+        }
+
+
+
+
+}
+
+
+
+
+
+const newLawyer = new Lawyer('excelsior');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SURGE A PERGUNTA:
+
+
+
+
+PQ ISSO É ÚTIL?
+
+
+
+
+
+
+
+
+
+
+
+
+---> bem,  É PQ __ 
+
+
+
+
+
+
+
+ELAS PODEM SER ÚTEIS EM SITUAÇÕES 
+
+
+como:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE TEMOS UMA SITUAÇÃO EM QUE 
+
+
+
+TEMOS 
+
+
+
+
+1 CERTO SET DE FUNCIONALIDADES ( como o method de  'greet'))  -----> E AÍ QUEREMOS 
+
+ASSEGURAR 
+
+QUE 
+
+UMA 
+CLASS 
+
+
+
+
+TENHA 
+
+
+ESSE METHOD DE 'greet',
+
+
+
+
+E OUTRA CLASS TBM.. 
+
+
+
+
+
+
+
+
+
+
+--> A INTERFACE, NO CASO, 
+
+VAI __ FORÇAR__ ESSAS CLASSES 
+
+
+A 
+
+
+TER ESSE METHOD AÍ... (parecido com abstract classes).... ---> ISSO SIGNIFICA QUE 
+
+
+
+
+PODEREMOS FACILMENTE 'SHARE' essa funcionalidade AO LONGO DE MÚLTIPLAS CLASSES,
+
+
+
+ 
+
+ E CADA 
+
+ CLASS VAI TER QUE 
+
+ ADICIONAR 
+
+
+ SUA PRÓPRIA IMPLEMENTAÇÃO DESSE CÓDIGO (cada implementação pode ter um código um pouquinho diferente)...
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS FAZEMOS 'ENFORCE' DE UMA CERTA ESTRUTURA COM A AJUDA DE INTERFACES, e é isso que é útil...
+
+
+
+
+
+
+
+
+
+
+
+-----> ISSO PODE SER AINDA MAIS ÚTIL SE TIVERMOS ALGUMAS PARTES DE NOSSO CÓDIGO __ QUE__ DEPENDEM _ DESSA 
+
+ESTRUTURA BEM DEFINIDA...
+
+
+
+exemplo:
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+let user1: Greetable;
+
+
+
+
+
+
+---->  ALI EM CIMA, DEFINIMOS O TYPE DE 
+
+'user1'
+
+
+como sendo 
+
+
+
+'Greetable'... ------> COM ISSO,
+
+
+ESTAMOS DIZENDO 
+
+
+
+
+'''NÓS NÃO NOS IMPORTAMOS COM O QUE 
+
+
+EXISTE DENTRO DE USER1,
+
+MAS O QUE INTERESSA/IMPORTA É QUE __ LÁ DENTRO EXISTA 
+
+
+UM METHOD De 'greet' e 
+
+uma propriedade 
+
+'name''' ...
+
+
+
+
+
+
+------> ou seja,
+
+
+
+
+não interessa o que armazenamos em 'user1',
+
+
+mas o layout básico tem que ser igual ao do Greetable.... ----> E ISSO __ NOS DEIXA_ 
+
+ESCREVER CÓDIGO 
+
+
+VERDADEIRAMENTE PODEROSO E FLEXÍVEL,
+
+
+
+PQ NÃO TEMOS QUE __ SABER__ TUDO __ SOBRE 
+
+
+
+
+
+
+
+1 DETERMINADO OBJECT/CLASS,
+
+
+
+
+
+
+
+E SIM _ SÓ SABEMOS QUE 
+
+
+
+DENTRO DESSE OBJECT VAMOS TER DE TER 1 METHOD DE 'greet' 
+
+
+e 
+
+
+
+
+1 propriedade de 'name'...
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO É BOM, DE FATO...
+
+
+
+
+
+
+
+
+----> 

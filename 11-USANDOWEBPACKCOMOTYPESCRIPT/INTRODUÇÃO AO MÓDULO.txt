@@ -1,0 +1,105 @@
+
+
+
+
+
+
+
+
+
+
+
+--. TYPESCRIPT E WEBPACK ]
+
+
+
+
+
+
+
+
+
+
+
+
+-> NOS ÚLTIMOS MÓDULOS,
+
+
+
+
+
+TRABALHAMOS EM 1 PROJETO,
+
+
+PROJETO COM 
+
+
+
+
+
+1 ÚNICO ARQUIVO,
+
+
+ou um monte de arquivos menores (es6 modules)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS COM O ES6 MODULES,
+
+
+
+FICAMOS COM O CÓDIGO SPLITTADO,
+
+SIM,
+
+MAS 
+
+FICAMOS DURANTE O PRODUCTION TBM( o que é péssimo)...
+
+
+
+
+
+
+
+
+
+
+
+
+QUEREMOS USAR O WEBPACK 
+PARA TER UM PROJECT SETUP QUE 
+
+CONSIGA COMPILAR TODO NOSSO CÓDIGO 
+
+
+EM 
+
+1 
+ÚNICO ARQUIVO...
+
+(na fase de production)...SETUP
+
+
+
+
+
+
+
+
+
+
+
+
+--> vEREMOS ISSO AGORA..

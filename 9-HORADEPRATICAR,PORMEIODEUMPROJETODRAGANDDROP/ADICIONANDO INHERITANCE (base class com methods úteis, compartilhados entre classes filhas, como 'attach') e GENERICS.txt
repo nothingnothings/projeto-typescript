@@ -1,0 +1,6432 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É HORA DE ADICIONARMOS UM POUCO DE 'INHERITANCE',
+
+
+por meio de uma BASE CLASS..
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS TER UMA BASE CLASS QUE 
+
+BASICAMETNE VAI TER AQUELAS 
+
+
+
+
+PROPRIEDADES REPETIDAS DE 
+
+
+
+'templateElement',
+
+
+
+'hostElement'
+
+
+
+e 
+
+
+'element'... 
+
+
+
+(presentes em várias de nossas classes)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> EX (de local onde isso existe):
+
+
+
+
+
+
+
+
+class ProjectList {
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+  // assignedProjects: any[] = [];
+  assignedProjects: Project[] = [];
+
+
+....
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM VAMOS QUERER QUE ESSA 'BASE CLASS'
+
+
+faça aquele trabalho de '
+
+select elements in the DOM',
+
+
+
+visto 
+
+
+
+
+
+
+nessa mesma class de 'projectList',
+
+
+neste trecoh aqui(constructor):
+
+
+
+
+
+
+
+
+ constructor(private listType: 'active' | 'finished') {
+  
+    this.templateElement = document.getElementById( /////////// É AQUI QUE SÃO SELECIONADOS OS ELEMENTOS NO DOM...
+      'project-list'
+    ) as HTMLTemplateElement;
+    this.hostElement = document.getElementById('app') as HTMLDivElement;
+    this.assignedProjects = [];
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+TAMBÉM VAMOS QUERER QUE ESSA BASE CLASS TENHA AQUELE METHOD DE 'attach()',
+
+que é 
+
+ESTE AQUI:
+
+
+
+
+
+
+
+  private attach() {
+    this.hostElement.insertAdjacentElement('beforeend', this.element);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK..... -> SERÁ ESSENCIALMENTE 
+
+
+
+
+
+
+
+
+
+
+UMA BASE CLASS QUE 
+
+
+VAI 
+
+
+
+'''MANAGES ALL THESE SHARED FUNCTIONALITIES''',
+
+
+
+
+
+TODAS ESSAS FUNCIONALIDADES QUE TODAS ESSAS CLASSES QUE 'RENDERIZAM ALGO NO DOM'
+ 
+
+
+ tem em comum... 
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO,
+
+
+
+
+ EM CIMA 
+
+
+ DE NOSSAS CLASSES DE PROJECTINPUT E PROJECLIST,
+
+
+
+
+
+ O PROFESSOR 
+
+
+
+ ADICIONA
+
+
+
+
+
+ A CLASS DE 
+
+
+
+ 'ComponentBase'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> 'Component' ---> esse é um nome COMUM NO REACT/ANGULAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> É UM BOM NOME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE PENSAR EM TODAS ESSAS NOSSAS CLASSES  (como 'ProjectList' e 'ProjectInput')
+
+
+
+
+
+COMO 
+
+'UI/INTERFACE COMPONENTs',
+
+
+
+OS QUAIS VOCÊ RENDERIZA À TELA...
+
+
+
+
+
+
+
+
+
+
+--> E CADA COMPONENT de 'interface' 
+
+
+É __ UM 'RENDERABLE OBJECT', 
+
+
+
+
+QUE POSSUI CERTAS FUNCTIONALITIES __ QUE _ NOS PERMITEM OS RENDERIZAR...
+
+
+
+
+
+
+
+
+
+
+---------------> E AÍ, AS 'CONCRETE INSTANCES/INHERITED CLASSES' 
+
+
+
+ADICIONAM CERTAS FUNCIONALIDADES __ QUE NÃO EXISTEM NO 'COMPONENT BASE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas o que vamos querer nessa class 'Component'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Component {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, PRIMEIRAMENTE VAMOS QUERER, COM CERTEZA,
+
+
+AQUELES 3 ELEMENTS,
+
+
+
+
+
+isto aqui:
+
+
+
+
+
+
+
+
+
+class Component {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ok.... 
+
+
+
+
+
+
+É CLARO QUE VAMOS PRECISAR DELES... --------> MAS JÁ VAMOS TER UM PROBLEMA AQUI,
+
+
+
+A RESPEITO DOS 'TYPES'.... ----------> 
+
+
+
+
+
+nós vamos querer 
+
+que 
+
+
+'templateElement'
+
+
+
+SEMPRE SEJA UM 'HTMLTemplateElement',
+
+
+
+
+
+
+MAS 
+
+
+AQUELE 
+
+
+'hostElement'
+
+
+
+__ NEM __ SEMPRE_ _ TERÁ __ DE SER UMA DIV ( 
+
+
+pq, por exemplo, quando quisermos RENDERIZAR UM 'PROJECTITEM',
+
+
+
+que é um <li>,
+
+VAMOS QUERER RENDERIZAR ISSO EM UMA '<ul>',
+
+
+e não uma '<div>'...
+
+
+)
+
+
+
+
+
+
+
+
+
+----> CERTo.... por isso vamos querer que esse negócio nem sempre seja um 'HTMLDivElement'...
+
+
+
+
+
+
+
+
+
+
+
+-> já o 'elemnet' 
+
+
+
+
+_ SEMPRE__ 
+
+SERÁ UM 
+
+
+
+'HTMLElement',
+
+
+
+
+
+
+
+podemos deixar assim...
+
+
+
+
+
+
+
+
+--_> MAS É CLARO QUE __ VAMOS TER 1 CASE EM QUE __ ESSE 'HTMLElement'
+
+
+VAI SER MAIS ESPECÍFICO,
+
+
+
+como no 
+
+
+caso da 
+
+class de 
+
+
+'ProjectInput' (em que o element é um 'HTMLFormElement',
+
+
+que é uma subespecie de 'HTMLElement'...
+
+
+)
+
+
+
+
+
+
+
+
+
+----------> Nós perdemos um pouco de informação 
+
+
+
+se deixarmos só como 'HTMLElement', EM VEZ DE 'HTMLFormElement'...
+
+
+
+
+
+
+
+
+-----------> OK.... ------->  ISSO SIGNIFICA QUE 
+
+
+
+
+
+TALVEZ SEJA MELHOR USAR UMA 'GENERIC' (generic class),
+
+
+
+possivelmente..
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO PODEMOS CIRCUNDAR ESSA 'LIMITAÇÃO' 
+
+
+
+
+entre '''type mais/menos específico...'''? 
+
+
+
+
+
+
+
+
+
+------> PROFESSOR EXPLICA QUE PODEMOS FAZER ISSO POR MEIO DO USO DE UMA 'GENERIC CLASS' 
+
+
+
+
+nesse 'Component'....
+
+
+
+
+
+
+
+
+
+
+--> para usar/DEFINIR uma generic class,
+
+
+
+
+temos que usar auqela sintaxe de 
+
+
+
+'<T>'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->  GENERIC CLASS --> ISSO PQ QUANDO FIZERMOS 'INHERIT' dessa class,
+
+
+
+
+VAMOS QUERER__ PODER __ SETTAR_ OS 'CONCRETE TYPES'
+
+
+nesse momento...
+
+
+
+
+
+
+
+
+
+
+
+---------> para isso,
+
+
+
+professor escreve assim:
+
+
+
+
+
+
+
+
+class Component<T, U, V> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+SE FIZERMOS ASSIM, TEREMOS 3 'types genéricos' 
+
+
+
+
+
+permitidos nessa class...
+
+
+
+
+
+
+
+
+--> MAS PROFESSOR VAI COLOCAR SÓ 2 IDENTIFICADORES, 'T' e 'U'....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Component<T, U> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+------------------------>
+
+
+
+
+
+
+
+
+ESSENCIAL PARA O DEFINE DESSA 'GENERIC CLASS'
+
+
+é 
+
+o 
+
+
+set de CONSTRAINTS (extends),
+
+
+
+
+
+PQ AÍ DEFINIMOS QUE 
+
+
+
+'T'
+
+
+
+sempre SERÁ 
+
+
+
+
+
+
+
+algum tipo de 'HTMLElement' (
+
+
+
+    ou seja, pode ser UM HTMLElement
+
+
+    GENÉRICO,
+
+
+
+
+    ou uma versão mais específica de 'HTMLElement'...
+)
+
+
+
+
+
+
+EX:
+
+
+
+
+class Component<T extends HTMLElement, U> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: T
+
+
+
+
+}
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> A MESMA COISA PARA O 'U,
+
+
+
+
+definimos 
+
+
+como 'HTMLElement'....
+
+
+
+
+
+
+Ex:
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: T
+
+
+
+
+}
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> na verdade, o 'hostElemeNT'
+
+
+
+
+será de tipo T,
+
+
+e o 
+
+
+element será de tipo 'U'..
+.
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+
+}
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK.... COM ISSO,
+ 
+
+
+
+ AGORA QUANDO FAZEMOS 'INHERIT' DESSA CLASS __, PODEMOS __ ESPECIFICAR__ BEM 
+
+
+ QUAL 
+
+
+ 'TYPE'
+
+
+
+
+vamos querer que ele permita....
+
+
+
+
+
+
+(
+
+
+ISSO SIGNIFICA QUE VAMOS PODER TRABALHAR COM DIFERNETES' TYPES' 
+
+
+NOS DIFERENTES LUGARES EM QUE INHERITARMOS...
+
+
+
+
+)
+
+
+
+
+
+
+
+
+---> APÓS ISSO,
+
+
+ADICIONAMOS UM CONSTRUCTOR EM 'Component':
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+    constructor() {
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> DENTRO DO CONSTRUCTOR,
+
+
+
+
+vamos precisar 
+
+
+
+
+
+
+saber o 'ID DE NOSSO TEMPLATE',
+
+
+ 
+
+
+TUDO PARA QUE SAIBAMOS 
+
+
+
+
+'''HOW TO SELECT IT'''...  -------> e o valor desse id será uma STRING...
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM PRECISAMOS SABER O 'hostElementId',
+
+
+
+
+
+PARA QUE __ SAIBAMOS___ EM QUE __ LUGAR___ DEVEMOS __ RENDERIZAR ___ ESSE COMPONENT__....
+
+
+
+
+
+
+
+
+
+
+
+
+--> por fim, o professor vai querer um 'newElementId',
+
+
+
+que será uma string,
+
+e que 
+
+
+
+
+
+
+INDICARÁ O ID que será assignado ao 'newly rendered element'... (
+
+
+    ENTRETANTO, ESSA PROPRIEDADE É OPCIONAL 
+
+    NESSA NOSSA CLASS,
+
+
+    POR ISSO O PROFESSOR ESCREVE 
+
+    '?' no seu final...
+)
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+    constructor(templateId: string, hostElementId: string, newElementId?: string) {
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+
+
+NO CONSTRUCTOR VAMOS ESSENCIALMENTE QUERER RODAR AQUELE CÓDIGO DE 
+
+
+
+
+
+'this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+
+this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+    constructor(templateId: string, hostElementId: string, newElementId?: string) {
+        this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok....
+
+
+
+
+
+
+
+
+MAS O QUE ISSO FAZ?
+
+
+
+
+
+
+
+
+
+bem, isso vai armazenar o 'elemento template' 
+
+
+
+em 
+
+'this.template',
+
+
+
+
+
+
+
+MAS É CLARO QUE PRECISAMOS ___ MUDAR AQUELE VALOR HARDCODADO DE 
+
+
+'project-list',
+
+
+
+
+trocar para que fique 
+
+
+
+'templateId'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+    constructor(templateId: string, hostElementId: string, newElementId?: string) {
+        this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MESMA COISA COM A LINHA DE 
+
+
+
+''''
+
+
+    this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+
+    '''',
+
+
+
+
+    EM QUE TROCAMOS 
+
+
+
+    'app' 
+
+
+
+    por 
+
+
+
+    'hostElementId'....
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> {
+
+    
+    templateElement: HTMLTemplateElement;
+    hostElement: T;
+    element: U;
+
+
+
+    constructor(templateId: string, hostElementId: string, newElementId?: string) {
+        this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;
+        this.hostElement = document.getElementById(hostElementId)! as HTMLDivElement;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+---------------> OK.... MAS AQUI FICAMOS COM UM PROBLEMA, PROBLEMA DE CASTING:
+
+
+
+
+
+
+Type 'HTMLDivElement' is not assignable to type 'T'.
+  'HTMLDivElement' is assignable to the constraint of type 'T', but 'T'
+   could be instantiated with a different subtype of constraint 'HTMLElement'.ts(2322)
+
+
+
+
+
+
+
+
+
+
+
+
+-------->  PARA CONSERTAR ESSE NEGÓCIO, 
+
+
+devemos trocar 
+
+
+
+'as HTMLDivElement'
+
+
+por 
+
+
+
+'T' ( o type genérico de 'T')...
+
+
+
+
+
+
+
+
+
+
+
+
+(
+
+
+
+    PQ T É O TYPE GENÉRICO QUE USAMOS PARA NOSSO 'hostElement',
+
+    por isso já podemos o castar aqui...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+
+
+
+JÁ 
+
+
+
+
+ESTAMOS CONSEGUINDO FZER 'SELECT' DE ELEMENTS (genericamente, o que é ótimo)....
+
+
+
+
+
+
+
+
+
+----> COM ISSO,
+
+
+
+PODEMOS PEGAR MAIS CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PEGAR EMPRESTADO AQUELE CÓDIGO EM QUE 'importamos um node',
+
+
+
+com 'document.importNode',
+
+aquele 
+
+
+
+CÓDIGO QUE 
+
+
+CONVERTIA NOSSOS TEMPLATES EM 
+
+
+ELEMENTOS HTML DE VERDADE...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    ); 
+    this.element = importedNode.firstElementChild as HTMLFormElement;
+    this.element.id = 'user-input'; ///isso vai adi
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COPIAMOS ESSE TRECHO E COLAMOS NO 'CONSTRUCTOR' desse component genérico...
+
+
+
+
+
+
+
+
+
+
+
+
+---> vamos deixar 'this.templateElement.content' igual..
+
+
+
+
+
+
+
+
+
+-> a única coisa que vamos mudar é o casting na linha 
+
+de 
+
+
+''
+
+
+
+
+    this.element = importedNode.firstElementChild as HTMLFormElement;
+
+
+
+    '''
+
+
+
+
+
+
+
+
+    VAMOS COLOCAR O TYPE DE 'U' (que é o type genérico de 'U', nessa class 'Component')....
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+
+    
+const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    ); 
+    this.element = importedNode.firstElementChild as U;
+    this.element.id = 'user-input';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, AQUELE 'this.element.id' 
+
+
+TERÁ DE SER ALTERADo.... ---> 
+
+
+
+queremos que esse código funcione com 
+
+TODAS AS CLASSES QUE INHERITAREM ESSA CLASS DE 'component'.... --> o problema é que 
+
+
+algumas classes 
+
+
+NÃO VÃO TER ESSA PROPRIEDADE de 'element' (novo element a ser inserido).... ------> 
+
+
+
+
+
+é por isso que não podemos só escrever 
+
+
+
+'this.element.id = newElementId',
+
+
+
+
+
+
+PQ ESSE 
+
+'newElementId'
+
+É OPCIONAL (
+
+
+    é 'newElementId?' ...
+)
+
+
+
+
+
+
+
+
+
+--------> É POR ISSO QUE EU ESCREVI O IF CHECK DE 
+
+
+''
+
+
+        if(newElementId) {
+          this.element.id = newElementId;
+        }
+
+
+
+'''
+
+
+
+
+
+
+--> aí __ APENAS SE TIVERMOS ESSE PARÂMETRO SENDO PASSADO, É QUE VAMOS 
+
+
+definir 
+
+esse 'id' 
+
+de element como sendo esse valor aí...
+
+
+
+
+
+
+
+OK... ACERTEI ISSO AÍ....
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... COM ISSO JÁ TEMOS O CONSTRUCTOR DESSA CLASS GENÉRICa.A..
+
+
+
+
+
+
+
+--> AGORA VAMOS QUERER 
+
+
+
+INCLUIR O METHOD DE 'attach()'
+
+dentro dessa class genérica...
+
+
+
+
+
+
+
+
+
+
+---> O CODIGO DE 'attach()' é este:
+
+
+
+
+
+
+  private attach() {
+    this.hostElement.insertAdjacentElement('beforeend', this.element);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --------> SE ME LEMBRO BEM, ESSE METHOD TEM 2 TIPOS DE INSERT,
+
+
+  'beforeend' 
+
+  e 
+
+  'afterbegin',
+
+
+  que estávamos usando em DIFERENTES METHODS... 
+
+
+
+  (
+
+
+      mas o  segundo parâmetro sempre será o mesmo; sempre será 'this.element'...
+
+
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+PROVAVELMENTE ESCREVERMOS ELE NA NOSSA CLASS DE 'Component' ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, hostElementId: string, newElementId?: string) {
+
+
+    // this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+    // this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+    //esse código genérico de 'GET/SELECT AN ELEMENt' vai funcionar com todas as classes 'interface/ui' que inheritarem essa nossa class genérica de 'Component'....
+    
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+
+    //// esse código de 'conversão de template em elementos html de verdade' vai funcionar com todas as classes 'interface/ui' que inheritarem essa nossa class genérica de 'Component'....
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+        // this.element.id = 'user-input';
+
+        if(newElementId) { ////minha ideia.... --> pq esse 'newElementId' é OPCIONAL... ('newElementId?'..)...
+          this.element.id = newElementId;
+        }
+     
+  }
+
+
+
+
+
+private attach(position: 'beforeend' | 'afterbegin') {
+    this.hostElement.insertAdjacentElement(position, this.element);
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+PENSEI EM ESCREVER ASSIM:
+
+
+
+
+
+
+
+private attach(position: 'beforeend' | 'afterbegin') {
+    this.hostElement.insertAdjacentElement(position, this.element);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ OS 2 ÚNICOS METHODS POSSÍVEIS SERÃO 'beforeend' ou 'afterbegin'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+
+
+
+
+
+ESSE METHOD CONTINUARÁ SENDO 'PRIVATE'...
+
+
+
+
+
+
+
+
+
+
+----> aí, como em todas nossas outras classes,
+
+
+vamos querer chamar esse 
+
+'this.attach()'
+
+
+NO FINAL DO RUNTIME DO CONSTRUCOTR:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, hostElementId: string, newElementId?: string) {
+
+
+    // this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+    // this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+
+    //esse código genérico de 'GET/SELECT AN ELEMENt' vai funcionar com todas as classes 'interface/ui' que inheritarem essa nossa class genérica de 'Component'....
+    
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+
+    //// esse código de 'conversão de template em elementos html de verdade' vai funcionar com todas as classes 'interface/ui' que inheritarem essa nossa class genérica de 'Component'....
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+        // this.element.id = 'user-input';
+
+        if(newElementId) { ////minha ideia.... --> pq esse 'newElementId' é OPCIONAL... ('newElementId?'..)...
+          this.element.id = newElementId;
+        }
+        
+
+
+        this.attach();
+
+  }
+
+
+  
+
+
+private attach(position: 'beforeend' | 'afterbegin') {
+    this.hostElement.insertAdjacentElement(position, this.element);
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+CERTO... MAS ESSE 
+
+'this.attach()'
+
+PRECISA 
+
+
+DE 1 PARÂMETRO, QUE É AQUELE 'position'...
+
+
+
+
+
+
+
+
+
+
+---> esse parâmetro precisa ser fornecido no constructor de 'Component'... --> 
+
+
+
+
+ADICIONAMO-NO COMO 4o 
+
+
+argumento no construcotr.....
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+  constructor(templateId: string, hostElementId: string, newElementId?: string,
+
+    insertPosition: 'afterbegin' | 'beforeend'
+  
+  
+  
+  ) {
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+-->  OBS: 
+
+
+
+
+
+OPTIONAL PARAMETERS _ SEMPRE_ _DEVEM _ VIR __ POR __ ÚLTIMO, nas nossas listas de parâmetros.. (
+    
+
+    pq as pessoas Às vezes podem as omitir...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+aí escrevemos assim:
+
+
+
+  constructor(templateId: string, hostElementId: string, 
+
+    insertPosition: 'afterbegin' | 'beforeend',
+
+    newElementId?: string
+  
+  
+  
+  ) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+      --> CERTO, AÍ PASSAMOS ESSE PARÂMETRO DE 'insertPosition'
+
+
+      LÁ 
+
+
+
+      NO NOSSO METHOD de 'private attach()'...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, 
+    hostElementId: string, 
+    insertPosition: 'afterbegin' | 'beforeend',
+    newElementId?: string) {  
+
+
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+
+
+        if(newElementId) { 
+          this.element.id = newElementId;
+        }
+
+
+        this.attach(insertPosition);
+     
+  }
+
+
+  private attach(insertPosition: 'afterbegin' | 'beforeend') { ///EIS O CÓDIGO EM QUESTÃO.
+
+    this.hostElement.insertAdjacentElement(insertPosition, this.element);
+  }
+
+
+}
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+------> OK... EU ESCREVI MINHA PRÓPRIA LÓGICA, MAS DÁ NA MESMA... (flexibilidade quanto à 'maneira pela qual isso é inserted')..
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS O PROFESSOR TBM VAI QUERER MARCAR ESSA CLASS GENÉRICA COMO 
+
+UMA 
+
+
+'''ABSTRACT CLASS'''' (com a keyword de 'abstract')
+
+
+
+
+
+
+
+
+
+
+
+-------> ABSTRACT CLASS- --> ISSO PQ ELE _ NUNCA VAI QUERER QUE AS PESSOAS A INSTANCIEM __ DIRETAMENTE__ (e sim  apenas a utilizem com 'inherit' em outras classes)
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, 
+    hostElementId: string, 
+    insertPosition: 'afterbegin' | 'beforeend',
+    newElementId?: string) {  
+
+
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+
+
+        if(newElementId) { 
+          this.element.id = newElementId;
+        }
+
+
+        this.attach(insertPosition);
+     
+  }
+
+
+  private attach(insertPosition: 'afterbegin' | 'beforeend') { ///EIS O CÓDIGO EM QUESTÃO.
+
+    this.hostElement.insertAdjacentElement(insertPosition, this.element);
+  }
+
+
+}
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A KEYWORD 'abstract'
+
+
+BLOQUEIA AA FEATURE DE INSTANTIATE DE 
+
+
+classes... (
+
+
+    pq você não deve usar essa class puramente, e sim só 
+
+    com INHERIT em outras classes,
+
+
+    justamente isso...
+)
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... ------------> O PROFESSOR TAMBÉM ADICIONA 2 OUTROS METHODS,
+
+
+
+
+
+
+
+
+
+O METHOD 
+
+
+'configurable',
+
+
+
+e TAMBÉM
+
+'renderContent',
+
+
+
+METHODS QUE EXISTIAM NAS NOSSAS OUTRAS CLASSES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES 2 METHODS, É CLARO, serão 'private'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+abstract class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, 
+    hostElementId: string, 
+    insertPosition: 'afterbegin' | 'beforeend',
+    newElementId?: string) {  
+
+
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+
+
+        if(newElementId) { 
+          this.element.id = newElementId;
+        }
+
+
+        this.attach(insertPosition);
+     
+  }
+
+
+  private attach(insertPosition: 'afterbegin' | 'beforeend') { ///EIS O CÓDIGO EM QUESTÃO.
+
+    this.hostElement.insertAdjacentElement(insertPosition, this.element);
+  }
+
+
+    private configure() {
+
+    }
+
+    private renderContent() {
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... MAS __ ESSE METHOD__ NÃO SERÁ 'PRIVATE',
+
+
+e sim 
+
+SERÁ 
+
+
+'ABSTRACT'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> method abstract- --> ISSO SIGNIFICA QUE 
+
+
+
+A CONCRETA IMPLEMENTAÇÃO ESTARÁ 'MISSING' 
+
+
+nessa class 
+
+
+de 
+
+
+
+'Component'... --> A IMPLEMENTAÇÃO DE VERDADE _ SÓ __ VAI __ EXISTIR__ 
+
+
+
+LÁ 
+
+
+NAS NOSSAS 
+
+
+
+
+CLASSES QUE INHERITAREM 'Component',
+
+
+
+
+
+
+E SUA IMPLEMENTAÇÃO SERÁ ESPECÍFICA EM CADA UMA DELAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PARA ESCREVERMOS UM METHOD ABSTRATO,
+
+
+
+devemos ter uma escrita diferente....
+
+
+
+
+
+
+
+
+
+
+a escrita é assim:
+
+
+
+
+
+
+
+
+abstract configure(): void 
+
+
+
+
+
+
+
+
+(
+
+    ISSO SIGNIFICA QUE ESSE METHOD VAI NOS RETORNAR 'void'... , ou seja, NADA...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> A UTILIDADE DE 'ABSTRACT METHODS'
+
+
+É 
+
+
+QUE 
+
+CLASSES  
+
+
+QUE INHERITAREM 
+
+
+
+'Component'
+
+
+,
+
+ESSA NOSSA 'ABSTRACT CLASS',
+
+
+
+_ SEMPRE_ SERÃO FORÇADOS _ A CODAR SUA PRÓPRIA VERSÃO DE 
+
+
+
+
+'configure' e 
+
+
+'renderContent'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> DEVEMOS TER ESSES 2 METHODS NAS NOSSAS CLASSES QUE INHERITAM, 
+
+DISPONÍVEIS E ACESSÍVEIS...
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ABSTRACT CLASSES E ABSTRACT METHODS SERVEM PARA __ INFORMAR__ AS PESSOAS QUE VÃO DAR UMA OLHADA NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> se olharem nosso código,
+
+
+saberão 
+
+
+QUE 
+
+
+
+
+ESSA CLASS DE 'Component'
+
+
+FAZ 
+O 
+'GENERAL RENDERING/ATTACHMENT DO COMPONENT',
+
+
+
+
+
+MAS __ QUE __ 'THE CONCRETE CONTENT AND CONFIGURATION' PRECISA __ ACONTECER NO LOCAL EM QUE INHERITAMOS ESSA CLASS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SIDENOTE ===== 'PRIVATE' abstract methods _ NÃO EXISTEM,
+
+POR ISSO VOCÊ 
+
+SÓ PODE 
+
+TER 
+
+'abstract renderContent()'...
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... COM ISSO, 
+
+
+
+PODEMOS __ FAZER 'EXTEND' (inherit)
+
+
+
+DESSA ABSTRACT CLASS DE 'Component',
+
+
+LÁ 
+
+
+na nossa 'ProjectList'...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+class ProjectList extends Component { ///agora vamos fazer 'inherit' dessa base class, que tem várias das coisas necessárias (E reutilizadas) a essa nossa 'child class'...
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+  // assignedProjects: any[] = [];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> OK... MAS QUANDO ESCREVEMOS ISSO, JÁ RECEBEMOS UM ERROR___>..
+
+
+
+
+
+
+
+
+  o error é de 
+
+
+  '
+Generic type 'Component<T, U>' requires 2 type argument(s).'
+
+
+
+
+
+
+
+
+
+----> ou seja,
+
+
+PRECISAMOS PASSAR ESSES 2 ARGUMETNOS (types)
+
+
+
+
+
+A ESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ACABAR COM ESSE ERROR,
+
+
+ESCREVO:
+
+
+
+
+class ProjectList extends Component<HTMLDivElement, HTMLElement> {
+
+
+      templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+
+
+
+
+
+  ---------------------------------
+
+
+
+
+
+
+
+  CERTO...
+
+
+
+
+
+
+
+
+
+
+
+MAS AGORA FIQUEI COM ALGUMAS PERGUNTAS..
+
+
+
+
+
+
+
+
+--> meu código de 'ProjectList'
+
+
+
+AINDA ESTÁ POLUÍDO,
+ ainda está assim:
+
+
+
+
+
+
+
+
+
+class ProjectList extends Component<HTMLDivElement, HTMLElement> { ///agora vamos fazer 'inherit' dessa base class, que tem várias das coisas necessárias (E reutilizadas) a essa nossa 'child class'...
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+  // assignedProjects: any[] = [];
+  assignedProjects: Project[] = [];
+
+  constructor(private listType: 'active' | 'finished') {
+    ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+    this.templateElement = document.getElementById(
+      'project-list'
+    ) as HTMLTemplateElement;
+    this.hostElement = document.getElementById('app') as HTMLDivElement;
+    this.assignedProjects = [];
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      // this.assignedProjects = projects; ///sem diferenciação entre 'active' e 'finished'
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+    this.attach();
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+  }
+
+  private attach() {
+    this.hostElement.insertAdjacentElement('beforeend', this.element);
+  }
+
+  private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+  private renderContent() {
+    ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `${this.listType}-projects-list`;
+
+    console.log(listId);
+
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector(
+      'h2'
+    )!.textContent = `${this.listType.toUpperCase()} PROJECTS`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OU SEJA, AINDA TENHO DUPLICATAS DOS METHODS 'renderContent()',
+
+e 'attach()'...
+
+
+
+
+
+
+
+
+
+--> AQUI, NO CASO,
+
+precisamos TIRAR ESSA DEFINIÇÃO DE 'attach()' method,
+
+pq ele 
+
+JÁ EXISTE NA NOSSA CLASS QUE INHERITAMOS, 'Component'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, A PRIMEIRA COISA QUE EU FAÇO É CHAMAR 'super()" 
+
+dentro 
+
+
+DO CONSTRUCTOR DESSA NOSSA CLASS,
+
+
+para que 
+
+
+
+ENTÃO 
+
+
+
+CONSIGAMOS ACESSAR A CLASS QUE ESTÁ INHERITANDO...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList extends Component<HTMLDivElement, HTMLElement> { ///agora vamos fazer 'inherit' dessa base class, que tem várias das coisas necessárias (E reutilizadas) a essa nossa 'child class'...
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLElement;
+  // assignedProjects: any[] = [];
+  assignedProjects: Project[] = [];
+
+  constructor(private listType: 'active' | 'finished') {
+    ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+    
+    
+    
+    super();
+    
+    this.templateElement = document.getElementById(
+      'project-list'
+    ) as HTMLTemplateElement;
+    this.hostElement = document.getElementById('app') as HTMLDivElement;
+    this.assignedProjects = [];
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      // this.assignedProjects = projects; ///sem diferenciação entre 'active' e 'finished'
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+    
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+  }
+
+  // private attach() {
+  //   this.hostElement.insertAdjacentElement('beforeend', this.element);
+  // }
+
+  private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+  private renderContent() {
+    ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `${this.listType}-projects-list`;
+
+    console.log(listId);
+
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector(
+      'h2'
+    )!.textContent = `${this.listType.toUpperCase()} PROJECTS`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, ISSO FAZ ALGUNS DOS ERROS SUMIREM,
+
+
+mas ainda 
+
+
+tenho um error, que é este:
+
+
+
+Expected 3-4 arguments, but got 0.ts(2554)
+app.ts(279, 15): An argument for 'templateId' was not provided.
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EU TENTEI ARRUMAR O CÓDIGO, E CONSERTAR ESSE ERRO... PASSEI OS PARAMETERS AO CONSTRUCTOR, E FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList extends Component<HTMLDivElement, HTMLElement> { 
+
+  assignedProjects: Project[] = [];
+
+  constructor(private listType: 'active' | 'finished') {
+
+    
+    super('project-list', 'app', 'beforeend', `${listType}-projects`); ///////EIS O CÓDIGO EM QUESTÃO.
+    
+    this.templateElement = document.getElementById(
+      'project-list'
+    ) as HTMLTemplateElement;
+    this.hostElement = document.getElementById('app') as HTMLDivElement;
+    this.assignedProjects = [];
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listType}-projects`; 
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+    
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+  }
+
+
+private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+
+   configure() {
+
+  }
+
+   renderContent() {
+    ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `${this.listType}-projects-list`;
+
+    console.log(listId);
+
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector(
+      'h2'
+    )!.textContent = `${this.listType.toUpperCase()} PROJECTS`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+---> COMO VOCÊ PODE PERCEBER, TUDO FICOU MEIO DEFINIDO,
+
+COM A EXCEÇÃO DE 'configure(){}',
+
+
+
+cuja lógica 
+
+
+AINDA NÃO DEFINI BEM NESSA CLASS QUE 'INHERITA'..
+
+
+
+
+
+
+
+
+
+(isso pq 'configure()' é OBRIGATÓRIO)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESQUECI OUTRA COIAS.... --> 
+
+
+
+
+
+POSSO  
+
+
+REMOVER AQUELE CÓDIGO DE 
+
+
+''
+
+
+    this.templateElement = document.getElementById(
+      'project-list'
+    ) as HTMLTemplateElement;
+
+
+    '',
+
+
+
+    PQ ISSO AÍ JÁ VAI SER FEITO NO CONSTRUCTOR DE 'Component'...
+
+
+
+
+
+
+
+
+
+
+
+    NA VERDADE, PODEMOS REMOVER UM MONTE DE COISAS, QUE AGORA SÃO TODAS FEITAS NO 'Component'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    a class limpa fica ASSIM:
+
+
+
+
+
+
+    
+
+
+
+class ProjectList extends Component<HTMLDivElement, HTMLElement> { 
+
+  assignedProjects: Project[] = [];
+
+  constructor(private listType: 'active' | 'finished') {
+
+    
+    super('project-list', 'app', 'beforeend', `${listType}-projects`); ///////EIS O CÓDIGO EM QUESTÃO.
+    
+    this.assignedProjects = [];
+
+        ///bem mais limpo...
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+    
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+  }
+
+
+private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+
+   configure() {
+
+  }
+
+   renderContent() {
+    ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `${this.listType}-projects-list`;
+
+    console.log(listId);
+
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector(
+      'h2'
+    )!.textContent = `${this.listType.toUpperCase()} PROJECTS`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+OK..... ISSO SIGNIFICA QUE O QUE EU HAVIA ESCRITO ESTAVA __ CERTO....___ 
+
+
+
+
+
+
+
+
+
+-------->  BEM, MAS UMA COISA QUE O PROFESSOR TIRA DESSA CLASS É AQUELE 
+
+call de 'this.attach()',
+
+
+PQ ISSO JÁ VAI ACONTECER NA NOSSA 'BASE CLASS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS O 'renderContent'
+
+AINDA 
+
+
+CONTINUARÁ SENDO CHAMAADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PRIVATE ABSTRACT METHODS NÃO SÃO SUPORTADOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí o professor também ganha o error de 'no configure() method'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ __ 
+
+
+
+
+
+
+O PROFESSOR ADICIONA UM METHOD DESSES NESSA CLASS..
+
+
+
+
+
+
+
+
+
+--> o professor explica que, caso 
+
+
+você 
+
+não queira 
+
+
+
+
+TER 1 abstract method 
+
+
+
+OBRIGATORIAMENTE 
+
+
+
+em 1 de suas inheriting classes,
+
+
+você pode 
+
+simplesmnete escrever 
+
+um 
+
+'abstract configure?(): void',
+
+
+
+
+
+UM PONTO DE INTERROGAÇÃO,
+
+para definir 
+
+
+
+esse method como OPCIONAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------->  MAS NESSE CÓDIGO DE 'ProjectList',
+
+
+dessa class,
+
+
+PROFESSOR VAI MANTER ESSE CÓDIGO DE 'configure(){}',
+
+
+PQ 
+
+
+DENTRO DELE _ ELE __ VAI _ _ ENFIAR __ AQUELE CÓDIGO DE 'SET OF A LISTENEr',
+
+
+
+
+
+
+AQUELE CÓDIGO DE 
+
+
+
+
+
+'''
+
+
+
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+
+
+
+''''',
+
+
+
+
+
+
+
+
+
+QUE ESTAVA ORIGINALMENTE NO NOSSO CONSTRUCTOR, SOLTO,
+
+
+ele vai colocar nesse 'configure()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE NOSSO CONSTRUCTOR VAI FICAR COM BEM MENOS LINHAS, VAI FICAR SÓ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+  constructor(private listType: 'active' | 'finished') {
+
+    super('project-list', 'app', 'beforeend', `${listType}-projects`);
+
+
+    this.assignedProjects = [];
+
+
+    
+    this.configure();
+    
+    this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    E A FUNCTION DE 'configure()' ficou ASSIm:
+
+
+
+
+
+
+
+
+
+
+   configure() {
+    projectState.addListener((projects: Project[]) => { ///tranpslantado para DENTRO DE 'configure()', este nosso method que ADICIONA UM LISTENER..
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+  ----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+  --------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ok.... ----->  professor  solta a pergunta:
+
+
+
+
+
+
+  ''pq n poderíamos só executar this.configure() 
+
+
+
+
+  lá 
+
+
+  no constructor 
+
+  de 
+
+
+
+  'Component',
+
+
+
+
+  ao final...?' 
+
+
+
+
+
+
+
+
+
+
+  TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+  constructor() {
+
+      this.attach(insertPosition);
+      this.renderContent();
+      this.configure();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> PROFESSOR EXPLICA QUE PODERÍAMOS FAZER ISSO, SIM,
+
+
+  MAS __ ISSO _ TRARIA ___ PROBLEMAS_.....
+
+
+
+
+
+
+
+
+
+
+
+
+  -->  SE FIZERMOS ISSO,
+
+
+
+
+  A ORDEM DAS COISAS VAI FICAR ERRADA....  (o base constructor não vai ter coisas, coisas que 
+  
+  SÓ AS INHERITING CLASSES TERÃO, NO FUTURO, QUANDO INHERITAREM... )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> COM ISSO,
+
+  REESTRUTURAMOS A 'PROJECTLIST'
+
+  para 
+  que 
+
+
+  ela 
+
+
+
+  tire __ vantagem __ DE 'INHERITANCE',
+
+
+  e da 
+
+
+  NOSSA SHARED LOGIC...  
+
+
+
+
+
+
+
+
+
+
+  --> AGORA FAREMOS A MESMA COISA COM 'ProjectInput'
+   
+
+   (
+
+       tentar fazer sozinho...
+   )
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --> MEU CÓDIGO FOI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> { ///extend de nossa class genérica abstrata....
+
+
+  titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+  descriptionInputElement: HTMLInputElement;
+  peopleInputElement: HTMLInputElement;
+
+  constructor() {
+
+    super('project-input', 'app', 'afterbegin', 'user-input');
+
+
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+    this.configure();
+
+  }
+
+ 
+  @Autobind
+  private submitHandler(event: Event) {
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... .
+    console.log(this.titleInputElement.value); /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+    const userInput = this.gatherUserInputs();
+    if (Array.isArray(userInput)) {
+      //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+      const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+
+
+      projectState.addProject(title, desc, people);
+
+      // const projectState = new ProjectState(); //singleton PATTERN  e 'private constructor'...
+      this.clearInputs();
+    }
+
+    this.clearInputs();
+  }
+
+  configure() {
+    this.element.addEventListener(
+      'submit',
+      this.submitHandler
+    );
+  }
+
+  private gatherUserInputs(): [string, string, number] | void {
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = +this.peopleInputElement.value;
+
+
+    const titleValidatable: Validatable = {
+      value: enteredTitle,
+      required: true,
+      minLength: 5, ///lógica de validation, etc....
+    };
+
+    const descriptionValidatable: Validatable = {
+      value: enteredDescription,
+      required: true,
+      minLength: 5,
+    };
+
+    const peopleValidatable: Validatable = {
+      value: enteredPeople,
+      required: true,
+      min: 1,
+      max: 10,
+    };
+
+    if (
+      !validate(titleValidatable) ||
+      !validate(descriptionValidatable) ||
+      !validate(peopleValidatable)
+    ) {
+      alert('Invalid input, please try again.');
+      console.log('TEST');
+      return;
+    } else {
+      return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+  }
+
+  private clearInputs() {
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+OU SEJA,
+
+
+NOSSA CLASS FICOU BEM MAIS 'MAGRA' DO QUE ANTES....
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, ESTOU COM UM ERRO:
+
+
+
+
+
+
+
+
+
+Non-abstract class 'ProjectInput' does
+
+ not implement inherited abstract member 'renderContent'
+  from class 'Component<HTMLDivElement, HTMLFormElement>'.ts(2515)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> talvez essa seja uma boa hora para definir essa propriedade de 'renderContent'
+
+
+  como OPCIONAL,
+
+
+  lá 
+
+
+
+  na base class de 'Component'.... 
+
+
+  (
+
+
+      é só adicionar '?' depois do nome do method...
+  )
+
+
+
+
+
+
+
+
+
+
+
+  -> NA VERDADE, TUDO PARECE ESTAR EM ORDEM, É SÓ ESSE ERRO DE 'RenderContent'
+
+  mesmo....
+
+
+
+
+
+
+
+
+
+
+  --> EU TENHO DÚVIDA QUANTO A ESTE CÓDIGO:
+
+
+
+
+      
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+
+
+
+
+
+
+
+
+
+
+--> será que o 'this.element' mencionado ali 
+
+REALMENTE 
+
+SE 
+
+REFERE 
+
+
+AO 
+
+'this.element'
+
+
+existente na nossa class 'Component'? 
+
+(
+
+    é o ideal, o que desejo, na verdade...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, PARECE QUE NOSSO CÓDIGO ESTÁ FUNCIONANDO DE FORMA REGULAR... (sucesso)....
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O código do professor começa bem parecido, ele escreve isto:
+
+
+
+
+   
+class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> { ///extend de nossa class genérica abstrata....
+
+
+  titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+  descriptionInputElement: HTMLInputElement;
+  peopleInputElement: HTMLInputElement;
+
+  constructor() {
+
+
+
+
+
+
+
+
+
+
+    --> ele explica que, de fato,
+
+    devemos 
+
+
+
+
+    MANTER AQUELAS 3 PROPRIEDADES dessa 'inheriting class',
+
+
+
+
+
+    aqueles 
+
+
+
+    'titleInputElement',
+
+
+    'descriptionInputElement' 
+
+
+    e 
+
+    'peopleInputElement'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> lá no constructor, somos obrigados a chamar 'super()',
+
+    para 
+
+
+
+    contatar 
+
+
+    a 
+
+
+    class de 'Component'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> AÍ ele passa os parâmetros, exatamente como eu fiz....
+
+
+
+
+
+    eX:
+
+
+
+
+
+    constructor() {
+
+    super('project-input', 'app', 'afterbegin', 'user-input');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ ELE SE LIVRA DE TODOS OS CÓDIGOS  
+
+
+
+
+
+desnecessários, e mantém só este:
+
+
+
+
+
+
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+
+
+
+
+
+
+
+
+------------>  MAS AÍ ELE __ ARGUMENTA _ QUE TALVEZ SEJA UMA BOA IDEIA 
+
+ENFIAR ESSA LÓGICA TODA 
+
+
+
+dentro 
+
+do 
+
+
+
+method de 
+
+'configure(){}',
+
+
+
+que temos 
+
+mais embaixo,
+
+
+
+
+que tem este código:
+
+
+
+
+
+
+
+
+
+
+
+private configure() {
+    this.element.addEventListener('submit', this.submitHandler);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, COLAMOS ESSE TRECHO EM CIMA 
+
+
+daquele 'addEventListener'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+private configure() {
+
+
+    
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+
+    this.element.addEventListener('submit', this.submitHandler);
+}
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+
+
+
+ENTRETANTO,
+
+
+o
+
+
+TYPESCRIPT NÃO GOSTOU DESSA MUDANÇA,
+
+
+
+por isso o professor coloca 
+
+
+as linhas 
+
+
+
+
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+
+
+
+
+
+
+
+
+DE VOLTA NO CONSTRUCTOR,
+
+antes de 
+
+
+
+
+
+
+'this.configure()'...
+
+
+
+
+
+
+(
+    mas o resultado é o mesmo....
+)
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+   
+class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> { ///extend de nossa class genérica abstrata....
+
+
+  titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+  descriptionInputElement: HTMLInputElement;
+  peopleInputElement: HTMLInputElement;
+
+  constructor() {
+
+    super('project-input', 'app', 'afterbegin', 'user-input');
+
+
+    this.titleInputElement = this.element.querySelector(
+      '#title'
+    ) as HTMLInputElement;
+    console.log(this.titleInputElement.value);
+    this.descriptionInputElement = this.element.querySelector(
+      '#description'
+    ) as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+    this.peopleInputElement = this.element.querySelector(
+      '#people'
+    ) as HTMLInputElement;
+
+    this.configure();
+
+  }
+
+ 
+  @Autobind
+  private submitHandler(event: Event) {
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... .
+    console.log(this.titleInputElement.value); /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+    const userInput = this.gatherUserInputs();
+    if (Array.isArray(userInput)) {
+      //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+      const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+
+
+      projectState.addProject(title, desc, people);
+
+      // const projectState = new ProjectState(); //singleton PATTERN  e 'private constructor'...
+      this.clearInputs();
+    }
+
+    this.clearInputs();
+  }
+
+  configure() {
+    this.element.addEventListener(
+      'submit',
+      this.submitHandler
+    );
+  }
+
+  private gatherUserInputs(): [string, string, number] | void {
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = +this.peopleInputElement.value;
+
+
+    const titleValidatable: Validatable = {
+      value: enteredTitle,
+      required: true,
+      minLength: 5, ///lógica de validation, etc....
+    };
+
+    const descriptionValidatable: Validatable = {
+      value: enteredDescription,
+      required: true,
+      minLength: 5,
+    };
+
+    const peopleValidatable: Validatable = {
+      value: enteredPeople,
+      required: true,
+      min: 1,
+      max: 10,
+    };
+
+    if (
+      !validate(titleValidatable) ||
+      !validate(descriptionValidatable) ||
+      !validate(peopleValidatable)
+    ) {
+      alert('Invalid input, please try again.');
+      console.log('TEST');
+      return;
+    } else {
+      return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+  }
+
+  private clearInputs() {
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
+  }
+}
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... fora isso, 
+
+
+
+
+
+
+
+
+
+PROFESSOR FALA DE UMA CONVENÇÃO..
+
+
+
+
+--> EXISTE UMA CONVENÇÃO DE ter os 'public methods'
+
+
+
+SEMPRE NO INÍCIO DE NOSSAS CLASSES,
+
+
+por isso ele faz exatamente isso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ELE RECLAMA TAMBÉM DO 'renderContent',
+
+
+
+
+e professor também 
+
+coloca 
+
+um 
+
+'renderContent(){}'
+
+
+VAZIO,
+ 
+  
+
+  só para 
+
+  SATISFAZER 
+
+
+
+
+
+  O 
+
+
+
+
+  TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OK... COM ISSO,
+   
+
+
+   ACABAMOS DE REESTRUTURAR O 'PROJECTINPUT'
+
+   para 
+
+   também se aproveitar de 'inheritance'...
+
+
+
+
+
+--> AGORA A 'BASE CLASS'
+
+
+FAZ UM MONTE DO TRABALHO SUJO,
+
+
+realmente...
+
+
+
+
+
+
+
+
+
+
+   -----> AGORA DEVEOMS 
+
+   VER 
+
+
+   SE 
+
+   TUDO ISSO FUNCIONA...
+
+
+
+
+
+
+
+
+
+   --> PROFESSOR SALVA TUDO E TESTA... --> 
+
+
+
+
+   o código funciona exatamente como antes,
+
+
+   mas 
+   agora 
+
+
+
+   COM CÓDIGO 
+
+
+   MAIS LIMPO,
+
+
+
+   QUE TIRA VANTAGEM DE 'CODE REUSAGE',
+
+
+   TUDO GRAÇAS À INHERITANCE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --> MAS PROFESSOR EXPLICA QUE 'ProjectList' e' ProjectInput'
+
+
+
+   NÃO SÃO 
+
+
+   AS 
+
+   ÚNICAS PARTES DO CÓDIGO QUE PODEM INHERITAR....
+
+
+
+
+
+
+
+
+
+
+
+
+   -> ELE QUER CONCLUIR A LIÇÃO POR MEIO DO REFACTOR 
+
+
+
+
+
+
+
+
+   de 'ProjectState',
+
+
+   O QUAL ELE TAMBÉM VAI QUERER QUE 'inherite'
+
+
+
+   a class de 'Component'....
+
+
+
+
+
+
+
+
+
+
+
+   --> ATÉ AGORA, NOSSO 'ProjectState'
+
+
+   ESTAVA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   class ProjectState {
+
+  private projects: Project[] = [];
+
+  private static instance: ProjectState; 
+
+
+  private listeners: Listener[] = [];
+
+  private constructor() {
+
+  }
+
+  addProject(title: string, description: string, numOfPeople: number) {
+
+
+    const newProject = new Project(Math.random().toString(), title, description, numOfPeople, ProjectStatus.Active);  ///////OU SEJA, id, title, description, people, ProjectStatus (enum de 0 e 1, active e finished)....
+
+    this.projects.push(newProject);
+    for (const listenerFunction of this.listeners) {
+
+      console.log(this.projects.slice(), 'YOUR PROJECTS');
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+  }
+
+
+    addListener(listenerFunction: Listener) {
+    this.listeners.push(listenerFunction);
+  }
+
+  static getInstance() {
+
+    if (this.instance) {
+      return this.instance; 
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+  }
+}
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+TECNICAMENTE, 
+
+
+
+NÓS NÃO PRECISAMOS DE 'INHERITANCE'
+
+
+EM 
+
+'ProjectSTATE',
+
+
+
+justamnete 
+
+
+
+PQ 
+
+
+NÓS 
+
+
+'''ONLY HAVE THIS SINGLE STATE THAT WE MANAGE IN THE ENTIRE APP'',
+
+
+
+
+
+MAS IMAGINE 
+
+
+
+
+
+
+
+
+__ UM APP MAIOR,
+
+EM QUE 
+
+VOCÊ TEM  UM MONTE DE 
+
+
+
+DIFERENTES STATES....
+
+
+
+
+
+
+
+
+(
+
+    1 para o USER STATE, se ele está logged in, etc...
+
+
+    OUTRO PARA OS 'PROJECTS',
+
+
+    E OUTRO PARA O 'SHOPPING CARt'...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE VOCÊ VAI PERCEBER  É QUE __ ALGUMAS__ FEATURES__ DA 
+
+
+
+SUA CLASS DE 'State'
+
+
+VÃO SEMPRE SER AS MESMAS....
+
+
+
+
+
+
+
+
+
+
+--> QUAIS SÃO AS COISAS QUE SÃO SEMPRE AS MESMAS??
+
+
+
+
+
+
+--> 1) O ARRAY DE 'Listeners', que escrevemos com 'private listeners: Listener[] = [];' 
+
+
+
+
+
+
+
+
+--> 2) O METHOD DE 'addListener', que escrevemos assim:
+
+
+'addListener(listenerFunction: Listener) {
+    this.listeners.push(listenerFunction);
+}
+
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+------------> É POR ISSO QUE __ TAMBÉM PODEMOS USAR UMA 'BASE CLASS' 
+
+
+para 
+
+
+esse tipo de 'State class',
+
+
+
+aqui no nosso app....
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR 
+
+
+CRIA UMA CLASS de 
+
+
+
+'State',
+
+
+
+QUE SERÁ ESSA CLASS GENÉRICA AÍ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO NOSSAS CLASSES DE 'STATE MANAGEMENT'
+
+
+sempre 
+
+
+
+TERÃO 
+
+
+AQUELAS  2 CARACTERÍSTICAS (array de listeners, e um METHOD DE 'addListener' em SI),
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS ISTO:
+
+
+
+
+
+
+
+
+class State { ///será uma 'BASE CLASS' para todos nossos tipos de 'State classes' (classes que fazem MANAGE DE STATE).... --> vamos ter uma base class JUSTAMENTE PQ PODEMOS TER 'state' PARA UM MONTAO DE DIFERENTES COISAS NO NOSSO APP (como shop cart, projects, user login status, etc etc)....
+
+
+  private listeners: Listener[] = [];
+
+
+
+addListener(listenerFunction: Listener) {
+    this.listeners.push(listenerFunction);
+}
+
+}
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+CERTO.... 
+
+
+
+
+
+AGORA ESSAS 2 COISAS SERÃO 
+
+
+
+
+
+'gerais', pq pertencerão A TODAS AS CLASSES QUE FARÃO MANAGE DE STATE (states variados)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE AQUI ENCONTRAMOS UM PROBLEMA.... --> 
+
+
+
+esse código antigamente era usado com 'ProjectState',
+
+
+
+e, PORTANTO,
+
+
+FAZIA O MANAGE APENAS DE 
+
+'Project' (esse type AÍ, de 'Project', específico)...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO VAMOS USAR ESSA CLASS DE 'State'
+
+
+COM TODO TIPO DE COISA, E NÃO APENAS COM PROJECTS,
+
+
+
+AQUELE 
+
+TYPE DE 'Listener' 
+
+
+lá 
+
+em 
+
+
+
+'private listeners: Listener[] = [];' 
+
+
+
+
+__ESTÁ_ _ INCORRETO__,
+
+
+
+pq 
+
+
+o 
+
+
+type, no momento, está escrito assim:
+
+
+
+
+'''''
+
+
+type Listener = (items: Project[]) => void;    
+
+
+
+
+''''' 
+
+
+
+( OU SEJA, ''aceita array de projects, retorna void''),
+
+
+
+
+
+
+
+DEVE, NA VERDADE,
+
+
+
+FICAR ASSIM:
+
+
+
+
+''''''''''''''
+
+
+type Listener = (items: any[]) => void;    
+
+
+
+
+''''''''''''
+
+
+
+
+
+1 array de 'Any'
+
+
+PQ 
+
+__ VAMOS QUERER USAR ESSE 'State' base class
+
+
+COM QUALQUER TIPO __ 
+
+DE 
+
+
+STATE MANAGING CLASS... (ou seja, com class que manageiam PRODUCTS, user login status, projects, etc)....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+// type Listener = (projects: Project[]) => void; //retorna nada.... ////usávamos esse type quando SÓ TÍNHAMOS A CLASS DE 'ProjectState' (como adicionamos aquela BASE CLASS/generic class de 'State', para ser INHERITTADA POR TODO TIPO DE CLASS QUE FAZ MANAGE DE STATE, e não só MANAGE DE PROJECT STATE, fomos obrigados a REFORMULAR ESSE TYPE de 'Listener', para que ACEITASSE QUALQQUER, any, tipo de coisa, e nõa só objects de tipo 'Project')...
+
+type Listener = (items: any[]) => void; //// VAMOS QUERER QUE NOSSO LISTENER TRABALHE COM QUALQUER TIPO DE OBJECT, e não só de type 'Project'...
+
+
+
+
+
+
+class State { ///será uma 'BASE CLASS' para todos nossos tipos de 'State classes' (classes que fazem MANAGE DE STATE).... --> vamos ter uma base class JUSTAMENTE PQ PODEMOS TER 'state' PARA UM MONTAO DE DIFERENTES COISAS NO NOSSO APP (como shop cart, projects, user login status, etc etc)....
+
+
+  private listeners: Listener[] = [];
+
+}
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ ok... isso faz sentido, sim.... -> mas o set de 'any' 
+
+ é muito ruim,
+
+
+
+
+
+
+ __ MELHOR_ É O USO DE UM 'Generic' 
+
+
+ na definição desse type... (
+
+
+
+     pq generics nos deixam SETTAR O TYPE PERTINENTE POSTERIORMENTE,
+
+     o que certamente é melhor do que a vagueza 
+
+     de 
+
+     'any[]'....
+ )
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+ type Listener<T> = (items: T[]) => void;
+
+
+
+
+
+
+
+
+
+
+ -------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ CUSTOM TYPE, QUE É GENERIC....
+
+
+
+
+
+
+
+
+
+
+ ----> CERTO.... 
+
+
+
+
+
+
+ AGORA, COM ISSO, PODEMOS DEIXAR 
+
+
+
+ A PRÓPRIA 
+
+
+ CLASS (base class)
+
+
+
+
+ DE 
+
+
+ 'State'
+
+
+
+
+ COMO 'GENERIC',
+
+
+ POR MEIO DA MESMA SINTAXE...
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+ type Listener<T> = (items: T[]) => void; ////type GENÉRICO...
+
+
+
+
+class State<T> { ///class GENÉRICA...
+
+
+  private listeners: Listener[] = [];
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A ESCRITA COMPLETA FICA ASSIM:
+
+
+
+
+
+type Listener<T> = (items: T[]) => void; ////type GENÉRICO...
+
+
+
+
+class State<T> { ///será uma 'BASE CLASS' (E generica, <T>) para todos nossos tipos de 'State classes' (classes que fazem MANAGE DE STATE).... --> vamos ter uma base class JUSTAMENTE PQ PODEMOS TER 'state' PARA UM MONTAO DE DIFERENTES COISAS NO NOSSO APP (como shop cart, projects, user login status, etc etc)....
+
+
+  private listeners: Listener<T>[] = [];
+
+}
+
+
+
+
+
+
+
+
+
+
+----------> OK, MAS PQ ISSO?
+
+
+
+
+
+
+
+
+
+--> deixamos 'STATE' generico com '<T>'
+
+
+do lado do nome....
+
+
+
+
+
+
+
+
+
+--> AÍ EM 'private listeners: Listener[] = []',
+
+
+
+
+EM QUE 
+
+DIZEMOS '''QUEREMOS TER UMA LISTA DE LISTENERS''',
+
+
+
+TEMOS QUE DIZER AO 
+
+
+
+TYPESCRIPT '''QUAL GENERIC TYPE OS LISTENERS USARÃO/USAM PARA __ ESSE 
+
+OBJECT DE STATE QUE ESTAMOS CRIANDO'''...
+
+
+
+
+
+
+
+
+E É CLARO QUE VAMOS REPASSAR O GENERIC TYPE ('T')
+
+
+
+DE 
+
+
+'STATE', dessa class aí....
+
+
+
+
+
+
+
+(
+
+    OU SEJA, FORWARDAMOS O 'GENERIC TYPE' 
+
+    de 
+
+    'STATE'
+
+    para dentro desse type do 'Listener',
+
+    que vai compor esse array de 'Listeners'...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM FAZEMOS A MESMA COISA com o 'addListener',
+
+EM QUE COLOCAMOS que a 'listenerFunction'
+
+
+TERÁ 
+UM TYPE DE 'Listener<T>'...
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+ISSO SIGNIFICA QUE AGORA,
+
+QUANDO 
+
+FIZERMOS 'EXTEND' 
+
+DE 
+
+
+'State',
+
+
+
+SEREMOS _ OBRIGADOS__ A ESPECIFICAR 
+
+
+
+'O TIPO/TYPE DE DATA COM QUE 
+
+
+__ STATE/ESSA SUA INHERITING CLASS VAI TRABALHAr'...
+
+
+
+
+
+
+
+
+
+
+E AÍ, DENTRO DE 'STAET',
+
+ESSE
+
+
+TYPE ('T'),
+
+seja qual for (na hora do INHERIT),
+
+
+
+SERÁ _ FORWARDADO 
+
+
+AO TYPE DE 'Listener'... 
+
+
+(
+
+    nosso custom type...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO USAMOS TODO ESSE MUMBO JUMBO?
+
+
+
+
+
+--> BEM, DEVEMOS IR ATÉ A CLASS DE 
+
+'ProjectState',
+
+que é uma filha de 'State' (inheriting class),
+
+E AÍ 
+
+
+DEVEMOS ESCREVER O INHEIRT,
+
+
+
+por meio de 
+
+'extends'....
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS ALGO TIPO ISTO:
+
+
+
+  class ProjectState extends State<Project> { 
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+
+DIZEMOS 
+
+'QUERO QUE 
+
+ESSA 
+
+
+CLASS INHERITE 'State',
+
+E QUE 
+
+SEU 
+
+
+TYPE (originalmente generico) 
+
+SEJA DE 
+
+'Project'...
+
+
+
+
+
+
+
+
+-----> daí vamos escrever:
+
+
+
+
+
+
+
+
+
+class ProjectState extends State<Project> {
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+O VALOR CONCRETO SERÁ O 'Project', no placeholder... --> ISSO PQ O 'ProjectState'
+
+REALMENTE 
+
+É 
+
+'ALL ABOUT MANAGING THE PROJECT STATE'...
+
+
+
+
+
+
+
+
+
+
+--> CERTO... --- aí temos aquele 'private constructor() {
+
+}' 
+
+
+
+
+
+
+(
+
+    É PRIVATE PQ USAMOS ESSA CLASS COM AQUELE 
+
+
+    'singleton pattern'...
+)
+
+
+
+
+
+
+
+
+--> MAS, NA VERDADE, PODEMOS MANTER ESSE 'SINGLETON PATTERN',
+
+
+
+
+
+
+
+o erro mencionado pelo typescript na verdade foi causado pela falta de 'super()' 
+
+
+call dentro do constructor...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+  class ProjectState extends State<Project> { 
+
+
+  private projects: Project[] = []; ///o type será nossa CLASS DE 'Project', em 1 array desse tipo de object...
+
+  private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+  private listeners: Listener[] = [];
+
+  private constructor() {
+
+
+            super() 
+  }
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+  private projects: Project[] = []; ///o type será nossa CLASS DE 'Project', em 1 array desse tipo de object...
+
+  private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+
+
+
+  private constructor() {
+
+    super()
+  
+  }
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+---> e aí, ali embaixo,
+
+
+
+
+
+no trecho em que vamos 'go through our listeners',
+
+este trecoh aqui:
+
+
+
+
+
+
+    for (const listenerFunction of this.listeners) {
+
+      console.log(this.projects.slice(), 'YOUR PROJECTS');
+      listenerFunction(this.projects.slice()); //retorna uma CÓPIA DAQUELE ARRAY...
+    }
+
+
+
+
+
+
+
+
+
+
+--> se passamos o mouse em 'listeners',
+
+
+
+percebemos que eles estão 'private',
+
+MAS 
+
+QUE 
+
+
+
+ESTÃO PRIVATE NA 'BASE CLASS' (
+
+
+
+    o que significa que SÓ PODEM SER ACESSADOS 'DENTRO DA BASE CLASS',
+    e 
+
+    não no lado de fora, como em inheriting classes...
+
+
+)
+
+
+
+-----> MAS NÓS aprendemos uma keyword essencial, que permite que 
+
+propriedades sejam INHERITED e ao mesmo tempo tenham um comportamento de 'private'... ->
+
+
+
+
+
+É A keyword de 'protected'.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROTECTED --> AINDA NÃO É POSSÍVEL ACESSAR ESSA PROPRIEDADE DO LADO DE FORA,
+
+
+MAS ELA PODE SER 'INHERITED'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, O NEGÓCIO ESTÁ FUNCIONANDO, MAS AGORA COM 'GENERICS' 
+
+
+
+
+
+
+E 'A BIT NICER CODE',
+
+
+com uso 
+
+de INHERITANCE para o nosso STATE MANAGEMENT...

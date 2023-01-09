@@ -1,0 +1,586 @@
+
+
+
+
+
+
+
+
+
+
+
+--> SPLITTAR NOSSO CÓDIGO EM MÚLTIPLOS FILES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. NA VERDADE,
+
+
+TEMOS 3 
+
+
+OPTIONS PARA 
+
+
+
+
+
+
+SPLITTAR NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1A OPÇÃO ) ---------> SIMPLESMENTE ESCREVER MÚLTIPLOS ARQUIVOS 'typescript',
+
+
+
+O QUE FARIA COM QUE O TYPESCRIPT COMPILASSE TODOS ESSES ARQUIVOS 
+
+
+NO 'SOURCE DIRECTORY',
+
+e então os outputtaria 
+
+
+a produção 
+
+
+lá 
+
+no 'DIST'... ---> AÍ VOCê TERIA QUE FAZER 'IMPORT/EXPORT' 
+
+
+DE CADA 
+
+1 DOS SEUS MODULES,
+
+lá 
+
+
+
+
+
+na pasta 'dist', onde foram outputtadas...
+
+
+
+
+
+
+
+
+
+--> ISSO 
+
+
+CERTAMENTE É UMA OPÇÃO,
+
+E EM ALGUNS PROJECTS 
+
+
+
+
+ISSO PODE SER 'JUST RIGHT',
+
+
+mas é claro que 
+
+VOCÊ TERIA 
+
+DE 
+
+MANAGEAR TODOS ESSES 
+
+
+ARQUIVOS MANUALMENTE,
+
+
+CUMBERSOME,
+
+
+
+
+ERROR-PRONE,
+
+
+E 
+
+QUANDO NÓS USAMOS 
+
+
+ALGUMAS 
+
+TYPESCRIPT 
+
+FEATURES,
+
+
+
+VOCê TAMBÉM PERDE 'TYPESCRIPT SUPPORT'
+
+
+se 
+
+
+ALGUM TYPE É __ DEFINIDO __ EM 1 ARQUIVO A,
+
+
+E ENTÃO VOCê UTILIZA ESSE TYPE NO 
+
+ARQUIVO 'B'...
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE EM PROJETOS MAIORES ESSA NÃO É UMA OPÇÃO BOA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+ PARA PROJETOS MAIORES,
+
+
+
+ TEMOS 2 OPÇÕES:
+
+
+
+
+
+
+
+1) NAMESPACES E FILE BUNDLING
+
+
+
+
+
+
+
+--> NAMESPACES ---> É UMA FEATURE TYPESCRIPT, UMA FEATURE DE SINTAXE,
+
+
+
+
+EM QUE VOCÊ 'ADICIONA CÓDIGO ESPECIAL AO SEU CÓDIGO',
+
+
+
+PARA USAR ESSA FEATURE...
+
+
+
+
+
+
+(
+
+    ''''use "namespace" code syntax __ PARA ___ AGRUPAR_ 
+
+    SEU CÓDIGO/códigos... """
+)
+
+
+
+
+
+
+
+
+---> O NAMESPACES 
+
+
+basicamente te deixa AGRUPAR SEU 
+
+CÓDIGO 
+
+em conjuntos,
+
+
+
+__TUDO DEBAIXO DE UM 'NAMESPACE',
+
+
+
+
+
+E AÍ __ IMPORTAR__ 'NAMESPACES'
+
+
+
+
+
+EM OUTROS ARQUIVOS.... ------------> 
+
+
+
+ISSO 
+
+SIGNIFICA QUE 
+
+VOCê 
+
+PODE 
+
+TER 
+
+
+'1 NAMESPACE POR ARQUIVO',
+
+
+
+E AÍ 'IMPORTAR 1 FILE EM OUTRA FILE',
+
+
+
+E AÍ 
+
+'TAP INTO THAT NAMESPACE' (which lives in other file),
+
+
+tudo isso 
+
+
+dessa 'importing file'
+
+
+
+(
+
+    VEREMOS ISSO EM PRÁTICA....
+)
+
+
+
+
+
+
+
+--> É CLARO QUE O TYPESCRIPT 
+
+
+
+SUPORTA MAIS DO QUE ISSO... -->
+
+
+
+ELE TAMBÉM 
+
+ 
+
+
+ '''' BUNDLES YOUR FILES TOGETHER IN ONE FILE'''',
+
+
+
+ (provavelmente por meio do tsconfig.json)...
+
+
+
+
+
+
+
+ --> ISSO EXISTE PARA QUE VOCê POSSA ESCREVER 
+
+
+ CÓDIGO EM DIVERSOS ARQUIVOS,
+
+
+
+
+ MAS CÓDIGO EM ARQUIVOS QUE SÃO TODOS 'IMPORTED INTO EACH OTHER' 
+
+ no final,
+
+
+
+ PARA QEU VOCÊ TENHA MENOS IMPORTS PARA MANAGEAR,
+
+ E PARA QUE 
+
+
+
+ VOCê __ NÃO TENHA QUE 'MANUALLY MANAGE' DIFERENTES IMPORTS 
+
+ EM UM ARQUIVO HTML...
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> A ALTERNATIVA AO FILE BUNDLING E NAMESPACES É 2:
+
+
+
+
+
+
+
+
+
+
+
+ 2) USO DE ES6 IMPORTS/EXPORTS...
+
+
+
+
+
+
+
+
+
+ -----> ES6 MODULES -------> PQ 
+
+
+
+
+
+ O MODERN JAVASCRIPT TEM UMA SOLUÇÃO A ESSE PROBLEMA,
+
+
+
+ PQ 
+
+
+ ESSE PROBLEMA NÃO EXISTE SÓ EM PROEJTOS TYPESCRIPT,
+
+
+ MAS 
+
+
+ EM QUAISQUER PROJETSO...
+
+
+
+
+
+
+
+
+
+
+ --> O MODERN JAVASCRIPT, OUT OF THE BOX,
+
+
+
+
+ SUPORTA 
+
+
+ IMPORT E EXPORT STATEMENTS,
+
+
+
+
+
+ QUE TE DEIXAM DECLARAR 'QUAL FILE DEPENDE DE QUAL FILE',
+
+
+
+
+ O QUE __ RESULTA__ QUE __ 
+
+ VOCê 
+ FICA COM TODOS ESSES ARQUIVOS INDIVIDUAIS,
+
+
+
+
+
+
+
+
+ MAS VOCê NÃO PRECISA MANAGEAR ESSES ARQUIVOS INDIVIDUAIS,
+
+ PQ 
+
+ OS 
+
+ BROWSERS 
+
+ JÁ FAZEM ESSE MANAGE AUTOMATICMAENTE,
+
+
+ ENTENDEM
+
+ E AUTOMATICAMENTE 
+
+
+
+
+ BAIXAM ESSES ARQUIVOS E COMPILAM TUDO...
+
+
+
+
+
+
+
+
+
+ ---> VOCÊ USA A SINTAXE IMPORT/EXPORT PARA ISSO,
+
+
+
+ E O 
+
+ TYPESCRIPT 
+
+ SUPORTA ISSO SEM PROBLEMAS...
+
+
+
+
+
+
+
+ --> VOCÊ COMPILA 'POR ARQUIVO',
+
+ mas 
+
+ vocÊ  SÓ PRECISA DE 1 ÚNICO 'SCRIPT IMPORT',
+
+ PQ 
+
+ OS 
+
+
+ BROWSERS JÁ 
+
+ SABEM COMO 
+
+ MANAGEAR TODAS AS DEPENDENCIES/EXPORTS DOS NEGÓCIOS...
+
+
+
+
+
+
+
+
+ 1 NOTA IMPORATNTE --> COM OS MODULES,
+
+ NÓS TECNICAMENTE AINDA TERMINAREMOS COM MÚLTIPLOS ARQUIVOS,
+
+
+
+
+MAS ___ AINDA QUE 
+
+NÃO VAMOS TER QUE MANAGEAR OS SCRIPT IMPORTS MANUALMENTE,
+
+
+
+
+AINDA TEREMOS ALGUMAS DESVANTAGENS (
+
+    pq cada arquivo de que você dependerá 
+
+
+    PRECISA __ SER BAIXADO SEPARADMAENTE,
+
+
+    O QUE SIGNIFICA MAIS HTTP REQUESTS... -----> é por isso que 
+
+    vocÊ 
+
+
+    pode 
+
+    bundlar ARQUIVOS 
+
+
+    EM 1 ÚNICO ARQUIVO DURANTE 
+
+
+    O DEVELOPMENT,
+
+    para então SHIPPAR 1 ÚNICO 
+
+    ARQUIVO NO PRODUCTION... ----> MAS VOCê PRECISA DE FERRAMENTAS 
+
+
+    PARA ISSO,
+
+
+    TOOLS COMO O WEBPACK...
+
+)
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI NOS MOSTRAR COMO O WEBPACK FUNCIONA COM 
+
+O 
+
+WEBPACK COM O TYPESCRIPT,
+
+EM 1 MÓDULO SEPARADO...
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS VER COMO ESSES 2 APPROACHES (namespace e file bundling, es6 import/export)
+
+
+
+
+
+NESTE MÓDULO...

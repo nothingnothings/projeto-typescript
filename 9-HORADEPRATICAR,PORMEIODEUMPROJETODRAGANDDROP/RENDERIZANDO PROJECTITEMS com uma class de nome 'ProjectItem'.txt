@@ -1,0 +1,3349 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM TODO NOSSO TRABALHO  DE INHERITANCE FEITO NAS ÚLTIMAS AULAS,
+
+DEVEMOS VOLTAR AO RENDER DE LIST ITEMS... --> 
+
+
+
+
+
+
+
+
+QUEREMOS RENDERIZAR ___ MAIS __ DETALHES___ NOS NOSSOS 'LIST ITEMS' (projectS)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBEM VAMOS QUERER QUE 'ELES SEJAM RENDERIZADOS DE MANEIRA DIFERENTE'...
+
+
+
+
+
+
+
+
+
+--> COMO ASSIM, 'DE MANEIRA DIFERENTE?' 
+
+
+
+
+
+
+
+
+
+--> BEM, ATÉ AGORA SEGUIMOS 
+
+um 
+
+
+'object oriented approach',
+
+
+
+
+
+
+E, POR EXEMPLO,
+
+
+
+
+
+
+
+TÍNHAMOS COISAS COMO 'ProjectList' (uma class).... --. AÍ ,
+
+
+
+
+QUANDO INSTANCIAMOS UMA CLASS DESSAS ,
+
+
+
+
+
+
+
+
+
+
+1 box de 'active projects/finished projects'
+
+
+é criada na nossa página web....
+
+
+
+
+
+
+
+
+
+
+
+--> E O MESMO PARA O 'INPUT',
+
+PQ TBM TEMOS UMA CLASS DE 
+
+
+'ProjectInput',
+
+QUE, QUANDO INSTANCIADA,
+
+CRIA
+
+
+AQUELA ÁREA DE 'INPUT'
+
+
+
+
+no topo de nosso dom....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... -> MAS AGORA É HORA DE FAZER A MESMA COISA COM O/OS 'projectItem',
+
+
+
+
+
+
+
+E __ AÍ__ ,DENTRO DE 'ProjectList',
+
+
+
+
+
+
+
+
+
+
+LÁ EM 'renderProjects()',
+
+
+
+EM VEZ DE CRIAR 
+
+
+
+UM 
+
+
+
+listItem 
+
+por meio da dot notation (
+
+
+    como visto 
+
+    em 
+
+
+
+    '''''
+
+
+
+
+    
+private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+
+
+
+  '''''
+  ,
+
+
+
+
+
+
+
+
+
+
+
+
+  EM VEZ DE CRIAR UM 'LIST ITEM' 
+
+
+  dessa forma aí,
+
+
+
+  NÓS _ SIMPLESMENTE FARÍAMOS 'INSTANTIATE' 
+
+
+
+    DE NOSSA CLASS 'ProjectItem',
+
+
+     
+
+
+E AÍ,
+
+NO CONSTRUCTOR DESSA CLASS 'ProjectItem',
+
+faríamos TODA NOSSA INITIALIZATION...
+)
+
+
+
+
+
+
+
+
+--> DEVEMOS PAUSAR O VÍDEO AQUI E TENTAR POR CONTA PRÓPRIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TENTEI POR CONTA PRÓPRIA....
+
+
+
+o código __QUASE__ deu certo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> eu consigo adicionar 1 'projectItem' por meio do instanciamento de uma class.... --> entretanto,
+
+
+
+
+sempre fica só 1 único elemento (não consigo adicionar mais do que 1, sempre há um overwritE)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> e se tiro o código de '''''
+
+
+  // listEl.innerHTML = '';
+
+
+  ''',
+
+
+
+
+  FICO 
+
+
+
+
+  SEMPRE COM DUPLICATAS....
+
+  (mesmo bug de antes)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> consegui... tive de usar um spaghetti code, mas funcionou...
+
+
+
+
+
+
+
+
+
+
+
+
+  O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+  'renderProjects':
+
+
+
+
+
+
+
+
+  private renderProjects() {
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    listEl.innerHTML = '';
+
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+
+        const projectItem = new ProjectItem(project.title, project.description, project.people, project.id, this.listType);
+
+
+      
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E AÍ, A CLASS DE 'projectItem':
+
+
+
+
+
+
+
+
+class ProjectItem {
+
+
+  constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) {
+
+
+
+    console.log('YOURLISTITEM')
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+            const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <h1>${this.title}</h1>
+        <p>${this.description}</p>
+        <p>${this.people}</p>
+        `
+
+      
+        listEl.appendChild(listItem);
+
+
+
+
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTo.... AGORA É HORA DE VER A AULA DO PROFESSOR...
+
+
+
+
+
+
+
+
+class de pROJECITTEM...
+
+
+
+
+
+
+
+
+
+-----> ok.... -> mas uma coisa que eu fiz errado;
+
+
+eu não 
+
+
+usei 
+
+
+
+aquela 'base class' de 
+
+
+
+
+
+'Component'... (e o professor quer que essa class-base seja usada EM TODAS NOSSAS CLASSES de 'interface/ui')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+
+devemos escrever assim:
+
+
+
+
+
+class ProjectItem extends Component {
+
+
+  constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) {
+
+
+
+    console.log('YOURLISTITEM')
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+            const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <h1>${this.title}</h1>
+        <p>${this.description}</p>
+        <p>${this.people}</p>
+        `
+
+      
+        listEl.appendChild(listItem);
+
+
+
+
+  }
+
+
+
+
+}
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+CERTO.... MAS É CLARO QUE 'Component'
+
+
+EXIGE _ QUE __ 
+
+
+NÓS PASSEMOS 2 ARGUMENTOS,
+
+QUE 
+
+SÃO AQUELE 
+
+'hostElement'
+
+e 
+o 
+
+
+'element'
+
+
+EM SI...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Component<T extends HTMLElement, U extends HTMLElement> { ////class genérica ('T', 'U') que será inherittada por nossas 'interface classes' (como 'ProjectInput' e 'ProjectList')....
+
+    
+  templateElement: HTMLTemplateElement;
+  hostElement: T;
+  element: U;
+
+
+
+  constructor(templateId: string, 
+    hostElementId: string, 
+    insertPosition: 'afterbegin' | 'beforeend',
+    newElementId?: string) {  ///OBS::: OPTIONAL PARAMETERS (que podem ser omitidos) SEMPRE DEVEM VIR POR ÚLTIMO, DEPOIS DE TODOS SEUS PARAMETERS 'não opcionais'...
+
+    this.templateElement = document.getElementById(templateId)! as HTMLTemplateElement;  
+    this.hostElement = document.getElementById(hostElementId)! as T; ///trocamos 'as HTMLDivElement' por 'as T'...
+
+        
+
+      const importedNode = document.importNode(   
+        this.templateElement.content,
+          true
+          ); 
+      this.element = importedNode.firstElementChild as U;
+        // this.element.id = 'user-input';
+
+        if(newElementId) { ////minha ideia.... --> pq esse 'newElementId' é OPCIONAL... ('newElementId?'..)...
+          this.element.id = newElementId;
+        }
+
+
+        this.attach(insertPosition);
+     
+  }
+
+
+  private attach(insertPosition: 'afterbegin' | 'beforeend') {
+
+    this.hostElement.insertAdjacentElement(insertPosition, this.element);
+  }
+
+  abstract configure(): void ///definimos esses methods como 'abstract', pq __ QUEREMOS _ QUE SUA 'CONCRETE IMPLEMENTATION' só vai acontecer nas CLASSES QUE HERDAREM ESSA NOSSA CLASS ABSTRATA (código/lógica de method específico à cada class que inherita)...
+
+ abstract renderContent?(): void
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... NO CASO DO PROJECTITEM,
+
+temos este código:
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component {
+
+
+  constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) {
+
+
+
+    console.log('YOURLISTITEM')
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+            const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <h1>${this.title}</h1>
+        <p>${this.description}</p>
+        <p>${this.people}</p>
+        `
+
+      
+        listEl.appendChild(listItem);
+
+
+
+
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> o 'hostElement', obviamente, será/terá um type de 
+
+
+
+'HTMLUListElement',
+
+
+e o 
+
+'element' em si 
+
+
+SERÁ UM 'li'.....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLElement> {
+
+
+  constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) {
+
+
+
+    console.log('YOURLISTITEM')
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+            const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <h1>${this.title}</h1>
+        <p>${this.description}</p>
+        <p>${this.people}</p>
+        `
+
+      
+        listEl.appendChild(listItem);
+
+
+
+
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+ok... MAS É CLARO QUE NÃO É SÓ ISSO.... --> PRECISAMOS EDITAR O RESTO DE NOSSO CÓDIGO, para 
+que 
+
+
+
+usemos as propriedades 
+
+'this.elemnet' 
+
+
+
+e 'this.hostElement' lá 
+
+
+
+
+
+NA NOSSA CLASS 'Component', que é a BASE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BASICAMENTE, MEU CÓDIGO VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+  // constructor(public title: string, public description: string, public people: number, public id: string, private listType: string) { //CÓDIGO DE MINHA AUTORIA, MINHA VERSÃO (não usava/inheritava a class de 'Component')....
+
+
+
+  //   console.log('YOURLISTITEM')
+  //   const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+  //   // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+  //           const listItem = document.createElement('li');
+  //       listItem.innerHTML = `
+  //       <h1>${this.title}</h1>
+  //       <p>${this.description}</p>
+  //       <p>${this.people}</p>
+  //       `
+
+      
+  //       listEl.appendChild(listItem);
+
+
+
+
+  // }
+
+
+
+
+  constructor() {
+
+
+    super()
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS O PROBLEMA É QUE Não temos um 'templateId'
+
+para o projectItem... 
+
+(
+
+
+
+  e nem outras coisas, como 'insertPosition'....
+)
+
+
+
+
+
+
+
+
+--> mas o professor usa um constructor mesmo assim...
+
+
+
+
+
+
+
+ELE TAMBÉM CHAMA 'super()'
+
+
+
+DENTRO 
+DO CONSTRUCTOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----. aí ele fala do pass do type de 'hostElement' e 'element', 
+
+os types genéricos...
+
+
+
+
+
+
+
+
+--> 1o elemento será um 'HTMLUListElement'.... 
+
+
+
+
+
+
+
+
+--> 2o elemento será um 'HTMLElement' --> na verdade, será um 'HTMLLIElement', 
+
+
+
+
+que realmente existe....
+
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+C
+ERTO....
+
+
+
+
+
+
+
+
+
+AO SUPER,
+
+
+
+
+PRECISAMOS PASSAR 
+
+
+
+
+'o id do ELEMENT EM QUE O PROJECTITEM DEVERÁ SER RENDERIZADO'... (
+
+
+
+  1o parametro, 'templateId'..
+)
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE __ O PROBLEMA ___ É QUE __ ESSE 'id'
+
+ÁI _ _NÃO SERÁ/NÃO É FIXO... -------> ISSO PQ __ TEMOS 2 LISTS EM QUE __ O ITEM  (projectItem) 
+
+PODERÁ SER RENDERIZADO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR VAI 'EXPECT' receber esse id aqui, no constructor...
+
+
+
+
+
+
+--> PARA ISSO, ELE DEFINE UM PARÂMETRO DE 'hostId',
+
+
+que deverá ser uma STRING....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+  constructor(hostId: string) {
+
+
+    super()
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ, ENTÃO,
+
+
+VAMOS FORWARDAR ESSE VLAOR DE 'hostId'
+
+
+
+
+EM NOSSO 'super()' call...
+
+
+
+
+
+
+
+
+
+
+
+---> TIPO ASSIM:
+
+
+
+
+
+  constructor(hostId: string) {
+
+
+    super(..., hostId)
+  }
+
+
+
+
+
+
+
+
+-------> ENTRETANTO, AQUI TEMOS UM PROBLEMA... --> É PQ A PRIMEIRA COISA QUE TEMOS DE FORWARDAR,
+
+OBRIGATORIAMENTE,
+
+é o 
+
+
+'templateId',
+
+
+pq definimos dessa forma aí 
+
+
+
+esse parâmetro, lá na nossa base class de 'Component'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, MAS QUAL É O 'templateId'
+
+
+
+PARA UM 'SINGLE PROJECT ITEM'? 
+
+
+
+
+
+
+
+
+
+
+---> BEM, É PRECISAMENTE AQUELE CÓDIGO HTML DE 
+
+
+
+
+'''
+
+    <template id="single-project">
+      <li></li>
+    </template>
+
+
+'''
+
+
+
+
+QUE TEMOS LÁ NO INDEX.HTML...
+
+
+
+
+
+
+
+
+
+
+
+
+--> COPIAMOS ISSO... ---> É CLARO QUE ESSE É UM_ __ TEMPLATE__ ABSURDAMENTE SIMPLES... ------->
+
+
+
+
+VOCÊ PODERIA ATÉ ARGUMENTAR QUE ELE É INÚTIL, nesse exemplo aqui... (
+
+
+  pq é só um LIST ITEM SOZINHO,
+
+  poderíamos criar isso no nosso código javascript tbm,
+
+  com 
+
+  'document.createElement()'...
+)
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+
+PARA QUE CONTINUEMOS CAPAZES DE _ REUTILIZAR_ NOSSA 'BASE CLASS' 
+
+
+
+de 
+'
+Component' (que possui essa lógica de conversão de templates em código html de verdade),
+
+
+
+SOMOS OBRIGADOS 
+
+
+A 
+
+
+PASSAR ESSE 'templateId', repreesntaçaõ do template que
+
+
+
+
+que definimos lá no index.html...
+
+
+
+
+
+
+
+
+
+
+
+
+----> É POR ISSO QUE 
+
+VAMOS ESCREVER ASSIM, o 'templateId':
+
+
+
+
+
+
+  constructor(hostId: string) {
+
+
+    super('single-project', hostId)
+  }
+
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+CERTO.... já 'hostId'  É __ O 'id'
+
+QUE 
+
+QUEREMOS FORWARDAR AO CONSTRUCTOR DE 'Component', nossa base class...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+  constructor(hostId: string) {
+
+
+    super(
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId   ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------> CERTO... DEPOIS DISSO, TEMOS O ARGUMENTO DE 'POSIÇÃO DE INSERt'... -> como o professor quer que 
+
+CADA 
+
+
+LIST ITEM SEJA __ ADICIONADO __ AO FIM DE NOSSA LIST,
+ele coloca 
+
+
+
+'beforeend'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO, TEMOS O PARÂMETRO DE 'newElementId',
+
+
+
+
+QUE É O 'ID QUE DEVE SER ASSIGNADO AO ELEMENTO RECÉM CRIADO'... -----> PROFESSOR 'EXPECT'
+
+
+
+CONSEGUIR ESSA DATA __ DO LADO__ DE FORA,
+
+TAMBÉM.... (
+  pq isso TAMBÉM VAI MUDAR, PARA CADA PROJECTITEM....
+)
+
+
+
+
+
+
+--> vamos renderizar múltiplos projectItem, sim,
+
+
+por isso é necessário esse 'id'....
+
+
+
+
+
+
+
+
+-----> AÍ O PROFESSOR COLOCA UM ARGUMENTO DE 'id' no CONSTRUCTOR, como parâmetro necessário,
+
+
+para então 
+
+o repassar nesse call de 'super()'....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+  constructor(hostId: string, id: string) {
+
+
+    super(
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId   ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend',
+
+      id ///repasse daquele parâmetro ali, que receberemos DE FORA....
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+ 
+
+
+  constructor(hostId: string, id: string ) {
+
+
+    super(
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    )
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE TAMBÉM FAZ/FARIA SENTIDO __ 'ARMAZENAR'_ 
+
+
+
+
+
+
+
+
+O 'PROJECT' 
+
+
+
+QUE 
+
+
+'BELONGS' (pertence) A ESSE 'ProjectItem' (que corresponde a ele )
+
+
+NESSA 
+CLASS 
+
+DE 
+
+'ProjectItem'...
+
+
+
+
+
+
+
+
+
+
+--> POR 'Project',
+
+
+
+
+O PROFESSOR QUER DIZER UM 'OBJETO PROJECT',
+
+
+
+
+
+
+
+
+UM OBJECT COM MOLDE NAQUELA 
+
+
+CLASS DE 'Project' que criamos mais cedo,
+
+
+
+com este código:
+
+
+
+
+
+
+
+
+class Project { //usamos uma CLASS e não um type JUSTAMENTE PQ _ QUEREMOS __ SER CAPAZES __ DE __ INSTANCIAR__ ESSA CLASS... (com types/interfaces, isso não é possível)...
+
+  constructor( ///shortcut que DEFINE ESSES NEGÓCIOS AO MESMO TEMPO COMO 'PARAMETERS' DE NOSSA CLASS E __ PROPRIEDADES_ DELA...
+    public id: string, 
+    public title: string, 
+    public description: string, 
+    public people: number, 
+    public projectStatus: ProjectStatus /////uso de ENUM, aquele enum ali de cima (passamos ou '0' ou '1', quando instanciamos esse 'project')...
+     ) {
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É BASICAMENTE 'A DATA COM A QUAL TRABALHAMOS ATÉ AGORA',
+
+
+
+E VAMOS QUERER __ 
+
+
+
+
+
+___ ARMAZENAR O 'PROJECT' que pertence/corresponde a esse 'ProjectItem'
+
+
+
+__ DENTRO_ DA CLASS DE 'PROJECTITEM' em si....
+
+
+
+
+
+
+
+
+
+
+
+
+------> É POR  ISSO QUE O PROFESSOR ADICIONA UMA PROPRIEDADE 'PRIVATE' 
+
+
+
+
+
+
+
+na class de 'ProjectItem' ( ou seja, só pode ser executada POR DENTRO DE 'ProjectItem')...
+
+
+
+
+
+
+
+
+
+
+--> TERÁ NOME DE 'project',
+
+
+
+
+E SEU TYPE SERÁ DE 'Project':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+  
+  private project: Project /////type de 'Project', QUE NÓS MESMOS CRÍAMOS...
+
+
+  constructor(hostId: string, id: string ) {
+
+
+    super(
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    )
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... MAS AÍ SURGE UM PROBLEMA:
+
+
+
+professosr decide 
+
+
+
+SUBSTITUIR 'id' em
+
+
+'constructor(){}'
+
+
+
+POR 
+
+
+'project', de type 'Project', 
+
+
+
+
+JUSTAMENTE PQ ELE  
+
+
+
+
+
+
+QUER  ARAMZENAR o valor de 'project' DENTRO 
+
+
+DESSA PRORPIEDADE PRIVADA DE 'private
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATÉ AGORA VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+
+
+  private project: Project;
+
+
+
+  constructor(hostId: string, id: string) {
+        super('single-project', hostId, false, id);
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE O PROFESSOR VAI QUERER TER UMA PROPRIEDADE PRIVATE DE 'project', com nosso PROJECT NO INTERIOR,
+
+
+
+podemos simplesmente MUDAR O ARGUMENTO 'id' recebido no constructor, trocar para 'project: Project' (
+
+
+
+  PQ 
+
+
+  NÓS JÁ VAMOS TER ESSE 'id' NO INTERIOR DESSE OBJECT/PARÂMETRO 'project'...
+
+
+) 
+
+
+
+
+
+
+--> POR FIM, PROFESSOR SIMPLESMENTE escreve 'project.id',
+
+
+
+no call de super...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+
+
+  private project: Project;
+
+
+
+  constructor(hostId: string, project: Project) {
+        super('single-project', hostId, false, project.id);
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+OK.... 
+
+
+
+
+
+
+
+MAS PARA FAZER O TYPESCRIPT PARAR DE RECLAMAR (E para que nosso código funcione),
+
+
+precisamos 
+
+escrever 
+
+'
+this.project = project',
+
+
+logo embaixo do 
+
+
+
+CALL DE SUPER, NO CONSTRUCTOR:
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+
+
+  private project: Project;
+
+
+
+  constructor(hostId: string, project: Project) {
+        super('single-project', hostId, false, project.id);
+        this.project = project;
+
+  }
+}
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, AÍ O 
+
+
+TYPESCRIPT RECLAMA DE ALGUNS METHODS....
+
+
+
+
+
+
+
+
+
+
+--> PRECISAMOS :
+
+
+
+
+1)  METHOD DE CONFIGURE 
+
+
+
+
+2) METHOD DE 'renderContent'.. (não sei se precisa ser 'dummy')...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+
+
+  private project: Project;
+
+
+
+  constructor(hostId: string, project: Project) {
+        super('single-project', hostId, false, project.id);
+        this.project = project;
+
+  }
+
+
+
+  configure() {
+
+  }
+
+
+
+  renderContent() {
+
+  }
+
+
+}
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ok..... --------> TUDO ISSO ERA REQUISITO DE NOSSA 'BASE CLASS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR TAMBÉM CHAMA 'this.configure()' 
+
+
+
+
+e 'this.renderContent()'
+
+
+AO FINAL DO RUNTIME DO CONSTRUCTOR...
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+
+  private project: Project /////type de 'Project', type QUE NÓS MESMOS CRÍAMOS...
+
+
+  constructor(hostId: string, project: Project ) {
+
+
+
+
+
+
+    super(//////////////// templateId: string, hostElementId: string, insertPosition: "afterbegin" | "beforeend", newElementId?: string | undefined
+
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      project.id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    );
+
+
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... QUANTO AO 'configure' (a configuration),
+
+
+
+
+NÃO PRECISAMOS DE ALGO AGORA...
+
+
+
+
+
+
+
+
+
+--> MAS EM 'renderContent',
+
+DEFINITIVAMENTE PRECISAMOS DE UMA LÓGICA ESPECIALIZADA,
+PARA QUE 
+
+SEJAM RENDERIZADOS ESSES 'PROJECTITEM'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MEU CÓDIGO ANTIGO DE RENDER ERA ASSIM:
+
+
+
+
+
+    console.log('YOURLISTITEM')
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    // listEl.innerHTML = ''; ///LIMPAMOS O código html (e todos os LIST items da list), ISSO PQ __ O CÓDIGO LOGO ABAIXO, DO FOR OF LOOP, vai readicionar esses list items/re-renderizá-los, mas com o novo list item já adicionado...
+            const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <h1>${this.title}</h1>
+        <p>${this.description}</p>
+        <p>${this.people}</p>
+        `
+
+      
+        listEl.appendChild(listItem);
+
+
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+
+  --> O PROFESSOR EXPLICA QUE TEMOS 1 TEMPLATE BEM SIMPLES,
+
+
+  e que 
+
+  até mesmo 
+
+  o 
+
+  código de 
+
+
+
+  'importNode', que converte TEMPLATES EM HTML,
+
+
+
+  seria 
+
+  desnecessário..
+
+
+
+
+
+
+
+
+
+
+  --> para não deixar NOSSO TEMPLATE TÃO SIMPLES,
+
+
+  O PROFESSOR VAI ATÉ O 'index.html'
+
+
+  E EDITA 
+
+
+
+
+  o código html do template...
+
+
+
+
+
+
+  --> ELE COLOCA UM 'h2',
+
+
+
+
+  COLOCA UM H3,
+
+
+
+
+  E AÍ _ UM 'P'...
+
+
+  ex:
+
+
+
+
+
+
+
+      <template id="single-project">
+      <li>
+        <h2></h2>
+        <h3></h3>
+        <p></p>
+      </li>
+    </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> NO H2 COLOCAREMOS O TÍTULO DO PROJECT,
+
+
+    no h3 colocaremos O NÚMERO DE PERSONS,
+
+
+    e no 
+
+    P 
+
+    COLOCAREMOS A DESCRIPTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> AÍ LÁ EM 'renderContent()',
+
+
+    SÓ PRECISAMOS FAZER 'reach out' 
+
+
+    A ESSES DIFERENTES ELEMENTOS HTML dentro do template...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> COMEÇAMOS ASSIM:
+
+
+
+
+
+      renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> AÍ FICAMOS COM ESSES VALORES AÍ, de nosso 'ProjectItem' armazenado dentro 
+
+
+
+
+  dessa class...
+
+
+
+
+
+
+
+
+
+
+
+  --> AGORA SÓ PRECISAMOS FAZER 'reach out' 
+
+
+  AOS ELEMENTOS HTML (que provavelmente já foram expostos por nosso 'document.importNode()' lá nA NOSSA BASE CLASS DE 'Component')...
+
+
+
+
+
+
+
+
+
+--> para fazer 'reach out', 
+
+
+
+
+o ideal seria uns selectors (querySelector ou getElementById),
+
+
+
+
+MAS NÃO SEI QUE VALOR PASSAR...
+
+
+
+
+
+
+
+ACHO QUE AGORA SEI O QUE FAZER....
+
+
+
+
+
+
+
+
+
+
+
+POSSO ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+      renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.getElementById('title') as HTMLElement;
+    const projectItemPeople = this.element.getElementById('people'); as HTMLElement;
+    const projectItemDescription = this.element.getElementById('description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople = people;
+    projectItemDescription = description;
+    
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... MAS ISSO ME DEU VÁRIOS ERRORS:
+
+
+
+
+
+
+Property 'getElementById' does not exist on type 'HTMLLIElement'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONSERTEI TUDO ISSO (usando 'querySelector' em vez de 'getElementById)'....
+
+
+
+
+
+
+
+
+
+
+
+o código ficou assIM:
+
+
+
+
+
+
+
+
+
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople.textContent = people.toString();
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+
+
+
+
+  --> AGORA RESTA TESTÁ-Lo....
+
+
+
+
+
+
+
+
+
+  --> CONSEGUI.... FUNCIONOU.
+
+
+
+  Estou conseguindo criar 'list items'
+
+
+  independentes 
+
+
+  um do outro,
+
+
+
+
+
+
+  que possuem tanto 'title', como 'people' 
+
+  e 
+
+  'description'....
+
+
+
+
+
+
+
+
+
+  ------> ESTÃO SENDO CRIADOS NA LIST DE 'Active Projects'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {  ///até nossos projectItem vao usar a 'base-class' de 'Component' como BASE, pq __ eles também são 'parte da UI'...
+
+ 
+
+
+  private project: Project /////type de 'Project', type QUE NÓS MESMOS CRÍAMOS...
+
+
+  constructor(hostId: string, project: Project ) {
+
+
+
+
+
+
+    super(//////////////// templateId: string, hostElementId: string, insertPosition: "afterbegin" | "beforeend", newElementId?: string | undefined
+
+      'single-project' ///checar 'index.html', na parte em que existe nosso template com id de 'single-project' (template que é um template de APENAS 1 '<li>'...)
+      ,
+      hostId,  ////local em que QUEREMOS QUE SEJA RENDERIZADO NOSSO 'PROJECTITEM' (em qual list, para ser mais exato)....,
+      'beforeend', //queremos que o elemento seja posicionado AO FINAL DA LIST...
+
+      project.id ///repasse daquele parâmetro ali, no CONSTRUCTOR, que receberemos DE FORA....
+    );
+
+
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+
+
+  configure() {}
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople.textContent = people.toString();
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MEU 'renderContent' ficou assim:
+
+
+
+
+
+
+
+
+
+  renderContent() {
+
+    const { title, description, people } = this.project;
+
+
+    const projectItemTitle = this.element.querySelector('#title')!;
+    const projectItemPeople = this.element.querySelector('#people')! as HTMLElement;
+    const projectItemDescription = this.element.querySelector('#description') as HTMLParagraphElement;
+
+
+
+    projectItemTitle.textContent = title;
+    projectItemPeople.textContent = people.toString();
+
+    console.log(projectItemPeople.textContent);
+    projectItemDescription.textContent = description;
+    
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------> 
+
+
+AGORA DEVO VER COMO O PROFESSOR FEZ ISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele escreveu:
+
+
+
+
+
+
+
+
+
+
+
+'''''
+
+
+renderContent() {
+
+
+  this.element.querySelector('h2')!.textContent = this.project.title;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> OK, FOI BASICAMENTE O QUE FIZ.... (mas sem o uso de 'getElementById', e sim querySelector com TAGS....)
+
+
+
+
+
+
+
+
+
+
+
+
+renderContent() {
+
+
+  this.element.querySelector('h2')!.textContent = this.project.title;
+  this.element.querySelector('h3')!.textContent = this.project.people.toString();
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS PROFESSOR DIZ QUE QUER TWEAKAR ESSE 
+
+CÓDIGO, QUER que 
+
+
+
+
+em 'h3' (onde fica o number de 'people')
+
+
+SEJA OUTPUTTADO 
+
+
+ALGO __ ALÉM DE UM NUMBER,
+
+
+mas afirma que isso é algo que mostrará mais tarde....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> CERTo.... -------> no paragraph,
+
+professor 
+
+
+
+coloca 
+
+
+
+
+  this.element.querySelector('h3')!.textContent = this.project.description'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, AGORA TEMOS UM PROJECTITEM QUE REALMENTE É RENDERIZADO,
+
+
+e que 
+
+'sets its content'....
+
+
+
+
+
+
+
+
+
+-->  AGORA PRECISAMOS __ 
+
+USAR O 
+
+'ProjectItem'... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ELE SERÁ USADO NA 'PROJECTLIST',
+
+
+PQ 
+
+É 
+
+ELA QUE _ RENDERIZA UMA 'LISTA DE PROJECTS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ DENTRO, ESPECIFICAMENTE, EM 'renderProjects':
+
+
+
+
+MEU CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+private renderProjects() {
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    listEl.innerHTML = '';
+
+
+    for (const project of this.assignedProjects) {
+
+
+        const projectItem = new ProjectItem(`${this.listType}-projects-list`, project) ///versõa do professor, com inherit de 'Component' (Base class)....
+
+      
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --------> OU SEJA,
+
+
+  EU REALMENTE 'GO THROUGH THAT LIST OF PROJECTS' (com o for of loop),
+
+
+
+  E AÍ INSTANCIEI 
+
+
+
+
+
+
+
+  1 novo PROJECT para cada object 'Project'...
+
+
+
+
+
+
+
+
+
+  OK.... COM ESSE CÓDIGO ESCRITO,
+
+
+
+
+
+  '''THE ATTACHMENT WILL HAPPEN __ INSIDE__ OF THE BASE CLASS OF THE COMPONENT CLASS WHICH IS EXTENDED 
+BY 'PROJECTITEM'''''  ------> ISSO SIGNIFICA QUE 
+
+
+
+A INSTANCIAÇAÕ DE 
+
+
+'ProjectItem' 
+
+
+É TUDO _ QUE PRECISAMOS FAZER,
+
+
+NESSE METHOD DE 'renderProjects'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... SE SALVAMOS TUDO ISSO E VOLTAMOS AO NOSSO APp,
+
+
+
+TESTAMOS NOSSO INPUT, E ELE FUNCIONA BEM... 
+
+
+
+
+
+
+
+
+
+
+
+
+2 COISAS QUE O PROFESSOR NÃO GOSTA:
+
+
+
+
+
+
+
+
+
+1) BULLET POINT  (ele não gosta disso)...
+
+
+
+
+
+
+
+2) aquele 'number' SOLTO, sem nenhum styling...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> COMO PODEMOS CONSERTAR ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR O BULLET POINT,
+
+
+
+PROFESSOR EXPLICA QUE o 'listITEM'
+
+
+
+está 
+
+ACTUALLY SENDO RENDERIZDO __ NO LADO__ DE FORA DA 'UNORDERED LIST',
+
+o que
+
+
+
+É A CAUSA DESSE PROBLEMA...
+
+(
+
+
+  entretanto,
+
+
+  no meu código isso não acontece/está acontecendo,
+
+  pq 
+
+
+  o '<li'>
+
+
+  está 
+
+  DENTRO 
+
+
+
+
+  DO UL...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK.... PARA FAZER COM QUE ESSES 'projectItem' 
+
+
+
+
+sejam RENDERIZADOS DENTRO DA 'ul',
+
+
+
+
+
+PRECISAMOS DE ALGUM AJUSTE... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> é um problema do professor, com o method que 
+
+
+INSERE NOSSO ELEMENTO ('insertAdjacentElement'),
+
+
+
+
+
+
+que tinha aqueles argumentos de 'afterbegin' e 'beforeend'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA, EXPLICA O PROFESSOR, É QUE ESTMAOS INSERINDO ESSE 'li'
+
+NO __ HOSTELEMENT_...
+
+
+
+
+
+
+
+certo, e qual seria o 'HOST ELEMENT' de 'PROJECTLIST'?  
+
+
+
+
+
+
+--> É A 'SECTION'... ----> É A SECTION QUE 'ACTUALLY GETS RENDERED FOR OUR PROJECTS LIST CLASS'.... (
+
+  não é só A <ul>,
+
+
+
+E SIM 
+
+
+
+a 'section', que contém também um 'header', etc etc...
+
+
+)
+
+
+
+
+
+
+
+
+O PROFESSOR CONSERTA O PROBLEMA COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+private renderProjects() {
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    listEl.innerHTML = '';
+
+
+    for (const project of this.assignedProjects) {
+
+
+        const projectItem = new ProjectItem(this.element.querySelector('ul')!.id, project) ///versõa do professor, com inherit de 'Component' (Base class)....
+
+      
+    }
+  }
+
+
+
+
+------------------------
+
+
+
+
+
+OK... AGORA O NEGÓCIO ESTÁ MELHOR, E O BULLET POINT SUMIU....
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS CONSERTAR O 'NUMBER', o output do number....
+
+
+
+
+
+
+
+
+--> VAMOS QUERER OUTPUTTAR 'UMA INFORMAÇÃO UM POUCO MAIS ÚTIL'....

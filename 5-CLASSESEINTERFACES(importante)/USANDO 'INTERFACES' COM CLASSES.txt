@@ -1,0 +1,1555 @@
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... nosso código havia ficado assim:
+
+
+
+
+
+
+
+
+///interfaces 'DESCREVEM A ESTRUTURA DE UM OBJECT'''
+
+
+///precisamos da keyword 'interface' --> essa keyword só existe NO TYPESCRIPT...
+
+
+
+///interfaces, assim como TYPE ALIASES, demandam letra inicial maiúscula....
+
+
+
+//NÃO VAMOS USAR 'Interfaces' como BLUEPRINTS (essa é a utilidade de CLASSSES), e sim COMO __ CUSTOM TYPES_...
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase + ' ' + this.name);
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION.... (essa propriedade NÃO EXISTE NAQUELA INTERFACE)...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> se voltarmos 
+
+
+A essa 
+
+interface,
+
+
+
+
+
+
+
+
+
+
+
+
+INTERFACE DE CÓDIGO 
+
+
+
+
+''''
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; 
+    age: number; 
+    greet(phrase: string): void; 
+
+}
+
+
+
+
+
+''',
+
+
+
+
+
+SURGE A PERGUNTA:
+
+
+
+
+
+pq precisamos disso?
+
+
+
+
+
+ 
+
+
+
+
+ __ NÃO SERIA A MESMA COISA 
+
+
+ SE  escrevessemos um 
+
+
+ CUSTOM TYPE aqui (um type alias),
+
+
+
+
+
+
+
+
+
+
+
+ TIPO ASSIM:
+
+
+ 
+
+type Person = {
+
+
+
+    name: string; 
+    age: number; 
+    greet(phrase: string): void; 
+
+}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ E, DE FATO,
+  
+  SE ESCREVERMOS UM TYPE DESSES E SUBSTITUÍRMOS 
+
+
+
+  NOSSA INTERFACE POR ELE,
+
+  O 
+
+
+  TYPESCRIPT VAI COMPILAR SEM ERRORS,
+
+
+
+
+  e vai funcionar como antes...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ENTÃO PQ DIABOS TEMOS 'INTERFACES'? 
+
+
+
+
+
+
+
+
+
+
+
+  --> BEM, É PQ 'INTERFACES' E 'CUSTOM TYPES'
+
+
+
+
+  __ NÃO _ SÃO _ EXATAMENTE A MESMA COISA___...
+
+
+
+
+
+
+
+
+
+
+
+  --> apesar de ser frequentemente POSSÍVEL __OS UTILIZAR 
+
+  de forma 'interchangeable',
+
+
+
+
+
+
+
+  __ USAR UMA INTERFACE NO LUGAR DE UM CUSTOM TYPE/VICE-VERSA,
+
+
+
+
+  HÁ TAMBÉM ALGUMAS DIFERENÇAS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DIFERENÇAS:
+
+
+
+
+
+
+
+1) A PRIMEIRA DIFERENÇA É QUE INTERFACES 
+
+ 
+
+ SÓ __ PODEM __ SER USADAS _ PARA __ DEFINIR A ESTRUTURA __DE OBJECTS....
+ (
+
+     já os type aliases podem ser usados PARA DEFINIR A ESTRUTURA DE QUALQUER COISA,
+
+     ATÉ MESMO PARA ABREVIAR 'union types'....
+ )
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+ type UnionType = string | number;
+
+
+
+
+
+
+
+
+ ----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ ISSO FAZ O 'TYPE' PARECER SER MAIS FLEXÍVEL,
+
+
+
+ MAS O OUTRO LADO DA MOEDA É QUE 
+
+
+ 'INTERFACES' 
+
+ sãõ sempre _ _MAIS __ CLARAS (intenção e tals)
+
+ DO QUE
+
+
+
+ ____ TYPES...
+
+
+
+
+
+
+
+ --> QUANDO VOCÊ DEFINE UMA INTERFACE,
+
+
+ É SUPER CLARO QUE 
+
+
+
+ ''' EU QUERO DEFINIR A ESTRUTURA DE UM OBJECT COM ESSA COISA'''....
+
+
+
+
+
+
+
+
+
+
+ ----> E, DE FATO,
+
+
+
+ QUANDO O ASSUNTO É O 'DEFINE DE OBJECT TYPES',
+
+
+
+ VOCÊ 
+
+
+ VÊ COM MAIOR FREQUÊNCIA __ INTERFACEs_ SENDO UTILIZADAS.... (custom types não são tão usados)....
+
+
+
+
+
+
+
+
+
+
+
+ 2) OUTRA COISA QUE VOCÊ PODE FAZER COM INTERFACES (e que você também pode fazer com custom types, mas é pior de fazer),
+
+
+
+
+ É __ 
+
+
+ 'IMPLEMENTAR UMA INTERFACE ___ DENTRO __ DE UMA CLASS'... ---->  
+
+
+
+ WTF, COMO ASSIM?  
+
+
+
+
+
+
+
+
+
+
+ ---> O QUE O PROFESSOR QUER DIZER POR ISSO?
+
+
+
+
+ --> BEM, A RAZÃO PELA QUAL VOCÊ FREQUENTEMENTE TRABALHA COM INTERFACES 
+
+
+
+
+
+É QUE ___ 
+
+
+UMA INTERFACE_ PODE  SER USADA COMO UM 
+
+'CONTRATO' (CONTRACT),
+
+
+
+CONTRATO QUE UMA _ CLASSE PODE _ IMPLEMENTAR,
+
+
+
+contrato a que a CLASSE VAI TER QUE 
+
+
+
+'aderir'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+
+provavelmente 
+
+
+a interface _ OBRIGA__ a 'class' 
+
+
+a 
+
+ser definida/ter methods de um certo jeito.... (''condições do contrato'')....
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS O QUE O PROFESSOR QUER DIZER POR ISSO?
+
+
+
+
+
+
+BEM, DIGAMOS QUE 
+
+NOSSA INTERFACE 
+
+
+NÃO VAI SER UMA SIMPLES QUE NEM ESSA... ---> NÃO VAI TER 1 NAME, NEM UMA AGE..
+
+
+
+
+
+
+
+
+
+
+
+
+------> EM VEZ DISSO,
+
+
+CHAMAMOS 
+
+
+
+
+NOSSA INTERFACE DE 'Greetable'...
+
+
+
+
+
+
+
+ex:
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM... O QUE ESSA INTERFACE VAI FAZER É 
+
+
+
+'qualquer object que 
+
+
+
+
+__ DEVE SER TRATADO COMO GREETABLE,
+
+
+DEVERÁ SER UM OBJECT COM UMA PROPRIEDADE 'name',
+
+
+e com um method de 'greet'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+
+        name: string;
+        greet(phrase: string): void;
+}
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+-------> ISSO FEITO,
+
+
+
+PODEMOS DEFINIR 
+
+O TYPE DE 'user1'
+
+
+COMO 
+
+UM OBJETO 'Greetable' DESSES....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+
+        name: string;
+        greet(phrase: string): void;
+}
+
+
+
+
+
+
+let user1: Greetable; ///eis o código em questão....
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+CERTO... E SE O VALOR QUE ASSIGNARMOS A 'user1'
+
+TIVER 
+
+
+MAIS PROPRIEDADES DO QUE ESSE 'CONTRATO' estipulado por interface,
+
+
+OBTEREMOS ERRORS...
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK...... MAS A VANTAGEM DA 
+
+'INTERFACE'
+
+
+É 
+
+QUE 
+
+
+
+
+__ PODEMOS ___ A COMPARTILHAR __ AO LONGO _ DE MÚLTIPLAS 'CLASSES',
+
+
+
+
+
+
+
+___ TUDO ___ PARA ___ QUE ASSEGUREMOS QUE __ TODA CLASS 
+
+QUE ADERIR A ESSA INTERFACE
+
+
+
+
+SEJA 
+
+
+_OBRIGADA __ A TER UM METHOD DE 'greet',
+
+
+e essa propriedade de 'name'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, FICAMOS COM ISTO AQUI:
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUEREMOS BASICAMENTE DIZER AO TYPESCRPIT QUE __ QUEREMOS__ QUE ESSA CLASS DE 'Lawyer'
+
+
+
+___ ENTRE EM UM CONTRATO com 'Greetable'... (aderir a ele, IMPLEMENTAR ESSA INTERFACE NESSA CLASS, seguir esse contrato)...
+
+
+
+
+
+
+
+
+
+
+-------------> PARA CONSEGUIR ISSO, ESSE EFEITO,
+
+
+
+USAMOS A KEYWORD ESPECIAL DE 
+
+'implements'... ------> (É QUASE COMO um 'extends', mas é _ EXCLUSIVO _ DO TYPESCRIPT)....
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA ASSIM:
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer implements Greetable {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+
+
+
+    
+}
+
+
+
+
+
+
+
+---------------------------------- 
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... E OUTRA VANTAGEM,
+
+NO CASO ,
+
+ É QUE 
+
+
+ ___VOCÊ _ PODE IMPLEMENTAR MAIS DE 1 INTERFACE 
+
+
+ EM 
+
+
+ 1 DAS SUAS CLASSES...
+
+ (
+
+     isso, portanto, é uma diferença em relação à inheritance,
+
+     ao extends, que só permite 1 INHERITANCE por class...
+ )
+
+
+
+
+
+
+
+
+
+PARA IMPLEMENTAR MÚLTIPLAS INTERFACES EM 1 MESMA CLASS,
+
+
+escrevemos assim:
+
+
+
+
+
+
+
+class Person implements Greetable, Greetable2 {
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+OK.... A IMPLICAÇÃO DISSO,
+
+
+NO CASO,
+
+É 
+
+
+
+que 
+
+
+
+VAMOS TER QUE SEGUIR AS 'CONDIÇÕES' da interface..
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+////OBS::: VOCê PODE IMPLEMENTAR__ MAIS DE 1 INTERFACE__ EM 1 MESMA CLASS.... (algo que não acontece com INHERITANCE, com extends)...
+
+
+        greet(phrase: string) { ///satisfeita a condição de 'greet()' de nossa interface...
+                console.log(phrase);
+        }
+
+
+
+        constructor(public name: string) { ///satisfeita a condição de 'name' de nossa interface... (por meio desse shorthand)...
+
+        }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK.... inicializei o constructor com 
+
+
+
+
+
+essa propriedade....
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM PODERIA TER ESCRITO ASSIM:
+
+
+
+
+
+
+
+
+class Lawyer implements Greetable {
+
+
+    name: string;
+
+
+        greet(phrase: string) { 
+                console.log(phrase);
+        }
+
+        constructor(name: string) { 
+
+                    this.name = name;
+        }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+SIM, ESSA É A SINTAXE ALTERNATIVA POSSÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NOSSA CLASS,
+
+É CLARO QUE 
+
+PODEMOS 
+
+
+__TER MAIS COISAS.... --> PODEMOS 
+
+
+TER MAIS FIELDS,
+
+
+
+PODEMOS __ 
+
+
+
+FAZER 'EXTEND'
+
+
+
+__ 
+
+
+DE 
+OUTRA CLASS (inheritance),
+
+
+
+
+
+
+
+
+
+PODEMOS __ TRABALHAR _ COM 
+
+ESSA 
+
+CLASS 
+
+
+
+COMO SEMPRE TRABALHAMOS,
+
+
+MAS AO _ MESMO __ TEMPO __ SOMOS FORÇADOS A TER _ __ PELO MENOS__ _ AQUELE METHOD DE 'greet',
+
+E __ PELO MENOS AQUELA PROPRIEDADE de 'name'....
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+class Lawyer implements Greetable {
+
+
+    name: string;
+
+    static age = 30; ////isso não foi definido na INTERFACE, mas podemos escrever mesmo assim....
+
+
+        greet(phrase: string) { 
+                console.log(phrase);
+        }
+
+        constructor(name: string) { 
+
+                    this.name = name;
+        }
+
+
+
+
+}
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO,
+
+
+
+
+PORTANTO,
+
+
+QUE 
+INTERFACES 
+
+SÃO FREQUENTEMENTE 
+
+
+
+USADAS PARA __ COMPARTILHAR__ FUNCIONALIDADES AO LONGO DE MÚLTIPLAS CLASSES,
+
+
+
+
+
+
+
+__ NÃO naquilo que diz respeito a sua '' IMPLEMENTAÇÃO CONCRETA'' (pq você NÃO PODE TER VALORES/IMPLEMENTAÇÕES DENTRO DE INTERFACES EM SI),
+
+
+
+
+
+
+
+MAS SIM _ QUANTO à ESTRUTURA E FEATURES QUE 
+
+
+
+UMA CLASS DEVERÁ TER__... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É POR ISSO QUE O PROFESSOR 
+
+COMPARA O TRABALHO COM 
+
+
+
+
+'interfaces'
+
+
+
+COM _ O 
+
+TRABALHO COM 
+
+
+'ABSTRACT CLASSES'.... 
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A DIFERENÇA ENTRE ABS CLASSES e INTERFACES É _ QEU 
+
+
+INTERFACES 
+
+
+
+
+
+
+
+
+______ NÃO NOS DÃO __ NENHUM _ DETALHE __ SOBRE A IMPLEMENTAÇÃO 
+
+
+
+DE 
+
+
+NOSSAS CLASSES 
+
+
+(
+
+
+
+
+    isso quer dizer que elas não falam nada SOBRE A LÓGICA ESPECÍFICA DE CADA METHOD, etc etc,
+
+
+    dessa class....
+) 
+
+
+
+
+
+
+
+----> JÁ AS ABS CLASSES 
+
+
+
+_ PODEM SER UMA MISTURA DE 
+
+
+
+
+PARTES '''VOCÊ TEM QUE OVERWRITTAR ESSE NEGÓCIO''' (ex: o method 'describe', que era 'abstract describe(this: Department): void' )
+
+
+
+
+
+
+
+e 
+
+
+PARTES 
+
+
+
+
+
+'''JÁ TEMOS IMPLEMENTAÇÃO CONCRETA''' (
+
+
+    como o method de 'printEmployeeInformation() {
+        console.log('xxx');
+        console.log('xxxx');
+    }
+)
+
+
+
+
+
+
+
+
+EX:
+
+
+
+{
+
+
+abstract describe(this: Department): void; ///PARTE 1
+ 
+
+
+
+addEmployee(employee:string) { ///PARTE 2
+
+
+    this.employees.push(employee);
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+OK... ESSA É UMA DIFERENÇA IMPORTANTE 
+
+ENTRE 
+
+
+
+INTERFACES E ABSTRACT CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... TEMOS ESSA CLASS de 'Lawyer',
+
+
+
+
+QUE PODEMOS INSTANCIAR 
+
+
+ASSIm:
+
+
+
+
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+////OBS::: VOCê PODE IMPLEMENTAR__ MAIS DE 1 INTERFACE__ EM 1 MESMA CLASS.... (algo que não acontece com INHERITANCE, com extends)...
+
+
+            static age = 30; ////isso não foi definido na INTERFACE, mas podemos escrever mesmo assim.... (só temos que satisfazer o 'BARE MININUM' das condições da interface)...
+
+
+
+
+        greet(phrase: string) { ///satisfeita a condição de 'greet()' de nossa interface...
+                console.log(phrase);
+        }
+
+
+
+        constructor(public name: string) { ///satisfeita a condição de 'name' de nossa interface... (por meio desse shorthand)...
+
+        }
+
+
+
+
+}
+
+
+
+
+
+const newLawyer = new Lawyer('excelsior');
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+AGORA PODEMOS CONSOLE.LOGGAR ESSE 'newLayer',
+
+
+
+coisa 
+
+
+normal,
+
+
+
+MAS  O TAKEAWAY
+ 
+
+ É QUE 
+ AGORA 
+
+
+ ESSE 
+
+
+
+ OBJECT terá 
+
+ sido 
+
+ CRIADO A PARTIR 
+
+
+
+ DE UMA CLASS, CLASS QUE IMPLEMENTOU UMA INTERFACE...
+
+
+
+
+
+
+
+
+
+
+ OK... OUTRA FEATURE 
+
+
+
+
+ PODEROSA... --> VOCÊ PODE USAR UMA INTERFACE 
+
+
+
+ como 
+
+
+
+
+
+ um TYPE ___ em 1 variável/constante 
+
+
+
+
+
+
+
+
+
+
+ -> ok, essas são as interfaces 'in a nutshell',
+
+ um monte de features boas incluídas..

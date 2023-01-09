@@ -1,0 +1,840 @@
+
+
+
+
+
+
+
+
+
+
+
+----> OK... DEVEMOS DIZER AO WEBPACK O QUE ELE DEVE FAZER COM OS ARQUIVOS TYPESCIRPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSO CONFIG OBJECT DO WEBPACK ESTAVA ASSIM:
+
+
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+--> Vamos adicionar uma nova propriedade, o 'module'... -- --> 
+
+
+
+
+'MODULE' também é um OBJETO JAVASCRIPT,
+
+
+
+que o configura....
+
+
+
+
+
+
+
+
+
+
+
+
+--> 1 MODULE, NO FINAL DAS CONTAS, É APENAS 1 ARQUIVO.. --> POR ISSO AQUANDO CONFIGURAMOS 
+
+ESSE COMPORTAMENTO, ESTAMOS DIZENDO AO WEBPACK O QUE ELE DEVE FAZER COM CADA ARQUIVO....
+
+
+
+
+
+
+
+
+
+
+
+---------> bem, MAS O QUE O WEBPACK DEVE FAZER COM ESSES 
+
+
+FILES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ESCREVEMOs 'rules',
+
+QUE SERÁ UM ARRAY,
+
+
+PQ 
+
+
+PODERAO EXISTIR MULTIPLAS RULES SENDO APLICADA AOS ARQUIVOS...
+
+(
+    casos em que temos ARQUIVOS CSS, IMAGES, ETC ETC,
+
+EM QUE APLICAMOS RULES DIFERENTES...
+)
+
+
+
+
+
+
+
+
+--> DENTRO DESSAS RULES,
+
+
+
+ADICIONAMOS O 'ts-loader'... ----> LOADERS SÃO SIMPLESMENTE PACKAGES QUE 
+
+DIZEM AO WEBPACK COMO ELE DEVE LIDAR COM CERTOS ARQUIVOS.....
+
+
+
+
+
+
+
+
+
+
+
+--> TS-LOADER AJUDA O WEBPACK A LIDAR COM ARQUIVOS TYPESCRIPT....
+
+
+
+
+
+
+
+CÓDIGO VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    },
+
+    module: {
+        rules: [
+            {
+
+            }
+        ]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSE 'RULES',
+
+
+
+COLOCAMOS UM OBJETO 'RULE',
+
+em que colocamos uma 
+
+
+PROPRIEDADE 'test' (
+
+
+    ESSA PROPRIEDADE __ DESCREVE UM 'TEST' 
+    QUE O WEBPACK VAI APLICAR A CADA ARQUIVO QUE ELE ENCONTRA,
+
+        PARA SABER SE __ ESSE ARQUIVO ENCONTRADO__ SE ENCAIXA__ 
+
+
+        NESSA 'RULE' que definimos agora.... 
+
+
+
+
+
+        --> e o 'test' SEMPRE SERÁ UMA REGULAR EXPRESSION, PQ 
+
+        É A ESTRUTURA DE UM ARQUIVO (Como sua extensão e nome) 
+        QUE INTERESSAM PARA 
+
+        SABER SE 1 RULE É APLICÁVEL A ESSE ARQUIVO OU NÃO...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+NOSSA REGULAR EXPRESSION VAI SER '''SE ESSE ARQVUIO TERMINA COM .ts,
+
+
+USE ESSA RULE AQUI'...
+
+
+
+ex:
+
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    },
+
+    module: {
+        rules: [
+            {
+                    test: //
+            }
+        ]
+    }
+}
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+SERÁ UMA REGULAR EXPRESSION QUE CHECARÁ PELA FILE EXTENSION....
+
+
+
+
+
+
+
+ex:
+
+
+/\.ts$/
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    },
+
+    module: {
+        rules: [
+            {
+                    test: /\.ts$/
+            }
+        ]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AÍ VOCê TAMBÉM VAI TER QUE ESPECIFICAR ''O QUE O 
+
+
+WEBPACK DEVE FAZER COM ESSES ARQUIVOS''... --> 
+
+
+VAMOS ESPECIFICAR QUE O LOADER QUE ELE TERÁ DE USAR SERÁ O 'ts-lodaer'...
+
+(
+
+    o ts-loader sabe o que faezr com esse tipo de arquivo... 
+)
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    },
+
+    module: {
+        rules: [
+            {
+                    test: /\.ts$/,
+                    use 'ts-loader'
+            }
+        ]
+    }
+}
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM,
+
+
+COLOQUE UMA CONFIGURAÇÃO EXTRA QUE NUNCA MACHUCA,
+QUE É 
+
+'exclude: /node_modules/'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> POR FIM, PROFESSOR DIZ QUE PRECISAMOS DEFINIR OUTRA KEY,
+
+QUE É A DE 
+
+'resolve'... ---> 
+
+
+
+
+COM ELA,
+
+
+DIZEMOS AO WEBPACK__ QUAIS FILE-_ EXTENSIONS__ ELE 
+
+
+DEVE ADICIONAR __ AOS 
+
+
+
+'IMPORTS' QUE ELE ENCONTRAR...
+
+
+(
+
+
+O WEBPACK ADICIONA EXTENSOES POR CONTA PRÓPRIA, E POR DEFAULT 
+
+PROCURA POR ARQUIVOS '.ts'...
+
+)
+
+
+
+
+
+
+
+
+
+--> MAS AQUI PRECISAMOS DEFINIR UMA PROPRIEDADE DE 'extensions',
+
+
+QUE SERÁ UM ARRAY...
+
+
+
+
+
+
+
+
+
+
+
+---> AÍ ESPECIFICAMOS QUE O TYPESCRIPT DEVE PROCURAR POR AQRUIVOS '.ts' e '.js'.... 
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+const path = require('path');
+  
+
+module.exports = {
+    entry: "./src/app.ts",
+
+    output: {
+        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist')
+    },
+
+    module: {
+        rules: [
+            {
+                    test: /\.ts$/,
+                    use 'ts-loader'
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok, agora o webpack vai procurar por arquivos TS e JS, e vai os bundlar tudo junto.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, VAMOS ATÉ O 'tsconfig.json',
+
+E AÍ 
+
+DEIXAMOS A OPÇÃO 'sourcemap'
+
+
+COMO 'true'...
+
+(ISSO VAI NOS AJUDAR COM O DEBUGGING)...
+
+
+
+
+
+
+
+
+
+MAS PARA ATIVAR UM MELHOR DEBUGGING NO WEBPACK, PRECISAOS IR ATÉ O 'webpack.config.j'
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ÁI 
+
+
+escrever uma entry de 'devtools',
+
+
+e aí definir seu valor como a string 
+
+'inline-source-map' ----------> ISSO VAI DIZER AO WEBPACK QUE 
+
+
+
+
+
+__ VÃO EXISTIR SOURCE MAPS,
+
+E QUE 
+
+VÃO FICAR VINCULADOS AO NOSSO BUNDLE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok, agora temos o webpack configurado, mas a pergunta é, COMO O UTILIZAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR VAI ATÉ O 'package.json'
+
+
+
+E AÍ ADICIONA UM NOVO SCRIPT,
+
+ 
+
+
+ de 
+
+
+
+ 'run:build': webpack 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ISSO VAI FAZER O WEBPACK COMPILAR SEU CÓDIGO E O OPTIMIZAR, E AÍ VAI CUSPIR O CÓDIGO EM 'dist'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... O WEBPACK COMPILOU TODO NOSSO CÓDIGO, EM UMA VERSÃO MINIFICADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS ANTES DE VERMOS COMO PODEMOS TRABALHAR COM DIFERENTES CONFIGURAÇÕES,
+
+o professor 
+
+
+TROCA O import do script lá em 
+
+'index.html',
+
+PARA QUE 
+
+SEJA CARREGADO O SCRIPT DE 'bundle.js'..
+
+
+
+
+
+
+
+
+
+--> NOSSO PROJETO VAI FICAR FUNCIONANDO DE UMA MANEIRA BOA
+,
+
+PQ 
+
+AGORA TEMOS 
+
+1 ÚNICO ARQUIVO 'bundle',
+
+EM VEZ DE 1 MILHÃO DE ARQUIVINHOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE FORMOS NA ABA 'source',
+
+
+
+TEREMOS UM SOURCEMAP 
+
+
+DE NOSSO CÓDIGO,
+
+
+
+PODEMOS DEBUGGAR NOSSO CÓDIGo,
+
+
+
+AJJUDAM BASTANTE NO DEVELOPING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS CÓDIGO OPTIMIZADO AOMESMO TEMPO QUE TEMOS UMA DEV EXPERIENCE 
+
+ÓPTIMA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SETUP BEM LEGAL,
+
+UM MONTE DE OPTIMIZAÇÕES...
+
+
+
+
+
+
+
+
+
+
+--> AGORA O PROFESSOR QUER QUE CONFIGUREMOS O WEBPACK DEV-SEVER,
+
+e que 
+
+então 
+
+fiquemos com 2 WORKFLOWS,
+
+1 para PRODUCITON e outro para DEVELOPMENT...

@@ -1,0 +1,916 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> 2 PROBLEMAS A RESOLVER....
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR PELO PROBLEMA DE 
+
+
+
+''ELEMENTOS APARECEM EM AMBAS AS BOXES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+ 
+ PROFESSOR INTRODUZ UM 'FILTERING'...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> O PROFESSOR EXPLICA QUE __ O MELHOR_ _ LOCAL PARA INTRODUZIR 'SOME FILTERING'
+
+
+ É LÁ 
+
+
+ NA NOSSA 
+
+
+ 'LISTENER FUNCTIOn'...
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS 
+
+ ATÉ O LOCAL EM QUE REGISTRAMOS NOSSO LISTENER,
+
+
+
+
+
+
+
+ OU SEJA,
+
+
+
+ LÁ NA CLASS DE 'ProjectList',
+
+
+ NAQUELE CÓDIGO DE 
+
+
+
+ ''
+
+
+ 
+    projectState.addListener((projects: Project[]) => {
+      this.assignedProjects = projects;
+      this.renderActiveProjects();
+    });
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE LOCAL NÓS_ _ OBTEMOS__ UMA LIST __ DE PRODUCTS...
+
+
+
+
+
+
+
+
+
+
+--> ESSA LISTA DE PROJECTS, NO PRESENTE, COMPREENDE __ TODOS OS PROJECTS POSSÍVEIS...
+
+
+
+
+
+
+
+
+
+--> MAS DENTRO DESSA CLASS DE 'ProjectList'
+
+
+
+
+
+
+NÓS SÓ TEMOS INTERESSE EM 'ACTIVE/FINISHED' projects... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ENTÃO O QUE VAMOS FZER AQUI, DENTRO DE 'projectState.addListener',
+
+
+
+É, 
+
+
+ANTES DE __ ARMAZENAR__ ESSES PROJECTS__ E ENTÃO 
+
+
+
+OS RENDERIZAR (com 'this.assignedProjects = projects' e 'this.renderProjects()'),
+
+
+
+
+O PROFESSOR VAI QUERER OS FILTRAR.... ----------> 
+
+
+
+
+
+
+
+PARA ISSO,
+
+
+
+PROFESSOR 
+
+
+VAI USAR UMA FUNÇÃO BEM NORMALZINHA, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+'''
+
+const relevantProjects = projects.filter(
+    (project) => {
+        return project.projectStatus === ProjectStatus.Active
+    }
+)
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+O CÓDIGO COMPLETO FICA ASSIM:
+
+
+
+
+
+    projectState.addListener((projects: Project[]) => {
+
+        const relevantProjects = projects.filter(
+    (project) => {
+        return project.projectStatus === ProjectStatus.Active
+    }
+)
+      this.assignedProjects = projects;
+      this.renderActiveProjects();
+    });
+
+
+
+
+
+
+
+
+
+
+-----------> 
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => {
+            return project.projectStatus === ProjectStatus.Active
+        }
+    );
+
+      // this.assignedProjects = projects; ///sem diferenciação entre 'active' e 'finished'
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+
+
+
+
+
+
+
+-----------> 
+
+
+
+
+
+
+
+
+É CLARO QUE AQUI __ SÓ ESTAMOS CONTEMPLANDO O CASE DE 'projects com status de ACTIVE'...
+
+
+
+
+
+
+
+
+--> TAMBÉM QUEREMOS__ CONTEMPLAR O CASE DE 'projects com status de FINISHED',
+
+
+por isso vamos ADICIONAR UM IF CHECK __ DENTRO ___ DESSE FILTER... (nem sabia que isso era possível)....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+    projectState.addListener((projects: Project[]) => {
+
+      const relevantProjects =  projects.filter(
+  (project) => {
+    
+    if(this.listType === 'finished') {
+        return project.projectStatus === ProjectStatus.finished
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... ----> ISSO VAI PROVAVELMENTE RESOLVER NOSSO PROBLEMA DE 'item adicionado a 2 boxes ao mesmo tempo'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> RESOLVEU...
+
+
+
+
+
+
+
+
+
+
+
+---------> ESSE FILTER REALMENTE ESTÁ FUNCIONANDO....
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA RESTA O CÓDIGO DE 'evitar duplicatas'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> PROFESSOR EXPLICA QUE ESSA DUPLICATA 
+
+TEM A VER 
+
+COM A MANEIRA PELA QUAL FAZEMOS 'RENDERING' DE NOSSOS PROJECST,
+
+
+
+COM AQUELE CÓDIGO DE 
+
+
+'
+
+      this.renderProjects();
+
+
+      '''
+
+
+
+
+
+
+
+
+
+
+
+
+      NOSSO CÓDIGO ATÉ AGORA ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+    
+
+     private renderProjects() {
+    // const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+------->DENTRO DESSE RENDER PROJECTS,
+
+
+
+ESTAMOS SMEPRE INDO 'POR DENTRO DE TODOS NOSSOS PROJECTS',
+
+
+e aí estamos FAZENDO APPEND DELES 
+
+
+A NOSSA LIST ...
+
+
+(
+
+    'listEl.appendChild(listItem)'...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA AQUI, É CLARO,
+É QUE 
+
+
+EXISTE A HIPÓTESE DE 1 ELEMENTO 'PROJECT' JÁ ESTAR RENDERIZADO NA NOSSA TELA....
+
+
+
+
+
+
+
+
+
+
+
+--> A MELHOR SOLUÇÃO POSSÍVEL, AQUI, SERIA 
+
+
+'
+KIND OF RUN A COMPARISON',
+
+
+
+
+EM QUE VOCê CHECARIA 'O QUE JÁ FOI RENDERIZADO'  E O QUE VOCÊ 'PRECISA RENDERIZAR',
+
+
+
+PARA_ _ EVITAR_ RE-RENDERING.... --------> É CLARO QUE ISSO TRAZ PROBLEMAS.... --> 
+
+
+
+
+RODAR ESSA 'COMPARISON' POR MEIO DO 'LOOK THROUGH THE REAL DOM'
+ 
+
+
+ CUSTA _ UM MONTE DE __ PERFORMANCE....
+
+
+
+
+
+
+
+
+
+
+ --> PARA ESTE NOSSO APP AQUI,
+
+
+
+ É PERFECTLY FINE 
+
+
+ FAZER O SIMPLES 'CLEAR OUT' 
+
+
+ DE TODO 
+
+ O CONTEÚDO DE NOSSO 'listElement' 
+
+
+
+
+
+
+
+ --> FAREMOS ISSO POR MEIO DO DEFINE DO 'innerHTML 'de 
+
+ nosso 'LIST ITEM' 
+
+
+
+ como uma EMPTY STRING...
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+ 
+
+    
+
+     private renderProjects() {
+
+    const listEl = document.getElementById(`${this.listType}-projects-list`)! as HTMLUListElement;
+    console.log(listEl);
+
+    listEl.innerHTML = '';
+
+
+    for (const project of this.assignedProjects) {
+      console.log(project);
+      console.log(this.assignedProjects);
+      /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+
+        console.log('TEST');
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listEl.appendChild(listItem);
+      
+    }
+  }
+
+
+
+----------------------------------
+
+
+
+
+
+------> ISSO SIGNIFICA QUE NÓS VAMOS 
+
+'GET RID OF ALL LIST ITEMS AND THEN RE-RENDER'.... 
+
+(é, foi uma das opções que imaginei)...
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PODE CUSTAR PERFORMANCE EM APPS MAIORES,
+
+MAS EM 1 APP PEQUENO COMO ESTE, ISSO É 'PERFECTLY FINE'...
+
+
+
+
+
+
+
+
+
+OK... SUCESSO....
+
+
+
+
+
+
+
+COM ISSO, SALVAMOS TUDO e...
+
+
+
+
+
+
+
+
+
+
+-_> ISSO FUNCIONA....
+
+
+
+
+
+ESTAMOS RENDERIZANDO ESSES PROJETOS DA MANEIRA QUE ELES PRECISAM SER RENDERIZDOS....
+
+
+
+
+
+
+
+
+
+--> FALTA O DRAG AND DROP 
+
+
+
+NESSE APP....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> TAMBÉM FALTA __ 'SOME WAY OF GETTING PROJECTS FROM THE FIRST LIST INTO THE SECOND'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> TAMBÉM NÃO ESTAMOS OUTPUTTANDO A OUTRA INFO QUE TEMOS (description e people)....
+
+
+
+
+
+
+--> TAMBÉM ESTAMOS COM UM POUCO DE 'CODE DUPLICATION'
+
+
+
+EM RELAÇÃO 
+
+
+A 
+
+
+'ProjectList'
+
+
+
+e 
+
+
+'ProjectInput' (
+
+
+
+
+    pq em ambos temos 
+
+
+    'templateElement',
+
+    'hostElement' 
+
+    e 
+
+    'element'... 
+
+
+
+
+
+
+
+
+
+
+    --> TAMBÉM TEMOS  O MESMO CÓDIGO DE 'attach()'
+
+    nas 2 classes....
+
+)
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR PLANEJA _ REUTILIZAR UM BOCADO DE CÓDIGO AQUI,
+
+POR MEIO DO USO DE 'INHERITANCE'
+
+
+E UMA BASE-CLASS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, ELE TAMBÉM VAI QEURER CRIAR UMA CLASS DEDICADA PARA CADA 
+
+'PROJECTITEM',
+
+
+
+para que 
+
+SEJAM INSTANCIADOS ESSES ITEMs,
+
+
+
+dentro do código/methods de 
+
+
+'ProjectList',
+
+TUDO PARA QUE 
+
+SEJA 
+
+EVITADO
+ 
+
+
+ 1 
+
+ APPEND MANUAL de 'listItem',
+
+
+ como 
+
+
+
+ temos com o código de 
+
+
+ 'listItem.textContent = prjItem.title;
+ listEl.appendChild(listItem);' 
+
+
+
+
+
+
+
+
+
+
+
+ --> E AÍ, 
+
+
+ DENTRO 
+
+
+ DESSA CLASS DE 'ProjectItem',
+
+
+
+ TEREMOS __ ESSA PARTE DE 'APPEND',
+
+
+ E TMABÉM VAMOS OUTPUTTAR 
+
+ MAIS INFO SOBRE O PROJECTITEM,
+
+ COMO 
+
+ A DESCRIPTION 
+
+
+ E A 'PEOPLE' ....
+
+
+
+
+
+
+
+
+
+
+ --> ANTES DE ADICIONARMOS ESSA CLASS DE 'projectiTem',
+
+ PRECISAMOS 
+
+
+ ADICIONAR UMA INHERITANCE PARA DEIXAR NOSSA 'PROJECTLIST' e 'Projectinput'
+ ,,
+
+
+
+ PARTES DELAS,
+
+ REUSABLE...
+
+
+
+
+
+
+

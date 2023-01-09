@@ -1,0 +1,1941 @@
+
+
+
+
+
+
+
+
+
+
+
+--> ANEXADO A ESTA AULA 
+
+
+temos 
+
+um starting project,
+
+
+
+com 
+
+coisas vazias, 'app.ts'
+
+vazio...
+
+
+
+
+
+
+
+
+
+
+-> VAMOS CONSTRUIR UM PEQUENO 'DEMO APPLICATION',
+
+
+um pequeno project...
+
+
+
+
+
+
+
+
+--> NÃO SERÁ UM APP MT COMPLEXO,
+
+MAS VAI SER UM 
+
+
+NICE APP,
+
+EM QUE 
+
+VAMOS PODER 
+
+
+
+
+
+FAZER MANAGE DE 'PROJECTS'..
+
+
+
+
+
+
+
+
+
+
+--> 'PROJECT' é um GOAL, temos listas de projects. 
+
+
+
+
+
+
+
+
+
+
+
+
+-> TEREMOS 2 LISTAS DE PROJECTS, PROJECTS:
+
+
+
+
+
+
+
+
+
+ACTIVE LIST 
+
+
+
+
+FINISHED LIST 
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PODER DRAGGAR E DROPPAR 
+
+
+
+
+
+1 product nas listas...
+
+
+
+
+
+
+
+
+--> vamos poder praticar coisas que 
+
+
+
+aprendemos ao longo do curso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI ESCREVER TODO O CÓDIGO JS 
+
+
+
+EM 
+
+1 ÚNICO ARQUIVO, o de 'app.ts'...
+
+
+
+
+
+
+
+
+
+
+--> ESSE ARQUIVO VAI FICAR BEM GRANDE.... --> NO MÓDULO POSTERIOR,
+
+
+
+
+
+
+
+O PROFESSOR VAI FALAR SOBRE ESSE PROBLEMA,
+
+E SOBRE COMO PODEMOS USAR A FEATURE DE 'modules'
+
+PARA 
+
+SPLITTAR NOSSO CÓDIGO,
+
+
+
+PARA 
+
+
+NÃO FICAR COM 1 ARQUIVO GIGANTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA DEVEMOS FOCAR NA NOSSA 'DEMO APPLICATION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS UMA NOVA STARTING HTML FILE....
+
+
+
+
+
+
+
+
+
+CERTO, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProjectManager</title>
+    <link rel="stylesheet" href="app.cs" />
+    <script type="module" src="dist/app.js"></script>
+    <!-- <script src="dist/app.js" defer></script>
+    <script src="dist/analytics.js" defer></script> -->
+  </head>
+  <body>
+    <template id="project-input">
+      <form>
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input type="text" id="title" />
+        </div>
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="people">People</label>
+          <input type="number" id="people" step="1" min="0" max="10" />
+        </div>
+        <button type="submit">ADD PROJECT</button>
+      </form>
+    </template>
+    <template id="single-project">
+      <li></li>
+    </template>
+    <template id="project-list">
+      <section class="projects">
+        <header>
+          <h2></h2>
+        </header>
+        <ul></ul>
+      </section>
+    </template>
+    <div id="app"></div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, TEMOS O CSS:
+
+
+
+
+
+
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+label,
+input,
+textarea {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
+  font: inherit;
+  padding: 0.2rem 0.4rem;
+  width: 100%;
+  max-width: 30rem;
+  border: 1px solid #ccc;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  background: #fff5f9;
+}
+
+button {
+  font: inherit;
+  background: #ff0062;
+  border: 1px solid #ff0062;
+  cursor: pointer;
+  color: white;
+  padding: 0.75rem 1rem;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover,
+button:active {
+  background: #a80041;
+  border-color: #a80041;
+}
+
+.projects {
+  margin: 1rem;
+  border: 1px solid #ff0062;
+}
+
+.projects header {
+  background: #ff0062;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#finished-projects {
+  border-color: #0044ff;
+}
+
+#finished-projects header {
+  border-color: #0044ff;
+}
+
+.projects h2 {
+  margin: 0;
+  color: white;
+}
+
+.projects ul {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+}
+
+.projects li {
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.projects li h2 {
+  color: #ff0062;
+  margin: 0.5rem 0;
+}
+
+#finished-projects li h2 {
+  color: #0044ff;
+}
+
+#finished-projects li h3 {
+  color: #575757;
+  font-size: 1rem;
+}
+
+.project li p {
+  margin: 0;
+}
+
+.droppable {
+  background: #ffe3ee;
+}
+
+#finished-projects.droppable {
+  background: #d6e1ff;
+}
+
+#user-input {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ff0062;
+  background: #f7f7f7;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... AÍ AGORA SÓ FALTA CRIAR UM 'app.ts'
+
+LÁ 
+
+
+
+
+NO 
+
+
+FOLDER DE 'src'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... JÁ ESTOU COM MEU SETUP CERTINHO...
+
+
+
+
+
+
+
+
+
+
+
+
+------> NO BODY DO ARQUIVO HTML,
+
+TEMOS ALGUMAS 
+
+
+
+
+
+
+
+<tags>
+
+
+de 
+
+
+
+'<template>'... ------> SÃO DEFAULT HTML TAGS SUPORTADAS POR BROWSERS MODERNOS,
+
+
+
+
+
+
+__ SÃO __ TAGS__ TE DEIXAM __ CARREGAR__ CÓDIGO __ QUE NÃO É CARREGADO IMEDIATAMENTE,
+
+
+
+
+NÃO SÃO RENDERIZADAS 
+
+IMEDIATAMENTE,
+
+
+MAS 
+
+
+
+
+
+QUE PODEM 
+
+SER 
+
+'REACHED '
+
+
+
+
+pelo javascript/typescript 
+
+
+
+PARA ENTÃO AS RENDERIZAR __ QUANDO QUISERMOS AS RENDERIZAR... ------> OK... ---> PODEMOS CONTROLAR 
+
+ESSAS 
+
+
+TAGS COM TYPESCRIPT/JAVASCIPRT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... PROFESSOR EXPLICA QUE TEMOS UMA FORM COM 3 INPUTS,
+
+
+
+
+1 title,
+
+1 
+description 
+
+
+e 
+
+
+
+1 'people' 
+
+
+
+
+
+
+
+
+-> NOME DE NOSSO PROJECT, DESCRIPTION, E AÍ O NÚMERO DE PESSOAS QUE PODE SER ASSIGNADO A ELE.... 
+
+
+
+
+
+(
+
+    e também um BUTTON, que CRIA ESSE 'PROJECT'...
+)
+
+
+
+
+(
+
+    esse é o PRIMEIRO TEMPLATE...
+)
+
+
+
+
+
+
+
+
+
+
+-> JÁ O SEGUNDO TEMPLATE,
+
+TEM ESTE CÓDIGO AQUI:
+
+
+
+    <template id="single-project">
+      <li></li>
+    </template> 
+
+
+
+
+
+
+
+
+
+
+
+
+---> ESSE TEMPLATE SEGURA SÓ UM 'LIST ITEM',
+
+
+E VAI 
+SER 
+
+USADO 
+
+ 
+
+ PARA 
+
+
+ 'RENDER A SINGLE PROJECT'
+
+
+
+
+
+
+
+
+ NA NOOSSA _LISTA_ DE PROJECTS,
+
+
+
+
+
+
+
+
+
+
+ LISTA QUE SERÁ 
+
+ ENTÃO AQUELE TEMPALTE DE 
+
+
+
+
+
+
+
+
+
+
+
+     <template id="project-list">
+      <section class="projects">
+        <header>
+          <h2></h2>
+        </header>
+        <ul></ul>
+      </section>
+    </template>
+
+
+
+
+
+
+
+
+
+    ----------> TEMOS UM HEADER, COM UM 'h2',
+
+
+
+    E ÁI 
+
+    UMA UNORDERED LIST --> E, SIM, ESSA 
+
+    LIST 
+
+
+    DEPOIS 
+
+    VAI 
+
+    'HOLD MULTIPLE SINGLE PROJECTS'
+
+
+    com base 
+
+
+    naquele 'SINGLE PROJECT' 
+
+    de nosso outro <template></template>  ('single-project') ----------> e 
+
+
+
+
+
+
+
+
+
+
+
+
+    ESSE 
+
+
+    'SINGLE-PROJECT',
+
+    por sua vez,
+
+
+
+
+
+    esse template aí,
+
+
+    VAI __ RENDERIZAR/INCORPORAR TODAS AS INFORMAÇÕES QUE 
+
+
+
+
+    DIGITAMOS 
+
+
+
+    AO LONGO DAQUELES 
+
+
+    INPUT FIELDS na form,
+
+
+    de 
+
+    código 
+
+
+
+
+
+
+
+      <template id="project-input">
+      <form>
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input type="text" id="title" />
+        </div>
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="people">People</label>
+          <input type="number" id="people" step="1" min="0" max="10" />
+        </div>
+        <button type="submit">ADD PROJECT</button>
+      </form>
+    </template>
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+E TUDO ISSO, AÍ, __ SERÁ ENTÃO 'APPENDED' com A AJUDA __DO TYPESCRIPT/JAVASCRIPT,
+
+
+
+
+
+
+
+
+
+LÁ __ NAQUELA__ DIV DE id 'app',
+
+
+
+LÁ NO FINAL:
+
+
+
+
+'''
+
+    <div id="app"></div>
+
+
+
+    '
+    ''
+
+
+
+
+
+
+
+
+
+
+    (TALVEZ FAÇAMOS ISSO COM O USO DE UM DECORATOR? DECORATOR DE 'WithTemplate()'?  É POSSÍVEL)....
+
+
+
+
+
+
+
+
+
+    --> parece que o professor realmente vai querer USAR O DECORATOR DE 'Autobind', também...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> APP.CSS SÓ SEGURA ALGUNS ESTILO CSS...
+
+
+
+
+
+
+
+
+
+
+
+
+    -> NOSSA PRIMEIRA TAREFA É ESCREVER UM CÓDIGO JAVASCRIPT QUE VAI FETCHEAR/FAZER GET 
+
+    DAS INFORMAÇÕES INPUTTADAS PELO USER 
+
+
+    LÁ NOS INPUT FIELDS..
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM, MAS ANTES DISSO, ANTES DE CAPTAR ESSA INFO,
+
+PRECISAMOS ESCREVER UM CÓDIGO JAVASCRIPT __ QUE __ rEALMETNE _ 'RENDERIZE'
+
+
+
+esse template na nossa página...
+
+
+
+
+
+
+
+
+
+
+----> AÍ VAMOS FAZER GET DAS INFO INPUTTADA PELO USER, PARA ENTÃO A VALIDAR...
+
+
+(
+    'title' 
+
+    'description' e 
+
+
+    'people'...
+)
+
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS FAZER 'LISTEN TO' à submission de nossa form,
+
+
+essencialmente...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS FAZER A CRIAÇAÕ DE UM NOVO OBJETO 'project',
+
+
+QUE PROVAVELMENTE FICARÁ ARMAZENADO EM ALGUM ARRAY...
+
+
+
+
+
+
+
+
+
+--> ESSE ARRAY ENTAÕ SERÁ RENDERIZADO NAQUELA 'list'(<ul>, lá em 'project-list'),
+
+
+
+
+E AÍ ___ ESSA PROJECT LIST TAMBÉM PRECISA SER ADICIONADA 
+
+
+
+
+
+AO DOM..
+
+
+
+
+
+
+
+--> se estamos nos sentindo confiantes,
+
+
+
+vamos tentar implementar isso por conta própria...
+
+
+
+
+
+
+
+
+
+
+--> TAREFAS: 
+
+
+
+
+
+
+
+
+1) TENTAR FAZER ESSA FORM, NESSE TEMPLATE, FICAR VISÍVEL...
+
+
+
+
+
+
+
+2) DEIXAR USERS INPUTTAR UM INPUT, 
+
+
+
+
+
+
+3) para cada PROJECT QUE VOCÊ ADICIONAR AO SEU CÓDIGO, EM 1 ARRAY DE SEU CÓDIGO, 
+
+
+1 'list item' 
+
+SEJA 
+
+
+RENDERIZADO... (renderizado naquela LIST em 'project-list') --> essa list TAMBÉM DEVE FICAR 'visible'..
+
+
+
+
+
+
+
+
+
+
+
+
+--->  SE CONSEGUIRMOS  FAZER TUDO ISSO, AMAZING..
+
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS TENTAR IMPLEMENTAR TUDO ISSO, etapa-por-etapa...
+
+
+
+
+
+
+DEPOIS QUE TUDO ISSO ESTIVER PRONTO, VAMOS ASSEGURAR QUE 
+
+
+
+AS 2 LISTS (de active e inactive projects) CONSIGAM 
+
+
+
+
+SER 
+
+
+DISPLAYED, 
+
+
+
+
+e que  a funçaõ de 
+
+
+
+
+drag and drop fique funcional..
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+PRIMEIRO PASSO É SELECIONAR OS TEMPLATES....
+
+
+
+
+
+
+
+
+
+--> template de 'USER INPUT' deve ficar visível...
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI, COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement
+
+const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLInputElement;
+
+const projectTemplate = document.querySelector('single-project') as HTMLTemplateElement;
+const listTemplate = document.querySelector('project-list') as HTMLTemplateElement;
+
+
+
+
+document.body.appendChild(inputTemplateForm); ///isto fez os input fields aparecerem....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+AGORA CONSEGUI FAZER O 'EVENT LISTENER' de submit TRIGGAR:
+
+
+
+
+
+
+
+
+
+
+
+const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement
+const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLFormElement;
+const projectTemplate = document.querySelector('single-project') as HTMLTemplateElement;
+const listTemplate = document.querySelector('project-list') as HTMLTemplateElement;
+
+
+const titleInput = document.getElementById('title') as HTMLInputElement;
+const descInput = document.getElementById('description') as HTMLInputElement;
+const peopleInput = document.getElementById('people') as HTMLTextAreaElement;
+
+const submitButton = document.querySelector('button') as HTMLButtonElement;
+
+
+
+
+
+document.body.appendChild(inputTemplateForm);
+
+
+
+
+const realInputForm = document.querySelector('form') as HTMLFormElement;
+
+
+console.log(realInputForm);
+
+
+
+
+interface Project {
+
+  readonly title: string;
+   readonly description: string;
+    readonly people: number;
+}
+
+
+
+
+
+
+class Project implements Project {
+
+
+
+    constructor(title: string,  description: string, people: number) {
+
+    }
+
+
+
+}
+
+
+
+
+realInputForm.addEventListener('submit', 
+
+
+(event) => {
+        event.preventDefault();
+
+
+    const newPerson = new Project(titleInput.value, descInput.value, +peopleInput.value);
+    console.log(newPerson);
+    
+
+
+
+}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+--> mas estou recebendo um error:
+
+
+app.ts:65 Uncaught TypeError: Cannot read properties of null (reading 'value')
+    at HTMLFormElement.<anonymous> 
+
+
+
+
+
+
+
+
+
+
+---> REORGANIZEI UM POUCO A ORDEM DAS COISAS:
+
+
+
+
+
+
+
+
+
+
+
+
+const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement
+const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLFormElement;
+const projectTemplate = document.querySelector('single-project') as HTMLTemplateElement;
+const listTemplate = document.querySelector('project-list') as HTMLTemplateElement;
+
+
+
+
+
+
+
+document.body.appendChild(inputTemplateForm);
+
+
+
+
+const realInputForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+
+const titleInput = document.getElementById('title') as HTMLInputElement;
+const descInput = document.getElementById('description') as HTMLInputElement;
+const peopleInput = document.getElementById('people') as HTMLTextAreaElement;
+
+const submitButton = document.querySelector('button') as HTMLButtonElement;
+
+
+
+
+console.log(titleInput, descInput, peopleInput);
+
+
+
+console.log(realInputForm);
+
+
+
+
+interface Project {
+
+  readonly title: string;
+   readonly description: string;
+    readonly people: number;
+}
+
+
+
+
+
+
+class Project implements Project {
+
+
+
+    constructor(title: string,  description: string, people: number) {
+
+    }
+
+
+
+}
+
+
+
+
+realInputForm.addEventListener('submit', 
+
+
+(event) => {
+        event.preventDefault();
+
+    console.log(titleInput, descInput, peopleInput);
+    const newPerson = new Project(titleInput.value, descInput.value, +peopleInput.value);
+    console.log(newPerson);
+    
+
+
+
+}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E AGORA, COM ISSO, 
+
+
+MEU CÓDIGO ESTÁ FUNCIONANDO, RAZOAVELMENTE:
+
+
+
+
+
+
+SEU OUTPUT:
+
+
+
+
+
+
+
+
+
+
+
+
+Project {}
+[[Prototype]]: Object
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATÉ AGORA ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement
+const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLFormElement;
+const projectTemplate = document.querySelector('single-project') as HTMLTemplateElement;
+const listTemplate = document.querySelector('project-list') as HTMLTemplateElement;
+
+
+
+
+
+
+
+document.body.appendChild(inputTemplateForm);
+
+
+
+
+const realInputForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+
+const titleInput = document.getElementById('title') as HTMLInputElement;
+const descInput = document.getElementById('description') as HTMLInputElement;
+const peopleInput = document.getElementById('people') as HTMLTextAreaElement;
+
+const submitButton = document.querySelector('button') as HTMLButtonElement;
+
+
+
+console.log(titleInput, descInput, peopleInput);
+console.log(titleInput.value, descInput.value, peopleInput.value);
+
+
+
+console.log(realInputForm);
+
+
+
+
+interface Project {
+
+   title: string;
+   description: string;
+   people: number;
+}
+
+
+
+
+
+
+class Project implements Project {
+
+    title: string;
+    description: string;
+    people: number;
+
+    constructor(title: string,  description: string, people: number) {
+
+        this.title = title;
+        this.description = description;
+        this.people = people;
+    }
+
+
+
+}
+
+
+
+
+realInputForm.addEventListener('submit', 
+
+
+(event) => {
+        event.preventDefault();
+
+    console.log(titleInput, descInput, peopleInput);
+    console.log(titleInput.value, descInput.value, peopleInput.value);
+    const newPerson = new Project(titleInput.value, descInput.value, +peopleInput.value);
+    console.log(newPerson.people);
+    
+
+
+}
+)
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+--> EU ADICIONO UM ARRAY DE 'products' no contexto global de nosso arquivo:
+
+
+const products: Project[] = [];
+
+
+
+
+
+
+
+
+
+--> agora, quando o button é clicado,
+
+
+eu faço com que 1 object 'product' seja enfiado nesse array...
+
+
+
+
+ex:
+
+
+
+realInputForm.addEventListener('submit', 
+
+
+(event) => {
+        event.preventDefault();
+
+    console.log(titleInput, descInput, peopleInput);
+    console.log(titleInput.value, descInput.value, peopleInput.value);
+    const newPerson = new Project(titleInput.value, descInput.value, +peopleInput.value);
+    console.log(newPerson.people);
+    products.push(newPerson);
+    
+
+
+}
+)
+
+
+
+
+
+
+
+
+
+
+
+--> agora só me resta 
+
+
+
+
+escrever algum código que faça o ACTUAL APPEND desses 'products' 
+
+
+
+
+no meu DOM...
+
+
+
+
+
+
+
+
+
+--> talvez uma function, utility function....
+
+
+
+
+
+
+
+
+--> definir o type dessa function, para então fazer o append dos products com ela, toda vez que clicamos em 'Add project'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> também é possível escrever esse method de 'add product to the dom'
+
+lá 
+
+
+
+
+na própria instância do object... (aí chamar algo como 'newProject.add()'....)
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+CONSEGUI.... O CÓDIGO FICOU BEM BIZARRO, mas funcionou....:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const inputTemplate = document.getElementById('project-input') as HTMLTemplateElement
+const inputTemplateForm = inputTemplate.content.cloneNode(true) as HTMLFormElement;
+const projectTemplate = document.getElementById('single-project') as HTMLTemplateElement;
+const listTemplate = document.getElementById('project-list') as HTMLTemplateElement;
+
+
+
+
+
+
+
+document.body.appendChild(inputTemplateForm);
+
+
+
+
+const realInputForm = document.querySelector('form') as HTMLFormElement;
+const titleInput = document.getElementById('title') as HTMLInputElement;
+const descInput = document.getElementById('description') as HTMLInputElement;
+const peopleInput = document.getElementById('people') as HTMLTextAreaElement;
+
+const submitButton = document.querySelector('button') as HTMLButtonElement;
+
+
+
+// console.log(titleInput, descInput, peopleInput);
+// console.log(titleInput.value, descInput.value, peopleInput.value);
+
+
+
+// console.log(realInputForm);
+
+
+var stringToHTML = function (str: string) {
+	var parser = new DOMParser();
+	var doc = parser.parseFromString(str, 'text/html');
+    console.log(doc);
+	return doc.body;
+};
+
+
+
+
+interface Project {
+
+   title: string;
+   description: string;
+   people: number;
+   displayProjects(): void;
+}
+
+
+
+const products: Project[] = [];
+
+
+
+
+
+
+class Project implements Project {
+
+    title: string;
+    description: string;
+    people: number;
+
+    constructor(title: string,  description: string, people: number) {
+
+        this.title = title;
+        this.description = description;
+        this.people = people;
+    }
+
+
+
+}
+
+
+
+
+realInputForm.addEventListener('submit', 
+
+
+(event) => {
+        event.preventDefault();
+    const newPerson = new Project(titleInput.value, descInput.value, +peopleInput.value);
+
+
+    products.push(newPerson);
+
+    const manipulatedProducts = products.map(
+        (product) => {
+                return `
+                <li>
+                    <h2>${product.title}</h2>
+                    <p>${product.description}</p>
+                    <p>${product.people}</p>
+                </li>
+                `
+        }
+    ).join().split(',').join(''); ///tudo para ficarmos com uma fita de HTML regular...
+
+
+        console.log(manipulatedProducts);
+
+    const alteredString = stringToHTML(manipulatedProducts);
+
+    console.log(alteredString);
+
+
+
+
+    if (products.length > 1) {
+
+
+        // const list = document.getElementsByClassName('projects');
+        let list = document.querySelector('.projects')?.lastElementChild as HTMLElement;
+
+        console.log(list, 'LINE');
+
+ 
+
+        return list.innerHTML = manipulatedProducts;
+        // const parent
+
+    }
+
+
+
+
+
+    const parent = document.createElement('div');
+    
+    
+    parent.append(listTemplate.content.cloneNode(true));
+
+
+    console.log(parent);
+    // parent.innerHTML = `
+    
+
+    // `
+
+    parent.innerHTML = `
+        <section class="projects" id="insert">
+            <header>
+                <h2></h2>
+            </header>
+            <ul>
+                ${manipulatedProducts}
+        </section>
+    `
+
+
+
+    return document.body.append(parent);
+
+    
+//   const insertedNode = document.createElement(manipulatedProducts);
+    
+
+
+}
+)
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+você digita ali nos inputs, aperta 'add object',
+
+e aí 
+
+
+um novo object é criado naquele '<template>',
+
+naquela section...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HORA DE VER A PRÓXIMA AULA, 
+
+'DOM element selection e OOP RENDERING',
+
+
+
+
+
+para ver como o professor fez a mesma coisa que nós....

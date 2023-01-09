@@ -1,0 +1,112 @@
+
+
+
+
+
+
+
+
+
+
+
+
+CLASSES E INTERFACES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'TRABALHANDO COM OBJECTS'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> O CONCEITO DE CLASSES NÃO É NOVO A NÓS...
+
+
+
+
+
+
+
+
+
+
+
+--> CLASSES TAMBÉM EXISTEM EM VANILLA JAVASCRIPT (moderno)....
+
+
+
+
+
+
+
+
+--> EU JÁ SEI SOBRE ISSO...
+
+
+
+
+
+
+
+
+
+--> classes/constructor functions...
+
+
+
+
+
+
+
+
+
+
+-> MAS NOVO AO JAVASCRIPT SÃO AS 'INTERFACES'...
+
+
+
+
+
+
+
+
+
+
+VEREMOS:
+
+
+
+
+
+1) O QUE SÃO INTERFACES... PQ AS UTILIZAR 
+
+
+
+2) O QUE SÃO CLASSES, E SUA 'INHERITANCE'...
+
+
+
+
+
+
+
+3) interfaces...

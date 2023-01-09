@@ -1,0 +1,1088 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+->  TEMOS UM PEQUENO STARTING PROJECT...
+
+
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS O DEV SERVER COM 'npm start',
+
+
+
+e aí 
+
+DEIXAMOS 
+
+
+O 
+
+WATCH 
+
+
+
+DO 
+
+'tsc',
+
+com 
+
+'
+tsc -w'....
+
+
+
+
+
+
+
+
+
+
+-> 2 TABS, UMA COM O DEV SERVER RODANDO, OUTRA COM O WATCH DO CÓDIGO TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... COM ISSO PODEMOS TRABALHAR EM UM ARQUIVO 'APP.TS',
+
+e 
+
+COMEÇAR 
+A
+ 
+
+
+ ESCREVER 
+
+
+ CÓDIGO LÁ DENTRO...
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS COMEÇAR PELO DEFINE DE UMA CLASS QUE VAMOS/PODEREMOS USAR...
+
+
+
+
+
+  
+
+
+
+  -_> OK, DIGAMOS QUE ESTAMOS CONSTRUINDO UMA USER INTERFACE... ---> UMA 
+
+  USER INTERFACE 
+
+  PARA 
+
+  UMA 
+
+
+  WEB TOOL 
+
+
+  QUE 
+
+  NOS DEIXA 
+
+  'MANAGE' 
+
+  OS DIFERENTES DEPARTAMENTO QUE TEMOS NA NOSSA COMPANHIA (
+
+
+      uma ferramenta 
+
+
+
+      interna, de nossa empresa...
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+  -> PODEMOS USAR 'OBJECTS'
+
+
+  PARA 
+
+  MANAGEAR A 
+
+  DATA 
+
+
+  PARA NOSSOS DIFERENTES APARTMENTS/DEPARTMENTS,
+
+  E PODEMOS  ADICIONAR 
+
+  METHODS 
+
+  EM CADA OBJECT,
+
+  PARA 
+  QUE 
+
+
+  CONSIGAMOS 
+
+
+  RENDERIZAR A INFO DE CADA APARTMENT NA NOSSA TELA/ui...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> E PARA SIMPLIFICAR A 
+
+CRIAÇÃO DE TODOS ESSES 'DEPARTMENTS',
+
+vamos usar 
+
+UMA CLASS DE 'department,'
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+A CONVENÇÃO É USAR 
+
+
+
+
+UM 
+
+
+NAMING CONVENTION DE inicial maiúscula...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ JÁ DEVE SABER O QUE SÃO 'CONSTRUCTOR FUNCTIONS';
+
+
+
+
+
+
+
+
+
+
+
+
+classes SÃO SYNTATICAL SUGAR PARA ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... -> 
+
+
+DEVEMOS 
+
+ESCREVER :
+
+
+
+
+
+class Department {
+
+
+
+
+}
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+PROFESSOR VAI ESCREVER UMA PROPRIEDADE DIRETAMENTE NESSA CLASS,
+
+TIPO ASSIM:
+
+
+
+
+
+class Department {
+
+
+name: 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+(
+
+    CLARO QUE ESSA SINTAXE EU ACHO QUE _ _ESTÁ __ ERRADA,
+
+
+PQ 
+
+ESTOU ACOSTUMADO COM O USO  DE 'constructor(){}' DNETRO 
+
+
+
+DAS CLASS, 
+
+PARA 
+
+ENTÃO DEFINIR AS PROPERTIES QUE EXISTIRÃO NO SEU INTERIOR...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ENTRETANTO, 
+
+PROFESSOR EXPLICA __ QUE __ NO TYPESCRIPT__ NÓS ___ PODEMOS 
+
+
+ESCREVER 
+
+
+AS 
+
+'propriedades'
+
+
+DIRETAMENTE 
+
+
+NO ROOT DA CLASS, e 
+que 
+
+VAMOS PODER USAR 
+
+
+
+
+
+O ':' PARA 
+
+
+DEFINIR __ O TYPE__ DE CADA PROPRIEDADE, 
+
+TIPO ASSMI:
+
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+class Department {
+
+
+name: string;
+
+
+}
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+IMPORTANTE É ENTENDER/RECONHECER ISTO:
+
+
+
+ISSO PODE PARECER UM OBJECT,
+
+MAS __ NÃO É UM OBJECT..... (pq um object você escreve assim 'const object = {key: value} ' )
+
+
+
+
+
+
+
+
+
+
+
+
+--------> AQUI, ESSE NÃO É O CASO,
+ 
+
+ PQ 
+
+ CADA 
+
+ LINHA VAI SER ' A FIELD OF THE CLASS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> OU SEJA,
+
+ ISSO 
+
+ NÃO SERÁ UM KEY VALUE PAIR,
+
+ E SIM 
+
+
+
+ SÓ UM 
+
+ 'KEY-TYPE' pair....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OU ERA ISSO QUE EU ESTAVA PENSANDO... --> PQ QUANDO EU DIGITAR ISSO 
+
+
+ NO TYPESCRIPT, RECEBEREI ESTE ERROR:
+
+
+
+
+
+ Property 'name' has no initializer and is not definitely assigned in the constructor.ts(2564)
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK... MAS ESSA KEY VAI TER ESSE 'VALUE TYPE'... 
+
+
+
+
+ --------> MAS AÍ O PROFESSOR NOS EXPLICA QUE 
+
+ PODEMOS 'SET AN INITIAL VALUE'
+
+
+ nessa propriedade,
+
+
+ tudo por meio do 
+
+
+ operador de '=' ...
+
+
+
+
+
+
+
+ TIPO ASSIM:
+
+
+
+
+
+ 
+
+class Department {
+
+
+name: string = 'VALORDEFAULT';
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> MAS PROFESSOR __ EXPLICA _ QUE ISSO NÃO É NECESSÁRIO, NÃO É OBRIGATÓRIO...
+
+
+
+
+
+
+
+
+
+
+
+--> em vez disso,
+
+
+OUTRA COISA _ QUE _VOCÊ COMUMMENTE 
+
+TEM 
+
+EM CLASSES É UMA 
+
+'SPECIAL FUNCTION',
+
+
+
+A CONSTRUCTOR FUNCITON,
+
+
+
+
+
+
+
+
+
+
+
+'METHOD' 
+
+
+
+que é 
+
+o 
+
+
+
+CONSTRUCTOR.... 
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class Department {
+
+    name: string;
+
+
+
+    constructor() {} ///EIS O CÓDIGO EM QUESTÃO.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AÍ, DENTRO DO CONSTRUCTOR,
+
+VAMOS 
+PASSAR 
+OS 
+
+PARÂMETROS quee
+
+
+EVENTUALEMNTE 
+
+SERÃO NOSSAS _ PROPRIEDADES...
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+TALVEZ ASSIM...:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string; 
+    number: number;
+
+
+    constructor(name: string, number: number) {
+        this.name = name;
+        this.number = number;
+    }
+}
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+-> O METHOD' CONSTRUCTOR'
+
+
+
+É ___ EXECUTADO_ EXATAMENTE QUNADO 
+
+
+
+
+SEU OBJECT É CRIADO... (isso te deixa fazer   'some initialization work'
+
+PARA O OBJECT QUE VOCÊ ESTÁ CONSTRUINDO...)
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... --> ALI DENTRO 
+
+
+
+VAMOS 
+
+
+ACEITAR UNS ARGUMENT... --> 
+
+
+
+
+
+
+
+O PROFESSOR USA UM ARGUMENTO DE 'n',
+
+
+QUE SERÁ DE TYPE __ 'STRING'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n;
+        this.number = z;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n;
+        this.number = z;
+    }
+}
+
+
+
+
+
+--------------------------------------------------------
+
+
+
+
+
+O QUE ISSO VAI FAZER, NA REAL,
+
+É 
+
+EFETIVAMENTE 
+
+
+
+DEIXAR A PROPRIEDADE de 'name',
+
+que havíamos SETTADO ANTERIORMENTE NESSA NOSSA CLASS (com 'name: string')
+
+
+
+COMO 
+
+
+SENDO DO VALOR 
+
+
+
+DE 'n' (que será passado quando NÓS _ _CHAMARMOS ESSA CLASS, NO NOSSO CÓDIGO, E PASSARMOS OS PARÂMETROS ADEQUADOS,
+
+PARÂMETROS QUE SERÃO 'UMA STRING' E 'UM NUMBER'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok... 
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CRIAR UM OBJECT A PARTIR DESSA CLASS,
+
+escrevemos:
+
+
+
+
+
+
+
+
+new Department('salao', 55);
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI CRIAR UM 
+
+
+
+OBJECT COM 
+
+
+
+PROPRIEDADES 
+
+'name: salao',
+
+
+'number: 55'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+        ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+    name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+    number: number;
+
+
+    constructor(n: string, z: number) {
+        this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+        this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+    }
+}
+
+
+
+
+
+const shiningApartment = new Department('salao', 55);
+ 
+
+
+console.log(shiningApartment);
+
+
+
+
+ ----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO,
+ 
+
+
+ ISSO FUNCIONOU... --> shiningApartment
+
+
+
+
+ SERÁ 
+
+ UM OBJECT JAVASCRIPT COMUM,
+
+ com esses key-value pairs ali...
+
+
+
+
+
+ 'fields' SÃO TRANSFORMADOS EM PROPRIEDADES/CONVERTIDOS EM PROPRIEDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ok, é assim que podemos CRIAR UMA CLASS, E COMO É O CONCEITO GERAL POR TRÁS DELAS...

@@ -1,0 +1,386 @@
+ 
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR COMEÇA SIMPLES,
+
+
+
+ CRIA UM ARQUIVO 'app.ts'...
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS ESCREVER UM CÓDIGO QUE 
+
+
+
+ VAMOS QUERER ___ EXECUTAR__ COM NODEJS,
+
+
+ mas que 
+
+
+
+ VAMOS USAR TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+ --> será um console.log('Something')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> PODEMOS TRADUZIR ESSE 
+
+ 'app.ts'
+
+
+
+ para 'app.js'
+
+
+ POR MEIO DE 
+
+ 'tsc app.ts'... 
+
+
+
+
+
+ --> certo.... 
+
+
+
+
+
+
+
+-->  AÍ PODEMOS EXECUTAR ESSE 'app.js'
+
+
+com o node, por meio de 'node app.js'...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS AGORA ALGO BIZARRO.... -_> SE TENTAMOS EXECUTAR O TYPESCRIPT COM 
+
+ o 
+
+
+
+ NODE,
+
+
+
+ NOSSO CONSOLE.LOG APARECE 
+
+
+ NO TERMINAL... -_> isso significa que o node é capaz de rodar typescirpt?
+
+
+
+
+
+
+
+
+ --> NÃO, ELE NÃO É.... -->  E ISSO É REALMENTE IMPORTANTE... --> ELE __ SÓ CONSEGUE 
+
+
+
+ RODAR ESSE CONOSLE.LOG PQ 
+
+
+
+
+ O NODE 
+
+
+
+
+
+
+ __ É MEIO IGNORANTE,
+
+
+
+ ELE _ NÃO SE IMPORTA COM AS FILE EXTENSION DOS ARQUIVOS,
+
+ E SIM SÓ COM SEU CONTEÚDO... --> se ele encontra algum código possível de ser executado por ele dentro de um arquivo,
+
+ ele o executará...
+
+
+
+
+
+
+
+
+
+
+ --> EXECUTA ESSE CÓDIGO COMO JAVASCRIPT 
+
+
+ COMUM...
+
+
+
+
+
+
+
+
+
+ --> MAS ISSO MUDA SE TIVERMOS 
+
+
+ UM CÓDIGO TYPESCRIPT,
+
+ C
+ OMO 
+
+
+
+
+ 'let age: number;
+
+
+
+ age = 30;
+
+ cosole.log(age)' ...
+
+
+
+
+
+
+
+
+
+
+ --> ISSO VAI NOS DAR UM ERROR,  'Unexpected token' --> ISSO SIGNIFICA QUE ELE É INCAPAZ DE EXECUTAR/COMPILAR 
+
+ TYPESCRIPT,
+
+
+ E SIM 
+
+
+ ´SO TRATA CADA ARQUIVO TS 
+
+
+
+ como se fosse js,
+
+
+
+
+ e se você tiver ALGUMA FEATURE TS ESCRITA DENTRO DESSE ARQUIVO TS,
+
+ aí ele vai te dar um erro...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------------------------
+
+
+
+
+
+
+
+
+
+ VOCÊ PODE INSTALAR UMA PACKAGE ÚTIL,
+
+ O 
+
+
+ 'ts-node',
+
+
+
+
+ QUE NO FINAL TE DÁ ESSE 
+
+
+ 'TYPESCRIPT COMPILER' 
+
+
+
+
+ combinado com esse 'NODE EXECUTABLE',
+
+
+
+ tudo para que você consiga instalar uma tool 
+
+
+ GLOBALMENTE QUE VOCÊ __PODE__ USAR _ PARA _ RODAR ARQUIVOS TYPESCRIPT EXATAMENTE ASSIM...  ---> ENTRETANTO,
+
+ POR TRÁS DAS CENAS 
+
+
+ ELE 
+
+ VAI 
+
+ COMPILAR OS SEUS ARQUIVOS TS E ENTÃO VAI OS EXECUTAR COMO JS no node.... --------> ISSO SIGNIFICA QUE ELE 
+
+
+ ESSENCIALMENTE COMBINA 
+
+
+
+ A ETAPA DE 
+
+ 'tsc' 
+
+
+ com a 
+
+
+ etapa de 
+
+
+
+ 'node xxx' 
+
+
+ em 1 só etapa....
+
+
+
+
+
+
+
+
+
+
+
+
+ ------------> ok..... -----> ESSA É UMA PACKAGE QUE VOCÊ CERTAMENTE PODERIA USAR, SIM.... -> PODERIA USAR__ NO DEVELOPMENT__. --> 
+
+
+
+
+ para o production, PARA __ O REAL SERVE DE SUAS FILES EM UM 
+
+
+ WEBSERVER, EM UM WEBHOST,
+
+
+
+
+ esse ts-node provavelmente não é ideal,
+
+ pq 
+
+ ter 
+
+ essa extra compilation step SEMPRE VAI ACABAR GERANDO UM POUCO DE OVERHead,
+
+
+OVERHEAD QUE É FINE DURANTE O DEVELOPMENT,
+
+
+MAS QUE VOCê NÃO VAI QUERER DURANTE O DEVELOPMENT,
+ 
+
+
+
+ quando seu código estiver production-ready...
+
+
+
+
+
+
+
+
+
+
+ ----> É POR ISSO QUE NESSE MÓDULO NÃO VAMOS USAR 'ts-node'
+
+
+ ,
+
+
+ e não vamos tentar executar QUAISQUER ARQUIVOS TS COM O NODE...
+
+
+
+
+
+
+
+
+
+ --> EM VEZ DISSO,
+
+ O PROFESSOR VAI NOS MOSTRAR 
+
+ UM SETUP QUE PODEMOS USAR PARA __ BUILDAR__ UM NODEEXPRESS 
+
+
+ WEBAPP, UMA REST API,
+
+
+
+ COM SÓ O TYPESCRIPT (typescript compiler)
+
+
+
+ E VANILLA NODEJS...

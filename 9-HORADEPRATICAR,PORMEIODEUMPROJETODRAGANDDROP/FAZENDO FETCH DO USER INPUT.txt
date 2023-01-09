@@ -1,0 +1,1749 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... SOMOS CAPAZES DE 'GATHER' our titleInputElement.value 
+
+
+E ENTÃO 
+
+
+
+O PRINTAR AO CONSOLE ...
+
+
+
+
+
+
+ex:
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+
+
+
+
+}
+
+
+
+
+
+
+------------------> MAS É CLARO QUE ESSA NÃO É A IDEIA 
+
+QUE QUEREMOS IMPLEMENTAR...
+
+
+
+
+
+
+
+
+
+
+-> EM VEZ DISSO, A IDEIA É QUE CONSIGAMOS RAPIDAMENTE 'GET' OS NOSSOS INPUT VALUES,
+
+
+e então 
+
+
+
+CONSIGAMOS OS VALIDAR...
+
+
+
+,
+
+
+PARA ENTÃO OS UTILIZAR...
+
+
+
+
+
+------->  PARA ISSO,
+
+
+PROFESSOR 
+
+
+ADICIONA UM OUTRO METHOD...
+
+
+
+
+
+
+
+
+
+
+
+--> UM NOVO METHOD 'private',
+
+
+
+
+OU SJEA,
+
+
+UM METHOD QUE SÓ SERÁ UTILIZADO/EXECUTADO _ DO LADO__ DE DENTRO DE NOSSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOME DESSE METHOD SERÁ 
+
+'gatherUserInput(){}'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> private gatherUserInput() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... --> A IDEIA SERÁ QUE ESSE METHOD SERÁ CHAMADO 
+
+
+
+ALI, 
+
+em 
+
+
+'submitHandler',
+
+
+LOGO DEPOIS DE TERMOS 'prevented the default',
+
+
+
+
+MOMENTO EM QUE SERÁ EXECUTADO ESSE METHOD, QUE VAI 
+
+
+'REACH OUT TO ALL OUR INPUT ELEMENTS',
+
+
+para pegar seus VALUES....
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {/////resumo desta class:
+
+
+
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {   
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+        
+        this.configure();
+        this.attach();                                      
+    }   
+
+
+    private attach() {///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+
+
+  const userInput = this.gatherUserInput(); ////CALL DAQUELE METHOD...
+
+
+
+}
+
+
+private gatherUserInputs() {
+
+
+
+}
+
+
+
+
+private configure() { 
+    this.element.addEventListener(
+        'submit',
+        this.submitHandler
+    )
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> A UTILIZAÇÃO DE 'gatherUserInputs'
+
+VAI BASICAMENTE 
+
+
+
+
+'GATHER THE USER INPUT, THEN VALIDATE IT,
+
+THEN RETURN IT'...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+
+
+  const userInput = this.gatherUserInput(); ////CALL DAQUELE METHOD...
+
+
+
+}
+
+
+private gatherUserInputs() {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------> PROFESSOR EXPLICA QUE O __RETURN__ TYPE__ DE 'this.gatherUserInput()'
+
+
+
+
+DEVERÁ __ SER UMA 'TUPLE' 
+
+
+
+(
+
+    ou seja,
+
+    vai ser algo como 
+    
+
+
+    [
+    [title, description, people]
+    [ssas, assaaa, 1]
+
+
+    ]
+)
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE VAMOS QUERER DEFINIR O RETURN TYPE de 'gatherUserInput'
+
+
+COMO 
+
+UMA TUPLE...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+private gatherUserInput(): [] {}
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS VOCê SE LEMBRA COMO UMA TUPLE É DEFINIDA NO TYPESCIPRT?
+
+
+
+
+
+
+eu lembro que era algo assim:
+
+'[key: string, value: string]'...
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... --> PROFESSOR DIZ QUE 
+
+
+
+'''EU VOU QUERER RETORNAR UM ARRAY DE __ EXATOS__ X ELEMENTOS, NESSA DISPOSIÇÃO EXATA'''...
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas ele vai querer SÓ OS VALORES, E NÃO AS KEYS, PENSO EU....
+
+
+
+
+
+
+
+
+
+
+
+ok.... então ficará algo assim, eu chuto:
+
+
+
+
+private gatherUserInput(): [title: string, description: string, people: number] {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS NA VERSÃO DO PROFESSOR, ELE SÓ ESCREVEU isto:
+
+
+
+private gatherUserInput(): [string, string, number] {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ok.... -----> ACHO QUE ASSIM É MELHOR, MESMo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TALVEZ ESCREVER ISTO:
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    return [this.titleInputElement.value, this.descriptionInputElement.value, +this.peopleInputElement.value]
+
+
+}
+
+
+
+
+--------> OK....
+
+
+
+
+
+
+
+
+
+
+
+ISSO SERIA A VERSÃO 'SIMPLEs' desse method....
+
+
+
+
+
+
+--> MAS VAMOS QUERER RODAR UMA BATERIA DE VALIDATION NESSE METHOD, antes de retornar 
+
+esse negócio 'clean' assim...
+
+
+
+
+
+
+
+
+
+
+
+- -- > PARA ISSO, DEVEMOS ESCREVER constantes, 
+
+e aí checá-las...
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+
+    enteredTitle = this.titleInputElement.value;
+    enteredDescription = this.descriptionInputElement.value;
+    enteredPeople = +this.peopleInputElement.value;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+--------> CERTO... AÍ É HORA DA 'VALIDATIOn'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA VALIDAR ESSE NEGÓCIO, TEMOS IF CHECKS NORMAIS...
+
+
+
+
+
+
+
+
+--> 1 check trivial é 
+
+
+escrever 
+
+
+
+
+'if (enteredTitle.trim().length === 0 || enteredDescription.trim().length === 0 || enteredPeople.trim().length === 0) {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> ISSO, NO CASO, VAI CHECAR SE CADA UM DOS INPUT FIELDS ESTÁ COMO 'empty'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... MAS ESSA VALIDATION É MT SIMPLES.... -> professor admite que EMBORA SEJA POSSÍVEL ADICIONAR MAIS IF CHECKS AQUI,
+
+
+isso seria ruim, pois 
+
+'NÃO SERIA UMA SCALABLE SOLUTION'... --> SE TIVERMOS OUTRAS PARTES NO NOSSO APP  EM QUE 
+
+
+
+
+TAMBÉM VAMOS QUERER 
+
+
+
+
+VALIDAR O USER,
+
+VAMOS 
+
+TER QUE 
+
+REPETIR LONGOS IF STATEMENTS,
+
+
+E ISSO 
+
+NÃO É NADA ÓPTIMO.... ----------> É POR ISSO QUE O PROFESSRO 
+
+
+
+VAI 
+
+
+NOS MOSTRAR
+UMA SOLUÇÃO MAIS 'SCALABLE' 
+
+
+de 
+
+VALIDATION, MAIS TARDE.... (vamos manter assim, por enqaunto)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA VOCÊ JÁ PODE PENSAR SOBRE ISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS VOCê JÁ PODE IR PENSANDO EM COMO PODEMOS 'OUTSOURCE' 
+
+essa validation em uma
+
+
+'SEPARATE VALIDATION FUNCTIOn',
+
+
+
+
+
+FUNCTION UQE É 'CONFIGURABLE',
+
+
+
+
+E COMO O TYPESCRIPT PODE TE AJUDAR COM ISSo...
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE EXISTEM VÁRIAS APPROACHES DIFERENTES,
+
+
+E O PROFESSOR VAI NOS MOSTRAR A DELe...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS CASO 1 DESSAS CONDITIONS FOR 
+
+
+
+
+SATISFEITA,
+
+
+
+
+
+VAMOS SABER QUE 1 DAS VALIDATIONS FALHOOU... --> 
+
+
+
+aí 
+
+rodamos 
+
+
+'alert('Invalid input, please try again')',
+
+
+
+
+ELSE VAMOS QUERER RETORNAR ESSES VALORES, EM UMA TUPLE...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O TYPESCRIPT VAI ESTAR ZANGADO... --> PQ 
+
+
+
+
+
+O 'enteredPeople'
+
+
+VAI ESTAR COMO UMA STRING, AINDA.... --> para consertar isso, escrevemos '+enteredPeople'... 
+
+
+
+
+
+
+
+
+
+---> MAS MESMO ASSIM, O TYPESCRIPT NÃO FICARÁ FELIZ... (
+
+    isso é pq 
+
+
+
+    àS VEZES NÓS NÃO VAMOS RETORNAR UMA 'TUPLE', nesse nossa function de 'gatherUserInput' ... --> ISSO PQ 
+
+
+
+    SE NÓS 
+
+    ENTRARMOS NAQUELE IF CHECK BLOCK 
+
+
+
+    de 
+
+    'alert('Invalid input, please try again')',
+
+
+
+    VAMOS ACTUALLY _ FAZER O RETURN DE 'void'....
+)
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS TER QUE ESCREVER UM 'UNION TYPE' lá no nosso return type, tipo assim:
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void { ///SINTAXE DE 'RETURN TYPE' __ TUPLES (tuples como RETURN TYPE)... --> o return type aqui OBRIGATORIAMENTE SERÁ os valores dos nossos 3 'main inputs', que são TITLE, DESCRIPTION E PEOPLE..
+
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+
+
+    if (enteredTitle.trim().length === 0 || 
+    enteredDescription.trim().length === 0 || 
+    enteredPeople.trim().length === 0) {
+
+        alert('Invalid input, please try again.');
+     
+    } else {
+        return [enteredTitle, enteredDescription, +enteredPeople]
+    }
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> OK....
+
+
+
+
+
+
+
+
+
+-------> AGORA CONSERTAMOS O RETURN DESSE 'if block',
+
+
+
+
+
+com esse alert.... ------> 
+
+
+
+
+
+
+
+
+
+
+NÃO VAMOS QUERER 
+
+FAZER O THROW DE UM ERROR AQUI,
+
+
+PQ 
+
+NÃO QUEREMOS IMPLEMENTAR ERROR HANDLING... --> 
+
+
+
+POR ISSO O PROFESSOR ESCREVE SÓ UM 'return'... --> MAS 
+
+
+COMO ESTAMOS ESCREVNEDO 'return' (mas sem coisa sendo retornada),
+
+
+
+O RETURN TYPE SERÁ ACTUALLY DE 'undefined'( e não 'void', pq VOID É USADO QUANDO _ NADA É RETORNADO, COMO COM CONSOLE.LOGS OU ALERTS)...
+
+
+
+
+
+
+
+
+
+--> MAS, NA VERDADE, USE 'VOID',
+
+pq 
+
+é 
+
+melhor.... (
+
+
+
+
+    É MELHOR DO QUE UNDEFINED, E QUER DIZER ESSENCIALMENTE A MESMA COISA, UMA FUNCTION QUE NÃO RETORNA NADA/NÃO RETORNA...
+)
+
+
+
+
+
+
+
+
+
+
+--> OK... USAMOS UM UNION TYPE PQ TEMOS ESSAS 2 POSSIBILIDADES ( RETURN UMA TUPLE, OU NOTHING)....
+
+
+
+
+
+
+
+
+
+
+
+COMO CONSEQUÊNCIA disso,
+
+
+
+o 
+
+'userInput'
+
+
+
+VAI OU SEGURAR 'undefined',
+
+OU VAI SEGURAR UMA 'tuple'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... AGORA, ANTES DE PROSSEGUIRMOS COM O CODE DA VALIDATION,
+
+DEVEMOS 'build up on that tuple',
+
+
+
+NO CÓDIGO DE 
+
+
+
+''
+
+
+
+
+@Autobind 
+private submitHandler(event: Event) {
+
+    event.preventDefault();
+    const userInput = this.gatherUserInputs();
+
+}
+
+
+
+
+
+
+
+
+
+
+--> AGORA TEMOS ESSA 'userInput' thing...
+
+
+
+
+
+
+
+
+
+--> será ou undefined, ou 'uma tuple'...
+
+
+
+
+
+
+
+--> SE FOR UNDEFINED,
+
+VAMOS QUERER 
+
+
+QUE 
+
+
+
+NOSSO 'submitHandler'
+
+
+RETORNE UM ERROR (error handling)....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@Autobind 
+private submitHandler(event: Event) {
+
+    event.preventDefault();
+    const userInput = this.gatherUserInputs();
+
+
+    if (!userInput) {
+
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, MAS AQUI TEMOS __ UM PROBLEMA... --> DURANTE O __RUNTIME, NÃO TEMOS COMO SABER SE 
+
+
+ESSE 
+'userInput'
+
+AÍ 
+
+__ É UMA TUPLE OU NÃO... (
+
+    isso significa que 
+
+    NÃO EXISTE UM 'instanceof' 
+
+    de tipo 'Tuple',
+
+
+
+    não há como 
+
+    escrever 
+
+
+    'userInput instanceof Tuple'...
+)
+
+
+
+
+
+
+
+
+
+
+TAMBÉM É IMPOSSÍVEL, PARA NÓS, CHECAR 
+
+se 
+
+
+'typeof userInput === 'tuple' ',
+
+
+
+
+
+
+
+PQ ISSO AÍ _ NÃO EXISTE_ NO JAVASCRIPT___....
+
+
+
+
+
+
+
+
+
+
+'string' existe, mas 
+
+
+'tuple' não é um javascript type...
+
+
+
+
+
+
+
+
+
+
+--> ENTÃO, PARA CHECAR SE ISSO REALMENTE É UMA 'TUPLE',
+
+
+
+
+NÓS DEVEMOS NOS LEMBRAR QUE TUPLES, NO FINAL DAS CONTAS,
+
+
+são 'apenas arrays metidos a besta'... ------> ELES SÃO ESPECIAIS NO TYPESCRIPT,
+
+ 
+
+
+ MAS NA JAVASCRIPT LAND, SÃO SÓ 
+
+
+
+ ARRAYS... -----> A IDEIA DE TUPLES SÓ EXISTE NO TYPESCRIPT... 
+
+
+
+
+
+ --> É POR ISSO QUE,
+  
+  DURANTE O RUNTIME,
+
+
+  A ÚNICA COISA QUE PRECISAMOS CHECAR 
+
+
+  '''É SE ESSA TUPLE É UM ARRAY'...
+
+
+
+
+
+
+
+
+
+  --> PARA ISSO, PODEMOS USAR O OBJECT 'Array',
+
+
+  DO JAVASCRIPT, E AÍ 
+
+   O 
+
+   METHOD DE 'isArray()'....
+
+
+
+
+
+
+   (e passamos o 'userInput' COMO PARÂMETRO)...
+
+
+
+
+
+
+
+   ex:
+
+
+
+
+
+
+
+
+   
+@Autobind 
+private submitHandler(event: Event) {
+
+    event.preventDefault();
+    const userInput = this.gatherUserInputs();
+
+    if (Array.isArray(userInput)) {
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> COMO SABEMOS QUE O VALOR DE 'userInput'
+
+vai ser OU UNDEFINED OU 'TUPLE',
+
+
+
+
+UMA TUPLE SERÁ UM ARRAY,
+
+POR ISSO  SE ESSE 'Array.isArray()'
+
+
+RETORNAR UM 'TRUE',
+
+
+teremos nossa tuple....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... ISSO FEITO,
+
+PROFESSOR APONTA QUE PODEMOS USAR 'array destructuring'
+
+PARA 
+
+
+CONSEGUIR OS VALORES DE 'title, desc, people',
+
+
+tipo assim:
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput;
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> POR ENQUANTO,
+
+VAMOS SÓ CONSOLE.LOGGAR ESSES VALORES...
+
+
+
+ex:
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people);
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> AGORA QUANDO INPUTTARMOS OS 3 FIELDS E CLICARMOS EM 'Add project',
+
+
+
+
+
+OUTPUTTAREMOS OS VALORES NO CONSOLE...
+
+
+
+
+
+
+
+
+
+
+
+
+---------> 
+
+
+
+
+
+
+
+
+OK.... AGORA, NO CASO, PROFESSOR VAI QUERER MELHORAR A 'VALIDATION'...
+
+
+
+
+
+
+
+
+
+--> MAS ANTES DISSO, PROFESSOR _ QUER __ EXECUTAr__ ALGUM METHOD_ QUE _ LIMPE__ TODOS OS INPUT FIELDS 
+
+QUANDO 
+
+
+
+A FORM FOR 'submittada'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> eu acho que sei como fazer isso....
+
+
+
+
+
+
+
+--> É SÓ ESCREVER ISTO:
+
+
+
+        this.titleInputElement.value = '';
+        this.descriptionInputElement.value = '';
+        this.peopleInputElement.value = '';
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR FAZ OUTSOURCE DISSO, CRIA UM 'ALTERNATE PRIVATE METHOD',
+
+
+de 
+
+
+'private clearInput()',
+
+
+
+QUE VAI FAZER EXATAMENTE ISSO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people);
+        this.clearInputs();
+
+
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+private clearInputs() {
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+OK... AGORA O 'PROJECT', seus fields, estão SENDO PRINTADOS NO CONSOLE,
+
+
+E 
+
+
+
+OS VALORES NOS INPUT FIELDS ESTÃO SENDO 'CLEARED' após o submit...
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ESTÁ CONTENTE, MAS AGORA QUER MELHORAR A VALIDATION,
+
+
+
+IMPLEMENTÁ-LA 
+
+DE UMA 
+
+MANEIRA MAIS 'REUSABLE, SCALABLE'....
+
+
+
+
+
+
+(PROVAVELMENTE UTILIZARÁ __ DECORATORS)....
+
+
+
+
+

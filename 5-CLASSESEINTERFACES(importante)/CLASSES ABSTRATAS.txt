@@ -1,0 +1,1888 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> TERMINADO O ESTUDO DE STATIC METHODS/PROPERTIES,
+
+
+
+
+
+com este código aqui:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class NovaClass {
+  static metodoEstatico() { //vamos poder chamar isso _ SEM __ TER QUE _ INSTANCIAR OBJETOS A PARTIR DESSA CLASS ....
+    console.log('exemplo');
+  }
+
+  metodoComum() {
+    console.log('exemplo');
+  }
+}
+
+
+
+
+
+class Department7 {
+
+    
+    static fiscalYear = 2020;
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+       
+        ) {
+            console.log(Department7.fiscalYear); //isso aqui funciona (por alguma razão) -->  
+            console.log(this.fiscalYear); //mas isto não funciona..... -->         ----------> OK, MAS PQ  'this' NÃO FUNCIONA? --> NÃO FUNCIONA PQ  'this' SEMPRE VAI SE  REFERIR   "TO THE INSTANCE BASED ON THE CLASS''' --> e como __ NÓS _ NUNCA TEREMOS 'INSTANCES'   COM NOSSOS METHODS/PROPRIEDADES ESTÁTICOS,  esse código é simplesmente INCORRETO...
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+
+
+
+      static createEmployee(name: string) { //EIS O CÓDIGO EM QUESTÃO.
+        return { name: name}
+          }
+    }
+
+
+
+
+
+
+
+class UtilityClassExample { //essa feature dos 'static methods' FREQUENTEMENTE É USADA PARA DEFINIR 'UTILITY CLASSES', ou seja, CLASSES __ CUJO PROPÓSITO ÚNICO SERÁ DE 'SERVIR COMO AGRUPADORES DE METHODS UTILITY'... (exatametne como a class de 'Math', no javascript)....
+    static removeConsoleLogs() { 
+      //....
+    }
+  
+    static removeComments() {
+        ////....
+    }
+
+
+
+    static removeEventListeners() {
+        ///...
+    }
+
+
+    static cleanUp() {
+
+    }
+  }
+  
+  
+
+
+
+
+
+
+
+NovaClass.metodoEstatico(); //não precisamos instanciar coisa alguma...
+
+
+
+
+const novoObjeto = new NovaClass();
+
+novoObjeto.metodoComum();
+
+
+
+
+
+
+
+
+UtilityClassExample.cleanUp();
+
+
+UtilityClassExample.removeComments();
+
+
+
+UtilityClassExample.removeConsoleLogs();
+
+
+UtilityClassExample.removeEventListeners();
+
+
+
+
+
+
+
+const employee1 = Department7.createEmployee('Max');
+
+
+
+
+console.log(employee1);
+
+
+
+
+
+
+
+
+
+
+
+////'Math' --> é um exemplo de CONSTRUCTOR FUNCTION (builtin) no javascript__ que TEM VARIOS DESSES METHODS ESTÁTICOS, pq você OS ACESSA DIRETAMENTE EM 'Math', não precisa instanciar coisa alguma...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------> ESSES METHODS TODOS 
+
+
+// SÃO 
+
+
+// ESTÁTICOS,
+
+
+
+
+// pq você não tem que escrever 
+
+
+
+// 'const math = new Math()' 
+
+
+
+// PARA OS 
+
+// UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+
+
+// -------> VOCê ACESSA TODOS ESSES 
+// METHODS E PROPRIEDADES__ DIRETAMENTE_ NA CLASSE EM SI.... --> é por isso que 
+
+// dizemos que 
+
+
+// '
+// Math'
+
+
+
+// ATUA MAIS COMO UM 'NAMING SPACE',
+
+
+// como um 
+
+
+// 'GROUPING MECHANISM' 
+
+// de diversas functions....
+
+
+
+
+
+
+
+
+
+
+// ------------> E ESSE 
+
+// É 
+
+// UM 
+
+// COMMON USE-CASE 
+
+// PARA 
+
+
+// 'STATIC METHODS' E PROPERTIES.... ------> você simplesmente 
+
+// define 
+
+// uma 
+
+
+// class que vai ser de UTILITY, no seu código,
+
+
+// e 
+
+// aí 
+
+
+
+
+// ADICIONA VÁRIOS DESSES METHODS 
+
+
+
+
+// de 'utility', estáticos,
+
+// nela....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> NOS DEVEMOS PROSSEGUIR....
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS VOLTAR AO 'INHERITANCE',
+
+
+
+
+e a um CONCEITO 
+
+
+
+RELACIONADO A ELE....
+
+
+
+
+
+
+
+
+
+
+
+
+--------> VAMOS VER __ UMA OUTRA_ _ MANEIRA _DE ADICIONAR METHODS A CLASSES,
+
+
+CLASSES QUE VOCÊ PLANEJA USAR NO 'INHERITING'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, temos a 
+
+
+class de 'Department7',
+
+QUE ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department7 {
+
+    
+    static fiscalYear = 2020;
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+       
+        ) {
+            console.log(Department7.fiscalYear); //isso aqui funciona (por alguma razão) -->  
+            console.log(this.fiscalYear); //mas isto não funciona..... -->         ----------> OK, MAS PQ  'this' NÃO FUNCIONA? --> NÃO FUNCIONA PQ  'this' SEMPRE VAI SE  REFERIR   "TO THE INSTANCE BASED ON THE CLASS''' --> e como __ NÓS _ NUNCA TEREMOS 'INSTANCES'   COM NOSSOS METHODS/PROPRIEDADES ESTÁTICOS,  esse código é simplesmente INCORRETO...
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+
+
+
+      static createEmployee(name: string) { //EIS O CÓDIGO EM QUESTÃO.
+        return { name: name}
+          }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMOO VOCÊ SABE, NÓS TEMOS VÁRIAS CLASSES QUE FAZEM/FIZERAM _ INHERIT__ DESSA CLASS AÍ, de todas suas propriedades e methods (SIM, ATÉ MESMO OS METHODS E PROPERTIES ESTÁTICOS)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO POR EXEMPLO,
+
+TÍNHAMOS O ITDepartment
+
+E 
+
+O 
+
+
+'AccountingDepartment':
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+       }
+   }
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+    addEmployee(name: string) {
+
+
+        if (name === 'Max') {
+            return; //retorna 'void'...
+        }
+
+
+        this.employees.push(name);
+    }
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO....  É CLARO QUE TEMOS AQUELE METHOD DE 'describe'
+
+LÁ NA 
+
+NOSSA INHERITED CLASS....
+
+
+
+
+
+
+
+
+
+
+----> ISSO SIGNIFICA QUE PODMEOS CHAMAR 
+
+ESSE METHOD EM QUALQUER INSTANCE _ BASEADA EM ITDepartment
+
+
+ou em 'AccountingDepartment'... (pq essas classes são baseadas em 'Department'...) ------> ELAS TEM ACESSO A TODAS AS PROPRIEDADES E METHODS DESSA BASE CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS,
+
+
+
+
+
+ALÉM DISSO,
+
+QUE 
+
+
+_PODEMOS_ OVERWRITTAR METHODS E PROPRIEDADES QUE 
+
+
+
+EXISTIAM/EXISTEM ORIGINALMENTE
+
+
+NAS 
+
+NOSSAS CLASSES 'inherited',
+
+
+
+
+
+
+
+basta escrever algo assim:>
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+       }
+
+
+
+
+       describe() { //// ISSO VAI OVERWRITTAR o 'describe(){}' existente lá em 'Department7'...
+        console.log('Accounting Department - ID: xxxx');
+       }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS, ASSIM, OVERWRITTAR A LÓGICA/CONTÉUDO DO describe de 'Department'
+
+
+
+
+COM 
+
+
+
+A LÓGICA 
+
+DESSA VERSÃO ESPECIALIZADA,
+
+específica...
+
+
+
+
+
+
+----------> 
+
+
+
+
+
+
+
+E SE AGORA EXECUTAMOS ALGO COMO 
+
+
+
+
+
+''
+
+
+
+
+
+
+
+
+class ITDepartment extends Department4 {
+
+       constructor(id: string, public novaPropriedade: string) { /// dentro do CONSTRUCTOR QUE VOCÊ ESCREVER (se escrever, nessa sua inheriting class), VOCê _ SEMPRE DEVE __ ESCREVER 'super(){}'...
+
+           super('IT', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id) //id é o 'id' que obtivemos nessa INSTANCIAÇÃO de 'ITDepartment'...
+       }
+
+
+
+
+       describe() { //// ISSO VAI OVERWRITTAR o 'describe(){}' existente lá em 'Department7'...
+        console.log('Accounting Department - ID: xxxx');
+       }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+const newDepartment = new ITDepartment(xxxx, yyy, zzz);
+
+
+
+
+
+
+newDepartment.describe(); //////ISSO VAI EXECUTAR A VERSÃO ESPECÍFICA DE 'describe()', de nossa 'INHERITING CLASS'....
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE PODEMOS TAMBÉM 
+
+OVERWRITTAR 
+
+
+O METHOD DE 'describe'
+
+
+
+
+LÁ 
+
+
+
+
+NA CLASS de 'AccountingDepartment',
+
+
+
+
+
+QUE TAMBÉM INHERITA DA CLASS de 'Department'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO..... --> MAS EXISTEM/EXISTIRÃO CASOS EM QUE __ VOCê __ VAI QUERER OFERECER__ MAIS DO QUE 
+
+
+A 
+
+
+SIMPLES OPÇÃO DE 
+
+'OVERWRITE A METHOD' --> isso pq 
+
+
+
+
+ESSA OPÇÃO SEMPRE EXISTE.... --------> EM VEZ DE SÓ OFERECER A 'OPÇÃO' DE FAZER ISSO,
+
+
+
+àS VEZES VOCê VAI QUERER 
+
+
+
+___fORÇAR__ OS DESENVOLVEDORES 
+
+
+A 
+
+
+ESCREVER 
+
+
+'SUA PRÓPRIA VERSÃO DESSE METHOD'
+
+
+
+na class que faz inherit....
+
+
+
+
+
+
+
+
+
+
+-------> MAS QUANDO VOCÊ FARIA ISSO? --------> BEM, SEMPRE QUE __ VOCÊ 
+
+
+
+VAI QUERER__ ___ GARANTIR__ QUE UM CERTO METHOD 
+
+
+
+
+__FIQUE___ DISPONÍVEL EM _______tODAS AS CLASSES__ BASEADAS EM 1 CERTA base CLASS (nesse caso, 'Department'),
+
+
+
+
+
+
+
+
+MAS ___ EM QUE __ VOCê __ TAMBÉM _ SABE, ao mesmo tempo,
+
+
+
+QUE __ 
+
+
+
+
+
+___ A EXATA __ IMPLEMENTAÇÃO __ DESSE 
+
+
+
+METHOD __ VAI __DEPENDER__ DE __ CADA 'CLASS' QUE FEZ INHERIT....
+
+
+
+(
+
+
+    ou seja,
+
+
+
+
+    são ocasiões em que:
+
+
+
+    '''sei que o method describe vai existir em todas as classes que inheritam,
+
+
+    mas é ___ ÓBVIO_ que o describe de 'accounting' NÃO VAI 
+
+    SER IGUAL AO 
+
+    describe de 
+
+
+    'ITDepartment''''...
+)
+
+
+
+
+
+
+
+
+
+
+
+----------> OU SEJA,
+
+
+
+O __ NOME__ DO METHOD_ FICARÁ IGUAL (será 'describe'),
+
+
+MAS 
+
+
+
+
+A IMPLEMENTAÇÃO__ EM _ CADA 'class' 
+
+QUE INHERITA__ 
+
+
+
+
+SERÁ SEMPRE DIFERENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+QUEREMOS ISTO:
+
+
+class legataria {
+
+    describe() {
+        console.log('lógica 1');
+    }
+}
+
+
+
+
+
+class herdeira1 extends legataria {
+
+    describe() {
+        console.log('lógica 2');
+    }
+}
+
+
+
+
+
+class herdeira2 extends legataria {
+
+    describe() {
+        console.log('lógica 3');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+QUEREMOS ESSENCIALMENTE TER UM CENÁRIO PARECIDO COM O DE CIMA....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+// QUEREMOS ISTO:
+
+
+// class legataria {
+
+//     describe() {
+//         console.log('lógica 1');
+//     }
+// }
+
+
+
+
+
+// class herdeira1 extends legataria {
+
+//     describe() {
+//         console.log('lógica 2');
+//     }
+// }
+
+
+
+
+
+// class herdeira2 extends legataria {
+
+//     describe() {
+//         console.log('lógica 3');
+//     }
+// }
+
+
+
+
+
+
+
+/// ou seja, queremos que o nome DESSE METHOD seja repassado a cada class (cada class terá de ter esse method), MAS __ VAMOS QUERER __ QUE __ CADA CLASS TENHA SUA PRÓPRIA VERSÃO DESSE 'describe', com lógicas distintas e especializadas, customizadas para cada class....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARA ISSO,
+
+
+PARA __ CONSEGUIR___ FAZER ESSA 'RESERVA DESSE NOME',
+
+
+
+
+
+você deve:
+
+
+
+
+
+
+
+
+1) DEIXAR SEU METHOD, O BODY DELE, __ COMPLETAMENTE VAZIO....
+
+
+
+
+
+
+
+
+
+2) DEPOIS, VOCÊ DEVE ESCREVER 'abstract' NA FRENTE DESSE METHOD...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+QUEREMOS ISTO:
+
+
+class legataria {
+
+   abstract describe(this: legataria { ////EIS O CÓDIGO EM QUESTÃO.
+    }
+}
+
+
+
+
+
+class herdeira1 extends legataria {
+
+    describe() {
+        console.log('lógica 2');
+    }
+}
+
+
+
+
+
+class herdeira2 extends legataria {
+
+    describe() {
+        console.log('lógica 3');
+    }
+}
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE ESCREVEMOS ESSE 'abstract',
+
+
+GANHAMOS UM ERROR,
+
+ERROR DE que 
+
+
+'abstract METHODS___ SÓ PODEM APARECER 
+
+
+DENTRO 
+
+DE CLASSES ABSTRACT'....
+
+
+
+
+
+
+
+
+
+
+
+----------> ISSO SIGNIFICA QUE 
+
+
+SE 
+
+VOCê 
+
+TIVER 
+
+
+
+
+1 OU MAIS METHODS COM A PALAVRA 'abstract' 
+
+NA SUA 
+
+CLASS LEGATÁRIA,
+
+
+você é obrigado 
+
+
+
+
+
+A COLOCAR 'abstract'
+
+NA FRENTE 
+
+
+De 'class',
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUEREMOS ISTO:
+
+
+abstract class legataria {
+
+   abstract describe(this: legataria { ////EIS O CÓDIGO EM QUESTÃO.
+    }
+}
+
+
+
+
+
+class herdeira1 extends legataria {
+
+    describe() {
+        console.log('lógica 2');
+    }
+}
+
+
+
+
+
+class herdeira2 extends legataria {
+
+    describe() {
+        console.log('lógica 3');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class legataria {
+
+    abstract describe(this: legataria) {
+
+    }
+
+
+    }
+ 
+ 
+ 
+ 
+ class herdeira1 extends legataria {
+ 
+     describe() {
+         console.log('lógica 2');
+     }
+ }
+ 
+ 
+ 
+ 
+ 
+ class herdeira2 extends legataria {
+ 
+     describe() {
+         console.log('lógica 3');
+     }
+ }
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS AGORA TEMOS OUTRO ERRO:
+
+
+
+
+'Method 'describe' cannot have an implementation because it is marked 
+
+
+abstract'....
+
+
+
+
+
+
+
+
+
+
+--> PARA RESOLVER ESSE ERRO,
+
+você tem que 
+
+
+REMOVER os '{}' 
+
+
+e adicionar um ';',
+
+
+FAZENDO COM QUE ESSE METHOD FIQUE REALMETNE 'ABSTRATO'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS AINDA ASSIM, RECEBEMOS UM ERROR, ERROR DE 
+
+
+
+''
+
+'describe', which lacks return-type annotation, implicitly has an 'any' return type.ts
+
+
+'''
+
+
+
+
+
+
+
+
+-----> PRECISAMOS DEFINIR TAMBÉM __ O RETURN TYPE __ QUE 
+
+
+ESSE METHOD DEVERÁ TER, por meio de ':' ...
+
+
+
+
+
+
+
+
+---> VAMOS COLOCAR, NO CASO, 
+
+
+':'... e então 'void', pq esse method não vai retoranr coisa alguma....
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Legataria {
+
+    // abstract describe(this: legataria) {
+
+    // }
+
+
+    abstract describe(this: Legataria): void;
+
+
+
+    }
+ 
+ 
+ 
+ 
+ class Herdeira1 extends Legataria {
+ 
+     describe() {
+         console.log('lógica 2');
+     }
+ }
+ 
+ 
+ 
+ 
+ 
+ class herdeira2 extends Legataria {
+ 
+     describe() {
+         console.log('lógica 3');
+     }
+ }
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+ -----------------------------------
+
+
+
+
+ COM ISSO,
+
+ OS ERRORS FINALMENTE PARAM DE APARECER....
+
+
+
+
+
+
+
+
+
+ --> AGORA, PORTANTO, ESTAMOS DEFININDO 'COMO ESSE METHOD DEVE SE PARECER'... (
+
+     como deve ser sua estrutura
+ )
+
+
+
+
+
+
+
+
+
+
+ --> ENTRETANTO, NÃO ESTAMOS DIZENDO MAIS COISA ALGUMA ALÉM DISSO....
+
+
+
+
+
+
+
+
+
+
+ -->  MAS O QUE INTERESSA, NO CASO,
+
+
+ É 
+
+
+ QUE 
+
+ TODAS SUAS INHERITING CLASSES ___ VÃO __SER ___ OBRIGADAS__ 
+
+ A 
+
+ ESCREVER 
+
+
+
+
+ esse method de 'describe'
+
+
+
+
+
+dentro de suas function body....
+
+
+
+
+
+
+
+
+--> SE NÃO FIZERMOS ISSO, APARECE O ERROR DE 
+
+
+
+'Non-abstract class 'ITDepartment' does not implement inherited abstract member 'describe' from 
+class 'Department'.' 
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK, PRECISAMOS 
+
+
+
+
+
+
+ADICIONAR 
+
+
+
+ESSE METHOD DE 'describe' em cada uma das classes que faz inherit, portanto....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ISSO PARECE SER ÚTIL...
+
+
+
+
+
+
+
+
+
+ABSTRACT --> PODE SER BEM ÚTIL
+
+
+
+SE VOCê 
+
+
+TEM 
+
+
+A HIPÓTESE EM QUE 
+
+VOCê QUER FORÇAR QEU 
+
+
+'TODAS AS CLASSES BASEADAS NAQUELA 'SHARED CLASS'(legataria)
+
+
+
+TENHAM 1 METHOD EM COMUM, MAS COM LÓGICA DIFERENTE EM CADA CLASS herdeira'...
+
+
+
+
+
+
+
+
+--> O METHOD NA CLASSE 'ORIGINÁRIA'
+
+NAÕ VAI __ TER LÓGICA,
+
+
+A DEFINIÇÃO DA LÓGICA DESSE METHOD __ CABERÁ__ A CADA UMA DAS 'INHERITING CLASSES'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, TEMOS UM DETALHE____ BEEEEEM IMPORTANTE___:
+
+
+
+
+
+
+
+
+
+---> CLASSES QUE SÃO DECLARADAS COMO 'ABSTRACT' __ NÃO PODEM, ELAS MESMAS, SEREM INSTANCIADAS...
+
+
+
+
+
+
+
+
+
+--> SÓ PODEMOS INSTANCIAR 
+
+
+
+
+AS CLASSES QUE INHERITAM ELAS..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Legataria { //////////// OUTRO DETALHE: CLASSES QUE POSSUEM ESSA KEYWORD DE 'abstract' __ NAÕ PODEM SER INSTANCIADAS ELAS MESMAS... (vocÊ só pode instanciar as classes que FAZEM INHERIT DELAS)...
+
+    // abstract describe(this: legataria) {
+
+    // }
+
+
+    abstract describe(this: Legataria): void;
+
+
+
+    }
+ 
+ 
+ 
+ 
+ class Herdeira1 extends Legataria {
+ 
+     describe() {
+         console.log('lógica 2');
+     }
+ }
+ 
+ 
+ 
+ 
+ 
+ class Herdeira2 extends Legataria {
+ 
+     describe() {
+         console.log('lógica 3');
+     }
+ }
+ 
+ 
+ 
+  
+ class Herdeira3 extends Legataria { ////exemplo de erro que aparece SE NÃO TIVERMOS ESSA ABSTRACT CLASS, definida lá na nossa 'INHERITED CLASS' de 'legataria'....
+ 
+
+    //describe() {} ///precisamos escrever isto para parar com o error....
+
+}
+
+
+
+
+
+
+
+
+
+//////////// OUTRO DETALHE: CLASSES QUE POSSUEM ESSA KEYWORD DE 'abstract' __ NAÕ PODEM SER INSTANCIADAS ELAS MESMAS... (vocÊ só pode instanciar as classes que FAZEM INHERIT DELAS)...
+
+
+
+
+
+const objetoErrado = new Legataria(); ///'cannot create an instance of an abstract class'.....
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> isso significa que 
+
+NÃO VAMOS PODER INSTANCIAR 'Legataria'...
+
+
+
+
+
+
+
+
+
+
+-------> ISSO É BASICAMENTE UMA CLASS QUE SÓ VAI EXISTIR 
+PARA 
+
+'BE INHERITED FROM',
+
+
+tudo 
+
+para que 
+
+
+AS INHERITING CLASSES 
+
+
+CONISGAM 
+
+
+
+SER INSTANCIADAS 
+
+
+e forçadas A PROVIDENCIAR __ IMPLEMENTAÇÕES CONCRETAS DOS METHODS 'delineados' na 'base/abstract class'...
+
+
+
+
+
+
+
+
+
+
+
+
+---> as classes inheriting são forçadas 
+
+
+
+a 
+
+
+
+
+
+CRIAR IMPLEMENTAÇÕES DO 
+
+
+METHOD QUE VOCÊ DEFINIU LÁ NA CLASS LEGATÁRIA....

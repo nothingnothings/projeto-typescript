@@ -1,0 +1,733 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> VAMOS QUERER __  DEFINIR UM 'STARTING PROJECT',
+
+ que usaremos 
+
+ AO LONGO 
+ DO CURSO...
+
+
+
+
+
+
+
+
+
+
+
+ -----> usaremos um mesmo 'layout/build' ao longo do curso.....
+
+
+
+
+
+
+
+
+ ---> PROFESSOR EXPLICA:
+
+
+
+
+
+
+
+
+
+
+ ESCREVER CÓDIGO NÃO PRECISA DE UM SETUP COMPLEXO EM GERAL,
+
+ MAS O PROFESSOR QUER 
+
+
+
+
+ ___ TER 1 
+
+
+ SETUP EM QUE 
+
+
+ __ TEMOS 
+
+
+
+
+
+
+
+
+1) ESCREVER CÓDIGO 
+
+
+
+
+2) IMEDIATAMENTE COMPILAR O CÓDIGO 
+
+
+
+
+3) IMEDIATMAENTE VER O OUTPUT DESSE 
+
+CÓDIGO NO __ BROWSer___...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> para isso, crie um 
+
+
+arquivo 'index.html'
+
+
+em 
+
+um novo folder...
+
+
+
+
+
+
+--> aí usamos o comando básico 'html:5'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> certo... ISSO FEITO,
+
+
+
+
+
+
+
+TROQUE algumas coisas no esqueleto, etc etc....
+
+
+
+
+
+
+
+
+
+--> MAIS IMPORTANTE É ADICIONAR A TAG DE '<script>',
+
+
+E AÍ 
+
+APONTAR 
+
+
+
+AO ARQUIVO 'app.js'
+
+que utilizaremos, com um attribute de 'defer'...
+
+
+
+
+
+ex:
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Typescript</title>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> DEPOIS DISSO,
+
+PROFESSOR ADICIONA UM ARQUIVO 
+
+'app.ts',
+
+
+em que 
+
+ESCREVEREMOS NOSSO CÓDIGO 
+
+TS..
+
+
+
+
+
+
+
+
+
+
+
+---> ESCREVEMOS UM 
+
+'console.log('TESTE');'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, ESCREVEMOS 'tsc --init'....
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, SE ESCREVEMOS 
+
+'tsc' ,
+
+
+
+
+
+
+
+O NEGÓCIO VAI SER COMPILADO...
+
+
+
+
+
+
+
+
+
+------> DEPOIS DISSO,
+
+
+ABRIMOS ESSE ARQUIVO 
+
+
+
+
+'index.html'
+
+
+no browser,
+
+PARA ENTÃO 
+
+
+
+CHECARMOS O CONSOLE.LOG 
+
+
+NO NOSSO TERMINAL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS O PODRE É QUE 
+
+
+
+SEMPRE 
+
+VAMOS TER QUE 
+
+
+
+RE-COMPILAR __ NOSSO CÓDIGO__, E RECARREGAR A PÁGINA... -------> 
+
+
+
+
+E PARA EVITAR ESSES RELOADS/SAVES CONSTANTES,
+
+
+
+
+VAMOS ADICIONAR OUTRA TOOL 
+
+A 
+ESSE 
+
+
+DUMMY SETUP,
+
+
+
+
+
+PARA QUE 
+
+ISSO 
+
+
+
+ACONTEÇA 
+
+AUTOMATICAMENTE...
+
+
+
+
+
+
+
+--> PARA CONSEGUIR ESSA TOOL,
+
+
+
+PRECISAMOS 
+
+RODAR O 
+
+
+'npm init' --> PRA 
+
+INICIALIZAR 
+ESSE 
+
+FOLDER 
+
+COMO UM PROJETO node... 
+
+
+
+
+
+
+
+
+
+
+-->  CERTO.... CONSEUGIMOS O ARQUIVO 'package.json'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO FEITO,
+
+
+EXECUTE 
+
+'npm install',
+
+PARA 
+
+INSTALAR 
+
+1 
+
+PACKAGE ESPECÍFICO...
+
+
+
+
+
+escreva 
+
+'--save-dev'
+
+para marcar essa tool como DEVELOPMENT ONLY...
+
+
+
+
+
+
+
+
+
+
+--> A TOOL QUE VOCÊ VAI QUERER INSTALAR É 
+
+'lite-server'....
+
+
+
+
+npm install --save-dev lite-server
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ASSIM QUE ISSO TERMINAR,
+
+
+VÁ ATÉ SEUS SCRIPTS E ADICIONE UM NOVO SCRIPT,
+'start',
+
+QUE SERÁ 
+
+
+'lite-server'...
+
+
+
+
+ex: 
+
+
+{
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }, 
+  "scripts": {
+    "start": "lite-server"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, EXECUTE ESSE SERVER...
+
+
+
+
+COM NPM START...
+
+
+
+
+
+EX:
+
+
+
+
+
+
+Did not detect a `bs-config.json` or `bs-config.js` override file. Using lite-server defaults...
+** browser-sync config **
+{
+  injectChanges: false,
+  files: [ './**/*.{html,htm,css,js}' ],    
+  watchOptions: { ignored: 'node_modules' },
+  server: {
+    baseDir: './',
+    middleware: [ [Function (anonymous)], [Function (anonymous)] ]
+  }
+}
+[Browsersync] Access URLs:
+ -------------------------------------
+       Local: http://localhost:3000
+    External: http://192.168.56.1:3000
+ -------------------------------------
+          UI: http://localhost:3001
+ UI External: http://localhost:3001
+ -------------------------------------
+[Browsersync] Serving files from: ./
+[Browsersync] Watching files...
+22.01.05 16:33:26 200 GET /index.html
+22.01.05 16:33:26 404 GET /app.js
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... ---> ESSA É UMA FERRAMENTA DE DEVELOPMENT 
+
+
+
+
+
+
+__SIMPLES__, DEV SERVER SIMPLES,
+
+
+QUE 
+
+
+__ SEMPRE_ __ 
+
+
+
+SERVE O ARQUIVO 'index.html' 
+
+
+
+
+
+
+
+
+JUNTO COM O ARQUIVO 'app.js'
+
+
+
+ANEXADO A ELE... --> 
+
+
+
+AÍ ELE 
+
+
+SERVE 
+
+
+
+SEU APP 
+
+
+
+
+,
+
+
+DEFAULT,
+
+
+
+NA LOCAITON 
+
+
+'localhost:3000'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA SEU CODE VAI RODAR ALI.. ---> OK, 
+
+
+MAS 
+
+
+
+PQ ISSO É MELHOR?
+
+
+
+
+
+
+
+
+
+--> É PQ ESSE APP VAI AUTOMATICAMENTE RECARREGAR A PÁGINA QUANDO ALGO NO SEU 
+
+
+
+'app.js' 
+
+
+MUDAR... (e ele vai mudar quando você RECOMPILAR SEU CÓDIGO, usando o 'app.ts'...)
+
+
+
+
+
+
+
+
+--------> E ISSO NOS SALVA O TRABALHO DE TER QUE RECARREGAR O 
+
+
+CHROME MANUALMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... ISSO ESTÁ FUNCIONANDO..
+
+
+
+
+
+--> você pode quittar o run com 'control + c'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> CERTO... MANTENHA ESSE LITE-SERVER ABERTO....
+
+
+
+
+
+
+
+--> ESSE É O COURSE PROJECT QUE O PROFESSOR USARÁ AO LONGO DO CURSO..
+
+
+
+
+
+
+
+
+
+--> NOTE: 
+
+
+SE VOCê 
+
+
+BAIXAR 
+
+QUALQUER CÓDIGO 
+
+
+
+
+DE PROJETO,
+
+
+
+VOCê PRECISA RODAR 'npm install' 
+
+PARA 
+
+
+CONSEGUIR 
+
+
+AS DEPENDENCIES NO FOLDER DE 'node_modules'...

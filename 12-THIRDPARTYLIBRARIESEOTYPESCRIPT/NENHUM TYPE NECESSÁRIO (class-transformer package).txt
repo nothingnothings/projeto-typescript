@@ -1,0 +1,1712 @@
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS A RELAÇÃODO LODASH COM O TYPESCRIPT,
+
+E A NECESSIDADE DE 'TYPES' PARA 
+
+IMPLEMENTAR O TYPESCRIPT EM PACKAGES PURAMENTE JAVASCRIPT...
+
+
+
+
+
+
+---> mas você também encontrará libraries 
+
+
+
+EXCLUSIVAS AO TYPESCRIPT, QUE REALMENTE FAZEM 'EMBRACE' 
+
+
+DAS FEATURES DO TYPESCRIPT... --> eles te dão uma 
+
+
+MANEIRA COMPLETAMENTE DIFERNETE DE ESCREVER 
+
+
+CÓDIGO, 
+
+
+
+
+QUE FUNCIONA JUSTAMENTE PQ VOCê ESTÁ TRABALHANDO COM TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> o exemplo perfeito disso é 'class-transformer',
+
+
+
+
+e o exemplo melhor ainda é 
+
+
+'class-validator'...
+
+
+
+
+
+
+
+
+----->>
+
+
+
+
+
+
+
+
+
+
+CLASS-TRANSFORMER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> digamos que no nosso projeto temos um
+
+
+ARQUIVO CHAMADO DE 'product.model.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSE ARQUIVO TEREMOS UMA CLASS PARA UM PRODUCT,
+
+DESCREVENDO SUA ESTRUTURA...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class Product {
+    title: string;
+    price: number;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ ELE DEFINE UM CONSTRUCTOR, EM QUE AMBOS PODEM SER INICIALIZADOS...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Product {
+    title: string;
+    price: number;
+
+
+
+    constructor(title: string, price: number) {
+        this.title = title;
+        this.price = price;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> CLARO QUE PODERÍAMOS TER USADO O SHORTCUT PARA INICIALIZAR TUDO ISSO NO CONSTRUCTOR, MAS 
+
+PROFESSOR N FEZ ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+---> aí digamos que temos um method , 'getInformation' 
+
+
+
+
+
+
+
+
+
+
+
+,
+
+
+em que 
+
+
+RETORNAMOS 
+
+UMA TUPLE,
+
+
+
+PRIMEIROVALOR SERÁ o 'this.title',
+
+
+
+E O SEGUNDO VALOR SERÁ 
+
+
+
+
+'$' 
+
+
+e depois 
+
+
+UM VALOR INJETADO, VALOR DE 
+
+'this.price'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+class Product {
+    title: string;
+    price: number;
+
+
+
+    constructor(title: string, price: number) {
+        this.title = title;
+        this.price = price;
+    }
+
+    getInformation() {
+        return [this.title, `${this.price}`]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+OK... SERIA BOM DEFINIR ALGUNS TYPES NESSE NEGÓCIO...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+class Product {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+
+  getInformation(): [string, number] {
+    return [this.title, +`${this.price}`];
+  }
+}
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AÍ PODEMOS  USAR ESSA CLASS DE 'Product' 
+
+lá 
+
+em 'app.ts',
+
+
+
+
+SE A EXPORTARMOS, tipo assim:
+
+
+
+
+
+
+export class Product {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+
+  getInformation(): [string, number] {
+    return [this.title, +`${this.price}`];
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lá em 'app.ts':
+
+
+
+
+
+
+import { Product } from '......'
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+OK.... ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+
+
+a relação entre os arquivos e códigos está correta...
+
+
+
+
+
+
+
+
+
+
+
+
+---> agora, em 'app.ts',
+
+
+podemos CRIAR UM NOVO PRODUCT,
+
+POR MEIO DE UM ´CODIGO COMO ESTE:
+
+
+
+
+
+
+
+
+import { Product } from '......'
+
+
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+console.log(p1.getInformation());
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+SE RECARREGAMOS O APP,
+
+
+RECEBEMOS INFORMAÇÃO SOBRE ESSE LIVRO 
+
+
+LÁ 
+
+
+
+NO CONSOLE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso funciona, é claro, mas não é nada de mais...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> UM CENÁRIO COMUM EM APPS MAIORES É 
+
+
+'''YOU MIGHT BE DOWNLOADING/FETCHING DATA FROM A BACKEND SERVER''''
+
+
+
+
+
+
+
+
+
+--> ''''ESSE SERVER ENTÃO VAI, NO FINAL DAS CONTAS, 
+
+RETORNAR 
+
+UMA JSON DATA, QUE VOCê PARSEIA... --> ESSA JSON DATA 
+
+
+PODE SER 
+
+
+UMA LISTA DE PRODUCTS....''''
+
+
+
+
+
+
+
+
+
+
+
+--> exemplificamos isso por meio de uma const de 
+
+'products',
+
+
+em que temos um object com 
+
+
+{
+    title: 'A carpet', 
+    price: 29.99
+}
+
+
+
+OUTRO ASSIM:
+
+
+
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... NOSSO CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+import { Product } from '../src/product.model'
+
+
+
+
+const products = [ ////data supostamente FETCHEADA DE UM BACKEND SERVER (objetos que NÃO SÃO INSTÂNCIAS DE SUA CLASS DE 'Product', por exemplo)....
+    {
+        title: 'A carpet', 
+        price: 29.99
+    },
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+]
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+console.log(p1.getInformation());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->    ESSES SÃO OBJETOS JAVASCRIPT, 
+
+
+MAS CERTAMENTE NÃO SÃO 
+
+INSTANCES DO SEU 'PRODUCT MODEL' ---> esse é um cenário TÍPICO 
+
+
+QUANDO VOCê FETCHEIA DATA NO FORMATO JSON ----> QUANDO VOCê FETCHEIA 
+
+DATA COMO 
+
+
+
+JSON,
+
+
+ELA NÃO TERÁ ''''''ATTACHED DATA''' (como uma constructor function a que ele pertence),
+
+
+
+___O SEU SERVIDOR_ _ TAMBÉM NÃO SABERÁ DISSO,
+
+E O JSON 
+
+
+TAMBÉM 
+
+É UM FORMATO QUE 
+
+
+SÓ TRANSMITE 
+
+'BASIC DATA'( VOCê NÃO TERÁ 'rich metadata' dentro da sua json data... se quiser isso, terá de fazer MANUALMENTE...  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> EM OUTRAS PALAVRAS,
+
+
+
+OS OBJECTS QUE TEMOS/RECEBEMOS NA CONST DE 'products',
+
+de nosso backend SERVER,
+
+
+
+__ NÃO VÃO TER UM TYPE DE 
+
+
+
+'Product' (essa class aí)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA, EM OUTRAS PALAVRAS,
+
+
+____ QUE ___ ESSES OBJETOS __ NÃO VÃO, ALÉM DISSO,
+
+
+TER _ AQUELE METHOD DE 
+
+
+'getInformation()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TRADICIONALMENTE,
+
+SE AGORA VOCê 
+
+
+QUISESSE CONVERTER 
+
+ESSAS JSON DATA 
+
+EM 
+
+
+'INSTANCES OF YOUR MODEL' (Product),
+
+
+
+VOCê TERIA 
+
+
+DE RODAR UM FOR OF LOOP 
+
+NAQUELE ARRAY,
+
+
+
+
+FAZENDO UMA INSTANCIACAO 
+
+
+
+PARA CADA ELEMENTO NO ARRAY....
+
+
+
+
+
+
+
+
+--> PROFESSOR ADMITE UQE ISSO É VERDADE,
+
+PQ 
+
+
+VAI USAR O METHOD DE '.map()' 
+
+PARA 
+
+TRANSFORMAR 
+
+CADA 1 DESSES OBJECTS EM 'OBJECTS PRODUCT' 
+
+
+em 1 array novo...
+
+
+
+
+
+--> o professor escreve algo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+const loadedProducts = products.map(
+    (prod) => {
+        return new Product(prod.title, prod.price);
+    }
+)
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK..... 
+
+
+
+
+
+
+
+
+
+
+
+DEPOIS DISSO, TERÍAMOS UM 
+
+
+ARRAY CHEIO DE INSTANCES DE VERDADE.... --> por fim,
+
+
+PODERÍAMOS 
+
+
+LOOPAR POR DENTRO 
+
+DESSE ARRAY,
+
+
+E AÍ CONSOLE.LOGGAR 
+
+'prod.getInformation()'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+for (const prod of loadedProducts) {
+    console.log(prod.getInformation());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TUDO É MT CUMBERSOME,
+
+
+E É COM ISSO QUE _ 
+
+
+O 
+
+
+'class-transformer' package 
+
+PODE NOS AJUDAR...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE FAZ TUDO ISSO SER BEM BEM SIMPLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ELE,
+
+VOCê TAMBÉM DEFINE UMA CLASS EM TYPESCRIPT.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> DEPOIS DE DEFINIR ESSA CLASS,
+
+
+VOCê PROVAVELMENTE OBTERÁ 'SOME DATA FROM A SERVER'...
+
+
+
+
+
+
+
+--> AÍ,
+A PARTIR DISSO,
+
+
+PODEMOS 
+
+
+CHAMAR UM 'SIMPLES CONVENIENCE METHOD' 
+
+
+que 
+
+então 
+
+
+CONVERTERÁ 
+
+NOSSA DATA __ 
+
+
+
+NOS MODELS__ CORRETOS ('Product', nesse caso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PRIMEIRAMENTE DEVEMOS INSTALAR 
+
+
+'npm install --save class-transformer'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO ISSO ACABAR,
+
+DEVEMOS INSTALAR TAMBÉM 'npm install --save reflect-metadata' 
+
+
+
+
+(
+
+
+
+
+    ESSA É UMA PACKAGE QUE É DEPENDENCY DESSA 'class-transformer'...
+)
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO FEITO,
+
+
+
+
+DEVEMOS LER UM POUCO DOS DOCS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS IMPORTAR 
+
+'reflect-metadata' 
+
+
+NA NOSSA 
+
+'ROOT ENTRY FILE' (no caso, em 'app.ts')...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import 'reflect-metadata' ////necessário para o 'class-transformer'
+
+
+
+import { Product } from '../src/product.model'
+
+
+
+
+const products = [ ////data supostamente FETCHEADA DE UM BACKEND SERVER (objetos que NÃO SÃO INSTÂNCIAS DE SUA CLASS DE 'Product', por exemplo)....
+    {
+        title: 'A carpet', ////não terá o method de 'getInformation' nativamente, por exemplo (pq não será de type 'Product').... 
+        price: 29.99
+    },
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+]
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... agora já estamos 'prontos'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS IMPORTAR 
+
+ALGO LÁ DE 'class-transformer'...
+
+
+
+
+
+
+
+
+
+--> será a package de 'plainToClass' 
+
+
+
+(
+
+    esse é o objeto que faz toda a mágica...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MEU CÓDIGO ESTÁ DANDO UM ERRO...
+
+
+
+
+
+
+
+
+--> o erro é ESTE:
+
+
+
+Cannot find module 'class-transformer'. Did you mean to set the 'moduleResolution' option to 'node', or to add aliases to the 'paths' option?
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSERTEI COM ESTA OPÇÃO;
+
+
+
+    "moduleResolution": "node", 
+
+
+
+
+--> LÁ NO TSCONFIG.JSON....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO...
+
+
+
+'plainToClass'
+
+
+
+É O METHOD MAIS IMPORTANTE DE 'class-transformer'...
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS O UTILIZAR 
+
+
+
+LÁ EM 'app.ts',
+
+
+PARA SETTAR 
+
+SEUS 'loadedProducts',
+
+
+
+
+OU SEJA,
+
+
+PARA FAZER A MESMA COISA QUE ESTE CÓDIGO AQUI:
+
+
+
+
+
+// const loadedProducts = products.map( ////fix manual para o problema (instanciação a partir dos elementos retrievados do backend e sua data0...)
+//     (prod) => {
+//         return new Product(prod.title, prod.price);
+//     }
+// )
+
+
+
+
+
+MAS COM UM 'CONVENIENCE METHOD'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+vocÊ vai escrever assim:
+
+
+
+
+
+
+
+
+
+import 'reflect-metadata' ////necessário para o 'class-transformer'
+
+
+
+
+import { plainToClass } from 'class-transformer'
+
+
+
+
+import { Product } from '../src/product.model'
+
+
+
+
+const products = [ ////data supostamente FETCHEADA DE UM BACKEND SERVER (objetos que NÃO SÃO INSTÂNCIAS DE SUA CLASS DE 'Product', por exemplo)....
+    {
+        title: 'A carpet', ////não terá o method de 'getInformation' nativamente, por exemplo (pq não será de type 'Product').... 
+        price: 29.99
+    },
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+]
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+
+// const loadedProducts = products.map( ////fix manual para o problema (instanciação a partir dos elementos retrievados do backend e sua data0...)
+//     (prod) => {
+//         return new Product(prod.title, prod.price);
+//     }
+// )
+
+
+
+
+const loadedProducts = plainToClass()
+
+
+console.log(p1.getInformation());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+--> AÍ VOCê VAI PASSAR 2 ARGUMENTOS A 'plainToClass'....
+
+
+
+
+
+
+
+
+
+
+--> O PRIMEIRO ARGUMENTO SERÁ 
+
+
+
+
+
+
+' THE CLASS WE WANT TO CONVERT IT TO'...
+
+
+
+
+
+
+
+
+
+
+---> ESCREVA APENAS O NOME DA CLASS, DIRETAMENTE:
+
+
+
+
+
+
+import 'reflect-metadata' ////necessário para o 'class-transformer'
+
+
+
+
+import { plainToClass } from 'class-transformer'
+
+
+
+
+import { Product } from '../src/product.model'
+
+
+
+
+const products = [ ////data supostamente FETCHEADA DE UM BACKEND SERVER (objetos que NÃO SÃO INSTÂNCIAS DE SUA CLASS DE 'Product', por exemplo)....
+    {
+        title: 'A carpet', ////não terá o method de 'getInformation' nativamente, por exemplo (pq não será de type 'Product').... 
+        price: 29.99
+    },
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+]
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+
+// const loadedProducts = products.map( ////fix manual para o problema (instanciação a partir dos elementos retrievados do backend e sua data0...)
+//     (prod) => {
+//         return new Product(prod.title, prod.price);
+//     }
+// )
+
+
+
+
+const loadedProducts = plainToClass(Product, )
+
+
+console.log(p1.getInformation());
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ O SEGUNDO ARGUMENTO É A 'DATA' QUE QUEREMOS TRANSFORMAR,
+
+
+no caso,
+
+isso será 'products'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX;
+
+
+
+
+
+
+
+
+import 'reflect-metadata' ////necessário para o 'class-transformer'
+
+
+
+
+import { plainToInstance } from 'class-transformer' ////principal method de 'class-transformer'...
+
+
+
+
+import { Product } from '../src/product.model'
+
+
+
+
+const products = [ ////data supostamente FETCHEADA DE UM BACKEND SERVER (objetos que NÃO SÃO INSTÂNCIAS DE SUA CLASS DE 'Product', por exemplo)....
+    {
+        title: 'A carpet', ////não terá o method de 'getInformation' nativamente, por exemplo (pq não será de type 'Product').... 
+        price: 29.99
+    },
+{
+    title: 'A book', 
+    price: 10.99
+}
+
+
+]
+
+const p1 = new Product('A BOOK', 12.99);
+
+
+
+
+
+// const loadedProducts = products.map( ////fix manual para o problema (instanciação a partir dos elementos retrievados do backend e sua data0...)
+//     (prod) => {
+//         return new Product(prod.title, prod.price);
+//     }
+// )
+
+
+
+const loadedProducts = plainToInstance(Product, products); /////1o argumetno -------> CLASS TYPE QUE VOCê QUER QUE AQUELES OBJECTS NO ARRAY/ OBJECT TENHA... (ou seja, vai embutir todos os methods de SUA CLASS dentro desses 'objects limpos' extraídos de uma database, por exemplo)...  2o ARGUMENTO --> O ARRAY/OBJETO EM QUESTÃO QUE __ VOCê QUER __ QUE SEJA __ CONVERTIDO/tenha o type definido como o de 'Product'...
+
+
+
+
+const aProdudct = loadedProducts[0];  /// passe o mouse em cima, verá que o type estará de 'Product[]'
+console.log(p1.getInformation());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, TODO OBJECT NESSE ARRAY AÍ, EXTRAÍDO DA 'DATABASE',
+
+
+será 
+
+
+convertido 
+
+
+
+EM 1 OBJECT COM ESSE TYPE DE 'Product', com o method 'getInformation'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK... BEM MAIS CONVENIENTE ESSE PACKAGE, MELHOR DO QUE 
+
+USAR 
+
+O 
+CÓDIGO 
+
+
+MANUAL..
+
+
+
+
+
+
+--> TUDO GRAÇAS AO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE PACKAGE __ FUNCIONA PARTICULARMENTE BEM COM 
+
+
+O TYPESCRIPT,
+
+,  MAS NÃO É 'EXCLUSIVO AO TYPESCRIPT,'
+
+
+
+
+pq 
+
+
+ele nÃO USA UMA 
+
+FEATURE 
+
+
+
+EXCLUSIVA DO TYPESCRIPT (pq ele também funciona no vanilla javascript)...
+)
+
+
+
+
+
+
+
+
+
+
+--> MAS O PRÓXIMO PACKAGE, 
+
+'class-validator',
+
+
+É UMA PACKAGE EXCLUSIVA AO TYPESCRIPT...

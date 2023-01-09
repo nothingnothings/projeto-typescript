@@ -1,0 +1,1372 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... ARRAYS SÃO SUPORTADOS NO TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+--> AGORA JÁ TEMOS TODOS OS CORE TYPES....
+
+
+
+
+
+
+
+
+
+
+
+number 
+
+
+string 
+
+
+
+boolean 
+
+object 
+
+array 
+
+
+
+
+
+
+
+
+
+
+
+--> SÃO OS CORE TYPES SUPORTADOS PELO 
+
+
+JAVASCRIPT E TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+------> VAMOS APRENDER 
+
+
+
+,
+
+COM 
+
+OBJECTS E ARRAYS,
+
+
+
+
+QUE O TYPESCRIPT OFERECE AINDA MAIS FUNCIONALIDADES....
+
+
+
+
+
+
+
+
+
+---------
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+ MESMO OS CORE TYPES SÃO SUPORTADOS...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> TYPESCRIPT ADICIONA TAMBÉM ALGUNS CORE TYPES EXTRAS,
+
+
+ QUE _ NÃO __ CONHECEMOS DO JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SÃO NOVOS CONCEITOS,
+
+ ALIENS AO 
+
+
+ JAVASCRIPT VANILLA....
+
+
+
+
+
+
+
+
+
+
+
+ --> O CONCEITO QUE VAMOS ESTUDAR É 'TUPLES'... -----> TUPLES EXISTEM EM OUTRAS LINGUAGENS DE PROGRAMAÇÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> UM TUPLE É ASSIM: [1, 2] --------> AÍ VOCÊ PODERIA DIZER '''AH, ISSO É UM ARRAY'''' --> sim,
+
+
+ é 
+
+
+ um ARRAY, MAS É UM __ 'FIXED-LENGTH ARRAY'...
+
+
+
+
+
+
+
+
+ ----> ALÉM DE SER 'FIXED-LENGTH',
+
+
+ OS 
+
+
+
+ TUPLES 
+
+
+
+ SÃO TAMBÉM 'fixed __ TYPE__'... --->
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> TUPLES --> FIXED __ LENGTH E TYPE...
+
+
+
+
+
+
+
+
+
+
+
+ --> É TIPO UMA PEÇA DE TETRIS... (fixed length, fixed type)...
+
+
+
+
+
+
+
+
+
+ --> MAS EM QUE LUGAR DO NOSSO CÓDIGO ISSO PODERIA SER ÚTIL?
+
+
+
+
+
+
+
+
+
+
+
+ ------> BEM... 
+
+
+
+
+
+
+
+
+
+
+
+
+ NOSSO CÓDIGO, ATÉ AGORA, ESTÁ SSIM:
+
+
+
+
+
+
+
+
+ const person = {
+     name: 'Maximillian',
+     age: 30,
+     hobbies: ['Sports', 'Cooking']
+ }
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS QUERER ADICIONAR OUTRA_ _ PROPRIEDADE,
+
+
+ 'role',
+
+ 
+
+ QUE SERÁ __ UM __ ARRAY__ COM:
+
+
+
+ 1) EXATAMENTE 2 ELEMENTOS
+
+
+
+
+
+
+
+
+ 2) EM QUE O PRIMEIRO ELEMENTO SERÁ UM 'NUMERIC IDENTIFIER',
+
+
+ como um '2'...
+
+
+
+
+ 3) EM QUE O SEGUNDO ELEMENTO SERÁ UMA __ STRING, UM STRING IDENTIFIER, uma 
+
+
+ 'human readable description'...
+
+
+
+
+
+
+
+
+
+
+ --> no caso, 
+
+ professor escreve assim:
+
+
+
+
+
+ role: [2, author]
+
+
+
+
+
+
+
+ 2 --> numeric identifier 
+
+
+
+
+author --> string identifier...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO AÍ DEVERÁ __ SEMPRE TER EXATAMENTE 2 
+
+
+
+
+VALORES... --> ISSO PQ CADA PESSOA  (person),
+
+
+nesse 
+
+app aí,
+
+
+
+
+
+SÓ VAI PODER TER 
+
+1 
+
+'role',
+
+
+E CADA 
+
+ROLE 
+
+SERÁ COMPOSTO POR 2 
+
+
+
+ELEMENTOS.... 
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODERÍAMOS USAR UM _________OBJECT__ EM VEZ DE ESSE ARRAY AÍ,
+
+
+mas por alguma razão vamos querer USAR 
+
+UM ARRAY,
+
+
+
+ARRAY COM EXATAMENTE 2 
+
+
+
+VALORES,
+
+
+em que o primeiro é o 'numeric identifier'
+
+
+e O
+
+
+
+
+segundo argumento é o 'STRING IDENTIFIER'...(ou description)....
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E SE VOCÊ PASSAR O MOUSE POR CIMA DISSO,
+
+
+
+VOCÊ VERÁ QUE o 
+
+
+
+TYPESCRIPT VAI 'INFER'
+
+
+
+este 
+
+
+
+type aqui:
+
+
+
+
+
+(property) role: (string | number)[]
+
+
+
+
+
+
+
+
+
+
+
+
+--> AINDA NÃO VIMOS ISSO ANTES.. -> MAS BASICAMENTE O TYPESCRIPT RECONHECE QUE 
+
+
+TEMOS 1 ARRAY QUE PODE/VAI SEGURAR __ STRINGS E NUMBERS... (isso é chamado de 'union type', e é algo que 
+O PROFESSOR NOS MOSTRARÁ MAIS TARDE...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> O TAKEAWAY, AQUI, É QUE 
+
+O 
+
+
+TYPESCRIPT RECONHECE QUE 
+
+VAMOS TER ESSE ARRAY COM ESSES TIPOS DE VALUEs...
+
+
+
+
+
+
+
+
+
+
+------> ISSO FEITO,
+
+
+PROFESSOR ESCREVE ASSIm:
+
+
+
+
+
+
+
+
+
+
+ const person = {
+     name: 'Maximillian',
+     age: 30,
+     hobbies: ['Sports', 'Cooking'],
+     role: [2, 'author']
+ }
+
+
+
+
+
+person.role.push('admin'); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> SE TENTARMOS ESCREVER ISSO,
+
+
+ESSE PUSH,
+
+
+
+
+O TYPESCRIPT __ NÃO APITARÁ... -_> NÃO APITA PQ __ ELE 
+
+
+
+__ NÃO SABE__ QUE 
+
+
+NESSE 
+
+
+
+ARRAY/propriedade de 'role' 
+
+
+
+ADMITIMOS MAIS DE 2 ELEMENTOS (ele NÃO SABE QUE __ 
+
+ESTAMOS COM UM TUPLE/TUPLA...)
+
+
+
+
+
+
+
+
+-----------> ISSO SIGNIFICA QUE 
+
+TAMBÉM 
+
+
+
+PODERÍAMOS/PODEMOS TROCAR o valor DE NOSSA STRING __ POR UM NUMBER,
+
+por meio de 
+
+um código como este:
+
+
+
+
+
+
+
+
+ const person = {
+     name: 'Maximillian',
+     age: 30,
+     hobbies: ['Sports', 'Cooking'],
+     role: [2, 'author']
+ }
+
+
+
+
+
+person.role[1] = 10;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FUNCIONA TAMBÉM,
+
+PQ 
+_ELE _ NÃO SABE QUE VAMOS QUERER 
+
+
+QUE 
+
+ESSE ARRAY SEJA UM TUPLE/TUPLA 
+
+
+(
+
+    pq 
+
+    tuplas são, novamente,
+
+    arrays:
+
+
+    1) COM UM NÚMERO FIXO DE ELEMENTOS (n pode reduzir esse número, seja qual for) 
+
+
+    2) ELEMENTOS CUJO __ TYPE_ NÃO PODE SER ALTERADO (se aquele element for de type 'number', sempre ficará como 'number', e vice-versa)...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AQUI, NO CASO,
+
+A ÚNICA INFORMAÇÃO FORNECIDA AO TYPESCRIPT É QUE 
+
+
+os elementos 
+
+no interior desse array DEVERÃO SER DE TYPE 
+
+'string' ou 'number'...
+
+
+
+
+
+
+
+
+
+
+
+---------> É EXATAMENTE POR ISSO QUE SUBSTITUIR O SEGUNDO VALOR, uma string,
+
+
+por um number,
+
+
+
+É 
+
+
+PERMITIDO/NÃO FAZ O TYPESCRIPT APITAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM.... MAS PARA UM CENÁRIO COMO ESTE, EM QUE 
+
+QUEREMOS:
+
+
+1) NÚMERO FIXO DE ELEMENTOS 
+
+
+2) ELEMENTOS COM TYPES FIXOS...
+
+
+
+
+
+
+
+
+
+
+
+--> UMA TUPLA, 'TYPE TUPLA',
+
+
+SERIA __ PERFEITA__ ... 
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OU SEJA,
+
+AQUI TEMOS UM EXEMPLO PERFEITO DE UM CASO EM QUE 
+
+
+
+'''O TYPESCRIPT JÁ FEZ INFER DE UM TYPE,
+
+MAS VAMOS QUERER ___ OVERRIDE__ ESSE TYPE COM 
+
+UM OUTRO TYPE, MAIS ADEQUADO AOS NOSSOS FINS''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA DAR _ OVERRIDE__ NO 'INFERED TYPE' 
+
+
+
+do typescript em 'person',
+
+PROFESSOR 
+
+
+EXPLICA QUE 
+
+PODEMOS ADICIONAR 
+
+
+UM 
+
+
+'EXPLICIT TYPE definition'
+
+
+
+
+NESSE OBJETO..
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+ const person: {
+     name: string;
+     age: number;
+     hobbies: string[]
+
+ } = {
+     name: 'Maximillian',
+     age: 30,
+     hobbies: ['Sports', 'Cooking'],
+     role: [2, 'author']
+ }
+
+
+---------------------------------
+
+
+
+
+
+
+
+OK.... TUDO ISSO 
+
+
+FICA IGUAL à DEFINIÇÃO/INFER DEFAULT DO TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NÃO É POR CAUSA DESSES FIELDS QUE VAMOS QUERER DEFINIR EXPLICITAMENTE NOSSO 'TYPE' desse object....
+
+
+
+
+
+
+
+
+
+
+-> É POR CAUSA DE 'role'
+
+QUE DECIDIMOS DEFINIR ISSO EXPLICITAMENTE...
+
+
+
+
+NO field de 'role',
+
+VAMOS QUERER 
+
+QUE 
+
+
+
+ELE SEJA DEFINIDO COMO UMA 'tuple'... -------> PARA ISSO,
+
+
+EM VEZ DE 
+
+
+ESCREVER ALGO COMO 
+
+
+
+'(string | number)[]' ,
+
+
+
+
+
+PODEOMS __ USAR 
+
+
+ALGO CHAMADO DE 
+
+'SPECIAL TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+---> VAMOS USAR O SPECIAL TYPE  de 'tuple' ---. PARA ISSO,
+
+
+
+
+
+
+DEVEMOS USAR _ A SINTAXE__ DE TUPLES.. 
+
+
+
+
+
+
+
+
+
+
+
+--> para acessar essa sintaxe,
+
+
+você deve escrever 
+
+
+'[]' 
+
+
+E ENTÃO 
+
+
+ESCREVER, NA ORDEM DOS ARGUMENTOS/TYPES DOS ARGUMENTOS,
+
+
+
+  A DISPOSIÇÃO QUE VOCÊ DESEJA....
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+  role: [number, string]
+
+
+
+
+
+
+
+
+
+
+
+  --------> COM ISSO, DEFINIMOS QUE 
+
+  ESSE ARRAY DEVERÁ TER 2 ELEMENTOS,
+
+  E QUE 
+
+  ELES DEVEM 
+
+
+
+  SER DE TYPE 'number' e 'string',
+
+  respectivamente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+--> certo... e 'TUPLES'
+
+
+
+
+SÃO ___ 
+
+
+
+ESCRITAS ASSIM:
+
+
+role: [number, string];
+
+
+
+
+
+
+
+
+
+
+
+-> TUPLES SÃO UM CONSTRUCT ESPECIAL QUE O TYPESCRIPT COMPREENDE... --> 
+
+
+
+
+NO JAVASCRIPT 
+
+
+
+ELE 
+
+SERÁ UM ARRAY NORMAL,
+
+MAS DURANTE O DEVELOPMENT 
+
+AS 
+
+TUPLES 
+
+VAO TE DAR ERRORS ESPECIAIS....
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, O QUE 
+
+
+A 
+
+TUPLE 
+
+
+
+OBRIGA É 
+
+
+
+
+
+
+ARRAY DE 
+
+
+2 ELEMENTOS,
+
+O PRIMEIRO 
+
+É 
+
+
+
+
+1 NUMBER,
+
+O SEGUNDO É UM STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM NOSSO CÓDIGO ANTIGO:
+
+
+
+
+
+
+
+
+const person: {
+
+  name: string;
+  age: number;
+  hobbies: (string | number)[];
+  hobbies2: string[];
+  role: [number, string] /// EXEMPLO DE DEFINÇÃO DE TYPE 'tuple'...
+
+
+            ///vamos inferir 'explicitamente' JUSTAMENTE PARA QUE O field de 'role' consiga ter seu 'type' SETTADO COMO SENDO O DE UMA 'tuple' (tupla)....
+} = { 
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 12], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'], ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+  role: [2, 'author']
+}
+
+
+
+
+
+
+
+
+
+
+
+person.role[1] = 10; /////////ISSO VAI DAR UM ERRO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'person.role[1] = 10' 
+
+VAI NOS DAR 1 ERRO 
+
+JUSTAMENTE 
+PQ 
+
+
+VAMOS ESTAR TENTANDO TROCAR UMA 'STRING' por um '
+NUMBER'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... MAS AGORA TEMOS OUTRO PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const person: {
+
+  name: string;
+  age: number;
+  hobbies: (string | number)[];
+  hobbies2: string[];
+  role: [number, string] /// EXEMPLO DE DEFINÇÃO DE TYPE 'tuple'...
+
+
+            ///vamos inferir 'explicitamente' JUSTAMENTE PARA QUE O field de 'role' consiga ter seu 'type' SETTADO COMO SENDO O DE UMA 'tuple' (tupla)....
+} = { 
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 12], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'], ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+  role: [2, 'author']
+}
+
+
+
+
+person.role.push('admin'); ///ESSE CÓDIGO VAI PASSAR BATIDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ESSE CÓDIGO DE 
+
+''
+
+
+
+person.role.push('admin');
+
+
+
+''
+
+
+NÃO VAI DAR 
+
+ERROR NO TYPESCRIPT... --> ISSO SIGNIFICA QUE 
+
+
+ISSO 
+
+É _ UMA EXCEÇÃO, EXCEÇÃO QUE 
+
+É 
+
+
+'ALLOWED IN TUPLES'... ------>  O TYPESCRIPT NÃO CONSEGUE CATCHEAR 
+
+
+
+
+
+ESSE TIPO DE ERRO,
+
+
+mas tudo bem....
+
+
+(
+
+
+    ele ainda funciona com coisas como 'person.role[1] = 10'....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+--> MAS FORA DE 'push',
+
+
+NÓS TAMBÉM 
+
+
+GANHAMOS UM 
+
+POUCO DE SUPPORT 
+
+
+_ ACERCA DO 'FIXED LENGTH'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+person.role = [0, 'admin', 'user'] --------> VAMOS GANHAR UM ERRO,
+
+
+PQ 
+
+
+
+VAMOS ESTAR TENTANDO TROCAR O NÚMERO DE ELEMENTOS PARA '3', quando apenas 2, 'number' e 'string',
+
+SÃO PERMITIDOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--_>  OK, ISSO SIGNIFICA QUE 
+
+
+
+
+
+O TYPE 
+
+
+
+
+
+
+
+

@@ -1,0 +1,261 @@
+APRENDEMOS SOBRE COMO USAR TYPESCRIPT EM OUTROS TIPOS DE APP,
+
+COM APPS NODE E REACT...
+
+
+
+
+
+
+
+
+
+
+
+
+-> APRENDEMOS QUE A SINTAXE DE IMPORTS DIFERE UM POUCO...
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS QUE PODEMOS USAR INTERFACES,
+
+
+
+DECORATORS,
+
+
+ENUMS,
+TUPLES,
+
+TUDO QUE É TYPESCRIPT EXCLUSIVE,
+
+
+PQ 
+
+ESTAMOS CRIANDO UM TYPESCRIPT APP,
+
+CUJO CÓDIGO É COMPILADO EM 
+
+CÓDIGO 
+
+
+
+
+JAVASCRIPT...
+
+
+
+
+
+
+
+
+--> MAIS EXEMPLOS DE 
+
+
+
+CÓDIGO TYPESCRIPT E NODEJS --> PROFESSOR RECOMENDA FORTEMENTE O 'NESTJS' --> É UM FRAMEWORK DE NODE QUE 
+
+
+
+'EMBRACES TYPESCRIPT '----> 
+
+
+
+
+
+
+
+
+
+
+EMBORA SEJA POSSÍVEL VOCÊ CONCILIAR TYPESCRIPT COM NODE,
+
+
+
+
+esse framework te dá projetos 
+
+
+
+
+NODE COM _ _SUPORTE TYPESCRIPT OUT OF THE BOX (
+
+
+
+    te dá features como decorators, etc etc...
+) -->  te deixa criar apps,
+
+
+
+apps que renderizam 
+
+views ou graphql apis,
+
+
+
+
+MAS TAMBÉM COM TYPESCRIPT.... --->  E USA FEATURES COMO DECORATORS PESADAMENTE.... --> USE-O SE VOCê 
+
+
+
+QUER 
+
+
+
+
+CONSTRUIR SERVER-SIDE WEBAPPS COM NODE E ETYPESCRIPT.... 
+
+
+
+
+
+
+
+--> usa todas as features que o typescript oferece...
+
+
+
+
+
+
+
+
+
+-_> TYPESCRIPTLANG.ORG --> 
+
+
+
+mostra um monte de docs sobre o typescript --> features nicho,
+
+
+
+detalhes, etc etc... latest features... 
+
+
+
+
+
+
+
+
+
+
+
+--> mas já vimos tudo sobre o typescript....
+
+
+
+
+
+
+
+
+
+-> é o primeiro recurso... --> também te dá um playground que te deixa rodar scripts do typescript...
+
+
+
+
+
+
+
+
+
+
+
+--> professor recomenda que olhemos alguns typescript projects e examples...
+
+
+
+
+
+
+
+--> ele RECOMENDA ANGULAR ---> 
+
+
+
+
+APRENDER ANGULAR É UMA ÓTIMA IDEIA,
+
+
+CASO VOCÊ QUEIRA CONSOLIDAR O CONHECIMENTO DE 
+
+typescript....
+
+
+
+
+
+
+
+
+------> VER COMO ELES USAM O TYPESCRIPT,
+
+
+
+PARA VER TAMBÉM COMO PODEMOS O UTILIZAR EM FUTUROS PROJETOS...
+
+
+
+
+
+
+--> NESTJS TAMBÉM É UM FRAMEWORK QUE EMBRAÇA 
+
+O 
+
+
+TYPESCRIPT --> MAS AO CONTRÁRIO DO ANGULAR,
+QUE É 
+
+BROWSERSIDE,
+
+
+O 
+
+
+
+
+NESTJS 
+é 
+SERVERSIDE....
+
+
+
+
+
+
+
+
+
+--> NESTJS --> É UM FRAMEWORK QUE PODE SER INTERESSANTE SE VOCÊ QUER CONSTRUIR UM NODEAPP COM TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE VER SUA CODE BASE PARA VER COMO USAR ALGUMAS FEATURES,
+ ETC ETC..
+
+
+
+
+
+
+
+
+ --> SE VOCÊ PRECISA DE MAIS UM POUCO DE INSPIRAÇÃO, VOCÊ PODE USAR O GOOGLE.... exemplos de typescript, etc, projetos....

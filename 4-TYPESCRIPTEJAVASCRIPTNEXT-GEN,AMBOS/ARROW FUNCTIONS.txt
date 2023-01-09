@@ -1,0 +1,617 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ALÉM DE 'LET' E 'CONST',
+
+
+
+OUTRA MAJOR FEATURE SÃO 
+
+
+AS 
+
+
+
+
+
+ARROW FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const thing = () => {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VOCÊ ESCREVE A ARROW FUNCITON COMO _ UMA EXPRESSION,
+QUE 
+
+VOCe^
+
+
+ARMAZENA EM UMA VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+------> 
+
+
+
+
+
+
+AS ARROW FUNCTION POSSUEM COMPORTAMENTO DIFERENCIADO QUANTO ao 'this' keyword... (em classes, principalmente)...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const add = (a: number, b: number) => {
+
+
+    return a + b;
+}
+
+
+console.log(add(2, 5))
+
+
+
+
+
+
+
+
+
+----------------
+
+
+OUTRA SINTAXE ALTERNATIVA:
+
+
+
+
+se você tem apenas 1 ARGUMENTO,
+
+vocÊ pode escrever assim:
+
+
+
+
+
+
+
+
+
+
+
+const add = a: number => a + 'UMA STRING';
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+PODEMOS __ TIRAR ATÉ O 'return' ,
+
+
+
+
+
+
+
+
+
+
+
+
+COM 2 ARGUMENTS,
+
+podeoms escrever assim:
+
+
+
+
+
+
+
+
+const add = (a:number, b: number) => a + b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(também podemos tirar o 'RETURN')...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE TIVERMOS 2 OU MAIS EXPRESISONS,
+
+
+
+
+PRECISAMOS DO FUNCTION BODY COMUM, como '{}' ....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+const printOutput = (output: string | number) => console.log(output);
+
+
+
+
+
+
+
+
+
+
+
+
+PODEMOS RETORNAR O VALOR DE 'console.log', mas isso é inútil...
+
+
+
+
+
+
+
+
+
+
+
+E PODEMOS ESCREVER ISSO DE MANEIRA AINDA MAIS CURTA:
+
+
+
+
+
+
+const printOutput = output: string | number => console.log(output);
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO _ NÃO FUNCIONA... ----> NÃO FUNCIONA SE ESCREVERMOS O TYPE ASSIGNMENT NO MEIO... ( o 'string | number' )
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ QUISER QUE ISSO FUNCIONE,
+
+
+
+VOCÊ TERIA DE ESCREVER ASSIM:
+
+
+
+
+const printOutput = output => console.log(output);
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO __ NÃO É SUPORTADO __ NO TYPESCRIPT,
+
+PQ 
+
+AÍ 
+
+ESTARÍAMOS __ OMITIDNO O 'TYPE ASSIGNMENT' (o que´e um crime).... 
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS SE TIVERMOS O 'TYPE ASSIGNMETN' 
+
+
+
+
+
+EM ALGUM OUTRO LOCAL,
+
+
+
+como 
+
+
+
+
+
+
+EM UM 'FUNCTION TYPE ASSIGNADO A CONSTANT',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+const printOutput: (a: number | string) => void = output => console.log(output);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO FUNCIONARÁ (
+
+
+    o function type será de 
+
+
+    '(a: number | string) => void' 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS UMA HIPÓTESE EM QUE 
+
+
+
+
+
+
+essa sintaxe seria MUITO ÚTIL
+ 
+
+
+
+
+é 
+
+
+
+a 
+
+
+de 'um button no dom',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const button = document.querySelector('button');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ  COLOCAMOS UM RUNTIME CHECK de 'if (button)',
+
+PARA 
+
+FAZER 
+
+O 
+
+
+
+TYPESCRIPT PARAR DE RECLAMAR:
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+const button = document.querySelector('button');
+
+
+
+
+
+if (button) {
+
+
+    button.addEventListener('click', () => {})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSE CLICK LSITENER VAMOS COLOCAR UMA ARROW FUNCTION, PARA SALVAR ESPAÇO...
+
+
+
+
+
+
+
+
+
+E AÍ, DENTRO DESSA ANON FUNCTION,
+
+
+podemos 
+
+colocar o parÂmetro de 'event',
+
+ 
+
+ QUE PODEMOS CONSOLE.LOGGAR....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E AÍ, NESSE LOCAL,
+
+ NÃO VAMOS PRECISAR ESPECIFICAR NADA,
+
+ PQ 
+
+ O 
+
+
+
+ TYPESCRIPT vai inferir CORRETAMENTE O TYPE DE 'event' de 'CLICK' ... 
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK... --> PODEMOS USAR ESSA SINTAXE BEM CONCISA de 
+
+ 
+if (button) {
+
+
+    button.addEventListener('click', event => console.log(event));
+}
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR SÓ QUERIA NOS RELEMBRAR DE COMO AS 
+
+
+ARROW FUNCTIONS FUNCIONAM...

@@ -1,0 +1,233 @@
+ACABAMOS COM OS MODULES,
+
+SÃO SUPER IMPORTANTES 
+
+PQ TE DEIXAM ESCREVER CÓDIGO MAIS MAINTAINABLE E MANAGEABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TER TUDO EM 1 ÚNICO ARQUVO É UMA CONFUSÃO,
+
+
+horrível...
+
+
+
+--> USAR NAMESPACES 
+
+OU 
+
+ES6 MODULES É MT MELHOR,
+
+
+pq 
+
+
+
+GARANTE QUE CADA ARQUIVO FIQUE PEQUENO E MANAGEABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> O ESMODULES É MELHOR DO QUE O NAMESPACES,
+
+
+PQ FICAMOS COM ESSA EXTRA TYPE SAFETY (cada arquivo tem que especificar claramente o que quer)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> USE NAMESPACES EM PROJETOS MENORES, OU SE VOCÊ NÃO CONSEGUE 
+
+USAR 
+
+ O ES6MODULES, POR ALGUMA RAZÃo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> CERTO...
+
+
+
+
+
+
+
+ ------> ESSES MODULES, AGORA,
+
+
+ DO JEITO QUE USAMOS,
+
+ SÓ FUNCIOANM EM 'MODERN BROWSERS'...
+
+
+
+
+
+
+
+
+
+ ---. PRECISAMOS DO WEBPACK PARA COMPILAR NOSSO PROJETO
+  
+  EM 1 FORMATO COMPREENDIDO POR BROWSERS ANTIGOS,
+
+
+
+
+
+  QUE COMPREENDEM ESSE CÓDIGO... (código compilado em 1 único arquivo)...
+
+
+
+
+
+
+
+
+
+
+
+  ---> PRECISAMOS DE UMA BUNDLING TOOL, COMO O WEBPACK,
+
+  PARA COMPILAR TUDO EM 1 ÚNICO ARQUIVO JAVASCIPRT....
+
+
+
+
+
+
+
+  --> AÍ TEMOS O MELHOR DOS 2 MUNDOS:
+
+
+
+  DURANTE O DEV TEMOS 
+
+
+  ESSA MULTI-FILE, STRONG TYPED DEVELOPING EXPERIENCE,
+
+
+  PARA ENTÃO 
+
+
+  TER O SHIP 
+
+
+
+  DE 1 ÚNICO ARQUIVO,
+
+  SUPER COMPATÍVEL,
+
+  DURANTE A PRODUCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OUTRA VANTAGEM DE SHIPPAR 1 ÚNICO ARQUVO É QUE 
+
+  GARANTIMOS QUE O BROWSER NÃO TERÁ DE BAIXAR UM MONTE DE ARQUIVOS ADICIONAIS (
+
+      1 único http request....
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+  WATERFALL CHART... --> 
+
+
+
+
+
+
+
+  O SETUP TIME PARA SETTAR O HTTTP REQUEST...
+
+
+
+
+
+  ---> O SETUP TIME 
+
+
+
+  EXISTE PARA CADA HTTP REQUEST...
+
+
+
+
+
+
+
+  --> MENOS REQUESTS, MENOS DOR DE CABEÇA...
+
+
+
+
+
+
+
+
+
+
+
+  -----> vamos dar uma olhada no bundling com webpack na próxima sessão...

@@ -1,0 +1,828 @@
+
+
+
+
+
+
+
+
+
+
+
+--> NA ÚLTIMA AULA, HAVÍAMOS 
+
+
+
+DEFINIDO AQUELES METHODS 
+
+
+de 
+
+'dragStartHandler'
+
+
+
+
+e 
+
+'dragEndHandler,
+
+
+
+
+
+
+e SEUS LISTENERS,
+
+POR MEIO 
+
+
+DO METHOD DE 'configure',
+
+
+QUE FICOU ASSIM:
+
+
+
+
+
+
+
+
+  configure() { ///define os listeners para o comportamento de 'drag and drop'...
+
+    this.element.addEventListener('dragstart', this.dragStartHandler); ////obs::: para ativar O DRAG AND DROP, VOCÊ TAMBÉM PRECISA IR LÁ NO INDEX.HTML e colocar, no elemento que deve ser draggable, 'draggable= true' (no caso, será o element 'li' )....
+    this.element.addEventListener('dragend', this.dragEndHandler)
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> AGORA PARA FAZER COM QUE 
+
+
+
+  NOSSO ELEMENT 'PROJECTITEM'
+
+
+
+
+  SEJA 
+
+  __ DROPPABLE,
+
+
+
+
+  precisamos 
+
+
+
+
+
+
+
+
+
+
+  IR ATÉ A CLASS/COMPONENT 
+
+  DE 
+
+
+  NOSSO APP 
+  que é 
+
+  o 
+
+
+  'ProjectList',
+
+
+
+  PQ 
+
+
+
+  ESSAS SÃO AS ÁREAS EM QUE SERÁ PERMITIDO 'DROPPAR'
+
+  nossos elements....
+
+
+
+
+
+
+
+
+
+
+
+
+  --> É POR ISSO QUE LÁ, EM 'projectList',
+
+
+
+  VAMOS IMPLEMENTAR NOSSA SEGUNDA INTERFACE,
+
+
+  'DragTarget'...
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+  class ProjectList extends Component<HTMLDivElement, HTMLElement> implements DragTarget { 
+
+
+
+
+
+
+
+
+
+
+
+
+    ---------------------------------
+
+
+
+
+
+
+
+
+
+
+    CERTO...
+
+
+
+
+
+
+E ASSIM COMO 
+
+
+A INTERFACE DE 
+
+'Draggable',
+
+
+
+
+a interface de 'DragTarget'
+
+
+
+NOS FORÇA A ADICIONAR ALGUNS __ METHODS__...
+
+
+
+
+
+
+
+
+
+
+
+
+-> OS METHODS DE 
+
+
+'dragOverHandler',
+
+
+
+'dropHandler'
+
+
+
+e 
+
+'dragLeaveHandler'.....
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  dragOverHandler(event: DragEvent): void {
+      
+  }
+
+
+
+  dropHandler(event: DragEvent): void {
+      
+  }
+
+
+
+  dragLeaveHandler(event: DragEvent): void {
+      
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  ---------> OK.... VAMOS COMEÇAR PELO METHOD DE 
+
+
+  '
+  dragOverHandler'...
+
+
+
+
+
+
+
+
+  ---> ESSE METHOD, É CLARO, 
+
+  VAI PRECISAR DE UM LISTENER,
+
+
+  também...
+
+
+
+
+
+
+
+
+
+
+
+  os 3 'DragEvent'
+
+
+  nos nossos methods 
+
+
+
+
+  __ SEGURAM DIFERENTES TIPOS DE DATA,
+
+
+  mas são baseados no 'MESMO CORE DATA TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+  --> começamos pelo dragOverHandler... -----> 
+
+
+
+
+
+
+  QUANDO ACONTECER O 'dragOver' 
+
+
+
+  de 1 elemento sobre nossa list,
+
+
+
+  VAMOS QUEREr__ ALTERAr__ A APARÊNCIA 
+
+
+  DE NOSSA 'box'...
+
+
+
+
+
+
+
+
+
+
+  ---> na verdade, queremos mudar a cor do BACKGROUND, PARA DAR FEEDBACK DE QUE ESSA É UMA 'DROPPABLE AREA.'...
+
+
+
+
+
+
+
+
+
+
+--> PARA MUDAR A COR DE NOSSA 'PROJECT LIST',
+
+
+
+
+
+PROFESSOR 
+
+
+ADICIONA 
+
+
+UMA NOVA CLASS 
+
+
+
+
+no nosso arquivo 'app.css',
+
+
+
+que será 
+
+a class de 
+
+
+'.droppable'... ----> O BACKGROUND MUDA DE COR,
+
+
+
+
+como podemos perceber:
+
+
+
+
+
+.droppable {
+  background: #ffe3ee;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ISSO SIGNIFICA QUE VAMOS QUERER ADICIONAR ESSA CLASS de 'droppable' 
+
+na nossa UL,
+
+
+basicmente...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+ESCREVEMOS ASSIM:
+
+
+
+
+
+
+  @Autobind
+  dragOverHandler(event: DragEvent): void {
+    console.log(this.element);
+      this.element.querySelector('ul')!.className = 'droppable';
+  }
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... 
+
+
+
+
+
+
+AÍ EU ESCREVI ASSIM, NO method 'configure()':
+
+
+
+
+
+   configure() {
+    projectState.addListener((projects: Project[]) => { ///tranpslantado para DENTRO DE 'configure()', este nosso method que ADICIONA UM LISTENER..
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+        return project.projectStatus === ProjectStatus.Finished;
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      // this.assignedProjects = projects; ///sem diferenciação entre 'active' e 'finished'
+      // this.attach(); //agora isso vai acontecer na nossa BASE CLASs..
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+
+
+    this.element.addEventListener('dragenter', this.dragOverHandler);
+
+  }
+
+
+
+
+
+
+
+
+
+
+  -----------> 
+
+
+
+
+
+  OU SEJA,
+
+  COLOQUEI AQUELE LISTENER 
+
+
+  de 
+
+
+   this.element.addEventListener('dragenter', this.dragOverHandler);
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso funcionou MAIS OU MENOS... --> 
+
+
+
+
+
+isso pq 
+
+
+AS 2 LISTS ACABARAM FICANDO com esse 'background rosa'.... 
+
+
+
+
+
+
+
+-----> e a list de 'FINISHED PROJECTS' 
+
+só ficou com esse negócio rosa quando 
+
+PASSAMOS O CURSOR COM O ELEMENTO EM CIMA DELA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA SOLUCIONAR ESSE PROBLEMA, FAZER COM QUE 
+
+SÓ FIQUE ROSA 
+
+
+o 'finished projects' 
+
+quando colocarmos o element EM CIMA DELE (e para que nem tudo fique rosado, as 2 lists n fiquem rosadas),
+
+
+
+
+
+EU ESCREVI ASSIM (uso de if block):
+
+
+
+
+
+
+
+   configure() {
+    projectState.addListener((projects: Project[]) => {
+      const relevantProjects =  projects.filter(
+  (project) => { 
+
+
+    if(this.listType === 'finished') { 
+      this.element.addEventListener('dragenter', this.dragOverHandler); ////EIS O CÓDIGO EM QUESTÃO.
+        return project.projectStatus === ProjectStatus.Finished;
+  
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+      this.assignedProjects = relevantProjects 
+      this.renderProjects();
+    });
+
+
+  }
+
+
+
+
+
+
+
+
+--> É CLARO QUE TAMBÉM POSSO COLOCAR UM LISTENER para 'leave',
+
+
+para que seja DESATIVADA ESSA COR QUANDO OCORRER o 'leave' 
+
+desse elemento.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> CONSEGUI... O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+   configure() {
+    projectState.addListener((projects: Project[]) => { 
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+
+    if(this.listType === 'finished') { 
+      this.element.querySelector('ul')!.addEventListener('dragenter', this.dragOverHandler);
+      this.element.querySelector('ul')!.addEventListener('dragleave', this.dragLeaveHandler);
+        return project.projectStatus === ProjectStatus.Finished;
+  
+    } else {
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+
+  }
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+mas seria legal se a projectList de 'active' ficasse ROSA, TAMBÉM... (ou seja, sinalizando que as trocas podem acontecer de ambos os lados)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONSEGUI... 
+
+
+
+
+--> o 'ul' fica rosa em um dos lados, quando puxamos para o outro... (é um bom comportamento)...
+
+
+
+
+---> O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+   configure() {
+    projectState.addListener((projects: Project[]) => { ///tranpslantado para DENTRO DE 'configure()', este nosso method que ADICIONA UM LISTENER..
+
+      const relevantProjects =  projects.filter(
+  (project) => { //sim, aparentemente é possível escrever IF STATEMENTS DENTRO DE 'filter'...
+
+    // this.element.querySelector('ul')!.addEventListener('dragstart', this.dragOverHandler);
+
+    if(this.listType === 'finished') { 
+      this.element.querySelector('ul')!.addEventListener('dragenter', this.dragOverHandler);
+      this.element.querySelector('ul')!.addEventListener('dragleave', this.dragLeaveHandler);
+        return project.projectStatus === ProjectStatus.Finished;
+  
+    } else {
+      this.element.querySelector('ul')!.addEventListener('dragstart', this.dragOverHandler);
+      this.element.querySelector('ul')!.addEventListener('dragend', this.dragLeaveHandler);
+            return project.projectStatus === ProjectStatus.Active
+    }
+        }
+    );
+
+      // this.assignedProjects = projects; ///sem diferenciação entre 'active' e 'finished'
+      // this.attach(); //agora isso vai acontecer na nossa BASE CLASs..
+      this.assignedProjects = relevantProjects ////com diferenciação....
+      this.renderProjects();
+    });
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> CLARO QUE AINDA ESTOU COM UM PROBLEMA,
+
+
+  quero que 
+
+
+
+  o 'rosa' de 'active projects' 
+
+  DEIXE DE FICAR ROSA 
+
+  QUANDO 
+
+
+  o 
+
+
+  elemento arrastado DEIXAR A SUA ÁREA...
+
+
+
+
+
+
+
+
+
+
+
+  --> HMMM ESSE COMPORTAMENTO É DIFÍCIL DE CODAR... continuarei depois....

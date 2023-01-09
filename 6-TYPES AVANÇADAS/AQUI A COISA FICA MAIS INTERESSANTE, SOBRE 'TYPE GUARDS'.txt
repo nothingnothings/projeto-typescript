@@ -1,0 +1,3390 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... INTERSECTION TYPES SÃO UMA COISA MEIO MEH...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mais populares do que elas são as 'TYPE GUARDS', uma feature avançada..
+
+
+
+
+
+
+
+
+
+
+
+
+--> TYPE GUARDS NA VERDADE _ JÁ FORAM UTILIZADAS UM POUCO POR NÓS.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR 
+
+o type de 'Combinable' como exemplo....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+type Combinable = string | number;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'Combinable' É UM UNION TYPE,
+
+
+
+
+
+EM QUE __ VAMOS TER OU UM STRING, OU UM NUMBER..
+
+
+
+
+
+
+
+
+
+
+
+
+-->>> E OS TYPEGUARDS NOS AJUDAM ESPECIFICAMETNE COM UNION TYPES.....
+
+
+
+
+
+
+
+
+
+
+
+----> ÀS VEZES VOCê VAI QUERER __ SABER 'WHAT EXACT TYPE __ARE WE GETTING NOW, AT RUNTIME'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS, PORTANTO, QUE TEMOS UMA FUNCTION, 
+
+
+'add',
+
+
+QUE RECEBERÁ UM 
+
+
+PARÂMETRO 'n1',
+
+que será um NUMBER..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+type Combinable = string | number;
+
+
+
+
+function add(a: Combinable);
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+OK... MAS COMO COLOCAMOS 'Combinable',
+
+
+
+O TYPE NA VERDADE VAI SER string | number....
+
+
+
+
+
+
+
+
+
+
+
+-------------> AÍ VAMOS ADICIONAR UM SEGUNDO PARÂMETRO, QUE TAMBÉM VAI ter um type de 'combinable'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, VAMOS QUERER RETORNAR 'a + b' 
+
+nessa função...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+type Combinable = string | number;
+
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+    return a + b;
+}
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+    return a + b;
+}
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO, ENTRETANTO, VAI SINALIZAR UM __ ERRO/AVISO em 'return a + b' ----------> 
+
+
+
+
+
+
+
+
+
+
+
+
+UÉ, MAS PQ UM ERRO?
+
+
+
+
+
+
+
+
+
+
+
+
+--> O ERRO SERÁ DE 
+
+''
+Operator '+' cannot be applied to types 'Combinable' and 'Combinable'.
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+--> NO PASSADO, VIMOS QUE ISSO DÁ PROBLEMA JUSTAMENTE PQ 
+
+
+
+
+ESTAMOS COLOCANDO 2 UNION TYPES NOS TYPES DESSES PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS QUE ISSO NÃO FUNCIONA,
+
+
+
+
+
+__ NÃO FUNCIONA PQ NÃO PODEMOS 'add a string to a number', e vice-versa....
+
+
+
+
+
+
+
+
+
+--------> PARA RESOLVER ESSA IMPROPRIEDADE 
+
+
+
+
+
+
+TEMOS QUE 
+
+
+
+colocar um if check e CHECAR 
+
+
+
+
+
+
+se 
+
+'if typeof a === 'string', 
+
+
+
+
+e 
+
+
+se 
+
+
+b também for 'string',
+
+
+
+
+
+
+VAMOS QUERER 
+
+
+
+
+
+
+rodar um código específico (de 'a + b' )..
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+
+
+    if (typeof a === 'string' || typeof b === 'string') {
+        return a.toString() + b.toString();
+    }
+  
+}
+
+
+
+
+
+--------------------------------------
+
+
+
+
+OK, CONCATENAMOS ESSAS 2 STRINGS.... -> se não entramos 
+
+
+
+
+nesse if check,
+vamos querer retornar 'a + b' normal...
+
+
+
+
+(
+
+
+
+    PQ AÍ É 100% CERTEZA QUE ESSES 2 PARAMETERS SERÃO __ NUMBERS_, E NÃO STRINGS_....
+)
+
+
+
+
+
+eX:
+
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+
+
+    if (typeof a === 'string' || typeof b === 'string') {
+        return a.toString() + b.toString();
+    }
+  
+
+  return a + b;
+}
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... E O QUE VOCÊ ACHA QUE É ISTO AQUI:
+
+
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+
+
+
+
+
+
+
+
+------>  ISSO AÍ, ESPECIFICAMENTE, É UM __ TYPE GUARD___ .....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO É UM TYPE GUARD,
+
+
+
+
+
+PQ __ ELA___ NOS DEIXA_ _ USAR A __ FLEXIBILIDADE _ QUE 
+
+OS UNION TYPES__ NOS DÃO 
+
+
+para_ DETERMINAR__ COMO  O 'FLOW' 
+
+
+
+DE NOSSA FUNCTION DEVERÁ 
+
+
+
+ACONTECER... (GARANTIR QUE NOSSO CÓDIGO RODARÁ __ CORRETAMENTE_ DURANTE O RUNTIME)....
+
+
+---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ FREQUENTEMENTE VOCÊ 
+
+TERÁ 
+
+
+
+
+
+__ FUNCTIONS QUE ___ FUNCIONAM COM 2 OU 3 DIFERENTES TYPES,
+
+
+
+e é exatamente por isso que 
+
+
+union types 
+
+
+
+SÃO PERFEITOS.... ---->   MAS O QUE ***__ EXATAMENTE__**** FAZEMOS COM 
+
+
+
+OS VALORES,
+
+ISSO É ALGO QUE __ DEPENDE__ DO TYPE 'escolhido'/NÃO PROTEGIDO (não 'guarded')....
+
+
+
+
+
+
+
+
+
+
+
+
+---> EXATAMENTE COMO VIMOS AQUI,
+
+EM QUE 
+
+OU 
+
+CONCATENAMOS, OU 
+
+
+
+_ADICIONAMOS MATEMATICAMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+------>  
+
+O TYPEGUARD EXEMPLO QUE O PROFESSOR NOS DEU __ É UM TYPEGUARD QUE USA 
+
+
+'typeof'....
+
+
+
+
+
+
+
+
+
+
+
+-> MAS EXISTEM OUTRAS MANEIRAS DE ESCREVER TYPE GUARDS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VOLTAMOS AOS TYPES DE 'Admin' E 'Employee',
+
+
+
+
+que temos 
+lá 
+
+
+em cima 
+
+no nosso arquivo...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+type Admin = {
+    name: string;
+    privileges: string[];
+};
+
+
+
+
+
+
+type Employee = {
+    name: string;
+    startDate: Date; ///baseado no OBJECT BUILTIN NO JAVASCRIPT...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS PRIVILEGES EM 1 TYPE, e 'startDate' no outro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> TAMBÉM TEMOS 'ElevatedEmployee',
+
+
+QUE COMBINA OS 2 COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+type ElevatedEmployee = Admin & Employee;
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+----> certo..... 
+
+
+
+
+
+
+
+
+
+
+--> aí o professsor CRIA OUTRO TYPE NO NOSSO CÓDIGO,
+
+o type de 
+
+
+
+'UnknownEmployee'...
+
+
+
+
+
+
+
+
+
+
+
+--------> ISSO SERÁ OU 
+1 'Employee',
+
+ou um 
+
+'Admin'...
+.
+
+
+
+
+
+
+(ISSO SIGNIFICA QUE 
+VAMOS TER 
+
+
+1 UNION TYPE QUE VAI ESTAR USANDO NOSSOS 2 'CUSTOM OBJECT TYPES'....)
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+type Admin2 = {
+    name: string;
+    privileges: string[];
+};
+
+
+
+
+
+
+type Employee2 = {
+    name: string;
+    startDate: Date; ///baseado no OBJECT BUILTIN NO JAVASCRIPT...
+}
+
+
+
+
+
+type ElevatedEmployee2 = Admin2 & Employee2;
+
+
+
+type UnknownEmployee = Employee2 | Admin2;  /////UNION TYPE COM 2 DE NOSSOS 'CUSTOM OBJECT TYPES'....  (o 'UnknownEmployee' VAI SER __ UM DOS DOIS, NO CASO)....
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> POR FIM,
+
+
+
+VAMOS TER UMA FUNCTION... 
+
+
+
+
+
+function de 
+
+
+
+
+
+
+'printEmployeeInformation',
+
+
+
+EM QUE 
+
+
+
+VAMOS TER QUE 
+
+
+PASSAR 
+
+
+
+
+
+
+1 'emp' como argumento... --> o type desse argumento SERÁ _ JUSTAMENTE 
+
+'UnknownEmployee'... (esse uniontype)..
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+type Admin2 = {
+    name: string;
+    privileges: string[];
+};
+
+
+
+
+
+
+type Employee2 = {
+    name: string;
+    startDate: Date; ///baseado no OBJECT BUILTIN NO JAVASCRIPT...
+}
+
+
+
+
+
+type ElevatedEmployee2 = Admin2 & Employee2;
+
+
+
+type UnknownEmployee = Employee2 | Admin2;  /////UNION TYPE COM 2 DE NOSSOS 'CUSTOM OBJECT TYPES'....  (o 'UnknownEmployee' VAI SER __ UM DOS DOIS, NO CASO)....
+ 
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... DENTRO DESSA FUNCTION VAMOS CONSOLE.LOGGAR VÁRIOS 
+
+
+
+TIPOS DE INFORMAÇÃO,
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+type Admin2 = {
+    name: string;
+    privileges: string[];
+};
+
+
+
+
+
+
+type Employee2 = {
+    name: string;
+    startDate: Date; ///baseado no OBJECT BUILTIN NO JAVASCRIPT...
+}
+
+
+
+
+
+type ElevatedEmployee2 = Admin2 & Employee2;
+
+
+
+type UnknownEmployee = Employee2 | Admin2;  /////UNION TYPE COM 2 DE NOSSOS 'CUSTOM OBJECT TYPES'....  (o 'UnknownEmployee' VAI SER __ UM DOS DOIS, NO CASO)....
+ 
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+
+
+
+console.log('Name: ' +  emp.name);
+    
+}
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+console.log('Name: ' +  emp.name);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ESSE 'emp.name',
+
+
+no caso,
+
+VAI __ FUNCIONAR __ SEM PROBLEMAS, JUSTAMENTE PQ 
+
+
+
+
+
+ambos nossos object types 
+
+possuem ESSA PROPRIEDADE DE 'name'...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name);
+
+}
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS PARA COMPLICAR, VAMOS QUERER 
+
+
+
+
+
+CONSOLE.LOGGAR OS __ PRIVILEGES__, que é uma propriedade que SÓ EXISTE 
+
+
+
+NO TYPE DE 'Admin', no caso...
+
+
+
+
+
+
+
+
+--> por isso, se escreveoms isto aqui:
+
+
+
+
+
+
+
+console.log('Privileges: ' + emp.privileges)' ,
+
+
+
+
+
+
+VAMOS __ RECEBER UM ERRO.... (que esse negócio NAÕ EXISTE NO TYPE DE 'Employee')....
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name);
+
+    console.log('Privileges: ' + emp.privileges);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+---------> OK, O TYPESCRIPT  NÃO CONSEGUE CONFIRMAR 
+
+
+QUE 
+
+ESSA PROPRIEDAED VAI SEMPRE EXISTIR 
+
+
+
+NO ARGUMENTO,
+
+
+isso pq o employee pode ser um 'Employee', QUE __ NÃO TEM ESSA PROPRIEADAED (só o admin a tem)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS PRECISAR DE UMA TYPEGUARD...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA, AQUI, É QUE __ COM O USO DE 'typeof',
+
+
+NÃO VAMOS CONSEGUIR __ TER UMA TYPEGUARD (não vamos conseguir 'DIVIDIR O RUNTIME', por assim dizer)....
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE NÃO PODEMOS checar O 'typeof' 
+
+
+DE 
+
+'emp',
+
+
+
+PQ 
+
+
+ESSE TYPE SEMPRE SERÁ DE 'object',
+ 
+
+ O VALOR de 'typeof'
+
+
+
+ sempre 
+
+ será 
+
+
+ valores básicos,
+
+ como 
+
+
+ 'string', 'boolean', 'number', 'object', etc... 
+
+
+
+ (
+
+
+     vocÊ não tem como dizer 
+
+
+     'typeof emp = {
+         propriedade: string;
+     }',
+
+
+
+
+     POR EXEMPLO....
+ )
+
+
+
+
+
+
+
+
+
+
+ ------->  PARA CONSEGUIR DEFINIR UM 'TYPE GUARD' 
+
+
+ nesse 'printEmployeeInformation',
+
+
+
+
+ PROFESSOR EXPLICA QUE PODEMOS (e devemos) USAR __ 
+
+
+
+
+ A KEYWORD DE 'in',
+
+
+
+ QUE É __ BUILTIN NO JAVASCRIPT....
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+
+ 
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name);
+
+    console.log('Privileges: ' + emp.privileges);
+
+}
+
+
+
+
+
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> PARA ISSO, SIMPLESMENTE ESCREVEMOS 
+
+
+
+
+'if ('privileges' in emp) ' 
+
+
+
+
+
+
+
+
+
+
+
+(OU SEJA, ''''SE PRIVILEGES EXISTIR DENTRO DE EMP''')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name);
+
+    console.log('Privileges: ' + emp.privileges);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name);
+
+        // if(typeof emp === 'object' ) ///TYPEGUARDS da variante 'typeof' NÃO FUNCIONARÃO AQUI, pq O TYPE DESSE ARGUMENTO 'emp' SEMPRE SERÁ DE 'object' (não há como colocar um valor de TYPEOf COMPLEXO, ou algo assim... só existem os tipos básicos de 'string', 'boolean', 'object', 'array'... )
+                ////quando você precisa definir um typeguard MAIS COMPLEXO, provavelmente de 'SE ESSA PROPRIEDADE EXISTIR DENTRO DESSE OBJETO', etc etc, VOCê _ DEVE _ UTILIZAR A KEYWORD DE 'in' PARA DEFINIR O TYPEGUARD....
+               
+                //tipo assim:
+
+
+                if ('privileges' in emp) { /////////SE A PROPRIEDADE 'privileges' EXISTIR DENTRO DESSE PARÂMETRO/object DE 'emp', vamos querer EXECUTAR ESSE CÓDIGO Aí....
+                    console.log('Privileges: ' + emp.privileges); 
+                }
+
+
+                if('startDate' in emp) { ///EXEMPLO DE 'TYPE GUARD' definido por meio da keyword de 'in'....
+                    console.log('StartDate: ' + emp.startDate);  
+                }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... BASICAMENTE USAMOS O CÓDIGO DE 
+
+
+''
+
+                if ('privileges' in emp) { /////////SE A PROPRIEDADE 'privileges' EXISTIR DENTRO DESSE PARÂMETRO/object DE 'emp', vamos querer EXECUTAR ESSE CÓDIGO Aí....
+                    console.log('Privileges: ' + emp.privileges); 
+                }
+
+
+                if('startDate' in emp) { ///EXEMPLO DE 'TYPE GUARD' definido por meio da keyword de 'in'....
+                    console.log('StartDate: ' + emp.startDate);  
+                }
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT CONSEGUE 
+
+DETECTAR ESSE 
+
+CHECK,
+
+
+e aí 
+
+
+vai nos deixar 
+
+
+ACESSAR ESSAs propriedades específicas __ DENTRO __dE CADA 1 DESSES OBJECTS/PARAMETERS
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK..... ISSO FAZ SENTIDO...
+
+
+
+
+
+
+
+
+-->  COM ISSO,
+
+
+
+
+se chamamos esse METHOD,
+
+
+
+
+
+TEMOS QUE __ TOMAR CUIDADO COM O ARGUMENTO QUE PASSAMOS...
+
+
+
+(
+
+    pq a execuçaõ da função VAI _ MUDAR___ DE ACORDO COM O PARÂMETRO QUE PASSAMOS... .--> se for um objeto com estrutura de 
+
+
+    'Employee', será executado o código com if check que resulta no 'StartDate';
+
+
+
+    se 
+
+    for um objeto com estrutura de 'Admin', vamos ter um código que outputtará 'privileges' no console.log...
+)
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name); ////isto existe nas 2 variações de 'emp'...
+
+
+                if ('privileges' in emp) { /////////SE A PROPRIEDADE 'privileges' EXISTIR DENTRO DESSE PARÂMETRO/object DE 'emp', vamos querer EXECUTAR ESSE CÓDIGO Aí....
+                    console.log('Privileges: ' + emp.privileges); 
+                }
+
+
+                if('startDate' in emp) { ///EXEMPLO DE 'TYPE GUARD' definido por meio da keyword de 'in'....
+                    console.log('StartDate: ' + emp.startDate);  
+                }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+
+
+    console.log('Name: ' + emp.name); //isto ('emp.name") existe nas 2 variações de 'emp'...
+
+        // if(typeof emp === 'object' ) ///TYPEGUARDS da variante 'typeof' NÃO FUNCIONARÃO AQUI, pq O TYPE DESSE ARGUMENTO 'emp' SEMPRE SERÁ DE 'object' (não há como colocar um valor de TYPEOf COMPLEXO, ou algo assim... só existem os tipos básicos de 'string', 'boolean', 'object', 'array'... )
+                ////quando você precisa definir um typeguard MAIS COMPLEXO, provavelmente de 'SE ESSA PROPRIEDADE EXISTIR DENTRO DESSE OBJETO', etc etc, VOCê _ DEVE _ UTILIZAR A KEYWORD DE 'in' PARA DEFINIR O TYPEGUARD....
+               
+                //tipo assim:
+
+
+                if ('privileges' in emp) { /////////SE A PROPRIEDADE 'privileges' EXISTIR DENTRO DESSE PARÂMETRO/object DE 'emp', vamos querer EXECUTAR ESSE CÓDIGO Aí....
+                    console.log('Privileges: ' + emp.privileges); 
+                }
+
+
+                if('startDate' in emp) { ///EXEMPLO DE 'TYPE GUARD' definido por meio da keyword de 'in'....
+                    console.log('StartDate: ' + emp.startDate);  
+                }
+
+
+}
+
+
+
+
+
+
+
+printEmployeeInformation({ ///vai printar ''          console.log('StartDate: ' + emp.startDate);   ''''
+ name: 'Arthur',
+    startDate: new Date()
+})
+
+
+
+
+
+printEmployeeInformation({ ///vai printar ''          console.log('Privileges: ' + emp.privileges);    ''''
+    name: 'Arthur2',
+        privileges: ['a', 'b']
+   })
+
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... E QUANDO TRABALHAMOS __ COM CLASSES__, 
+
+
+HÁ AINDA _ _OUTRO _ TIPO DE TYPE GUARD QUE PODEMOS DEFINIR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////HÁ AINDA OUTRA__ MANEIRA DE DEFINIR 'TYPE GUARDS', que é utilizada com __ CLASSES...
+
+
+
+/// É O APPROACH QUE USA O OPERADOR DE 'instanceof'...
+
+
+
+
+
+
+
+//// 3) INSTANCEOF....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> INSTANCEOF ->
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE TEMOS UMA CLASS NO NOSSO ARQUIVO,
+
+class de 
+
+
+'Car'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSA CLASS TERÁ UM METHOD De 'drive()",
+
+
+
+EM QUE 
+
+
+
+CONSOLE.LOGAREMOS 
+
+
+
+'Driving...'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AÍ TEMOS/TEREMOS OUTRA CLASS,
+
+
+de 
+
+
+'Truck',
+
+
+
+
+QUE __ TAMBÉM __ vAI TER UM METHOD DE 'drive',
+
+
+
+em que 
+
+
+
+dizemos 'Driving a truck'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> TEMOS O MESMO METHOD NAME,
+
+
+mas 
+
+um resultado diferente...
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------> OK.... MAS em 'Truck'
+
+
+TAMBÉM 
+
+
+TEREMOS UM METHOD DE 
+
+
+
+'loadCargo', específico a essa class...
+
+
+
+
+
+
+
+
+
+
+--> ESSE METHOD TERÁ UM PARÂMETRO DE 'amount',
+
+
+
+de type 'number',
+
+e aí 
+
+
+
+
+
+UM DUMMY CODE QUE CONSOLE.logga 
+
+
+'loading cargo... + amount'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+
+
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+
+----------------
+
+
+
+
+
+
+
+
+
+OK, AGORA TEMOS 2 CLASSES,
+
+
+CLASSES QUE 
+
+POSSUEM CERTA SIMILARIDADE,
+
+
+
+
+MAS QUE 
+
+TAMBÉM POSSUEM 1 DIFERENÇA...
+
+
+
+
+
+
+
+
+
+NOVAMENTE,
+
+
+PODEOMS CRIAR/DEFINIR UM UNION TYPE aqui,
+
+
+de nome 'Vehicle',
+
+
+
+QUE 
+
+SERÁ 
+
+
+
+
+OU UM CAR, OU UM TRUCK..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... 
+
+
+
+
+
+
+
+AGORA DIGAMOS QUE CRIAMOS UM NOVO VEHICLE,
+
+de nome 
+
+'v1',
+
+
+
+que 
+
+
+
+
+SERÁ 
+
+
+
+um NOVO CARRO... 
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car(); 
+
+
+const v2 = new Truck();
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AÍ VAMOS TER UMA FUNÇÃO DE NOME 'useVehicle',
+
+QUE 
+
+SERÁ 
+
+UMA FUNCTION QUE 
+
+
+
+VAI SIMPLESMNETE 
+
+
+
+ESPERAR 
+
+
+
+UM PARÂMETRO 'vehicle' 
+
+
+
+,
+
+QUE 
+
+TERÁ AQUELE UNION TYPE DE 'Vehicle' como seu type..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car(); 
+
+
+const v2 = new Truck();
+
+
+
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... AGORA DIGAMOS QUE VAMOS QUERER FAZER, NESSA FUNÇÃO, TUDO AQUILO QUE QUEREMOS FAZER COM OS VEHICLES...
+
+
+
+
+
+
+(
+
+    que é 
+
+    'drive()'
+
+    e 
+
+
+    'loadCargo'....
+)
+
+
+
+
+
+
+
+
+
+
+
+----> QUANTO AO 'drive()',
+
+
+podemos o chamar em 'vehicle' (esse parâmetro),
+
+
+JUSTAMENTE PQ ELE SEMPRE EXISTIRÁ....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE TENTAMOS CHAMAR 
+
+
+
+'vehicle.loadCargo()'
+,
+
+
+
+FICAMOS COM UM PROBLEMA (
+
+
+    pq ele só existe em 'Truck'...
+)
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... --> É CLARO QUE PODEMOS, NOVAMENTE,
+
+
+
+
+escrever um 
+
+IF CHECK 
+
+
+da propriedade de 
+
+'loadCargo' 
+
+DENTRO DESSA ESTRUTURA DE 'vehicle'....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+
+
+
+             if ('loadCargo' in vehicle) {
+
+                 vehicle.loadCargo(1000);
+
+             }
+}
+
+
+
+
+
+
+
+
+
+
+OK......... ----> EU PENSEI QUE ISSO IA 
+
+DAR PROBLEMA,
+
+
+
+MAS __ FUNCIONA_ SEM PROBLEMAS... (vamos subdividir o call dessa função, de novo, mas dessa vez com o uso de CLASSES)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car(); 
+
+
+
+
+
+
+const v2 = new Truck();
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+
+
+
+    
+    if ('loadCargo' in vehicle) { ///ISSO __ FUNCIONA, POR ALGUMA RAZÃO ( o check de METHODS em vez de propriedades, dentro de seus OBJECTS PASSADOS A SUAS FUNCTIONS, também funciona).... --> esse tipo de type guard FUNCIONA..
+
+        vehicle.loadCargo(1000);
+
+    }
+
+}
+
+
+
+
+
+useVehicle(v1);
+
+
+useVehicle(v2); //isso funciona....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> podemos COMPILAR TUDO ISSO,
+
+
+
+
+
+
+E TUDO ISSO FUNCIONARÁ...
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA MANEIRA VÁLIDA DE ESCREVER TUDO ISSO...
+
+
+
+
+
+
+
+
+
+--> MAS UMA MANEIRA ALTERNATIVA, 
+
+
+
+
+
+
+__MANEIRA MAIS ELEGANTE (
+
+    pq 
+
+    ela evita repetição 
+)
+
+
+
+
+
+
+
+__ É ___ ESCREVER/usar 
+
+o 
+
+OPERATOR DE 
+
+
+'instanceof'...
+
+
+
+
+
+
+
+
+
+
+-------> PARA ISSO,
+
+
+
+
+TEMOS QUE FORMATAR O IF CHECK ASSIm:
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (vehicle instanceof Truck)  {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA,
+
+
+
+SE __ O ___ parâmetro 'vehicle' FOR REALMENTE UMA INSTANCE de 
+
+'Truck' (truthy),
+
+
+
+
+
+_ _VAMOS QUERER__ EXECUTAR__ NOSSO METHOD DE 'loadCargo',
+
+
+PQ SABEMOS que __ ESSE METHOD EXISTIRÁ/EXISTE DENTRO DESSE 
+
+
+OBJECT instanciado a partir daquela class..
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+class Car {
+    drive() {
+        console.log('Driving...')
+    }
+}
+
+
+
+class Truck {
+    drive() {
+        console.log('Driving a truck...')
+    }
+    loadCargo(amount: number) {
+
+
+        console.log('Loading cargo ...' + amount);
+    }
+}
+
+
+
+
+
+
+type Vehicle = Car | Truck;
+
+
+
+
+
+
+
+const v1 = new Car(); 
+
+
+
+
+
+
+const v2 = new Truck();
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+
+
+
+    
+    if(vehicle instanceof Truck) {
+
+        vehicle.loadCargo(1000);
+
+    }
+
+}
+
+
+
+
+
+useVehicle(v1);
+
+
+useVehicle(v2); //isso funciona....
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function useVehicle(vehicle: Vehicle) { ///usamos nosso 'Vehicle' como TYPE disso, union type...
+
+
+    vehicle.drive(); ///essa propriedade sempre existirá, nesse exemplo, em ambos tipos de object, por isso podemos só chamar simples assim.. (sem if checks)...
+
+
+
+
+    
+    if (vehicle instanceof Truck) { ///ISSO __ FUNCIONA, E É BEM MAIS ELEGANTE (checa se esse negócio, nosso parâmetro, realmente é uma INSTANCIA DAQUELA CLASS, e retorna truthy/falsy)...
+        vehicle.loadCargo(1000);
+    }
+
+}
+
+
+
+
+
+useVehicle(v1);
+
+
+useVehicle(v2); //isso funciona....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'instanceof'
+
+
+
+
+
+
+NÃO É UM OPERADOR 'TYPESCRIPT,'
+
+
+
+e sim
+
+
+É UM OPERADOR JAVASCRIPT COMUM (exatamente como '+' ou 'typeof'...)
+
+
+
+
+
+
+
+
+
+------> E O 'instanceof' 
+
+É 
+
+UM OPERATOR__ QUE É EXECUTADO _ DURANTE O RUNTIME... --> o javascript 
+
+
+
+NÃO CONHECE 
+
+
+
+
+
+NATIVAMENTE O type de 'Truck',
+
+
+
+MAS ___ ELE _ CONHECE,
+
+SIM,
+
+
+
+
+CONSTRUCTOR FUNCTIONS,
+
+
+
+
+E CLASSES 
+
+
+
+SÃO 
+
+
+
+TRADUZIDAS PARA CONSTRUCTOR FUNCTIONS....
+
+
+
+
+
+
+
+-------> ISSO, EM OUTRAS PALAVRAS,
+
+QUER DIZER QUE O TYPESCRIPT É 
+
+
+
+
+
+CAPAZ __ DE DESCOBRIR se o parâmetro 'vehicle' 
+
+passado a 
+
+essa function 
+
+
+
+__ FOI __ CRIADO__ COM BASE NA CONSTRUCTOR FUNCTION DE 
+
+'Truck'....
+
+
+
+
+
+
+
+
+
+
+-------> E COMO CLASSES SÃO 
+
+
+COMPILADAS PARA ALGO QUE O JAVASCRIPT ENTENDE (constructor functions),
+
+
+
+
+O TYPESCRIPT É CAPAZ DE USAR ISSO....
+
+
+
+
+
+
+
+
+
+
+------> E SE NÓS TIVÉSSEMOS UMA 'interface'
+
+
+
+
+
+NO LUGAR DE 
+
+
+
+UMA 
+
+
+
+CLASS 
+
+
+
+
+
+
+,
+
+
+
+NÃO SERÍAMOS CAPAZES DE 
+
+
+
+USAr 'instanceof',
+
+
+
+PQ 
+
+
+
+
+
+
+__ INTERFACES_ SÃO ALGO_ _ QUE NÃO É COMPILADO PARA _ 
+
+
+
+
+
+CÓDIGO JAVASCRIPT (é uma feature só do typescript)... ----->  
+
+
+
+
+
+
+
+
+
+NÓS __ SÓ PODEMOS USAR 'instanceof',
+
+PORTANTO,
+
+
+COM __ CLASSES__ 
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSES SÃO OS TYPE GUARDS.... ------> NO FINAL DAS CONTAS,
+
+
+
+TYPEGUARDS 
+
+É 
+
+APENAS 
+
+UM TERMO QUE 
+
+
+DESCREVE 
+
+A 
+
+IDEIA/APPROACH 
+
+DE 
+
+
+
+
+__''CHECK IF A CERTAIN PROPERTY/METHOD EXISTS, BEFORE USING IT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... RESUMO:
+
+
+
+
+
+
+
+
+
+1) COM OBJECTS, PODEMOS CRIAR TYPE GUARDS COM 'typeof' ou com 'in', com if checks....
+
+
+
+
+
+
+
+
+
+
+
+2) COM classes, PODEMOS CRIAR TYPE GUARDS COM 'in' ou com 'instanceof'....
+
+
+
+
+
+
+
+3) com interfaces, não podemos usar 'instanceof'...
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA TEMOS TUDO DE QUE PRECISAMOS PARA 
+
+
+
+'''USAR A FLEXIBILIDADE QUE OS UNION TYPES NOS DÁ'''',
+
+
+
+
+e ainda assim CONTINUAR ESCREVENDO CÓDIGO QUE 
+
+FAZ COISA A OU COISA B,
+
+
+DEPENDENDO DO 'EXACT TYPE' que você está recebendo/estará recebendo, durante o runtime...

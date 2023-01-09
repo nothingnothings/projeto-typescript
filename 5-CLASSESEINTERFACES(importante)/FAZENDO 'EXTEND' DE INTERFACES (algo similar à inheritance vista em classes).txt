@@ -1,0 +1,835 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NOSSO CÓDIGO DE INTERFACES HAVIA FICADO ASSIM:
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase + ' ' + this.name);
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION.... (essa propriedade NÃO EXISTE NAQUELA INTERFACE)...
+
+
+
+
+
+
+
+
+interface Greetable { ///exemplo de interfaces mais complexo do que o anterior....
+
+    name: string;
+    readonly name2: string; ///o define de propriedades 'readonly' é possível, mas 'PUBLIC/PRIVATE ' _NÃO É....
+    greet(phrase: string): void;
+
+}
+
+
+
+
+
+class Lawyer implements Greetable { ////É ASSIM QUE AS CLASSES FAZEM 'CONTRATOS' com interfaces... (aderem a essas interfaces, devem seguir suas condições/termos)...  --> aqui, no caso, teremos de escrever uma propriedade de 'name', e um method de 'greet()'....
+////OBS::: VOCê PODE IMPLEMENTAR__ MAIS DE 1 INTERFACE__ EM 1 MESMA CLASS.... (algo que não acontece com INHERITANCE, com extends)...
+
+
+            static age = 30; ////isso não foi definido na INTERFACE, mas podemos escrever mesmo assim.... (só temos que satisfazer o 'BARE MININUM' das condições da interface)...
+
+            name2: string;
+
+
+        greet(phrase: string) { ///satisfeita a condição de 'greet()' de nossa interface...
+                console.log(phrase);
+        }
+
+
+
+        constructor(public name: string) { ///satisfeita a condição de 'name' de nossa interface... (por meio desse shorthand)...
+                this.name2 = name;
+        }
+
+
+
+
+}
+
+
+
+let newLawyer: Greetable;
+
+
+newLawyer = new Lawyer('excelsior');
+
+
+
+newLawyer.name2 = 'valordiferente';
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA O PROFESSOR VAI NOS EXPLICAR OUTRO CONCEITO,
+
+
+
+A 
+
+
+'INHERITANCE'
+
+
+
+
+
+NAS INTERFACES (em vez de nas CLASSES)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA ISSO,
+
+
+ELE CRIA UMA 
+
+
+
+NOVA INTERFACE,
+
+
+
+
+de nome 
+
+
+'Named'... ------> 
+
+
+
+
+
+
+NOS EXPLICA, ENTÃO, 
+
+
+QUE 
+
+
+ESSA 
+
+
+É 
+
+
+
+A INTERFACE _ QUE __ VAI GARANTIR__ QUE 
+
+
+NÓS TEREMOS 
+
+AQUELA
+
+
+PROPRIEDADE 
+
+
+de 
+
+
+
+'name',
+
+
+
+
+
+
+
+
+
+
+aquela propriedade 'readonly' DE NAME...
+
+
+
+(ou seja, vamos TIRAR essa propriedade lá de 'Greetable' e COLOCAR NESSA NOVA INTERFACE.... pq depois vamos fazer com que essa interface LEGUE essa propriedade ao 'Greetable'....)
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface Named {
+
+
+    readonly name: string;
+}
+
+
+
+
+
+
+
+interface Greetable {
+
+
+
+        greet(phrase: string): void;
+
+}
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... ----> PARA FAZER ISSO,
+
+
+
+PROFESSOR EXPLICA QUE 
+
+
+
+EM 
+
+
+
+'Person' poderíamos, inicialmente,
+
+
+
+
+
+
+usar a keyword de 'implements'
+
+
+PARA 
+
+
+IMPLEMENTAR __ TANTO 
+
+
+'Greetable'
+
+
+
+
+como 
+
+
+'Named'...
+
+
+(
+
+    aí teremos o enforce DE 2 __ INTERFACES_ NESSA NOSSA CLASS DE PERSON,
+
+    TANTO 
+
+    A INTERFACE De 'Named'
+
+
+    como a interface de 
+
+    'Greetable'....
+)
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+interface Named {
+
+
+    readonly name: string;
+}
+
+
+
+
+
+
+
+interface Greetable {
+
+
+
+        greet(phrase: string): void;
+
+}
+
+
+
+
+
+
+
+
+
+
+class Person implements Greetable, Named { //////EIS O ´CODIGO EM QUESTÃO....
+
+
+    name: string;
+    age = 30;
+
+
+    constructor(nmae: string) {
+        this.name = name;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ESSA É CERTAMENTE UMA OPÇÃO,
+PODERÍAMOS 
+
+ESCREVER NOSSO CÓDIGO DESSA FORMA..
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+ok.... poderíamos escrever assim, SIM....
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE SABEMOS QUE 'Greetable' 
+
+
+
+
+'OBJECTS'
+
+
+
+_SEMPRE___ PRECISAM TER 1 'name',
+
+
+
+PODERÍAMOS FAZER COM QUE 
+
+
+ESSA INTERFACE 
+
+DE 
+
+'Greetable'
+
+ACTUALLY FAÇA __ EXTEND__ DAS 
+
+
+PROPRIEDADES/METHODS existentes 
+
+
+
+na interface 
+
+de 
+
+'Named'...
+
+
+
+
+
+
+
+(ISSO PARA QUE, JUNTOS, FORMEM UMA NOVA INTERFACE, QUE 
+
+
+ENFORÇARÁ todos os objects/classes criados com contrato de 'Greetable' 
+
+A TEREM 
+
+
+
+O METHOD DE 'greet()' E TAMBÉM A PROPRIEDADE de 'name'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA FAZER ISSO,
+
+
+
+REALMENTE PODEMOS ADICIONAR 'extends' NA NOSSA INTERFACE DE 'Greetable',
+
+PARA 
+
+
+
+
+FAZER COM QUE OS FIELDS DOS METHODS E PROPRIEDADES (types) DA 
+
+
+INTERFACE DE 'Named'
+
+
+SEJAM LEGADOS...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+interface Named {
+    readonly name: string;
+  }
+
+
+
+
+
+  
+interface Greetable2 extends Named { //////SINTAXE __IDÊNTICA à usada em CLASSES, para legar coisas de uma class 'base' às classes 'HERDEIRAS' (inheriting)....
+    greet(phrase: string): void;
+  }
+  
+
+
+
+
+
+
+
+
+  
+class Lawyer2 implements Greetable2 { //o implement dessas 2 interfaces vai:  1) OBRIGAR ESSA CLASS A TER A PROPRIEDADE DE 'name';  2) OBRIGAR ESSA CLASS A TER A PROPRIEDADE de greet (obrigada por Greetable)....
+    
+    static age = 30; 
+
+    name2: string;
+
+
+greet(phrase: string) { 
+        console.log(phrase);
+}
+
+
+
+constructor(public name: string) {
+        this.name2 = name;
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO FORMA UMA NOVA INTERFACE,
+
+
+
+
+
+QUE VAI FORÇAR 
+
+A 
+
+TER OS 
+
+
+METHODS E PROPREIDADES 
+
+ SUAS __ E AS DE SUA 'INHERITED INTERFACE'....
+
+
+
+
+
+
+
+
+
+
+ OK, E ISSO FUNCIONA.... 
+
+
+
+
+
+
+
+
+
+
+
+ ------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ OK.... MAS ENTÃO, QUAL É A UTILIDADE DE USAR ISSO EM VEZ DE 
+
+
+
+
+ 'múltiplos implements'? 
+
+
+
+
+
+
+
+
+
+ -> É PQ COM 
+
+ ESSA SINTAXE DO 'extends'
+
+
+ VOCÊ PODE SPLITTAR SEU CÓDIGO/ENFORCES _ DE FORMA MAIS EFICIENTE (algumas classes podem tvz serem melhores se obrigadas a ter TANTO 'greet()' como 'name', ao passo que outras serão melhores/mais adequadas com só 'name', ou vice-versa..)
+
+
+
+
+
+
+
+
+
+
+
+
+ ------------------------
+
+
+
+
+
+
+
+
+ ok.... --> O EXTEND DE INTERFACES É POSSÍVEL, PORTANTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E  A SINTAXE DE 'extends' com 
+
+
+
+ O TYPESCRIPT E AS INTERFACES VAI ALÉM do que a de 'classes',
+
+ PQ 
+
+ É __POSSÍVEL_ FAZER 
+
+ O 
+
+ EXTEND 
+
+
+ de MÚLTIPLAS INTERFACES 
+
+
+
+ em 
+
+
+ 1 
+
+ mesma interface...
+
+
+
+
+
+(VOCÊ AS SEPARA COM VÍRGULAS, essencialmente)...
+
+
+ TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+ 
+interface Named {
+    readonly name: string;
+  }
+
+
+
+
+
+  
+interface Greetable2 extends Named, AnotherInterface { ///AQUI QUE ESCREVEMOS O CÓDIGO....
+    greet(phrase: string): void;
+  }
+  
+
+
+
+
+
+  
+class Lawyer2 implements Greetable2 { 
+    
+    static age = 30; 
+
+    name2: string;
+
+
+greet(phrase: string) { 
+        console.log(phrase);
+}
+
+
+
+constructor(public name: string) {
+        this.name2 = name;
+}
+
+
+
+
+}
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+OK...... PARA INTERFACES, VOCê PODE FAZER 'extend'
+
+
+de múltiplas interfaces... -----> ISSO PQ 
+
+
+
+
+ELAS TODAS SÃO SIMPLESMENTE 'MERGED TOGETHER' --> e nessa feature 
+
+TYPESCRIPT PURA,
+
+PODEMOS 
+
+
+
+
+REALMETNE 'BREAK THE RULEs' definidas para classes javascript, e então 
+
+settar 
+
+MÚLTIPLOS EXTEND para suas interfaces..;

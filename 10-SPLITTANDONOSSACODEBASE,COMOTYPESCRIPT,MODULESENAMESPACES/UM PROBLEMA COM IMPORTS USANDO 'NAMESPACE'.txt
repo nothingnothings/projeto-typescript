@@ -1,0 +1,642 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK... MAS UMA NOTE IMPORTANTE:
+
+
+
+
+
+
+VOCê DEVE ESTAR SE PERGUNTANDO:
+
+
+
+'''pq diabos autobind funciona lá em 'project-list.ts',
+
+
+
+mesmo
+
+
+QUE NÃO TENHA OCORRIDO 1 IMPORT DE 'autobind',
+
+esse decorator,
+
+
+
+nesse arquivo aí''.... 
+
+
+
+
+
+
+
+
+
+(
+
+    não escrevemos '///<reference path="../decorators/autobind" />
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUAL É A RAZOA DISSO
+
+
+
+
+
+
+
+
+
+
+
+--> É PQ LÁ EM 'app.ts'
+
+
+
+
+TEMOS TODOS AQUELES IMPORTS DE 
+
+
+
+
+''
+
+
+
+
+///<reference path="./decorators/autobind.ts"/> 
+///<reference path="./models/enums&ProjectClass.ts"/>
+///<reference path="./state/project-state.ts" />
+///<reference path="./util/validation.ts" />
+
+///<reference path="./components/project-item.ts" />
+///<reference path="./components/project-list.ts" />
+///<reference path="./components/project-input.ts" />
+
+
+
+
+
+'''
+
+
+
+
+
+
+
+--> E, NA VERDADE,
+
+
+
+
+SE O PROFESSOR REMOVER 
+
+
+
+UM MONTE DESSAS LINHAS, DEIXANDO APENAS 
+
+'project-input' 
+
+' 
+
+project-list',
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+///<reference path="./components/project-list.ts" />
+///<reference path="./components/project-input.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> SE ELE DEIXAR SÓ ISSO,
+
+
+
+
+__ O CÓDIGO NÃO ESTARÁ INCORRETO, TECNICAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CÓDIGO 'simples' correto:
+
+
+
+
+///<reference path="./components/project-list.ts" />
+///<reference path="./components/project-input.ts" />
+
+
+
+
+
+
+namespace App {
+    new ProjectInput();
+    new ProjectList('active');
+    new ProjectList('finished');
+}
+
+
+
+
+
+
+
+
+
+---> ENTRETANTO, SE RECARREGARMOS NOSSO CÓDIGO,
+
+
+NOSSO APP,
+
+
+
+VEREMOS 1 PROBLEMA NO OUTPUT DO CONSOLE....
+
+
+
+
+
+
+
+ERROR:
+
+'Cannot read property 'addListener' of undefined' ----> 
+
+
+VAMOOS RECEBER UM ERROR NO RUNTIME,
+
+
+
+AINDA QUE 
+
+
+
+
+NÃO TENHAMOS NENHUM ERROR DE 'COMPILATION', de typescript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE _______PRECISAMOS__ IMPORTAR TODAS AS COISAS QUE 
+
+
+USAMOS EM 1 FILE __ PARA_ DENTRO DE 1 FILE,
+
+
+para 'just to be safe'... 
+
+
+
+
+
+
+
+
+
+
+--> TECNICAMENTE,
+
+
+
+PODEMOS IMPORTAR __ TUDO__ EM 'app.ts',
+
+
+
+
+até mesmo o decorator de 'autobind',
+
+PQ 
+
+
+ELE 
+
+VAI FICAR DISPONÍVEL EM 'project-input' 
+
+
+
+e 
+'project-list'
+
+quando MAIS TARDE ELES PRECISAREM DE SEU USO...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+///<reference path="./decorators/autobind.ts"/> 
+///<reference path="./models/enums&ProjectClass.ts"/>
+///<reference path="./state/project-state.ts" />
+///<reference path="./util/validation.ts" />
+
+///<reference path="./components/project-item.ts" />
+///<reference path="./components/project-list.ts" />
+///<reference path="./components/project-input.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, ESSE ___ NÃO É O APPROACH__ MAIS CLEAN POSSÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê IMPORTAR, EM VEZ DISSO,
+
+
+TUDO QUE __ 
+
+1 ARQUIVO PRECISA, DE DENTRO DESSE ARQUIVO,
+
+
+
+VOCê TEM/TERÁ A __gARANTIA__ DE QUE __ ESSE 
+
+ARQUIVO FICARÁ DISPONÍVEL QUANDO SEU CÓDIGO PRECISAR DELE...
+
+(
+
+
+
+E AÍ VOCê NÃO TEM QUE DEPENDER DE 'UM GLOBAL FILE QUE IMPORTA TUDo' ,
+
+
+
+
+hipótese em que vocÊ pode subitamente __ REMOVER ALGUM IMPORT,
+
+
+E AÍ QUEBRAR TODO SEU CÓDIGo...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--.OK, ENTAÕ QUAL É A SOLUÇÃO 
+
+NO NOSSO SETUP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, A PRIMEIRA COISA QUE TEMOS QUE FAZER É IR 
+
+EM CADA ARQUIVO de nosso projeto, arquivo ts,
+
+
+
+E AÍ VERIFICAR O QUE CADA ARQUIVO QUER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX( projectInput):
+
+
+
+
+
+
+
+
+
+
+
+----> ELE PRECISA MAIS DO QUE O COMPONENT 'base' de 'Component',
+
+PQ 
+
+
+ELE 
+
+__tAMBÉM ___ PRECISA __ 
+
+DO CÓDIGO DE 'validation',
+
+
+E TAMBÉM 
+
+
+DO 
+
+
+'Autobind'....
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR ADICIONA MAIS IMPORTS A ESSE ARQUIVO, tipo assim:
+
+
+
+
+--> ELE TAMBÉM VAI PRECISAR DO 'STATE' class de nosso projeto,
+
+
+
+por isso ele escreve:
+
+
+///<reference path="./base-component.ts" />
+///<reference path="../decorators/autobind.ts" />
+///<reference path="../util/validation.ts"/>
+///<reference path="../state/project-state.ts"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK.. AÍ ELE AGARRA ESSES IMPORTS 
+
+
+
+E VAI ATÉ O 
+
+'project-item',
+
+em que 
+
+VAI PRECISAR 
+
+DO DECORATOR DE AUTOBIND, também...
+
+
+
+
+
+
+
+
+
+
+
+
+-> NO PROJECTITEM, ele também vai precisar das interface
+
+'Draggable',
+
+POR ISSO ELE ESCREVE:
+
+
+
+
+
+
+
+///<reference path="../models/enums&ProjectClass.ts"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+///<reference path="./base-component.ts" />
+///<reference path="../decorators/autobind.ts"/>
+///<reference path="../models/enums&ProjectClass.ts"/>
+///<reference path="../components/project-list.ts"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... ISSO QUER DIZER QUE TEMOS QUE IMPORTAR UM MONTE DE COISAs 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok... isso significa que faezr o manage de namespace imports é um INFERNO,
+
+
+
+
+temos que importar e exportar 200 vezes, em diversos arquivos diferentes, e fica bem CONFUSO.
+
+
+
+
+
+
+
+
+
+
+-->>>> CADA ARQUIVO 'ESPECIFICA O QUE PRECISA''....
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICAMOS COM 1 SÓ ARQUIVO,
+
+
+
+
+e o resto fica splittado durante o development,
+
+mas é claro que isso é CUMBERSOME,  e não é o MELHOR JEITO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IMPORTANTE: A PRÓXIMA FEATURE, ES MODULES,
+
+É PERMITIDA APENAS EM BROWSERS MODERNOS...

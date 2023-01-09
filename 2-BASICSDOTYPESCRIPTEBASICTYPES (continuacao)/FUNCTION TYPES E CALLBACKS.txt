@@ -1,0 +1,731 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> FALANDO DE 'CALLBACKS'
+ 
+ EM FUNCTION TYPES,
+
+
+
+
+ PROFESSOR ESCLARECE QUE ELES FUNCIONAM BASICAMENTE DA MESMA MANEIRA 
+
+
+ com o typescript...
+
+
+
+
+
+
+
+
+ ------> PROFESSOR ADICIONA UMA NOVA FUNCTION,
+
+
+ de 
+
+ nome 
+
+
+
+
+ 'addAndHandle ''' -----------> DENTRO DESSA FUNCTIOn 
+
+
+
+
+ PROFESSOR COLOCA 3 ARGUMENTOS, 
+
+
+
+
+ n1' (number) 
+
+ 'n2' number 
+
+
+ e 
+
+ UM CALLBACK...
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+function addAndHandle (n1: 'number', n2: 'number', cb )
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CALLBACK = FUNCTION QUE É PASSADA COMO PARÂMETRO,
+
+E QUE 
+
+DEVE FAZER ALGO COM O RESULTADO DESSA PRÓPRIA FUNCTION....
+
+
+
+
+(e isso será o 'cb')...
+
+
+
+
+
+----> certo... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR ESCREVe o que essa function deve fazer, que é 
+somar 
+
+n1 com n2 
+
+e depois CHAMAR AQUELA 'FUNÇÃO-CALLBACK'
+
+
+
+com o result disso aí...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+function addAndHandle (n1: 'number', n2: 'number', cb ) {
+
+
+    const result = n1 + n2;
+    cb(result);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> É CLARO QUE PARA QUE POSSAMOS USAR ESSE CALLBACK AÍ COM O TYPESCRIPT,
+
+
+PRECISAMOS __ SER BEM __ CLAROS;
+
+
+PRECISAMOS DIZER AO TYPESCRIPT 
+
+QUE 
+
+'cb' (callback)
+
+DEVERÁ 
+
+
+SER UMA FUNÇAÕ (por meio do type definition de FUNCTION),
+
+
+
+
+
+VAI SER UMA FUNÇAÕ QUE ''NÃO VAI RETORNAR ARGUMENTO ALGUM (return type), MAS QUE 
+
+VAI 
+
+
+__ACCEPT A NUMBER AS PARAMETER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO FICA, NA REPRESENTAÇAÕ DO TYPESCRIPT,
+
+ASSIM:
+
+
+
+
+
+
+function addAndHandle (n1: number, n2: number, cb: (num: number) => void ) {
+
+
+    const result = n1 + n2;
+    cb(result);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... O TYPESCRIPT NÃO APITOU (sinal de que isso está correto)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> por fim, lá embaixo podemos 
+
+escrever 
+
+
+
+
+
+
+O CALL DESSA FUNÇÃO...
+
+
+
+
+
+
+
+
+--. O CALL DESSA FUNÇÃO VAI SER ASSIM:
+
+
+
+
+
+addAndHandle(10, 20, () => {})
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE TERCEIRO VALOR VAI SER UMA ANONYMOUS FUNCTION... --> 
+
+
+NESSA SABEMOS  QUE VAMOS RECEBER UM
+
+
+'result',
+
+
+por isso escrevemos assim:
+
+
+
+
+
+addAndHandle(10, 20, (result) => {console.log(result)})
+
+
+
+
+
+
+
+
+
+
+-> ISSO VAI OUTPUTTAR '30', é claro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+function addAndHandle (n1: number, n2: number, cb: (num: number) => void ) {
+
+
+    const result = n1 + n2;
+    cb(result);
+}
+
+
+
+
+
+addAndHandle(10, 20, (result) => {console.log(result)})
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS QUAL É A VANTAGEM DE DEFINIR O TYPE DO PARÂMETRO LÁ NA NOSSA CALLBACK FUNCTION, em 'addAndHandle'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A VANTAGEM É QUE 
+
+
+JÁ VAMOS ter a 'inference'
+
+
+
+do PARÂMETRO DESSA CALLBACK FUNCTION NOS OUTROS LUGARES EM QUE VAMOS A CHAMAR/passar função anonima a ela,
+
+
+
+aí o 
+
+
+typescript já vai saber que 
+
+
+
+O 'result' vai ser um NUMBER, pq deixamos bem claro que o CALLBACK VAI GANHAR APENAS 1 VALUE, QUE 
+SERÁ 
+
+1 NUMBER....(
+
+
+    e se tentarmos passar uma callback function com mais de 1 argumento no call 
+
+    de 
+
+
+
+    'addAndHandle',
+
+
+
+    O TYPESCRIPT _ VAI __ APITAR, vai reclamar, pq estará incorreto...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AQUI TEMOS UMA IMPROPRIEDADE:
+
+
+
+
+
+
+
+---> DEIXAMOS BEM CLARO QUE QUE ESSA 
+
+CALLBACK FUNCTION __ DEVERÁ RETORNAR 'void' --> 
+
+
+
+ENTRETANTO,
+
+MESMO 
+
+QUE NÓS TENHAMOS DEFINIDO ISSO,
+
+
+
+
+
+
+AINDA SERÃO VÁLIDOS CÓDIGOS/CALLS COMO ESTE:
+
+
+
+
+
+
+
+
+
+
+function addAndHandle (n1: number, n2: number, cb: (num: number) => void ) {
+
+
+    const result = n1 + n2;
+    cb(result);
+}
+
+
+
+
+
+addAndHandle(10, 20, (result) => {console.log(result); 
+                                    return 'valor'; ////ESSE CÓDIGO ESTARÁ CORRETo...
+
+})
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO AÍ, esse return de 'string'
+
+
+ali embaixo,
+
+
+NÃO _ É PROPRIAMENTE UM ERRO/BUG NO TYPESCRIPT, e sim 
+
+
+
+
+
+
+
+
+
+__ 'HAPPENS ON PURPOSE'...
+
+
+
+
+
+
+
+
+
+
+--> QUANDO ESPECIFICAMOS '''VOID'''
+
+
+
+NO TYPE DO CALLBACK, na nossa function,
+
+
+ESTAMOS ESSENCIALMENTE 
+
+
+DIZENDO QUE 
+
+
+'VAMOS IGNORE QUALQUER RESULT 
+
+
+QUE VOCê EVENTUALMENTE RETORNE NESSE CALLBACK'' -----> ISSO SIGNIFICA QUE 
+
+
+
+
+
+
+__ EM ADDANDHANDLE, __ EM QUE VAMOS EVENTUALMENTE RECEBER ESSA CALLBACK FUNCTION,
+
+
+
+__ não vamos FAZER COISA ALGUMA COM O 'RETURN TYPE' (void)... --> E É EXATAMENTE 
+
+
+POR ISSO 
+
+
+
+
+QUE VOCÊ PODE CONSOLE.LOGGAR _ E RETORNAR_ UM VALOR,
+
+
+NESSE CALL DE 
+
+
+
+
+''
+
+
+
+
+addAndHandle(10, 20, (result) => {console.log(result); 
+                                    return 'valor'; ////ESSE CÓDIGO ESTARÁ CORRETo...
+
+})
+
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+------> VOCÊ VAI PODER RETORNAR ISSO 
+
+
+SEM TER UMA 'PUNIÇÃO',
+
+
+
+MAS VOCê SABERÁ COM CERTEZA, DEVIDO AO SET DO 'CALLBACK TYPE',
+
+QUE 
+
+
+
+
+O __CALLBACK_ NÃO VAI FAZER COISA ALGUMA 
+
+
+__ COM O VALUE QUE VOCê RETORNARÁ DENTRO DELE... ((
+
+
+ISSO SIGNIFICA QUE O CONTEXTO DE 'addAndHandle'
+
+NÃO VAI FAZER COISA ALGUMA COM ESSE VALOR QUE VOCê RETORNARÁ nessa 
+
+callback function... (cb)...
+
+))
+
+
+
+
+
+
+
+
+
+
+
+
+-------> E ESSA É UMA INFORMAÇÃO BEM ÚTIL,
+
+
+PQ 
+
+VOCê PODERIA ESPERAR QUE 
+
+
+O 
+
+PROFESSOR/VOCê ESCREVERIA ALGO ASSIM:
+
+
+
+
+
+function addAndHandle (n1: number, n2: number, cb: (num: number) => void ) {
+
+    const result = n1 + n2;
+   const value =  cb(result); ///armazenar o VALOR DO 'RETURN TYPE' desse negócio em uma constante...
+}
+
+
+
+
+
+
+--> VOCê PODERIA ESPERAR QUE 
+
+
+CONSEGUIRIA ARMAZENAR ALGUM VALOR DENTRO DE 'value',
+
+
+
+
+MAS 
+
+
+
+
+
+O VALOR DESSE NEGÓCIO REALMENTE FICARÁ COMO 'void'...
+
+
+
+ex:
+
+
+
+const value: void
+
+
+
+
+
+
+
+
+
+--------> o typescript, quando vocÊ define 'void',
+
+
+
+só 
+
+
+
+TE EXPLICA QUE QUALQUER COISA QUE VOCê RETORNE NESSE CALLBACK 
+
+NÃO SERÁ USADA...   
+
+
+
+
+
+
+
+
+
+----------> PARA OS PARAMETERS,
+
+O 
+
+
+TYPESCRIPT FAZ O CONTRÁRIO, ELE 
+
+
+
+
+
+FORÇA VOCê A PASSAR O NÚMERO CORRETO DE PARAMETERS... --> 
+
+
+
+o que interessa 
+
+é 
+
+o 
+
+pass correto dos parameters (sãO ENFORCED, NO QUE DIZ RESPEITO A CALLBACK FUNCTIONS  )
+
+
+
+
+
+
+
+
+-------> JÁ QUANTO AO RETURN TYPE, O TYPESCRIPT NÃO SE IMPORTA...

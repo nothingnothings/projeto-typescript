@@ -1,0 +1,882 @@
+
+
+
+
+
+
+
+
+OK... VOLTAMOS AO PROJETO GERAL DE ANTES, com 'app.ts',
+
+
+
+etc....
+
+
+
+
+
+
+
+
+
+
+
+
+-->> ok... agora queremos ver intersection types....  --> INTERSECTION TYPES NOS _ DEIXAM__ COMBINAR__ OUTROS  TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> digamos que temos um type normal,
+
+de 
+
+'Admin'....
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Admin = {}
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+O 'Admin' será 
+
+
+
+um OBJECT TYPE, E NÃO um object em si.... (ok, tudo certo)...
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> TERÁ UM FIELD DE 'name',
+
+
+que será umA string,
+
+
+ 
+
+
+
+E TAMBÉM 'privileges',
+
+que 
+
+será um STRING ARRAY..
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+certo....
+
+
+
+
+
+
+
+
+
+--> O _ PROFESSOR__ EXPLICA QUE _ É CLARO QUE PODERÍAMOS TER CRIADO ISSO COM UMA INTERFACE,
+
+
+
+MAS QUE COMO AQUI QUEREMOS VER A FEATURE DOS 'INTERSECTION TYPES',
+
+
+
+
+VAMOS USAR UM _ _TYPE __ ALIAS...
+
+
+
+
+
+
+
+
+--------> ISSO FEITO,
+ 
+
+ PROFESSOR CRIA OUTRO TYPE, de nome 'Employee'....
+
+
+
+
+
+
+
+
+
+
+--> ELA NÃO TERÁ 'privileges', e sim 
+
+
+
+uma 'startDate'... --> 
+
+
+
+
+
+
+
+
+
+
+--> E O 'Date' é um TYPE SUPORTADO PELO JAVASCRIPT/TYPESCRIPT, 
+BASEADO NO OBJETO 'Date' 
+
+fornecido pelo javascript...
+
+
+
+ tipo assim: 
+
+
+
+
+
+
+
+
+
+
+ type Employee = {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+
+
+
+
+
+ -------------------------
+
+
+
+
+
+
+
+
+
+
+
+ --> DEPOIS DISSO, TEMOS O TYPE DE 'ElevatedEmployee',
+
+
+ QUE SERÁ NOSSO INTERSECTION TYPE, __ SERÁ __ A COMBINAÇÃO DAQUELES 2 TYPES ANTERIORES...
+
+
+
+
+
+
+
+
+
+ ------>  É CLARO QUE 
+
+ PODERÍAMOS 
+
+
+ SIMPLESMNETE ESCREVER ASSIM,
+
+
+
+ ESCREVER ALGO ASSIM:
+
+
+
+
+
+ type ElevatedEmployee = {
+
+     name: string;
+     startDate: Date;
+        privileges: string[];
+ }
+
+
+
+
+
+
+
+
+(ISSO, REALMENTE, É UMA FUSÃO DOS 2 OUTROS TYPES, mas uma fusão MANUAL)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE JÁ TEMOS 2 TYPES ESCRITOS, TUDO CERTINHO,
+
+EM VEZ DE COPIAR E COLAR,
+
+
+PODEMOS 
+
+
+SIMPLESMENTE ESCREVER 
+
+
+
+
+
+'type ElevatedEmployee = Admin & Employee;' 
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+ type Employee = {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+
+ type ElevatedEmployee = Admin & Employee;
+
+
+
+
+
+
+
+
+ ----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+ type Employee = {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+
+type ElevatedEmployee = Admin & Employee;
+
+
+
+
+
+const newObject: ElevatedEmployee = {
+        name: 'object',
+        privileges: ['a', 'b'],
+        startDate: new Date()
+}
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO FUNCIONA EXATAMENTE ASSIM, NÃO HÁ MT MISTÉRIO NISSO....
+
+
+
+
+
+
+
+--> ESSA É UMA SIMPLES MANEIRA DE 
+
+COMBINAR 2 TYPES....
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ADMITE QUE __ INTERSECTION TYPES SÃO BEM PARECIDOS 
+
+COM 
+
+
+'INTERFACE INHERITANCE',
+
+
+pq 
+
+é 
+
+
+óbvio que 
+
+PODERÍAMOS TER OBTIDO O MESMO RESULTADO, AQUI, ESCREVENDO ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Admin {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+interface Employee {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+
+
+
+
+class newClass implements Admin, Employee {
+        name: 'object',
+        privileges: ['a', 'b'],
+        startDate: new Date()
+}
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+PODERÍAMOS ESCREVER ASSIM, SIM, ou então escrever ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+interface Admin {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+interface Employee {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+type ElevatedEmployee = Admin & Employee;
+
+
+
+
+
+const newObject: ElevatedEmployee {
+        name: 'object',
+        privileges: ['a', 'b'],
+        startDate: new Date()
+}
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, PODERÍAMOS USAR A SINTAXE DO 'extends'
+
+
+
+
+
+
+com as interfaces,
+
+
+PARA 
+
+FAZER COM QUE A INTERFACE DE 'Employee' e 'Admin' SEJAM HERDADAS PELA INTERFACE DE 'ElevatedEmployee'....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+interface Admin {
+    name: string;
+    privileges: string[];
+}
+
+
+
+
+
+
+
+interface Employee {
+     name: string;
+     startDate: Date;
+     
+ }
+
+
+
+
+ interface ElevatedEmployee extends Admin, Employee;
+
+
+
+
+const newObject: ElevatedEmployee {
+        name: 'object',
+        privileges: ['a', 'b'],
+        startDate: new Date()
+}
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+TODOS ESSES CÓDIGOS POSSUEM EFEITOS EQUIVALENTES (menos o approach nº1, que é com uma class)....
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO LEVA A TER UM POUCO MAIS DE CÓDIGO,
+
+
+
+
+
+
+
+
+POR ISSO QUE OS 'INTERSECTION TYPES'
+
+
+ÀS vezes são preferidos em detrimento dos outros... (mas ainda assim, você poderia usar INTERFACE para essas situações)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... MAS APESAR DE QUE __ INTERSECTION TYPES__ podem ser ESPECIALMENTE úteis quando usados 
+
+
+com object types,
+
+
+
+
+
+
+
+TEM-SE QUE 
+
+ELES 
+
+
+
+PODEM SER ÚTEIS QUANDO USADOS __ COM QUAISQUER TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+type Combinable = string | number; ////////ISSO É UM UNION TYPE....
+
+
+
+
+type Numeric = number | boolean ;
+
+
+
+
+
+
+type Universal = Combinable & Numeric; 
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+OK... ISSO SIGNIFICA QUE O OPERATOR DE 'INTERSECTION' pode ser 
+
+usado com QUAISQUER TYPES,
+
+
+
+
+
+E QUE 
+
+
+
+ELE ENTÃO SIMPLESMENTE FAZ A 'INTERSECTION' DESSES TYPES... ---> no caso de union types,
+
+
+
+
+ISSO É __ SÓ OS 
+
+
+
+TYPES QUE ELES TIVEREM EM COMUM.... (no caso do exemplo acima, será 
+
+SÓ 
+
+o 'number'...
+
+
+
+)
+
+
+
+
+
+
+
+
+
+-----> COM 'OBJECTS' é o oposto, pq 
+
+
+
+AS PROPERTIES DESSES OBJECTS __ SERÃO _ COMBINADAS__...
+
+
+
+
+
+
+
+
+
+
+--------> OK, ESSAS SÃO OS INTERSECTION TYPES... -> ELES PODEM SER ÚTEIS, àS VEZES... -_> você não os utilizará 
+
+
+
+
+toda hora,
+
+mas 
+
+Às vezes 
+
+são bons para escrever coisas de maneira mais simples...
+
+
+
+
+
+
+
+
+
+
+---> COMPILAMOS ESSE CÓDIGO AÍ, para ver o output js...

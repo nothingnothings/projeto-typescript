@@ -1,0 +1,204 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ACABAMOS COM ESTE MÓDULO...
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE O JAVASCRIPT MODERNO 
+
+
+
+
+TEM 
+
+
+
+OUTRAS FEATURES,
+
+
+COMO CLASSES...
+
+
+
+
+
+
+
+
+--> ESTEN ÃO É UM 
+
+CURSO 
+
+JAVASCRPIT..
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR QUERIA MENCIONAR ESSAS FEATURES PQ 
+
+
+É 
+
+
+
+BOM SABER QUE O 
+
+TYPESCRIPT 
+
+
+
+NOS AJUDA A USAR ESSAS FEATURES DE UMA MANEIRA QUE AINDA FUNCIONA COM BROWSERS MAIS ANTIGOS.. 
+
+(
+
+    pq 
+    isso 
+
+    é 
+
+    algo que 
+
+    você nunca deve se esquecer;
+
+    seu código acaba 'compiled'....
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ VERÁ QUE 
+
+
+
+TUDO 
+
+
+DE ANTES,
+
+
+'const e let',
+
+
+object destructuring,
+
+
+
+ACABARÃO 
+
+NOS SEUS ARQUIVOS 
+
+
+.js,
+
+
+PQ 
+
+TUDO  ISSO 
+
+é 
+
+
+
+PARTE DO ES6 (
+
+
+    se você colocar es5,
+
+
+    esse código vai mudar BASTNATE..
+)
+
+
+
+
+
+
+
+
+
+
+
+----> O GENERATED CODE VAI MUDAR BASTANTE, VAI FICAR BEM MAIS LONGO NO ES5,
+
+pq 
+
+o 
+
+
+typescript terá 
+
+
+de 
+encontrar WORKAROUNDS 
+
+para o código que 
+nós havíamos escrito (algumas features como o deestructuring terão sido removidas)....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+Next-gen-JS-Feature-Table
+https://kangax.github.io/compat-table/es6/
+
+Primitive-vs-Reference-Values
+https://academind.com/learn/javascript/reference-vs-primitive-values/

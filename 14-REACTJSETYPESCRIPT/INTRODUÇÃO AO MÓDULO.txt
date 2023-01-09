@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+
+
+
+AO LONGO DESTE CURSO, APRENDEMOS UM MONTE SOBRE TYPESCRIPT,
+
+
+
+
+E APRENDEMOS 
+
+
+
+
+
+
+SOBRE COMO USAR TYPESCRIPT COM LIBRARIES COMO O LODASH...
+
+
+
+
+
+
+
+
+
+
+--> OUTRA  LIBRARY QUE ÀS VEZES É USADA COM 
+
+
+
+O TYPESCRIPT É O __ RAECT__...
+
+
+
+
+
+
+
+
+--> NÃO É COMUM, MAS àS VEZES É USADo....
+
+
+
+
+
+
+
+
+
+--> ESTE NÃO É UM CURSO DE REACT,
+
+
+MAS É 
+
+
+UM MÓDULO PARA PESSOAS QUE 
+
+JÁ SABEM REACT,
+
+E QUE QUEREM USAR O TYPESCRIPT NO REACT...
+
+
+
+
+
+
+
+--> vamos ver tudo isso em prática...

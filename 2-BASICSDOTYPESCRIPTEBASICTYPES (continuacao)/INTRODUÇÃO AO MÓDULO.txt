@@ -1,0 +1,35 @@
+
+
+
+
+
+
+SINTAXE CORE E FEATURES DO TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS VER OS TYPES, QUAIS TYPES ELE OFERECE E SUPORTA,
+
+
+E COMO 
+
+
+TRABALHAR COM ELE.S..
+
+
+
+
+--> COMO ASSIGNAR TYPES, ETC...

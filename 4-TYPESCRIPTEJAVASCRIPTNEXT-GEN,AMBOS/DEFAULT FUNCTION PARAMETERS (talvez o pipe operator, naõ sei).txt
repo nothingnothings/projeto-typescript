@@ -1,0 +1,379 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> JÁ VIMOS AS ARROW FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+--> OUTRA FEATURE BOA DO 
+
+
+ 
+ JAVASCRIPT MODERNO É A DE 
+
+
+
+ ASSIGNAR 
+
+
+
+
+
+
+ DEFAULT 
+
+ ARGUMETNS A 
+
+
+ 'FUNCTION PARAMETERS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ok.... --> lá na function de add 
+
+ VAMOS QUERER 
+
+
+
+ TER UM 
+
+
+ 
+
+
+
+ 'DEFAULT VALUE '
+
+
+
+ para o 
+
+
+ 'b'... ----> É CHAMADO DE 'VALOR FALLBACK', também...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+ const add = (a: number, b: number) => a + b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS QUERER QUE QUANDO ESSA FUNCTION SEJA CHAMADA SEM O SEGUNDO PARÂMETRO,
+
+
+ seja 
+
+
+ USADO/ASSUMIDO UM DEFAULT PARA O SEGUNDO PARÂMETRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> PARA ISSO,
+
+
+ PROFESSOR EXPLICA QUE 
+
+ DEVEMOS 
+
+
+ USAR 
+
+
+
+
+
+ '=' DO LADO DO PARÂMETRO, PARA AÍ ESPECIFICAR O 'DEFAULT VALUE'....
+
+
+
+
+(
+
+
+    EU HAVIA ESQUECIDO DISSO....
+)
+
+
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+
+
+
+
+
+
+ const add = (a: number, b: number = 1) => a + b;
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+AGORA O VALOR 'DEFAULT/FALLBACK' 
+
+de 
+
+'b' 
+
+
+SERÁ 
+
+
+'1',
+
+
+QUE 
+
+SERÁ 
+
+USADO 
+QUANDO 
+
+O 
+
+USER 
+
+NÃO PASSAR ESSE PARÂMETRO...
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+ const add = (a: number, b: number = 1) => a + b;
+
+
+
+
+
+
+
+add(2); ////RECEBEREMOS '3'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO EXISTE TAMBÉM COM 'variables',
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+const pageIndex = req.query || 2;
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.. MAS 1 DETALHE:
+
+
+
+
+
+
+
+
+O PRIMEIRO ARGUMENTO DE UMA FUNCTION __ NUNCA __  PODE __ TER 
+
+
+UM 
+
+
+'VALOR DEFAULT'... (
+
+
+
+    isso 
+
+    pq 
+
+
+QUANDO VOCÊ CHAMA 1 FUNCTION COM 
+
+1 ÚNICO ARGUMENTO,
+
+
+O 
+
+ARGUMENTO VAI SER PASSADO COMO PRIMEIRO SLOT/parametro,
+
+
+e não como o segundo...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+ex de ERRO:
+
+
+
+
+
+
+const add = (a: number = 1, b: number) => a + b;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ok... --> coloque os PARAMETERS COM DEFAULTS __ NA PARTE _ DA DIREITA,
+
+
+
+
+
+essencialmente...

@@ -1,0 +1,5264 @@
+
+
+------> HÁ MAIS UMA FEATURE INTERESSANTE QUE O PROFESSOR QUER NOS MOSTRAR....
+
+
+
+
+
+
+
+
+
+--> É A FEATURE DO 'PRIVATE CONSTRUCTOR'...
+
+
+
+
+
+
+
+
+
+
+--> PRIVATE CONSTRUCTORS..
+
+
+
+
+
+
+
+--> O QUE SÃO PRIVATE CONSTRUCTORS,
+
+
+
+
+
+
+E ___ QUAL É SUA UTILIDADE?
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, EXISTE UM PADRÃO EM 'OOP' (object-oriented programming) 
+
+
+
+
+
+
+
+_ QUE __ É CHAMADO DE '
+
+singleton'...
+
+
+
+
+
+
+
+
+
+
+'SINGLETON PATTERN' -----> ESSE PADRÃO É ALL ABOUT 
+
+
+
+SEMPRE 
+
+GARANTIR 
+
+
+
+
+QUE VOCÊ __ TENHA __ APENAS 1 ÚNICA 
+
+
+
+
+'INSTANCE'
+
+
+
+
+DE 
+
+
+
+1 CLASS...--------> ISSO PODE SER ÚTIL, NO CASO,
+
+
+
+EM 
+
+
+
+__SITUAÇÕES EM QUE VOCê __  (por alguma razão ) NÃO PODE  
+
+
+USAR 
+
+
+STATIC METHODS/PROPERTIEs... --------->  MAS ESSE PATTERN É ÚTIL 
+
+
+TBM 
+
+QUANDO 
+
+VOCê 
+
+
+
+
+____ QUER ASSEGURAR QUE 
+
+VOCê 
+
+
+NÃO 
+
+CRIE MÚLTIPLOS OBJECTS 
+
+
+
+COM BASE EM 
+1
+ CLASS ------------> VOCÊ ESSENCIALMENTE VAI QUERER TER 
+
+
+
+ APENAS 
+
+
+ 1 
+ OBJECT 
+
+
+ COM 
+
+
+ BASE 
+
+EM 
+
+
+1 
+CLASS....
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... ESSA AULA SERÁ UM POUCO MAIS COMPLEXA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE ''GETTING PROJECTS TO A _ TO __B'''
+
+
+
+
+
+__ É AGORA NOSSO 'OBJETIVO' --> para ser mais preciso,
+
+
+
+QUANDO: 
+
+
+
+
+1) USERS CRIAM UM NOVO 'PROJECT', QUANDO INPUTTAM TODA A DATA NECESSÁRIA...
+
+
+
+
+2) VAMOS QUERER, NESSE MOMENTO, CRIAR UM NOVO _ OBJETO 'Product'...
+
+
+
+
+
+3)  E ESSE OBJETO SERÁ OUTPUTTADO NA NOSSA CLASS DE 'ProjectInput',
+
+COMO PARTE DA <ul>
+
+
+QUE É RENDERIZADA LÁ... --> ESSA É NOSSA IDEIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 1 MANEIRA TRIVIAL DE FAZER ISSO _ É SIMPLESMENTE IR:
+
+
+
+
+
+
+
+
+
+
+1) ATÉ O LOCAL EM QUE O USER INPUT É INPUTTADO...
+
+(
+
+
+    ou seja,
+
+
+
+    em 
+
+
+
+
+
+
+
+
+
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people, 'LINE');
+        this.clearInputs();
+        const newProjectList = new ProjectList('active');
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSE LOCAL, VOCÊ USARIA 'document.getElementById()',
+
+
+
+
+E AÍ __ FARIA REACH OUT àquela 'ul' 
+
+QUE RENDERIZAMOS 
+
+
+__COMO _ _PARTE__ DE NOSSA CLASS DE 'unordered list',
+
+
+
+e que 
+
+
+tem auqele 
+
+
+
+valor de ID de '${this.listType}-projects-list'...
+
+
+
+
+
+
+
+------------>  NESSE APPRAOCH, FARÍAMOS UM SIMPLES 'REACH OUT' 
+
+
+a 
+
+
+
+esse ELEMENTO __ E ENTÃO __ ADICIONARÍAMOS 
+
+
+
+
+UM __novo elemento 'Project' a ele....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) MAS É CLARO QUE NÃO É ASSIM QUE O PROFESSOR VAI QUERER CONSTRUIR SEU APp.... ----> EM VEZ DISSO,
+
+
+
+
+PROFESSOR QUER CONSTRUIR NOSSA PÁGINA 
+
+'IN A OBJECT-ORIENTED WAY',
+
+
+
+
+
+EM QUE TEMOS 
+
+
+DIFERENTES 
+
+
+CLASSES 
+
+QUE 
+
+'TRABALHAM JUNTAS DE UMA MANEIRA __ REACTIVE'.... --> 
+
+
+
+
+
+OU SEJA,
+
+
+
+EM QUE __ CRÍAMOS UMA CLASS_  E ENTÃO __ ALGO ACONTECE AUTOMATICAMENTE NO DOM,
+
+
+
+a partir dessa criaçaõ....
+
+
+
+
+
+
+
+
+
+
+---> É UM APPROACH EM QUE __ 'CHAMAMOS' O __ CALL __ DE UM METHOD em uma class,
+
+e aí 
+
+
+esse method FAZ ALGUMA COISA...
+
+
+
+
+
+
+
+
+
+
+----->  É CLARO QUE PODEMOS 
+
+
+ADICIONAR UM METHOD DE 'addProject'
+
+
+
+LÁ 
+
+
+NA CLASS de 'ProjectList',
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+-------> 
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+addProject() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- >ESSE CÓDIGO DEVERÁ SER __ EXECUTADO _ _SEMPRE QUE 
+
+
+'UM NOVO PROJECT DEVE SER ADDED E RENDERED'.... ------------->  O DIFÍCIL É QUE _ sERÍAMOS FORÇADOS A DESCOBRIR UMA MANEIRA 
+
+
+D
+E CHAMAR 
+
+esse 
+
+
+'addProject()'
+
+LÁ DE DENTRO 
+
+
+DA CLASS de 'ProjectInput'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> PARA FAZER ISSO,
+
+
+
+ELE ADMITE QUE __ UMA SOLUÇÃO POSSÍVEL 
+
+É 
+
+A 
+
+DE 
+
+
+'MAKE SURE THAT WE ONLY PASS REFERENCES 
+
+TO OUR PROJECTINPUT constructor (
+
+    por meio do código de 
+
+
+    '''const prjInput = new ProjectInput();
+    const activePrjList = new ProjecList('active)'....
+)
+
+
+
+
+
+
+
+--> FARÍAMOS ISSO JUSTAMENTE  
+
+
+
+PARA QUE __ DENTRO __ DA CLASS DE 'prjInput'
+
+SEJA POSSÍVEL 
+
+TRABALHAR COM AS INSTÂNCIAS DE 
+
+
+'finishedPrjList' 
+
+e 
+
+
+'activePrjList',
+
+
+
+
+INSTÂNCIAS EM QUE CHAMARÍAMOS METHODS EM CIMA.... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. ESSE APPROACH MOSTRADO PELO PROFESSOR É VÁLIDO,
+
+
+'É UM APPROACH QUE VOCÊ PODERIA SEGUIR',
+
+
+
+
+
+MAS O PROFESSOR QUER SEGUIR UM APPROACH __ AINDA MAIS ABSTRATO.... -------> 
+
+
+
+
+
+
+
+AINDA MAIS 'INTERESTING', esse appraoch...
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ --> ANTES DE MAIS NADA, O PROFESSOR VAI CONSTRUIR UMA _ CLASS_ QUE FAZ 'MANAGE' DO __ STATE_ DE NOSSO APP,
+
+
+ por assim dizer...
+
+
+
+
+
+
+
+
+ --> ISSO QUER DIZER QUE É ESSA CLASS VAI ESSENCIALMENTE ''''manage our projects''',
+
+ 
+
+ OU QUALQUER OUTRO STATE QUE HANDLAMOS NO NOSO APPp......
+
+
+
+
+
+ ALÉM DISSO,
+
+
+ ESSA 'helper function' 
+
+
+
+NOS DEIXA SETTAR 'LISTENERS' _ NAS DIFERENTES 
+
+PARTES DO APP QUE POSSUEM INTERESSE  NISSO...
+
+
+
+
+
+
+
+
+
+----------->  ESSE PADRÃO PODE __ SOAR__ FAMILIAR A VOCÊ 
+
+
+SE VOCÊ 
+
+
+JÁ TRABALHOU COM FRAMEWORKS COMO O ANGULAR,
+
+OU LIBRARIES COMO O REACT/REDUX...
+
+(
+
+    ou seja,
+    em que temos um 'OBJECT GLOBAL' de state management,
+
+)
+
+
+
+E EM QUE APENAS FAZEMOS 'listen to changes'...
+
+
+
+
+
+
+
+
+
+
+--> É CLAR OQUE ESSA É SÓ UMA MANEIRA DE ___ IMPLEMENTAR__ ESSE NOSSO CÓIDOG,
+
+
+
+
+
+
+
+MAS O PROFESSOR ADMITE QEU ACHA ESSSE APPROACH BEM INTERESSANTE, E É POR  ISSO QUE O UTILIZARÁ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> NO TOPO DO ARQUIVO 'app.ts',
+
+
+O PROFESSOR VAI ADICIONAR UMA CLASS DE 'Project State Managemnet'...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class ProjectState { ////parecido com REACT..
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> DENTRO DESSA CLASS,
+
+
+
+TEREMOS UMA ___ PROPRIEDADE/FIELD PRIVADO,
+
+
+
+
+
+de 
+
+'projects',
+
+
+
+
+que justamente SEGURARÁ UM ARRAY DE PROJECTS...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects = [];
+}
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+
+--> É CLARO QUE TAMBÉM PRECISAMOS DEFINIR 'COMO UM OBJECT DEVE SE PARECER',
+
+
+
+POR ISSO 
+
+
+
+vamos colocar um type de 'any' (mais tarde vamos definir EXATAMENTE COM UM OBJECT' project' deve se parecer)...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+}
+
+
+
+
+
+
+
+
+
+
+
+--------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------- --> VAMOS FOCAR NESSA SOLUÇÃO DE 'STATE MANAGEMENT',
+
+por enqunato...
+
+
+
+
+
+
+
+
+
+
+
+-> ok... temos essa 'list of projects'.... --> O OBJETIVO, AGORA,
+
+É 
+
+
+FAZER O 
+
+'ADD'
+
+DE 
+
+1 PROJECT A ESSA LIST,
+
+
+sempre quue 
+
+
+
+
+aquele button de 'add Project'
+
+
+for pressionado... ---> OU SEJA, É QUANDO 'submitHandler'
+
+É 
+
+
+
+EXECUTADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------>  para fazer ISSO FUNCIONAR, DEVEMOS ADICIONAR UM __ METHOD__ DENTRO _ DA 
+
+
+
+
+CLASS de 'ProjectState '-->
+
+
+
+
+
+SERÁ O METHOD DE 'addProject',
+
+
+
+E ELE _ _SERÁ UM METHOD __ PÚBLICO...
+
+
+(
+
+
+
+
+
+
+    isso significa que poderemos o executar em qualquer parte de nosso código,
+
+    chamadno 
+
+
+
+
+    'projectState.addProject()'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------> ok... --> NESSE METHOD VAMOS ESPERAR CONSEGUIR o parâmetro de 'title',
+
+que será uma STRING,
+
+
+
+DESCRIPTION, TMABÉM UMA STRING,
+
+
+
+
+
+E TAMBÉM 
+
+
+
+'numOfPeople',
+
+UQE SERÁ DE NUMBER...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+    }
+}
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+------->  AÍ, DENTRO DESSE METHOD, PODEREMOS CRIAR 1 NOVO PROJECT,
+
+
+
+
+por meio da 
+
+
+notação 'object literal',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople 
+            }
+
+    }
+}
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+OK.... MAS PARA CADA project devemos ter um 'id',
+
+
+TUDO PARA QUE SEJA POSSÍVEL OS IDENTIFICAR...
+
+
+
+
+
+
+
+
+
+-> PROFESSOR VAI GERAR UM ID PROVISÓRIO, AQUI, por meio do call de 
+
+
+'Math.random().toString()'...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople,
+                id: Math.random().toString()
+            }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, um random number NAÕ É UM UNIQUE ID DE VERDADE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> mas é bem improvável, e vai servir para nosso demo..
+
+
+
+
+
+
+
+
+
+
+
+OK....
+
+
+
+
+
+ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+
+
+--> ESSE SERÁ NOSSO 'project'...
+
+
+
+
+
+
+
+o project  QUE VAMOS QUERER ARMAZENAR NO NOSSO ARRAY DE PROJECTS,
+
+POR MEIO 
+
+
+DE UM WRITE 
+
+COMO 
+
+
+
+'this.projects = [
+    ...this.projects,
+    newProject
+]
+'
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople,
+                id: Math.random().toString()
+            }
+
+            this.projects = [
+
+                ...this.projects,
+                newProject
+            ]
+
+    }
+}
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> é claro que esse código funcionaria... (o 'private' em projects NÃO IMPEDE NOSSO ACESSO A ESSE ARRAY, DENTRO DE METHODS DE NOSSA PRÓPRIA CLASS)...
+
+
+
+
+
+
+
+
+
+
+
+
+---> professor faz 1 PUSH DE UM NOVO PROJECT, pq isso é menos verbose...
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, AGORA SOMOS CAPAZES DE 'ADD A PROJECT'...
+
+
+
+
+
+ÀQUELE ARRAY ALI....
+
+
+
+
+
+
+
+
+
+
+
+
+----> É CLARO QUE AINDA RESTAM UM MONTE DE QUESTÕES NÃO TÃO CLARAS....
+
+
+
+
+
+
+
+
+
+
+1A QUESTÃO --> COMO CHAMAMOS 'addProject()'   
+
+___ DE DENTRO__ DE NOSSA CLASS DE 
+
+
+
+
+
+
+
+'ProjectInput',
+
+
+
+EM QUE 
+
+
+ACTUALLY FAZEMOS O 'GATHER DE NOSSO USER INPUT',
+
+
+
+por meio daquele código de 
+
+
+
+
+
+
+
+'''''''''''''''''''''''
+
+
+
+
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people, 'LINE');
+
+        this.clearInputs();
+        const newProjectList = new ProjectList('active');
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+''''''''''''''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO PODEMOS CHAMAR O 'addProject' DAÍ DE DENTRO DE 'submitHandler'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+TALVEZ ASSIM(?):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { 
+    event.preventDefault();
+    console.log(this.titleInputElement); 
+    console.log(this.titleInputElement.value); 
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { 
+
+        const [title, desc, people] = userInput; 
+        
+
+        this.clearInputs();
+        const newProjectList = new ProjectList('active');
+        const projectState = new ProjectState(); ////TALVEZ POR MEIO DESTE CÓDIGO?
+        projectState.addProject(title, desc, people);
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ACHO QUE ISSO ESTÁ ERRADO..
+
+
+
+
+
+
+
+
+
+--> OUTRA PERGUNTA: 
+
+
+
+
+
+
+
+COMO PASSAMOS ESSA 'UPDATED LIST OF PROJECTS', SEMPRE QUE __ ELA __ FOR ALTERADA__ (nessa class de ProjectState), 
+
+
+
+PARA NOSSA CLASS DE 'ProjectList'? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> são 2 problemas....
+
+
+
+
+
+
+
+
+
+
+---> o primeiro problema, no caso, de 'chamar isso de dentro de submitHandler'
+
+
+
+É SOLUCIONADO PELO SIMPLES INSTANCIAMENTO de 'ProjectState'
+
+
+
+__ NO CONTEXTO __ GLOBAL DE NOSSO APP (fora de tudo)..
+
+
+
+
+
+
+
+--> SERÁ UMA 'GLOBAL INSTANCE' que podera´ser usada NO NOSSO ARQUIVO INTEIRo...
+
+
+
+
+
+
+
+
+
+------> PARA ISSO, PROFESSSOR ESCREVE SÓ 
+
+
+
+
+'const projectState = new ProjectState();' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople,
+                id: Math.random().toString()
+            }
+
+            this.projects = [
+
+                ...this.projects,
+                newProject
+            ]
+
+    }
+}
+
+
+
+
+
+
+
+
+
+const projectState = new ProjectState();
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE AGORA O 'COMMUNICATE' COM ESSE 'STATE GLOBAL' SERÁ MT FÁCIL,
+
+PQ TEREMOS ESSA CONSTANTE GLOBAL, QUE PODE SER USADA EM QUALQUER LUGAR DO ARQUIVO...
+
+(
+    para falar com 
+
+    essa class de 'ProjectState',
+
+
+    será super simples, basta você MENCIONAR ESSA CONSTANTE de 'projectState'...
+
+)
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... NÓS PODEMOS ATÉ MESMO USAR UMA __ FEATURE__ QUE 
+
+APRENDEMOS 
+
+
+
+ANTERIORMENTE,
+
+BEM COMPLEXA... --> É A FEATURE DE 
+
+
+
+'GARANTIR QUE SUA CLASS TEM UM __ PRIVATE__ CONSTRUCTOR' (singleton),
+
+
+
+
+____ PARA __ QUE _ _SEJA___ _____ GARANTIDO__  QUE __ ESSA CLASS '''DEVERÁ TER APENAS 1 
+
+
+
+
+OBJECT INSTANCIADO A PARTIR DELA'''....
+
+
+
+
+
+
+
+
+
+
+--> TENTAR FAZER ISSO POR CONTA PRÓPRIA.... (ver aula 'o singleton pattern e private constructors', lá no MÓDULO 5, classes e interfaces..)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+
+
+        private constructor() { ////eis o código em questão.
+
+        }
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople,
+                id: Math.random().toString()
+            }
+
+            this.projects = [
+
+                ...this.projects,
+                newProject
+            ]
+
+    }
+}
+
+
+
+
+
+
+
+
+
+const projectState = new ProjectState();
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.. MAS SÓ ISSO NÃO CONFIGURA O 'SINGLETON PATTERN' 
+
+
+
+
+
+
+--> pq o single pattern tem 2 CARACTERÍSTICAS:
+
+
+
+
+
+1) SÓ É POSSÍVEL OBTER 1 'object' daquela class singleton ___ 
+
+_ POR MEIO _ DE METHODS___ EXISTENTES DENTRO DA CLASS...
+
+
+(
+    já implmentamos isso, tudo por meio de 'private' no constructor dessa class...
+)
+
+
+
+
+2) SÓ É POSSÍVEL TER 1 ÚNICO 'OBJECT' dessa class POR VEZ... 
+
+(
+
+
+    para isso, precisamos de mais código, mais um pouco de lógica....
+)
+
+
+
+
+
+
+
+---> para conseguir essa lógica, precisamos de um method como 
+
+
+
+'static getInstance() {}' 
+
+
+
+
+
+
+
+
+-----> por esse method ser 'static',
+
+
+ele SÓ VAI EXISTIR DIRETAMENTE NA NOSSA CLASS.. -- > mas o importante dele é que 
+
+ELE NOS 
+RETORNA 
+
+
+
+AQUELE OBJECT de nossa class....
+
+
+
+
+
+
+seu código será assim:
+
+
+
+
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE TAMBÉM PRECISAMOS DEFINIR ESSA PROPRIEDADE DE 'instance,'
+
+
+
+E ELA __ SERÁ REALMENTE a mesma class em que colocamos esse method (portanto, 'ProjectState', esse será o  type)...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+class ProjectState{
+
+
+
+    private projects: any[] = [];
+
+
+
+    private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO.
+
+
+
+
+
+        private constructor() { ////eis o código em questão.
+
+        }
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+            const newProject = {
+                title: title,
+                description: description,
+                people: numOfPeople,
+                id: Math.random().toString()
+            }
+
+    this.projects.push(newProject);
+
+    }
+
+
+
+    
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+--> ESSE SERÁ NOSSO CÓDIGO, PENSO EU...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO , PORTANTO, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+  class ProjectState{ ///approach parecido com o REACT (state management, global state objecT)....
+
+
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+
+
+    private constructor() { //vamos querer que esse constructor seja 'private' por causa do SINGLETON PATTERN (queremos que SÓ POSSA SER CRIADO 1 OBJECT, a partir dessa class, POR MEIO DE UM METHOD INTERNO A ESSA CLASS..)
+
+    }
+    
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+
+}
+
+
+    
+static getInstance() { ///ESSE METHOD TBM FAZ PARTE DO 'SINGLETON PATTERN' (apenas 1 object instanciado a uma class, E ESSE OBJECT SÓ PODE SER OBTIDO POR METHODS DEFINIDOS DENTRO DA CLASS EM SI)...
+
+    if (this.instance) {
+
+        return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+// const projectState = new ProjectState(); /// não podemos instanciar diretamente, pq nosso constructor está como 'private'....
+
+
+
+
+
+
+const projectState = ProjectState.getInstance();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOLTANDO À AULA DO PROFESSOR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ELE FAZ A COISA DO PRIVATE CONSTRUCTOR...
+
+
+
+
+
+
+
+
+
+
+-->  AÍ ELE ESCREVE AQUELE 
+
+'private instance: ProjectState;' 
+
+
+
+
+
+
+
+
+
+
+-----> DEPOIS DISSO,
+
+
+
+
+NÓS ADICIONAMOS UM METHOD DE 'getInstance',
+
+
+
+
+UM METHOD ESTÁTICO,
+
+
+
+EM QUE AÍ RODAMOS AQUELES CHECKS LÁ...
+
+
+
+
+
+
+
+
+
+
+
+
+OK, É A MESMA LÓGICA DE ANTES...
+
+
+
+
+
+
+
+
+-----------> AGORA O PROFESSOR CHAMA 'ProjectState.getInstance()'
+
+
+
+
+
+
+NO CONTEXTO GLOBAL DE NOSSO APP,
+
+pq ele realmente será 'global'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+const projectState = ProjectState.getInstance();
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> COM ISSO, '''ESTAMOS GARANTINDO QUE VAMOS SEMPRE TRABALHAR COM O EXATO MESMO 
+
+OBJECT (sem alterações externas),
+
+E QUE 
+
+ESSE 
+
+OBJECT _ SERÁ _ EXATAMENTE_ O MESMO _ OBJECT__ AO LONGO __ DE TODO NOSSO APP'... (
+
+
+)
+
+
+
+
+
+
+--> ALÉM DISSO, TEREMOS 'ONLY ONE OBJECT OF THAT TYPE' 
+
+
+
+ 
+NO APP INTEIRO... ----> ISSO ADICIONA BASTANTE 
+
+
+
+TYPE SAFETY ------> ESSA É A NOSSA IDEIA,
+
+PQ 
+
+ 
+
+ VAMOS QUERER TER 
+
+
+ 'APENAS 1 ÚNICO OBJECT de 
+
+ 'state Managemnet' 
+
+
+
+
+
+
+ __ PARA__ NOSSO PROJECT__.... -----> E ISSO, AGORA, 
+
+ SERÁ ESSA 
+
+ CLASS DE 
+
+ 'ProjectState',
+
+
+
+COM ESSE CONSTRUCTOR 'PRIVATE 'aí...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... TEMOS ESSA CONSTANTE DE 'projectState'...
+
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS VOLTAR AO METHOD DE 'submitHandler',
+
+
+
+EM QUE ACTUALLY 
+
+
+
+ARMAZENAMOS O USER INPUT E O VALIDAMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO SIGNIFICA QUE, LÁ EM 'submitHandler',
+
+
+
+
+PODEMOS SIMPLESMENTE ESCREVER 
+
+
+'projectState.addProject(title, desc, people)'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people, 'LINE');
+
+    
+
+        const newProjectList = new ProjectList('active');
+        projectState.addProject(title, desc, people);  //EIS O CÓDIGO EM QUESTÃO.
+
+            this.clearInputs();
+
+        // const projectState = new ProjectState(); //singleton PATTERN  e 'private constructor'...
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+OK... ISSO SIGNIFICA QUE AGORA ESSE PROJECT REALMENTE SE´RA 'created'
+
+
+
+LÁ  naquele array de Projects'... ----> AGORA SÓ NOS RESTA  
+
+
+
+
+
+
+
+
+
+--> MAS AGORA RESTA 'REPASSAR' ESSA INFo, de que TEMOS UM NOVO PROJECT,
+
+
+àQUELA CLASS de 'ProjectList',
+
+
+
+PQE ESSA É A CLASS QUE 
+
+
+
+
+
+SE RESPONSABILIZA PELO RENDER NA TELA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK............. ------> MAS PARA ISSO,
+
+
+PROFESSOR QUER SETTAR 'UMA SUBSCRIPTION PATTERN',
+
+
+
+
+QUE SERÁ SETTADO ASSIM:
+
+
+
+
+
+1) DENTRO DE NOSSA class de 'ProjectState',
+
+
+
+__ NÓS  FAZEMOS O MANAGE  DE _____ UMA LISTA__ DE __ LISTENERS__... --_> ou seja,
+
+
+UMA LISTA DE FUNCÇÕES QUE,
+ no final dsa contsa,
+
+
+
+
+ deverão __ SER EXECUTADAS__ SEMPRE QUE __ ALGUMA COISA MUDAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> É POR ISSO QUE O PROFESSOR ADICIONA MAIS UMA PRORPIEDADE em 'app.ts',
+
+
+ DE NOME 
+
+ 'listeners', também private.....
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+ 
+
+  class ProjectState{ ///approach parecido com o REACT (state management, global state objecT)....
+
+
+
+    private projects: any[] = [];
+    private listeners =any[] = [] 
+
+    
+    private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+
+
+    private constructor() { //vamos querer que esse constructor seja 'private' por causa do SINGLETON PATTERN (queremos que SÓ POSSA SER CRIADO 1 OBJECT, a partir dessa class, POR MEIO DE UM METHOD INTERNO A ESSA CLASS..)
+
+    }
+    
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+
+}
+
+
+    
+static getInstance() { ///ESSE METHOD TBM FAZ PARTE DO 'SINGLETON PATTERN' (apenas 1 object instanciado a uma class, E ESSE OBJECT SÓ PODE SER OBTIDO POR METHODS DEFINIDOS DENTRO DA CLASS EM SI)...
+
+    if (this.instance) {
+
+        return this.instance; /////VAI MANTER NOSSO 'OBJECT'/instance de nossa class __ INTACTA_.... (Sem mudança)...
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> 
+
+
+
+
+
+
+
+-->  POR ENQUANTO, O TYPE SERÁ DE 'any',
+MAS ESPECIFICAREMOS MAELHOR MAIS TARDE....
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... PROFESSOR CHAMOU 'ProjectState.getInstance()'...
+
+
+
+
+
+
+
+
+
+
+
+--> GARANTIDAMENTE TRABALHAREMOS __ SÓ COM ESSE EXATO MESMO OBJECT,
+
+
+
+
+
+E TBM SERÁ GARANTIDO QUE SÓ VAMOS TER 1 ÚNICO OBJETO DE 'state managemnet' 
+
+
+
+
+NO NOSSO APP INTEIRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ NA CLASS DE 'ProjectINput',
+
+
+
+
+
+
+PROFESSOR, 
+
+
+
+em 'submitHandler',
+
+
+
+
+ESCREVE ISTo:
+
+
+
+
+
+
+
+
+const [title, desc, people] = userInput;
+projectState.addProject(title, desc, people);
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ISSO SIGNIFICA QUE ESSE 'project' AGORA ESTÁ SENDO CRIADO COM  _ SUCESSO_ LÁ 
+
+
+NO NOSSO ARRAY DE 'projects',
+
+la 
+
+
+nesse 'ProjectState'...
+
+
+
+
+
+
+
+
+
+
+--> AGORA SÓ PRECISAMOS, DE ALGUMA MANEIRA,
+
+CONSEGUIR _ 
+
+
+
+ENVIAR __ ESSA DATA desse object específico, que foi criado agora (esse project)
+
+
+PARA 
+
+AQUELA NOSSA CLASS DE 'ProjectList',
+
+
+QUE ATÉ AGORA 
+
+
+TEVE ESTE CODIGO:
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        this.attach();
+        this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'... 
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('beforeend', this.element );
+    }
+
+
+
+    
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector('h2')!.textContent = `${this.listType.toUpperCase()} PROJECTS`
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+A PROJECTLIST É RESPONSÁVEL PELO 'RENDER DE ALGO à TELA.'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- >PARA CONSEGUIR TRANSMITIR A DATA DE 'New Project'
+
+PARA 
+
+
+DENTRO 
+
+
+
+DESSA CLASS de 'ProjectList',
+
+
+
+
+
+
+PROFESSOR PROPÕE UM 
+
+
+'SUBSCRIPTION PATTERN'...
+
+
+
+
+
+
+
+
+
+
+
+o que será esse PATTERN?
+
+
+
+
+
+
+
+
+
+
+1) BEM, DENTRO DE NOSSO OBJETO 'ProjectState',
+
+
+
+
+__ NÓS FAREMOS/FAZEMOS _ O  MANAGE_ DE 
+
+
+
+
+UMA _ _lISTA_ DE LISTENERS.... (DE _ FUNÇÕES, PARA SERMOS MAIS EXATOS)
+
+
+
+
+
+
+QUE ___ DEVERÁ SER CHAMADA _ SEMPRE QUE _ ALGO MUDAR NO NOSSO CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+ 
+
+ PROFESSOR ADICIONA UMA NOVA PROPRIEDADE, de 'listeners',
+
+
+
+ QUE TERÁ COMO TYPE um 'any[]', por enquanto...:
+
+
+
+
+
+
+ 
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+    listeners: any[] = [];
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        this.attach();
+        this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'... 
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('beforeend', this.element );
+    }
+
+
+
+    
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector('h2')!.textContent = `${this.listType.toUpperCase()} PROJECTS`
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PROFESSOR EXPLICA __ QUE _ TAMBÉM __ VAI QUERER TER 
+
+UM METHOD 
+
+
+
+
+nesse 'ProjectState' ---------> O METHOD SERÁ DE NOME 
+
+
+'addListener()':
+
+
+
+
+
+
+
+addListener(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE METHOD__ VAI _ EXIGIR__ UMA 'listenerFunction',
+
+
+
+QUE __ DEVERÁ __ SER DE TYPE 'Function'....
+
+
+
+EX:
+
+
+addListener(listenerFunction: Function){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+----> POR FIM, O PROFESSOR QUER  FAZER '.push' 
+
+
+DESSA FUNCTION PARA  
+
+
+dentro do array de 'listeners' em ProjectState....
+
+
+
+
+
+
+
+
+
+
+----> OK, MAS QUAL É A UTILIDADE DE TER AQUELE ARRAY DE 'listeners'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... MAS O QUE INTERESSA´E QUE '
+
+
+
+
+DENTRO DESSE ARRAY DE 'listeners'
+
+
+
+TEREMOS UM MONTE DE FUNCTIONS,
+
+
+
+
+
+para ser mais exato, 
+
+
+
+UM MONTE DE 'FUNCTION REFERENCES'........ -------> A IDEIA É QUE SEMPRE QUE ALGO MUDAR,
+
+
+
+
+
+__ COMO LÁ EM ''''' 
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+
+}
+
+
+''''
+,
+
+
+
+
+
+
+
+
+
+
+SEMPRE QUE ALGO MUDAR, COMO AÍ, EM QUE __ ADICIONAMOS __ UM 'NOVO PROJECT',
+
+NÓS TAMBÉM 
+
+
+TENHAMOS A CIÊNCIA 
+
+
+
+
+
+DE 'CALL ALL LISTENERS FUNCTIONS' 
+
+
+
+
+ao mesmo tempo.... -----> ISSO SIGNIFICA QUE VAMOS '''LOOPAR''' (for of loop)
+
+
+
+POR DENTRO 
+
+
+
+
+DE __ TODOS __ OS LISTENERS__ de  'this.listeners',
+
+
+
+
+
+E AÍ_, 
+
+COMO ESSES SÃO 'function references ',
+
+
+
+ PODEMOS EXECUTAR CADA UM DESSES PARÂMETROS _ COMO UMA FUNÇÃO,
+
+ tipo assiim:
+
+
+
+
+
+
+     addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+
+        for(const listenerFunction of this.listeners) {
+
+
+            listenerFunction();
+        }
+
+}
+
+
+
+
+-----------------------------------
+
+
+
+
+SEMPRE QUE ALGO FOR ALTERADO NO NOSSO CÓDIGO, COMO QUANDO 'ADICIONAMOS ALGO, 1 PROJECT NO NOSSO FLOW',
+
+
+
+
+
+
+
+
+__ JÁ __ SEJAM CHAMADAS TODAS AS 'LISTENER FUNCTION'...
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE FOI ESCRITO RÁPIDO....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+for (const listenerFunction of this.listeners 
+c)
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM,A ESSA FUNCTION/METHOD  de 'listenerFunction',
+
+
+PRECISMAMOS  pasar 
+
+
+
+
+
+
+
+
+
+EX: 
+
+
+
+
+
+
+
+
+
+
+  class ProjectState{ ///approach parecido com o REACT (state management, global state objecT)....
+
+
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; //EIS O CÓDIGO EM QUESTÃO. SINGLETON PATTERN...
+
+    private listeners: any[] = []; //também usado com o SINGLETON...
+
+
+
+    private constructor() { //vamos querer que esse constructor seja 'private' por causa do SINGLETON PATTERN (queremos que SÓ POSSA SER CRIADO 1 OBJECT, a partir dessa class, POR MEIO DE UM METHOD INTERNO A ESSA CLASS..)
+
+    }
+    
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+        for (const listenerFunction of this.listeners) {
+            listenerFunction.projects.slice()
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR ESCREVEU 'this.projects.slice()',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+
+--> DORMI NO PONTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> só precisamos pushar a informação de que 'criamos um project/novo project' 
+
+
+LÁ NA NOSSA CLASS DE 'ProjectList'... 
+
+(
+
+    pq essa é a class responsável pelo render de algo na nossa tela...
+)
+
+
+
+
+
+
+
+--> para isso, vamos querer settar um 'subscription pattern'... -->   dentro de 
+
+
+
+
+nossa class de 'ProjectState', nós manageamos uma lista de 'listeners', 
+
+
+
+
+QUE NA REAL É UMA 'LIST OF FUNCTIONS', 
+
+
+
+
+
+QUE DEVERÁ SER CHAMADA SEMPRE QUE _ ALGO __ MUDA__ ('something changes')...
+
+
+
+
+
+
+
+
+--> o código de nossa class é assim:
+
+
+
+
+
+
+
+
+
+
+  class ProjectState{
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; 
+
+    private listeners: any[] = []; 
+
+
+    private constructor() { 
+
+    }
+    
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+        for (const listenerFunction of this.listeners) {
+            listenerFunction(this.projects.slice()) 
+        }
+
+}
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; 
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+}
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PROFESSOR ADICIONA UMA NOVA PROPRIEDADE, 'listeners',
+
+
+que deve ser PRIVADA...
+
+
+
+
+
+
+
+
+
+
+---> será um empty array, array de any.... 
+
+
+
+
+
+
+
+
+--> AÍ TEREMOS UM NOVO METHOD NA NOSSA CLASS,
+
+
+method de 'addListener()'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+  class ProjectState{
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; 
+
+    private listeners: any[] = []; 
+
+
+    private constructor() { 
+
+    }
+    
+
+    addListener() {
+
+    }
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+        for (const listenerFunction of this.listeners) {
+            listenerFunction(this.projects.slice()) 
+        }
+
+}
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; 
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+}
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+NESSA PROPRIEDADE, VAMOS FAZER 'expect' de uma 'listenerFunction' (sempre será uma LISTENERFUNCTION),
+
+
+
+e o type deverá ser de 'Function'... (genérico)....
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+  class ProjectState{
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; 
+
+    private listeners: any[] = []; 
+
+
+    private constructor() { 
+
+    }
+    
+
+    addListener(listenerFunction: Function) {
+
+    }
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+        for (const listenerFunction of this.listeners) {
+            listenerFunction(this.projects.slice()) 
+        }
+
+}
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; 
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+}
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+aí dentro da função vamos querer FAZER PUSH 
+
+
+
+DESSA FUNCTION AO NOSSO ARRAY DE 'listeners',
+
+por meio deste código:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  class ProjectState{
+
+    private projects: any[] = [];
+
+    
+    private static instance: ProjectState; 
+
+    private listeners: any[] = []; 
+
+
+    private constructor() { 
+
+    }
+    
+
+    addListener(listenerFunction: Function) {
+        this.listeners.push(listenerFunction);
+    }
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+        for (const listenerFunction of this.listeners) {
+            listenerFunction(this.projects.slice()) 
+        }
+
+}
+
+
+static getInstance() {
+
+    if (this.instance) {
+
+        return this.instance; 
+    }
+
+    this.instance = new ProjectState();
+    return this.instance;
+}
+
+
+}
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+OK, MAS QUAL É A IDEIA POR TRÁS DESSE ARRAY DE LISTENERS? 
+
+
+
+
+
+
+
+
+
+
+
+--> É PQ ELE SERÁ UM ARRAY DE FUNCTIONS, DE 'FUNCTION REFERENCES', certo? ----> a ideia  É QUE __ 
+
+
+
+
+SEMPRE QUE __ ALGO MUDAR no nosso código, como 
+
+
+
+
+
+no código de 'addProject' (de ProjectList),
+
+
+em que adicionamos um novo project,
+
+
+
+
+
+__ FAÇAMOS O CALL _ DE TODAS __ AS 'LISTENER FUNCTIONS'
+
+
+
+
+
+
+
+
+
+
+
+(código de 'addProject' original):
+
+
+
+
+
+
+
+
+
+    addProject(title: string, description: string, numOfPeople: number) {
+
+
+        const newProject = {
+            title: title,
+            description: description,
+            people: numOfPeople,
+            id: Math.random().toString()
+        }
+
+        this.projects.push(newProject);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+---> para isso,
+
+
+
+
+
+
+
+adicionamos a lógica de loop de 
+
+
+
+
+'for (const listenerFunction of this.listeners ) {
+
+
+}
+'
+
+
+
+
+
+
+
+
+
+
+--> COMO TODOS os 'listenerFunction' 
+
+
+
+
+
+SÃO __ FUNCTION REFERENCES,
+
+
+
+ELES PODEM __ SER EXECUTADOS__ COMO FUNCTIONS...
+
+
+
+
+
+
+
+ex:
+
+
+
+for (const listenerFunction of this.listeners ) {
+
+
+    listenerFunction();
+
+}
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+--------> A ESSA FUNCTION, nós passamos as coisas que SÃO RELEVANTES PARA ESSA FUNCTION, COM BASE 
+
+NO STATE QUE ESTAMOS MANAGEANDo...
+
+(
+
+
+    nesse caso, vamos passar nossa LISTA DE PROJECTS (this.projects)...
+) --->  É NOSSA LISTA DE PROJECTS O 'STATE' que esse 
+
+
+
+'ProjectState' é responsável por....
+
+
+
+
+EX:
+
+
+
+for (const listenerFunction of this.listeners ) {
+
+
+    listenerFunction(this.projects);
+
+}
+
+
+
+
+
+
+
+
+
+
+----------> PARA QUE SEJA RETORNADA __ APENAS__ UMA CÓPIA__ DAQUELE ARRAY DE 'projects',
+
+
+
+
+E NÃO O ARRAY EM SI,
+
+
+o professor escreve 
+
+'this.projects.slice()'... 
+
+
+(
+
+
+    tudo para que esse array NÃO POSSA SER EDITADO por meio do call 
+
+
+
+    dessa 'listenerFunction'...
+)
+
+
+
+
+
+
+
+
+
+--> isso pq arrays são reference values no javascript...
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+
+
+for (const listenerFunction of this.listeners ) {
+
+
+    listenerFunction(this.projects.slice());
+
+}
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE AGORA TODA 'LISTENER FUNCTION' ESTÁ SENDO EXECUTADA,
+
+
+E VAI 
+
+
+
+EXECUTAR 
+
+ESSA 'CÓPIA DE NOSSO ARRAY DE PROJECTS'...
+
+
+
+
+
+
+
+
+
+--> agora só precisamos ir até o local em que 'PRECISAMOS SER INFORMADOS DAS MUDANÇAS',
+
+ 
+
+ QUE É JUSTAMENTE NA CLASS DE 'ProjectList'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> lá DENTRO, VAMOS SETTAR UM LISTENER, fazendo 'listen to' a CHANGES NESSE 
+
+
+
+ ARRAY de 'projects' .....
+  
+
+
+
+
+
+
+  -> PARA ISSO, VAMOS ESCREVER 'ProjectState.addListener()',
+
+
+  dentro do CONSTRUCTOR de 'ProjectList':
+
+
+
+
+
+
+
+      constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        projectState.addListener();
+
+        this.attach();
+        this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'... 
+    }
+
+
+
+
+
+
+
+
+
+
+
+    ------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    OK.... temos esse call aí, 
+
+    mas precisamos  DE UM __ PARÂMETRO NESSE_ 'addListener()'...
+
+
+
+
+
+
+
+
+
+    --> esse parâmetro será um 'LISTENER'... --------> UM LISTENER,
+
+
+    É CLARO,
+
+    É UMA _ FUNCTION__,
+
+
+    POR ISSO PRECISAMOS PASSAR UMA FUNCTION A ESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+
+    o professor escreve uma anon function, tipo assim:
+
+
+
+
+    () => {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    isso pq os listeners em 'this.listeners' de ProjectState SÃO UMA SIMPLES LISTA DE FUNCTIONS...,
+
+
+
+
+    FUNCTIONS QUE VAMOS 'EVENTUALMENTE CHAMAR',
+
+    quando ALGO MUDAR (como visto naquele código de 'listenerFunction(this.projects.slice())', lá no method de 'addProject', em 'ProjectState')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----------> ok... precisamos passar uma function a essa function de 'addListener',
+
+
+    lá 
+
+
+
+nesse call de 
+
+
+
+'projectState.addListener(
+    () => {
+
+    }
+)
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PASSAR UMA FUNCTION ANÔNIMA,
+
+
+
+E ESSA FUNCTION VAI __rECEBER__ UMA 'LISTA DE PROJECTS',
+
+quando for chamada...
+
+
+
+
+
+
+
+--> EX:
+
+
+
+projectState.addListener(
+    (projects) => {
+
+
+
+    }       
+)
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+OK, MAS COMO VAMOS OBTER ESSA 'LISTA DE PROJECTS'?
+
+
+
+
+
+
+
+
+--> BEM, EU CREIO QUE USAREMOS AS PROPRIEDADES DE 'ProjectState', aquele array de 'projects'....
+
+
+
+
+
+
+
+
+
+-> NÃO, MAS ISSO NÃO É POSSÍVEL... --> PARA QUE ISSO SEJA POSSÍVEL, VAMOS PRECISAR ADICIONAR UM 
+
+
+__ NOVO __ FIELD A NOSSA 'ProjectList',
+
+que será 
+
+o field de 
+
+
+'assignedProjects',
+
+
+
+QUE SERÁ DO TYPE de array de 'any'..
+
+
+
+eX:
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+    assignedProjects: any[] = [];
+  
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        projectState.addListener(
+            () => {}
+
+        );
+
+        this.attach();
+        this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'... 
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('beforeend', this.element );
+    }
+
+
+
+    
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector('h2')!.textContent = `${this.listType.toUpperCase()} PROJECTS`
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+---------- 
+
+
+
+ESSA PROVAVELMENTE SERÁ A PROPRIEDADE QUE GUARDARÁ OS 'projects' que serão usadas para RENDERIZAR NOSSA PROJECTLIST CORRETAMENTE..
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS AI´O PROFESSOR ATIRA OUTRA CURVE BALL,
+
+PQ 
+
+
+ELE ESCREVE 
+
+
+
+''''
+
+
+
+projectState.addListener(projects => {
+
+    this.assignedProjects = projects;
+
+})
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+DEFINE ESSA PROPRIEDADE COMO OS 'projects' que vamos receber (teoricamente)..
+
+
+
+
+
+
+
+
+
+
+
+
+ok... agora as coisas estão fazendo mais sentido...
+
+
+
+
+
+
+
+
+
+--> esse method está adicionando uma function como 
+
+
+'projects: any[] => {this.assignedProjects = projects}',
+
+
+
+
+COM ESSA LÓGICA,
+
+
+PARA 
+
+
+DENTRO 
+
+DO ARRAY DE 
+
+'listeners',
+
+lá 
+
+
+em 
+
+'ProjectState'....
+
+
+
+
+
+
+
+E A LÓGICA DESSA FUNCTION REALMENTE FAZ O OVERWRITE DO VALOR DE 'assignedProjects'
+
+
+por esse valor de 'projects' 
+
+que vamos 
+
+
+RECEBER LÁ 
+
+em 'ProjectState', na function de 'addProject',
+
+
+NAQUELA LINHA DE 
+
+
+        for (const listenerFunction of this.listeners) {
+            listenerFunction(this.projects.slice()) ///esta linha aqui.
+        }
+
+
+
+
+
+
+
+
+
+---------
+
+
+
+
+
+
+
+
+--> BEM, E A IDEIA DO PROFESSOR É JUSTAMENTE FAZER 'RENDER' DE TODOS ESSES PROJECTS EM 'assignedProjects'....
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR 
+
+ADICIONA UM NOVO METHOD em 'ProjectList',
+
+
+
+QUE 
+
+
+SERÁ CHAMADO DE 'renderProjects()',
+
+
+QUE SERÁ CHAMADO 
+
+
+
+
+
+
+__ DE DENTRO__ DE 
+
+
+
+'projectState.addListener(() => {})'....
+
+
+
+
+
+
+
+
+
+
+
+--> ELE VAI SÓ CHAMAR ASSIM:
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        projectState.addListener(
+            (projects: any[]) => {
+                this.assignedProjects = projects;
+                this.renderProjects(); ///EIS O CÓDIGO EM QUESTÃO...
+
+            }
+
+        );
+
+        this.attach();
+        this.renderContent(); ///settar o conteúdo dessa list _ DEPOIS__ DE ELA__ TER SIDO ANEXADA AO DOM, com 'attach()'... 
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('beforeend', this.element );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O  METHOD 'renderProjects'
+
+
+
+em si 
+
+
+
+
+SERÁ ___ UM METHOD PRIVATE,
+
+
+
+e vai ser tipo assim:
+
+
+
+
+
+
+
+private renderProjects() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DISSO,
+
+
+
+
+FAREMOS 'REACH OUT' àquela UL 
+
+
+de 
+
+
+
+'${this.type}-projects-list',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS ISTO:
+
+
+
+    private renderProjects() {
+        const list = document.getElementById(`${this.listType}-projects-list`)
+    }
+
+
+
+
+
+
+
+
+    ------> SIM, PODEOMS GANHAR ACESSO A ESSE NEGÓCIO 
+
+
+
+    por meio desse document.getElementById,
+
+
+
+    PQ 
+
+
+    QUANDO AQUELA FUNCTION DE 
+
+
+    ''
+
+     (projects: any[]) => {
+                this.assignedProjects = projects;
+                this.renderProjects(); ///EIS O CÓDIGO EM QUESTÃO...
+
+            }
+
+
+            ''
+
+
+            FOR EXECUTADA,
+
+            depois de ter sido adicionada ao ARRAY DE 'listeners',
+
+
+
+            __ NÓS JÁ VAMOS TER ESSE ELEMENTO 'list'
+
+
+            RENDERIZADO NA NOSSA PÁGINA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----->  BEM, E NESSA LISTA VAMOS QUERER 'RENDER ALL THE PROJECTS WE HAVE'.. --> para isso,
+
+PROFESSOR VAI 
+
+USAR UM FOR OF LOOP PARA IR POR DENTRO DE TODOS OS 
+
+
+OBJECTS 'Project'
+
+DENTRO DE 'this.assignedProjects'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+    private renderProjects() {
+        const listEl = document.getElementById(`${this.listType}-projects-list`);
+
+        for (const project of this.assignedProjects) {
+
+
+        }
+    }
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+BEM, E PARA CADA 'project',
+
+VAMOS QUERER ASSIGNAR 
+
+
+
+1 ELEMENTO 'Project'
+
+A ESSA UL.... --> 
+
+
+PARA 
+
+ISSO,
+
+VAMOS QUERER RODAR O CÓDIGO DE 
+
+
+
+
+
+
+'listEl.appendChild()'  (MAS VAMOS REFINAR ISSO, MAIS TARDE)...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS APPENDAR ESSA CHILD  de 'project' nessa ul....
+
+
+
+
+
+eX:
+
+
+
+
+    private renderProjects() {
+        const listEl = document.getElementById(`${this.listType}-projects-list`);
+
+        for (const project of this.assignedProjects) {
+
+                listEl.appendChild(project);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+    private renderProjects() {
+        const listEl = document.getElementById(`${this.listType}-projects-list`) as HTMLUListElement;
+
+        for (const project of this.assignedProjects) { /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+            listEl.appendChild(project);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----------> É CLARO QUE ESSE CÓDIGO AINDA NÃO ESTÁ PRONTO, PQ PRECISAMOS 
+
+    FORMATAR 
+
+    cada 'project' em um 
+
+    'listItem',
+
+
+
+    PARA QUE SEJA COMPATÍVEL COM ESSA UL...
+
+
+
+
+
+
+
+
+
+    -> para isso,
+
+    professor escreve:
+
+
+
+
+
+
+    const listItem = document.createElement('li');
+
+    listItem.innerHTML = `
+    ....
+    `
+
+
+
+
+
+
+
+
+
+
+    (EU acho que ele vai querer fazer isso..)
+
+
+
+
+
+
+
+
+
+    --> MAS ERREI, pq o que ele vai querer fazer é só definir o 
+
+    'textContent'
+
+    DESSE LI 
+
+
+
+
+    como igual a 
+
+
+
+
+
+    'project.title' (ou seja, só a propriedade 'title' de cada um desses objects)..
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+
+
+
+
+    private renderProjects() {
+        const listEl = document.getElementById(`${this.listType}-projects-list`) as HTMLUListElement;
+
+        for (const project of this.assignedProjects) { /// vai efetivamente renderizar nossos 'list item' na nossa ul (append)...
+            const listItem = document.createElement('li');
+            listItem.textContent = project.title;
+            listEl.appendChild(project);
+
+        }
+    }
+
+
+
+
+------------------------------
+
+
+
+
+
+
+OK... 
+
+
+
+AGORA TEMOS ESSE 'listItem' sendo apenso...
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS QUASE LÁ, MAS FALTA UM PEQUENO FIX...
+
+
+
+
+
+
+
+--> lá em 'assignedProjects', NA PROPRIEDADE,
+
+
+DEFINIMOS QUE O TYPE É DE 'any[]',
+
+
+
+
+MAS ISSO NÃO ESTÁ CERTO...
+
+
+
+
+
+
+
+
+
+
+---> para que o typescript pare de apitar,
+professor escreve ,
+
+
+NO CONSTRUCTOR, UM VALOR INICIAL DE 
+
+
+'this.assignedProjects = []'...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA SALVAMOS TUDO ISSO E TESTAMOS NOSSO CÓDIGo....
+
+
+
+
+
+
+
+
+--> GANHAMOS 1 ERROR:
+
+
+'Invalid input, please try again'....
+
+
+
+
+
+
+
+-> E NOSSAS LISTAS DE 'active' e 'finished' projects NÃO ESTÃO APARECENDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO DISSO É QUE EU NÃO HAVIA ESCRITO ISTO:
+
+
+
+
+
+
+
+const projectInput = new ProjectInput();  /// É ISTO QUE vai fazer toda a diferneça (pq nós temos 'this.attach() )
+
+
+const activeProjectList = new ProjectList('active'); ////render de nossas 2 project lists...
+
+
+const finishedProjectList = new ProjectList('finished');
+
+
+
+
+
+
+
+
+
+
+
+NÃO HAVIA INSTANCIADO AS 'LIST'...
+
+
+
+
+
+
+
+
+
+--> MAS ELAS _ AINDA NÃO APARECERAM....
+
+
+
+
+
+
+
+
+
+
+
+--> CONSERTEI O STYLING, MAS 
+
+
+
+
+AINDA NÃO ESTOU CONSEGUINDO ADICIONAR 'Project item' a nossas list...
+
+
+
+
+
+app.ts:418 Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
+    at ProjectList.renderProjects (app.ts:418:14)
+    at app.ts:398:12
+    at ProjectState.addProject (app.ts:233:7)
+    at ProjectInput.submitHandler (app.ts
+
+
+
+
+
+
+
+
+
+
+
+
+    --> CONSERTEI... ERAM TODOS ERROS DE ___SINTAXE__....
+
+
+
+
+
+
+
+
+
+    --> MAS AINDA FIQUEI COM 2 PROBLMEAS:
+
+
+
+
+
+
+
+
+
+    QUANDO ADICIONAMOS ALGUM 'pROJECT' adicional,
+
+
+
+
+
+
+    ELE SEMPRE É ADICIONADO A NOSSAS 2 LIST,
+
+
+
+    E ELE TAMBÉM É ADICIONADO 'EM PARES' (sempre 2 a 2, 3 a 3, etc......).
+
+
+
+
+
+
+
+    --> isso está acontecendo devido a 'appendChild,' acho..
+
+
+
+
+
+
+
+
+
+    -_> PODEMOS CONSERTAR O ADD A 2 LISTS POR MEIO DE 'FILTERING LOGIC'...
+
+
+
+
+
+
+
+    --> 'BESIDES, WE DUPLICATE THE LAST ELEMENT AND _ ADD__ THE _ NEW __ ELEMENT'''' (outra coisa que devemos consertar)...
+
+
+
+
+
+
+
+
+
+    --> VAMOS CONSERTAR TUDO ISSO NA PRÓXIMA AULA...
+
+
+
+
+
+
+
+
+
+
+    primeiramente, a 'filtering logic'...
+
+
+    (
+
+        adicionar a uma LIST DE 'active', em vez de uma LIST GERAL....
+    )
+
+
+
+
+
+
+
+
+
+    --> esse fix provavelmente será feito na class de 'ProjectList'...

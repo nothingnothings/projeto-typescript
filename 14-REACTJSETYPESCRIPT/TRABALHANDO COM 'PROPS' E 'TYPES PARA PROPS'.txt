@@ -1,0 +1,1389 @@
+
+
+
+
+
+
+
+
+--> OK, NOSSO CÓDIGO COMEÇOU ASSIM:
+
+
+
+
+import React from 'react';
+
+
+
+
+
+const App: React.FC = () => { //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  return (
+    <div className="App">
+
+    </div>
+  );
+}
+
+
+
+
+
+export default App;
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+--> precisamos construir um component 'TodoList'....
+
+
+
+
+
+
+----->  é por isso que vamos criar um folder de 
+
+
+
+
+
+
+
+
+'components',
+
+
+
+
+
+
+
+e dentro dele vamos criar um 
+
+
+
+'TodoList.tsx'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, PARA USAR O REACT, PRECISAMOS IMPORTAR 
+
+O 
+
+REACT com 
+
+
+
+
+'import React from 'react'',
+
+
+
+
+
+
+
+
+e aí 
+
+
+
+
+
+precisamos 
+
+
+
+
+
+criar um component tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+const TodoList = () => {
+
+
+
+    return (
+
+      <>
+    );
+
+}
+
+
+
+
+
+
+
+export default TodoList;
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+--> E AGORA JÁ podemos usar nossas features typescript... ------> 
+
+
+
+
+
+podemos estabelecer que o return type desse 'TodoList'
+
+
+será 
+
+um 
+
+
+'React.FC' ,
+
+
+
+(um functional component)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+
+
+
+
+
+
+
+
+const TodoList: React.FC = () => {
+
+
+
+
+    return (
+
+        <ul>
+            
+        </ul>
+        
+    )
+
+}
+
+
+
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROVAVELMENTE FAREMOS O RETURN DE VÁRIOS 'Todo' components dentro de uma 
+
+
+
+tag de '<ul>',
+
+
+por isso já escrevi assim....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... professor está fazendo isso...
+
+
+
+
+
+
+
+
+
+
+--> mas ele não vai criar um component independente para conseguir o 'Todo'.... ---> em vez disso,
+
+
+
+
+
+ele 
+
+
+
+vai criar um array hardcodado dentro desse component de 'TodoList',
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+const todos = [
+  {
+    id: 't1', 
+    text: 'Finish the course'
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DA <ul>,
+
+
+
+podemos usar a marcação dinâmica para executar um MAP naquele array de todos,
+
+para então retornar 1 list item <li> para cada elemento no array...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+const TodoList: React.FC = () => {
+  const todos = [
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ];
+
+  return (
+    <ul>
+      {todos.map((todo) => {
+        return (
+          <li key={todo.id}>
+            <p>{todo.text}</p>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+O REACT VAI QUERER ESSA KEY AÍ PARA DIFERENCIAR OS ELEMENTOS, 1 do outro...
+
+
+
+
+
+
+
+
+
+--> ok, agora estamos renderizando uma lista de todos...
+
+
+
+
+
+
+--> agora precisamos integrar essa list lá 
+
+
+no 'App.tsx'...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+const App: React.FC = () => { //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  return (
+    <div className="App">
+      <TodoList />
+    </div>
+  );
+}
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+ok.... fiz exatamente o que o professor fez...
+
+
+
+
+
+
+
+
+--> ele menciona que o 'tsx' vai ser adicionado automaticamente, under the hood,
+
+
+pelo 
+
+
+
+
+nosso workflow de 'create-react-app'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SALVAMOS TUDO ISSO,
+
+
+voltamos à página e etc....
+
+
+
+
+
+
+
+
+--> o styling está horrível, e podemos melhorá-lo....
+
+
+
+
+
+
+
+
+
+--> mas por enquanto, está bom....
+
+
+
+
+
+
+
+
+
+
+
+
+----> VAMOS QUERER, MAIS TARDE, ser capazes de adicionar 'Todos' 
+
+
+por meio de um 
+
+component adicional, que ainda não temos  (algo como um painel)
+
+
+
+
+
+
+
+
+
+
+--> E NÓS PROVAVELMENTE MANAGEAREMOS ESSES 'Todos'
+
+
+nesse component DE 'App',
+
+
+
+
+
+A ESTRUTURA FICARÁ ASSIM:
+
+
+
+
+
+
+const App: React.FC = () => { //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  return (
+    <div className="App">
+    {/*A component that adds todos. */}
+      <TodoList />
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+--> NESSE COMPONENT DE 'App.tsx' 
+
+provavelmente 
+
+teremos 
+
+nossos methods 
+
+que 
+
+managearão 
+
+os 
+
+TOdos... ---> já 
+
+
+
+essa 'TodoList' 
+
+vai
+
+
+receber esses methods como PROPS....
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+ok... devo ver a aula do professor....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É MAIS REALISTA TER AQUELA CONST DE 'todos' 
+
+,
+
+o 
+
+
+
+array,
+
+LÁ 
+
+
+NO COMPONENT DE 'App.tsx',
+
+
+pq 
+
+
+
+
+
+provavelmente vamos repassar esse array de 'Todos'
+
+
+como PROPS 
+
+
+
+lá para o 'TodoList'...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+const App: React.FC = () => { //código usado pelo professor.... ---> 'React.FC' --> esse negócio vai RETORNAR UM 'Function Component'....
+  const todos = [
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ];
+  
+  
+  return (
+    <div className="App">
+      <TodoList items={todos}/>
+    </div>
+  );
+}
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+
+import Todo from '../components/Todo';
+
+const TodoList: React.FC = (props) => {
+
+
+  return (
+    <ul>
+      {props.items.map((todo) => {
+        return (
+       <Todo title={todo.text} id={todo.id} />
+        );
+      })}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS GANHAMOS UM ERROR TYPESCRIPT:
+
+
+
+
+
+
+'Property items does not exist on type IntrinsicAttributes & { children?: ReactNode; }' 
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO BASICAMENTE NÃO EXISTE NESSE 'INTERSECTION TYPE' aqui,
+
+
+esse intersection type que define a estrutura dos props recebidos por 'TodoList...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO ACONTECE PQ __ QUANDO VOCÊ USA TYPESCRIPT COM O REACT,
+
+VOCÊ TEM QUE SER BEM CLARO QUANTO AOS TYPES QUE 
+
+VOCÊ 
+
+ESTÁ USANDO..
+
+
+
+
+
+
+
+
+
+
+
+--> isso quer dizer que você deve DIZER MAIS DO QUE 
+
+
+'''AH, ESSE APP COMPONENT VAI RETORNAR UM TIPO ESPECIAL DE FUNCTION, QUE É O FUNCTION COMPONENT'''...
+
+
+
+
+
+
+
+
+
+--> COMO ASSMI?
+
+
+
+
+
+
+
+--> BEM, SE VOCê DEPENDER__ DE PROPS__ EM ALGUM COMPONENT,
+
+
+VOCÊ PRECISA ___ DIZER__, OBRIGATORIAMENTE,
+
+
+
+AO __ TYPESCRIPT__ COMO __ ESSES 
+
+
+PROPS __ DEVEM SE ESTRUTURAR, COMO DEVEM SE PARECER... 
+
+
+
+
+
+
+
+
+--> OK, COMEÇAMOS ASSIM:
+
+
+
+
+
+
+
+
+
+EM TODOLIST, NÓS RECEBEMOS 'props':
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+
+import Todo from '../components/Todo';
+
+const TodoList: React.FC = (props) => {
+
+
+  return (
+    <ul>
+      {props.items.map((todo) => {
+        return (
+        //   <li key={todo.id}>
+        //     <p>{todo.text}</p>
+        //   </li>
+
+       <Todo title={todo.text} id={todo.id} />
+        );
+      })}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ATÉ AGORA, NADA DE MAIS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE 'props',
+
+NÓS __ PROVAVELMENTE__ TEREMOS __ UM PROP DE 'items',
+
+
+
+
+
+__ QUE 
+
+
+SERÁ 
+
+
+AQUELE PROP SETTADO LÁ EM 'App.tsx',
+
+
+aquele 
+
+
+'<TodoList items={todos} />'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA, AGORA, É QUE ISSO TECNICAMENTE FUNCIONARIA,
+
+
+
+MAS O TYPESCRIPT AINDA NÃO SE CONVENCEU.. ---> AINDA NÃO FALAMOS AO TYPESCRIPT _ QUE 
+
+
+
+
+'''NÓS TEMOS UMA PROPRIEDADE DE ITEMS DENTRO DOS PROPS REPASSADOS A ITEMLIST''...
+
+
+
+
+
+
+
+
+
+--> PARA COMUNICAR ESSE FATO,
+
+
+
+NÓS __ PODEMOS__ USAR_ O FATO__ DE QUE 
+
+ESSE 
+
+
+
+
+'React.FC',
+
+
+
+
+
+escrito 
+
+
+lá 
+
+em 
+
+
+'const TodoList: React.FC = props => {
+
+}' 
+
+
+
+
+
+É  __aCTUALLY__ UM GENERIC_ _ TYPE... --> É UM GENERIC TYPE _ EM QUE __ PODEMOS DEFINIR __  
+
+
+
+
+
+
+_______ TODOS___ OS EXTRA __ PROPS__ (
+
+  props QUE NÃO SEJAM O PROP DEFAULT DE 'children',  que é aquele prop 
+
+  QUE TODO REACT COMPONENT POSSUI.... 
+)
+
+
+
+
+
+
+
+
+
+
+---> PARA FAZER ISSO,
+
+
+ESCREVEMOS 
+
+
+
+'<>'
+
+
+
+
+ao lado do 'React.FC',
+
+
+
+
+
+
+para 
+
+
+
+então 
+
+
+
+ESCREVER UM  __OBJECT__ QUE _ DESCREVE_ A ESTRUTURA__ DESSE OBJETO 'props '
+
+
+
+QUE SERÁ RECEBIDO NESSE FUNCTIONAL COMPONENT...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+
+import Todo from '../components/Todo';
+
+const TodoList: React.FC<{
+
+items: Object[]
+
+}> = (props) => { //você deve OBRIGATORIAMENTE ESPECIFICAR QUAIS PROPS VOCÊ RECEBERÁ, dentro desse '<>' (props que não sejam 'children', que é aquele prop default)...
+
+
+  return (
+    <ul>
+      {props.items.map((todo) => {
+        return (
+        //   <li key={todo.id}>
+        //     <p>{todo.text}</p>
+        //   </li>
+
+       <Todo title={todo.text} id={todo.id} />
+        );
+      })}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> TIPO ALGO ASSIM, INICIALMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, PARA DEIXAR NOSSO CÓDIGO __ MAIS LEAN__, 
+
+
+NÓS SEMPRE DEFINIMOS A 'ESTRUTURA DOS PROPS' 
+
+
+
+
+em uma INTERFACE à PARTE,
+
+
+nesse mesmo 
+
+arquivo de component,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface TodoListProps { ///DESCREVE COMO NOSSO 'props' recebido em 'TodoList' deve se PARECER...
+    items: {title: string; id: string;}[]
+}
+
+
+
+
+
+
+const TodoList: React.FC<TodoListProps> = (props) => { 
+    
+      return (
+        <ul>
+          {props.items.map((todo) => {
+            return (
+    
+           <Todo title={todo.title} id={todo.id} />
+            );
+          })}
+        </ul>
+      );
+    };
+
+
+
+
+
+export default TodoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+import React from 'react';
+
+interface TodoProps {
+  id: string;
+  title: string;
+}
+
+const Todo: React.FC<TodoProps> = (props) => {
+  return (
+    <li key={props.id}>
+      <p>{props.title}</p>
+    </li>
+  );
+};
+
+export default Todo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... OU SEJA,
+
+
+É ASSIM QUE 
+
+O 
+
+
+
+TYPESCRIPT É USADO COM O REACT... --> NÓS VAMOS SEMPRE 
+
+
+
+USÁ-LO PARA 'CONTAR' 
+
+SOBRE 
+
+
+AS COISAS QUE 
+
+SERÃO RECEBIDAS EM CADA 'props',
+
+
+
+PQ ISSO É REALMENTE MT ÚTIL --> NOS AJUDA COM TYPESAFETY.... --> GANHAMOS AUTO-COMPLETION...
+
+
+
+
+
+
+
+
+
+--> O CODING FICA MT MAIS FÁCIL QUANDO USAMOS O TYPESCRIPT... --> evita erros desnecessários....
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE 
+
+AINDA NÃO ACABAMOS,
+
+
+QUEREMOS 
+
+TER 1 
+
+
+COMPONENT QUE ADICIONA NOVOS TODOS. ... --> faremos isso na próxima aula...

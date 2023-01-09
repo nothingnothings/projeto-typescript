@@ -1,0 +1,963 @@
+
+
+
+
+
+
+
+
+AGORA 
+
+
+
+
+
+
+
+QUE TEMOS UM PROJETO PROPRIAMENTE CONFIGURADO,
+
+
+COM ESTE ARQUIVO 'tsconfig.json',
+
+
+
+com este código:
+
+
+
+
+
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Projects */
+    // "incremental": true,                              /* Enable incremental compilation */
+    // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
+    // "tsBuildInfoFile": "./",                          /* Specify the folder for .tsbuildinfo incremental compilation files. */
+    // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects */
+    // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
+    // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
+
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment.  -> OU SEJA, DESCREVE AS FEATURES QUE SERÃO SUPORTADAS PELO SEU TYPESCRIPT..*/
+       // "lib": [    "dom",
+    // "es6",
+    // "dom.iterable",
+    // "scripthost"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment.  -> OU SEJA, DESCREVE AS FEATURES QUE SERÃO SUPORTADAS PELO SEU TYPESCRIPT..*/
+   
+    // "jsx": "preserve",                                /* Specify what JSX code is generated. */
+    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
+    // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
+    // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
+    // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
+
+    /* Modules */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. MUITO IMPORTANTE*/
+    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
+    // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
+    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+    // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
+    // "resolveJsonModule": true,                        /* Enable importing .json files */
+    // "noResolve": true,                                /* Disallow `import`s, `require`s or `<reference>`s from expanding the number of files TypeScript should add to a project. */
+
+    /* JavaScript Support */
+    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. OPCIONAL */
+    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. não vai compilar, mas vai CHECAR POR ERRORS/ IMPROPRIEDADES DE SINTAXE.... */
+    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
+
+    /* Emit */
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+    // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
+    "sourceMap": true,                                /* Create source map files for emitted JavaScript files.  ------> IMPORTANTE PARA O DEBUGGING DE SEUS ARQUIVOS TYPESCRIPT ( no lugar dos JAVASCRIPT). ..  --> MT BOM PARA DEBUGGING... para usar a aba 'sources' NO CHROME.. */
+   
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. OPCOES MUITO IMPOR */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. MUITO IMPORTANTE*/
+    
+    "removeComments": true,                           /* Disable emitting comments. */
+    // "noEmit": true,                                   /* Disable emitting files from a compilation.  OPCIONAL... (é usado se você só QUER CHECAR AS FILES, sem as efetivamente compilar).... bem opcional...*/
+    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
+    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
+    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
+    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
+    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
+    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
+    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+    // "stripInternal": true,                            /* Disable emitting declarations that have `@internal` in their JSDoc comments. */
+    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like `__extends` in compiled output. */
+    "noEmitOnError": true,   ///boa opção, te forca a escrever CÓDIGO CERTO...  --> só vai compilar seu código se não existirem erros em seu meio                    /* Disable emitting files if any type checking errors are reported. */
+    // "preserveConstEnums": true,                       /* Disable erasing `const enum` declarations in generated code. */
+    // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
+    // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
+
+    /* Interop Constraints */
+    // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
+    // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. MUITO IMPORTANTE --> Faz com que TODOS SEUS ARQUIVOS 'TYPESCRIPT' fiquem com TODAS ESSAS OPTIONS ABAIXO __ ATIVADAs__.... */
+    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. --> principalmente usado em FUNCTIONS, nos parameters... */
+    // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. -------> VIMOS ISTO COM AQUELE CÓDIGO DE 'const button = document.querySelector('button')!;' */
+    // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible.  --> OPTION AVANÇADA, ligada a function TYPES...*/
+    // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. --> uso de 'this', basicamente... é a correção disso aí.... */
+    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
+    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. (isso nos arquivos JAVASCRIPT) */
+
+
+
+    // OPTIONS QUE TE AJUDAM COM SUA 'CODE QUALITY'
+    // "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read.  coisa comum.*/
+    // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. coisa comum.*/
+    // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
+    "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function.  --> BOM PARA __ RETORNAR 'reports'*/
+
+
+
+    // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
+    // "noUncheckedIndexedAccess": true,                 /* Include 'undefined' in index signature results */
+    // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
+    // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type */
+    // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
+    // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "exclude": [
+"analytics.js",
+"*.dev.ts", /* exemplo de WILD CARD -- excluíremos da compilation TODOS OS ARQUIVOS NO ROOT DE SEU PROJETO COM EXTENSÃO '.dev.ts'... */
+"**/*.dev.ts",  /*isto vai excluir TODOS OS ARQUIVOS DE SEU PROJETO com final '.dev.ts' */
+"node_modules" /* POR DEFAULT, O NODE_MODULES SEMPRE SERÁ  EXCLUDED.... ENTRETANTO, SE VOCê ESCREVER ESSA OPTION/ENTRY DE 'exclude', VOCê É OBRIGADO A ESPECIFICAR, AQUI, QUE VOCê QUER EXCLUIR O 'node_modules', SENÃO ELE SERÁ __ INCLUÍDO, por alguma razão, NO COMPILE DE SEU CÓDIGO TYPESCRIPT...*/
+
+],
+
+/* "include": []  É O CONTRÁRIO DE EXCLUDE.... --> CUIDADO, QUANDO VOCÊ DEFINE 'include', SÓ OS ARQUIVOS QUE VOCE ELENCAR NO ARRAY SERÃO ACTUALLY COMPILADOS; todos os arquivos que vocÊ não mencionar SERÃO __ IGNORADOS__....  */  
+
+/* "files": [ "app.ts" ]    --> MESMA COISA QUE O 'include', MAS COM A DIFERENÇA DE QUE AQUI VOCê SÓ PODE APONTAR FILES ESPECÍFICAS, SEM PODER ESPECÍFICAR FOLDERS INTEIROS, como no 'include'... */
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS __ VER COMO _ PODEMOS DEBUGGAR NOSSO CÓDIGO,.
+
+
+
+COMO __ OBTER UM 'GREAT DEVELOPMENT FLOW'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PROFESSOR PEDE QUE 
+
+TENHAMOS AS 
+
+
+EXTENSIONS APROPRIADAS  INSTALADAS...
+
+
+
+
+
+
+
+
+--> PRECISAMOS DE 'ESLint'...
+
+
+
+
+
+
+
+----> PRECISAMOS DE 'Prettier '---> para automaticamente FORMATAR NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+--> 'DEBUGGER FOR CHROME'....
+
+(ESTE 
+
+EU __ NÃO TENHO__)....
+
+
+
+
+
+
+
+
+
+--> MAS ISSO FOI 'DEPRECATED':
+
+
+
+
+
+
+:rotating_light: Important
+This extension has been deprecated as Visual Studio Code now has a bundled JavaScript Debugger that covers the same functionality. It is a debugger that debugs Node.js, Chrome, Edge, WebView2, VS Code extensions, and more. You can safely un-install this extension and you will still be able to have the functionality you need.
+
+Please file any issues you encounter in that repository.
+
+
+
+
+
+
+
+
+
+
+
+
+https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug
+
+
+
+
+
+
+
+--> 
+
+You can debug any Node.js process you run in the terminal with our revamped Auto Attach. If auto attach isn't on, you can run the command Debug: Toggle Auto Attach to turn it on. Next time you run a command like npm start, we'll debug it.
+
+
+
+
+
+Once enabled, you can toggle Auto Attach by clicking the Auto Attach: On/Off button in the status bar on the bottom of your screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> consegui, isso funciona com 
+
+
+NODE... 
+
+(
+  mas não sei se funciona com JAVASCRIPT COMUM, nem 
+
+
+
+
+  COM TYPESCRIPT...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É CLARO QUE VOCê PODE USAR AS CHROME DEVTOOLS PARA 
+
+
+DEBUGGAR SEU CÓDIGO TYPESCRIPT (se você habilitar os sourcemaps, lá 
+
+
+
+no 'tsconfig.json'...)
+
+
+
+
+
+
+
+
+
+
+-------> MAS VOCÊ TAMBÉM PODE USAR __ O VS__ CODE.... -> É SÓ 
+
+
+
+COLOCAR BREAKPOINTS,
+
+
+E AÍ 
+
+
+'LAUNCH YOUR TYPESCRIPT FILES THROUGH 
+
+
+
+VSCODE' --> PARA ISSO,
+
+
+
+VOCÊ PRECISA:
+
+
+
+
+1) AINDA PRECISA HABILITAR OS SOURCEMAPS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) DEPOIS DISSO, COLOQUE OS BREAKPOINTS... 
+
+
+
+
+
+3) DEPOIS VÁ EM 'debug',
+
+
+E CLIQUE EM 'START DEBUGGING'..
+
+
+
+
+
+
+
+
+
+
+4) A PRIMEIRA VEZ QUE VOCê EXECUTAR SEU ARQUIVO TYPESCRIPT,
+
+ELE VAI 
+
+PEDIR PELO 'ENVIRONMENT'
+
+de debugging... ----> COLOQUE 
+
+
+
+
+'chrome'... 
+
+
+
+
+
+
+
+
+GANHEI UM ERROR:
+
+
+
+
+crbug/1173575, non-JS module files deprecated.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, 
+
+
+NOSSO CÓDIGO __ NÃO ESTÁ FUNCIONANDO, NÃO ESTÁ SENDO 'CAUGHT'/debuggado...
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ESSE PROBLEMA, DEVEMOS IR ATÉ O FOLDER DE '.vscode'
+
+
+QUE RECÉM FOI CRIADO,
+
+E AÍ 
+
+ALTERAR 
+
+
+a 'url', trocar de 'localhost:8080'
+
+para 
+
+'localhost:3000'...
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK, MAS AINDA __ RECEBEMOS UM ERRORR:
+
+
+
+crbug/1173575, non-JS module files deprecated.
+
+
+
+
+
+
+
+
+
+------> não sei pq não está funcionando...
+
+
+
+
+
+
+
+
+
+
+--> acho que não está funcionando pq _ AINDA _ NÃO FIZEMOS 'SERVE' 
+
+DESSE 
+
+
+
+NOSSO APP, por meio do 'lite-server'...
+
+
+
+
+
+
+
+
+-> para isso, temos que inicializar nosso projeot como NPM PROJECT,
+
+
+por meio da escrita de 
+
+'npm init'...
+
+
+
+
+
+--> depois,
+
+
+instalamos 
+
+
+'lite-server' 
+
+
+com 
+
+'npm install --save-dev lite-server' 
+
+
+
+
+
+
+
+
+-> ISSO FEITO,
+
+VAMOS ESCREVER UM SCRIPT DE 'start' 
+
+
+
+que vai rodar 'lite-server'...
+
+
+
+
+
+
+
+
+
+---> CERTO... AGORA PROVAVELMENTE VOU CLICAR EM 'START DEBUGGING', no IDE,
+
+para 
+
+
+
+tentar ATTACHEAR NOSSO DEBUGGER A ESSE ONGOING PROCESS....
+
+
+
+
+
+
+
+
+
+
+
+--> OK, FUNCIONOU.... 
+
+
+
+
+
+
+--> NA VERDADE, NÃO FUNCIONOU, PQ OS BREAKPOINTS NÃO ESTÃO FUNCIONANDO... (uncaught)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI FAZER FUNCIONAR, MAS TIVE QUE ALTERAR 
+
+A 
+
+
+ESTRUTURA DE NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+--> PARA FAZER FUNCIONAR, TIVE QUE FAZER O SEGUINTE:
+
+
+
+
+
+
+
+
+
+1) TROCAR DE 'PASTA DO PROJETO', lá no VSCODE (ou seja, troquei de 'pasta do projeto'; antes era '''a pasta com todos meus arquivos de texto + folder do projeto.... isso passou a ser só 'A PASTA DO PROJETO, ABERTA NO VSCODE'''' )
+
+
+
+
+
+
+
+2) isso feito,
+
+
+DEIXEI O 'launch.json'
+
+
+ASSIM:
+
+
+
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+3) IMPORTANTE TAMBÉM É A CONFIGURAÇÃO LÁ DE 'tsconfig.json',
+
+
+QUE PRECISA DAS SEGUINTES CONFIGURAÇÕES:
+
+
+
+
+
+
+
+''
+"rootDir": "./src",  
+
+
+
+'''
+
+
+
+
+
+
+e 
+
+
+
+''
+
+
+ "outDir": "./dist",    
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso feito,
+
+
+FINALMENTE,
+
+
+
+
+
+
+
+
+
+PRECISEI DE 2 COISAS:
+
+
+
+
+
+
+4) PRECISEI DEIXAR MEU 'lite-server' RODANDO NO BACKGROUND....
+
+
+
+
+
+
+
+
+5) PRECISEI INICIAR O DEBUGGING, POR MEIO DA OPÇÃO 'run -> start debugging -> chrome', LÁ NO VSCODE...
+
+
+
+
+
+
+
+
+
+
+
+--> finalmente, com isso conseguimos 
+
+
+
+
+ter debugging com arquivos typescript (browserside, sem node shenanigans...)
+
+
+
+
+
+
+
+
+
+
+-----> ACABAMOS COM ESTE MÓDULO... --> DEMOS UMA BOA OLHADA NO COMPILER TYPESCRPIT,
+
+
+COMO PODEMOS 
+
+
+
+
+
+
+CONFIGURÁ-LO,
+
+
+E COMO 
+
+
+PODEMOS 
+
+
+
+SETTAR COISAS NELE PARA QUE COMPILE  
+
+
+COISAS DA MANEIRA QUE VOCÊ REALMENTE PRECISA ESCREVER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> 'STRICT MODE' --> É A COISA MAIS IMPORTANTE,
+
+PQ 
+
+
+
+
+FAZ COM QUE VOCÊ EVITE RUNTIME BUGS ESTRANHOS  (
+
+
+
+
+
+  como visto 
+
+  pelos checks STRICT DE 'null' (visto nos nossos HTML ELEMENTS, QUE PODEM ESTAR NULL, àS VEZES... às vezes podem não existir no dom)...
+
+
+
+
+EX:
+
+const button = document.querySelector('button');' 
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DISSO,
+
+
+ESTUDAMOS TAMBÉM O DEBUGGING,
+
+
+E COMO 
+
+V
+OCÊ 
+
+
+PODE 
+
+
+
+FACILMENTE 
+
+CONFIGURAR 
+
+
+O VSCODE/CHROME PARA 
+
+DEBUGGAR....
+
+
+
+
+
+
+
+
+
+
+
+------> NO CHROME DEBUGGAMOS 
+
+POR MEIO DE SOURCE MAPS e opção 'source'...
+
+
+
+
+
+
+
+
+
+
+
+--> NO VSCODE DEBUGGAMOS PELA INTERFACE DE DEBUGGING, que fica na esquerda....
+
+
+
+
+
+
+
+
+--> estudamos novamente os 'sourcemaps',
+
+
+
+que AQUI ESSENCIALMENTE 
+
+
+
+
+
+
+ATUAM COMO 'BRIDGE' (para o debugger)
+
+
+ENTRE SEUS ARQUIVOS 
+
+TYPESCRIPT E ARQUIVOS JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+SABEMOS 
+UM POUCO MAIS SOBRE COMO MANAGEAR NOSSOS PROJECTS...
+
+
+
+
+
+--> DEVEMOS ESTUDAR UM PCO MAIS DE COISAS QUE PODEMOS FAZER COM O TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+Official-tsconfig-Docs
+https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+
+Official-Compiler-Options-Docs
+https://www.typescriptlang.org/docs/handbook/compiler-options.html

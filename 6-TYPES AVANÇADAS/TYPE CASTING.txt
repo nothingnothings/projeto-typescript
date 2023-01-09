@@ -1,0 +1,1355 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> OK... 'discriminated unions',
+
+  
+
+
+  UM TÓPICO MT ÚTIL,
+
+  CONTEMPLADO NESTE CÓDIGO AQUI:
+
+
+
+
+
+
+////////////////////////////////////////////////////
+
+
+
+
+  
+interface Bird {
+    flyingSpeed: number;
+    type: 'bird'; //informação acerca da class.... (desenvolvedores também usam 'kind' em vez de 'type', Às vezes) -----> VOCÊ USARÁ ESSA INFO _ JUSTAMENTE __ PARA DEFINIR 'discriminated types'...
+    //não confunda isso com 'a definiçaõ de um valor'.... -> não... o 'bird', essa string aí, é na verdade um 'LITERAL TYPE'  (ou seja, 'Bird' DEVERÁ _ CERTAMENTE__ SEGURAR UMA PROPRIEDAED 'type', que __ CERTAMENTE__ SERÁ DE VALOR 'bird') ---> isso é um IDENTIFICADOR DE TYPE, portanto.... --> e é usado para fazer 'discriminated Unions'....
+
+}
+
+
+
+
+interface Horse {
+runningSpeed: number;
+type: 'horse'; ///usado para definir 'discriminated unions'...
+}
+
+
+
+
+
+
+type Animal = Horse | Bird; ///union type..
+
+
+
+
+
+
+function moveAnimal(
+    animal: Animal
+) {
+
+
+    switch(animal.type) {
+
+        case 'bird': 
+        console.log('Moving with speed: ' + animal.flyingSpeed)
+
+        break;
+
+        case 'horse':
+            console.log('Moving with speed: ' + animal.runningSpeed);
+        default: 
+        return;
+    }
+}
+
+
+
+
+moveAnimal({type: 'bird', flyingSpeed: 21211});
+
+
+
+moveAnimal({type: 'horse', runningSpeed: 21211});
+
+
+
+
+
+///////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRA FEATURE MT ÚTIL É A DO 'TYPE CASTING'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TYPE CASTING --> TE DEIXA DIZER AO TYPESCRIPT QUE 
+
+
+UM CErto 
+
+
+
+
+
+
+
+
+
+__ VALOR__ É DE UM CERTO TYPE _ QUE O TYPESCRIPT NÃO É CAPAZ DE DETECTAR POR CONTA PRÓPRIA,
+
+
+
+MAS QUE 
+
+
+
+VOCÊ, COMO DESENVOLVEDOR,
+
+
+
+
+
+___SABE__ que é desse type....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> UM EXEMPLO DISSO É SE CONSEGUIRMOS ACESSO 
+
+
+
+
+
+a 
+
+
+UM BUTTON NO NOSSO DOM, por meio de um código como este:
+
+
+
+
+
+
+
+
+
+
+
+
+--------->
+
+
+
+
+
+
+const button = document.querySelector('button');
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO NOS DARÁ ACESSO AO BUTTON, mas 
+
+
+o typescript NÃO SABE QUE ISSO SERÁ UM BUTTON..
+.
+
+
+
+
+
+
+
+
+
+--> PARA ESCLARECER A ELE QUE ISSO SERÁ UM BUTTON,
+você 
+
+DEVE USAR A FEATURE DO TYPE CASTING,
+
+para 
+
+dizer:
+
+
+
+
+const button = document.querySelector('button') as HTMLButtonElement;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+PARA_ __ CONSEGUIR_ ACESSO à FEATURE DO TYPE CASTING,
+
+
+VOC~E DEVE USAR 
+
+A KEYWORD DE 
+
+
+'as'...
+
+
+
+
+
+
+
+
+
+
+->' RECONHECA TAL COMO TAL'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... MAS SE N COLOCAMOS ESSE NEGÓCIO,
+
+
+
+
+
+O TYPESCRIPT VAI PENSAR 
+
+
+
+'HTMLButtonElement | null'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> 'OU NULL' --> pq ESSE ELEMENTO PODE NÃO EXISTIR NA PÁGINA... --> para consertar isso, precisamos colocar "!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> A COISA IMPORTANTE É QUE 
+
+O 
+TYPESCRIPT 
+
+
+
+
+
+
+
+
+àS VEZES DETECTA QUE ALGO SERÁ 
+
+
+uma coisa específica,
+
+
+tipo 
+
+
+
+
+PARAGRAPHS....
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+const paragraph = document.querySelector('p'); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TS VAI AUTOMATICAMENTE DETECTAR QUE 
+
+isso é 
+
+
+de 
+
+
+type 
+
+'HTMLParagraphElement | null' ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBS::: SE ESCREVEMOS ''' const button = document.querySelector('button') as HTMLButtonElement;''',
+
+
+
+
+
+
+
+O TYPE PASSA A SER SÓ DE 'HTMLButtonElement'...
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... MAS ISSO AÍ _ NÃO FUNCIONA__ SE 
+
+NÓS TENTAMOS SELECIONAR ESSE ELEMENTO POR MEIO DE UM SELECTOR DIFERNETE,
+
+
+
+
+como por exemplo, 
+
+
+o uso de 
+
+'getElementById()'..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+const specificButton = document.getElementById('specific'); 
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO VAI DAR UM TYPE DE 
+
+
+
+
+'HTMLElement | null' 
+
+
+
+
+(ALGO BEM MAIS ABSTRATO DO QUE 'HTMLButtonElement')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ QUE DEVEMOS USAR 'as', para determinar exatamente o que é cada 1 desses elementos...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE 
+
+'paragraphs'
+
+NÃO IMPORTAM TANTO, não precisamos 
+
+
+determinar tanta coisa quanto ao seu type....
+
+
+
+
+
+
+
+
+
+
+
+-> MAS QUANDO O ASSUNTO É BUTTONS/INPUTS,
+
+
+
+
+
+
+
+
+
+
+
+ISSO MUDA.... ---> QUEREMOS ESPECIFICAR QUE __ TIPO __ DE INPUT é, ou que isso é um button, etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO PQ NÓS, COMO DESENVOLVEDORES, TEMOS CERTEZA ABSOLUTA DE QUE ISSO SERÁ UM INPUT ELEMENT...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+const inputElement = document.getElementById('inputElementSpecific') as HTMLInputElement; 
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+E É NOSSA TAREFA FAZER COM QUE O TYPESCRIPT ENTENDA ISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ SE TENTARMOS 
+
+
+
+ESCREVER 
+
+algo como 
+
+'userInputElement.value = 'Hi there!' ,
+
+
+
+
+
+VAMOS GANHAR ERRORS (pq ele não saberá que essa const é de type 'HTMLInputElement')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+OK.... PRECISAMOS DIZER AO TYPESCRIPT QUE A COISA QUE SELECIONAMOS AQUI NÃO É 'null',
+
+
+
+
+
+
+
+
+E TAMBÉM PRECISAMOS DIZER QUE ISSO É DE TIPO 'HTMLButtonElement'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------
+
+
+
+EX:
+
+
+
+
+
+
+
+/////////existem 2 SINTAXES/APPROACHES PARA CONSEGUIR FAZER O 'TYPE CASTING' de uma variable no seu código.... ------> A PRIMEIRA DELAS É PELO USO DE 'as'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+--->  AS 2 SINTAXES FAZEM A MESMA COISA, MAS AS ESCRITAS SÃO DIFERENTES....
+
+
+
+
+
+
+
+
+
+
+
+--> 1a versão:
+
+
+
+
+
+
+
+const userInputElement2 = <HTMLInputElement>document.getElementById('user-input');
+
+
+
+
+
+
+////// ok, colocamos em um '<>' NO INÍCIO DO VALOR __ DESSA CONSTANTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... 
+
+
+
+ESSA É A VERSÃO MAIS 'FEIA'..
+
+
+
+
+
+
+
+
+
+
+--> a versão com 'as' É MAIS BONITA...
+
+
+
+
+
+
+
+const userInputElement3 = document.getElementById('user-input') as HTMLInputElement;
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------> essa sintaxe 2 é 
+
+
+
+melhor do que a 1,
+
+
+justamente pq 
+
+
+a sintaxe 1 é 
+
+frequentemente 
+
+
+CONFUNDIDA COM CÓDIGO REACT (Com 
+
+
+aqueles return 
+de 
+
+código jsx)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> OK.... 
+
+
+
+
+
+
+
+
+
+
+
+NO REACT TEMOS SINTAXE COMO 
+
+
+'return (
+
+    <Component>
+    </Component>
+)
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE A 
+
+
+SINTAXE 2 É MELHOR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, O PROFESSOR FALA DA SINTAXE DE 'as',
+
+QUE É BEM MELHOR....
+
+
+
+
+
+
+
+
+-----> SE VOCê ESCREVER '!' 
+
+do lado do valor,
+
+VOCÊ VAI ASSEGURAR AO TS 
+
+
+QUE 
+
+VAMOS PEGAR ESSE ELEMENT 
+
+NESSA CONSTANTE..
+
+
+
+
+
+EX:
+
+
+
+
+const userInputElement3 = document.getElementById('user-input')! as HTMLInputElement;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS NÃO INTERESSA A SINTAXE QUE VOCê ESCOLHEU.... SE VOCÊ ESCOLHEU UMA DELAS,
+
+
+SEJA CONSISTENTE, UTILIZE-A AO LONGO DE TODO SEU PROJETO... (não fique alternando)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+---> OK... MAS ESSA INFO É BEM VALIOSA,
+
+PQ 
+
+O 
+
+
+TYPESCRIPT VAI PODER 'AUTO-CORRECT' vocÊ
+
+
+
+
+
+
+
+
+
+
+
+---> É SEU TRABALHO COMO DESENVOLVEDOR __ GARANTIR__ QUE 
+
+
+
+CADA VARIABLE ___ contenha __ 
+
+O VALOR QUE EFETIVAMENTE É 'as xxx'... ----> se você não fizer isso, você receberá errors inesperados durante runtime...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... --> O TYPE CASTING É UMA FEATURE MT PODEROSA,
+
+
+
+E AQUELE 
+
+
+
+
+'!' 
+
+TAMBÉM....
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR JÁ HAVIA NOS MOSTRADO O '!'
+
+
+NO CURSO, ANTERIORMENTE...
+
+
+
+
+
+
+
+
+
+
+
+-> e o '!' é necessário em algumas expressions,
+
+
+como essa 
+
+
+
+de 'ELEMENTOS DOM',
+
+
+
+
+
+
+__ PQ __ ÀS VEZES PODEREMOS RECEBER 'null'.... ------> E 
+
+
+
+
+SE SOUBERMOS QUE ESSE 
+
+NEGÓCIO NUNCA VAI RETORNAR 'null',
+
+USAMOS 
+
+esse 
+
+'!' 
+
+
+
+
+
+
+
+--> CASO CONTRÁRIO,
+
+
+
+
+CASO VOCÊ _ NÃO TIVER__ CERTEZA DE QUE ISSO SERÁ 100% 'not null',
+
+
+VOCê PODE ADICIONAR UM IF CHECK,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+const userInputElement = document.getElementById('user-input');
+
+
+
+
+if (userInputElement) {
+
+userInputElement.value = 'MUDANÇA'
+
+
+}
+
+
+
+
+
+
+
+
+--------> AGORA SE ESSE VALOR FOR TRUTHY (se esse elemento existir)...,
+
+E SÓ NESSA HIPÓTESE,
+
+
+VAMOS QUERER EXECUTAR O CÓDIGO DENTRO DESSE BLOCK....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok.... MAS NESSE EXEMPLO, TAMBÉM VAMOS TER QUE TIRAR O TYPE CASTING DESSA CONST,
+
+pq o type casting em si JÁ VAI DIZER ''''ESSE NEGÓCIO CERTAMENTE NÃO SERÁ NULL'''...
+
+
+
+
+
+
+
+-----> em vez DISSO,
+
+
+o PROFESSOR 
+
+
+
+
+
+ESCREVER ISSO lá na redefinição do valor de 'value', naquele if block....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const userInputElement = document.getElementById('user-input');
+
+
+
+
+if (userInputElement) {
+
+userInputElement as HTMLButtonElement.value = 'MUDANÇA'
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSA SINTAXE _ NÃO VAI FUNCIONAR, NÃO EXISTE... -> 
+
+
+PARA QUE ESSA SINTAXE FUNCIONE, PRECISAMOS WRAPPAR 'userInputElement as HTMLInputElement'
+
+
+
+em '()',
+
+PARA AÍ 
+
+
+ESCREVEr  
+
+
+'.value'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+const userInputElement = document.getElementById('user-input');
+
+
+
+
+if (userInputElement) {
+
+(userInputElement as HTMLButtonElement).value = 'MUDANÇA'
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+if (userInputElement4) { //como não sabemos com 100% de certeza que isso será 'HTMLInputElement' (ou se será null), colocamos um IF CHECK.... -> se isso for truthy (ou seja, NÃO NULL), vamos querer executar o código dentro desse if check...
+
+        ////se o negócio NÃO FOR 'TRUTHY', queremos O DEFINIR, DENTRO DESSE BLOCK, como sendo de tipo 'HTMLInputElement', para então acessar a propriedae 'value' no seu interior...
+    (userInputElement4 as HTMLInputElement).value = 'VALOR ALTERADO'; ///// isso vai funcionar, podemos fazer type casting assim também...
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI FUNCIONAR PQ A EXPRESSÃO DE '()" É 
+
+
+
+
+CHECADA/RESOLVIDA__ ANTES__ DA EXECUÇÃO/ACESSO de '.value'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... -> essa é uma ALTERNATIVA A USAR o '!'...

@@ -1,0 +1,2804 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... APRENDEMOS AS PRIMEIRAS OPTIONS, QUE SÃO IMPORTANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+---------> AGORA É HORA DE VER AS 
+
+OPTIONS de 
+'Strict':
+
+
+
+
+
+--> ESSAS OPTIONS SÃO A´TE INTERESSANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ ESSA OPÇAÕ DE 'strict: true'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE ISSO FAZ
+
+
+
+
+
+
+--> PARA MIM JÁ ES´TA 'TRUE'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> O QUE O 'strict' faz é 
+
+
+BASICAMENTE 
+
+
+
+ENABLAR 
+
+
+TODAS AS PRORPIEDADES DE 
+
+
+'STRICT CHECKING OPTIONS'...
+
+
+
+
+
+
+
+
+TIPO ISTO:
+
+
+
+
+
+
+
+
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. */
+    // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
+    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    // "alwaysStrict": true, 
+
+
+
+
+
+
+
+
+        DEIXAR 'strict: true'
+
+
+        É BASICAMENTE A MESMA COISA UQE __ DEIXAR__ TODAS ESSAS PROPRIEDADS
+
+
+
+        de baixo como 'TRUE'....
+
+
+(
+
+    noImplicitAny,
+
+
+    strictNullChecks,
+    strictFunctionTypes,
+
+    strinctBindCallApply(true);
+
+    strictPropertyInitialization: true
+    noImplicitThis: true
+    alwaysStrict: true
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+VOC~E PODE IR SETTANDO CADA OPCAOZINHA INDIVIDUALMENTE,
+
+bem customizado,
+
+
+OU AÍ 
+
+DEIXAR TUDO LIGADO, COm 
+
+
+
+ESSA OPTION DE 'strict: true'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O OUTRO APPROACH VOCê PODE usar se quer ligar tudo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... MAS O QUE TODAS ESSAS OPTIONS FAZEM
+
+
+
+
+
+
+
+
+
+
+1) noImplicitAny --> é uma __ OPTION _ QUE NOS AJUDA __ A DIGITAR__ CÓDIGO 
+
+MELHOR...
+
+
+
+
+
+------> VOLTAMOS AO ANALYTICS, EM QUE 
+
+CRIÁMOS UMA FUNCTION DE 'sendAnalytics'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+function sendAnalytics(data) {
+    console.log('data');
+}
+
+
+
+
+
+
+
+
+
+
+
+0000000000000000000000000000000000000000000000
+
+
+
+
+
+
+
+
+----------> OK... 
+
+
+
+
+AÍ VAMOS CHAMAR ESSA FUNÇÃO, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+function sendAnalytics(data) {
+    console.log(data);
+}
+
+
+
+sendAnalytics('the data');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESCREVERMOS ASSIM, RECEBEMOS UM ERROR no console.log ed 'data'...
+
+
+
+
+
+
+
+
+
+
+
+-----> O IDE/TYPESCRIPT 
+
+RECLAMA,
+
+DIZ QUE O PARAMETER 
+
+
+DE 'data'
+
+
+SEGUE TENDO UM 'ANY TYPE'... 
+
+
+
+
+
+
+
+
+
+
+
+
+----> E, DE FATO, ESSE ERROR/AVISO TEM RELAÇAÕ COM 
+
+
+O 
+
+SET 
+
+de 
+
+'noImplicitAny'
+
+
+
+LÁ NO tsconfig.json... 
+
+
+
+
+
+
+
+
+OK.... MAS SE O PROFESSOR ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+1) strict: true 
+
+
+
+2) noImplicitAny: false 
+
+
+
+
+
+,
+
+
+
+
+AÍ __ ESSE __ ERRO __ teria sumido...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> parece que SE VOCê DEFINIR ESSA STRING OPTION COMO 'false',
+
+
+AÍ 
+
+
+
+O __ ERRO __ VAI _ SUMIR, TANTO NO IDE COMO NO JAVASCRIPT code...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+->  OBS::: --> 'noImplicitAny' --> OPTION MT FORTE....
+
+
+
+
+
+
+
+
+
+-> ESSA OPÇÃO NOS FORÇA A SER CLAROS SOBRE 
+
+
+
+O TYPE DOS PARAMETERS QUE 
+
+VAMOS QUERER, 
+
+NAS NOSSAS FUNCTIONS...
+
+
+
+
+
+
+
+
+
+---> (se o typescript é capaz de INFERIR
+
+
+
+
+o type do parameter de uma function automaticamente,
+
+aí fica tudo fine,
+
+
+
+MAS ESSE NÃO É O CASO COM 
+
+
+'
+sendAnalytics()' 
+
+  )
+
+
+
+
+
+
+
+
+
+
+  -_> PODEMOS CONSERTAR ESSE TIPO DE ERRO POR MEIO DO SIMPLES 'BEING CLEAR ABOUT OUR SUPPORTED TYPES'...
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+  
+function sendAnalytics(data: string) { ///'noImplicitAny' é a opçaõ que faz esse error de 'type: any aparecer..
+    console.log(data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... 
+
+
+
+MAS PERCEBA QUE 
+
+
+SE 
+
+VOCÊ 
+
+USAR/DECLARAR UMA VARIABLE INICIALMENTE,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+let logged; 
+
+
+
+function sendAnalytics(data: string) {
+    console.log(data);
+    logged = true;
+}
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ ESCREVER SEU CÓDIGO ASSIM,
+
+
+
+VOCÊ __ NÃO RECEBERÁ UM ERROR...  (mesmo o type dessa VARIABLE ESTANDO 'any', como 'let logged: any'  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> PORTANTO, AQUI FICAMOS COM UMA DIFERENÇA __ ENTRE__ VARIABLES__ E PARAMETERS DE FUNÇÕES...
+
+
+
+
+
+
+
+
+A) VARIABLES (como 'let')  ------->  É 'FINE' deixar o type das variables como 'any'....
+
+
+
+
+
+
+
+B) FUNCTION PARAMETERS (parameters dentro das function) -----> NÃO 'É FINE' DEIXAR O TYPE DE FUNCTION PARAMETERS COMO 'any' (sem definição )...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PQ 
+
+
+
+
+ISSO É 'OK' 
+
+PARA VARIABLES,,
+
+
+PQ 
+
+DIABOS
+ 
+ PODEMOS 
+
+
+ DEIXAR VARIABLES SEM TYPE DEFINITIONS?  ----> É PQ O QUE 
+
+ O 
+
+ TYPESCRIPT 
+
+ FAZ PARA VARIABLES 
+
+
+
+
+(o que ele CONSEGUE FAZER para as variables) 
+
+
+
+É ESSENCIALMENTE 
+
+
+'TRACK' 
+
+
+O VALOR DAS VARIABLES.... ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+let logged;  //typescript SABE QUE O TYPE É ANY....
+
+
+
+function sendAnalytics(data: string) {
+    console.log(data);
+    logged = true; //typescript SABE QUE O __ TYPE DESSA VARIABLE está, nesse momento, como 'any' (ainda)....
+    console.log(logged); ///typescirpt SABE que o type CONTINUA SENDO DE BOOLEAN, aqui...
+}
+
+
+
+
+
+
+
+
+
+
+
+---------> OU SEJA,
+
+O TYPESCRIPT 
+
+É 
+
+CAPAZ DE 'UNDERSTAND THE FLOW OF YOUR CODE' (é por isso que não precisamos 
+
+
+
+ser tão precisos com o define do TYPE DE NOSSAS VARIABLES, 
+
+no typescript....
+
+) -------------> MAS É CLARO QUE 
+
+
+VOCÊ __ VAI QUERER __ 
+
+
+SER 
+
+
+
+PRECISO 
+
+
+SE 
+
+VOCÊ 
+
+
+
+
+
+
+
+
+QUISER __ EVITAR__ O 'RE-DEFINE' 
+
+
+
+de sua variável,
+
+
+para evitar coisas como esta:
+
+
+
+
+
+
+
+
+
+
+-------------------------
+
+let logged;
+
+
+
+logged = true;
+
+
+
+logged = 'string'; 
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+let logged: boolean;
+
+
+
+logged = true;
+
+
+logged = 'EXEMPLO' ;  ///////AGORA ISSO VAI NOS DAR UM ERRO__.... (mudança súbita de type dessa variable, coisa não permitida pq settamos o type de 'logged: boolean', lá no início)...
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+OK.... MAS ISSO SIGNIIFCA QUE 
+
+
+
+O TYPESCRIPT É CAPAZ DE VERIFICAR/SABER SE O CODE 
+
+
+QUE VOCÊ ESTÁ CHAMANDO 
+
+É 
+
+CAPAZ DE SER EXECUTADO 
+
+
+'WITH THE CODE IT CURRENTLY HOLDS'.... -----------> JÁ 
+
+
+
+
+
+ISSO NAÕ É O CASO QUANDO FALAMOS 
+
+
+
+
+
+
+DOS TYPES _ DE PARAMETERS __ DE FUNÇÕES....
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+function sendAnalytics(data: string) {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+------------> ISSO PQ AS FUNCTIONS 
+
+SÃO SEMPRE DEFINIDAS 
+
+
+
+'BEFORE YOU CALL THEM', 
+
+
+O QUE SIGNIFICA QUE 
+
+O 
+
+TYPESCRIPT 
+
+
+
+NÃO TEM CHANCE ALGUMA DE VERIFICAR 
+
+
+
+
+
+
+
+
+
+SE O PARAMETER QUE VOCÊ PASSOU INICIALMENTE, como argumento, 
+
+
+PODE SER 
+
+USADO VALIDAMENTE 
+
+NO INTERIOR DO FUNCTION BODY DESSA FUNCTION....
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+'strictNullChecks' --> É OUTRA OPTION.... ---------> É UMA OPTION QUE NA VERDADE 
+
+
+
+ESTÁ 
+
+
+RELACIONADA 
+
+
+
+COM O ELEMENTO 
+
+'button' que 
+
+
+
+SELECIONAMOS ANTERIORMENTE,
+
+
+
+por meio de 
+
+
+
+
+
+
+
+
+-----------------------------
+
+'const button = document.querySelector('button');'
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE fazemos um esforço,
+
+
+
+nos lembramos daquele 
+
+
+
+'!' 
+
+
+que adicionamos ao final dessa CONSTANTE,
+
+
+TUDO PARA DIZER 
+
+
+'SIM, NÓS TEREMOS COM CERTEZA 1 ELEMENTO SELECIONADO POR MEIO DESSE CÓDIGO'....
+
+
+(
+
+
+    caso contrário receberíamos/recebemos 
+
+    __ UM ERROR,
+
+    ERROR DE QUE 
+
+
+    'NÃO TEMOS COMO EMBUTIR UM EVENTLISTENER NESSA CONST,
+
+    PQ 
+
+    NÃO SABEMOS SE ELA VAI ESTAR REALMENTE DEFINED OU __ SE VAI ESTAR 'undefined/null'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OU SEJA,
+
+
+
+
+HÁ 2 MANEIRAS DE SE LIVRAR DESSE ERROR: 
+
+
+
+
+
+
+
+
+
+1) PELO ADD DE '!' (sim, teremos esse elemento, etc etc) NO FINAL DO VALOR DE UMA DE SUAS CONSTANTES...
+
+
+
+
+
+
+
+
+
+
+2) POR MEIO DO DISABLE (false) DESSA OPTION DE 'strictNullChecks',
+
+lá em 
+
+'tsconfig.json'....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Projects */
+    // "incremental": true,                              /* Enable incremental compilation */
+    // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
+    // "tsBuildInfoFile": "./",                          /* Specify the folder for .tsbuildinfo incremental compilation files. */
+    // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects */
+    // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
+    // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
+
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment.  -> OU SEJA, DESCREVE AS FEATURES QUE SERÃO SUPORTADAS PELO SEU TYPESCRIPT..*/
+       // "lib": [    "dom",
+    // "es6",
+    // "dom.iterable",
+    // "scripthost"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment.  -> OU SEJA, DESCREVE AS FEATURES QUE SERÃO SUPORTADAS PELO SEU TYPESCRIPT..*/
+   
+    // "jsx": "preserve",                                /* Specify what JSX code is generated. */
+    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
+    // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
+    // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
+    // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
+
+    /* Modules */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. MUITO IMPORTANTE*/
+    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
+    // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
+    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+    // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
+    // "resolveJsonModule": true,                        /* Enable importing .json files */
+    // "noResolve": true,                                /* Disallow `import`s, `require`s or `<reference>`s from expanding the number of files TypeScript should add to a project. */
+
+    /* JavaScript Support */
+    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
+    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. */
+    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
+
+    /* Emit */
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+    // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
+    "sourceMap": true,                                /* Create source map files for emitted JavaScript files.  ------> IMPORTANTE PARA O DEBUGGING DE SEUS ARQUIVOS TYPESCRIPT ( no lugar dos JAVASCRIPT). ..  --> MT BOM PARA DEBUGGING... para usar a aba 'sources' NO CHROME.. */
+   
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. OPCOES MUITO IMPOR */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. MUITO IMPORTANTE*/
+    
+    "removeComments": true,                           /* Disable emitting comments. */
+    // "noEmit": true,                                   /* Disable emitting files from a compilation. */
+    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
+    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
+    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
+    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
+    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
+    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
+    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+    // "stripInternal": true,                            /* Disable emitting declarations that have `@internal` in their JSDoc comments. */
+    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like `__extends` in compiled output. */
+    "noEmitOnError": true,   ///boa opção, te forca a escrever CÓDIGO CERTO...                         /* Disable emitting files if any type checking errors are reported. */
+    // "preserveConstEnums": true,                       /* Disable erasing `const enum` declarations in generated code. */
+    // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
+    // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
+
+    /* Interop Constraints */
+    // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
+    // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. -------> VIMOS ISTO COM AQUELE CÓDIGO DE 'const button = document.querySelector('button')!;' */
+    // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
+    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
+    // "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read. */
+    // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */
+    // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
+    // "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
+    // "noUncheckedIndexedAccess": true,                 /* Include 'undefined' in index signature results */
+    // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
+    // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type */
+    // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
+    // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "exclude": [
+"analytics.js",
+"*.dev.ts", /* exemplo de WILD CARD -- excluíremos da compilation TODOS OS ARQUIVOS NO ROOT DE SEU PROJETO COM EXTENSÃO '.dev.ts'... */
+"**/*.dev.ts",  /*isto vai excluir TODOS OS ARQUIVOS DE SEU PROJETO com final '.dev.ts' */
+"node_modules" /* POR DEFAULT, O NODE_MODULES SEMPRE SERÁ  EXCLUDED.... ENTRETANTO, SE VOCê ESCREVER ESSA OPTION/ENTRY DE 'exclude', VOCê É OBRIGADO A ESPECIFICAR, AQUI, QUE VOCê QUER EXCLUIR O 'node_modules', SENÃO ELE SERÁ __ INCLUÍDO, por alguma razão, NO COMPILE DE SEU CÓDIGO TYPESCRIPT...*/
+
+],
+
+/* "include": []  É O CONTRÁRIO DE EXCLUDE.... --> CUIDADO, QUANDO VOCÊ DEFINE 'include', SÓ OS ARQUIVOS QUE VOCE ELENCAR NO ARRAY SERÃO ACTUALLY COMPILADOS; todos os arquivos que vocÊ não mencionar SERÃO __ IGNORADOS__....  */  
+
+/* "files": [ "app.ts" ]    --> MESMA COISA QUE O 'include', MAS COM A DIFERENÇA DE QUE AQUI VOCê SÓ PODE APONTAR FILES ESPECÍFICAS, SEM PODER ESPECÍFICAR FOLDERS INTEIROS, como no 'include'... */
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS ENTÃÕ O PROFESSOR QUESTIONA:
+
+
+
+
+
+
+
+
+
+
+1) MAS O QUE DIABOS 'null checks' FAZEM? -----> BEM, ELES FAZEM 
+
+
+
+
+COM QUE O TYPESCRIPT SEJA 'STRICT' 
+
+
+
+EM RELAÇÃO A CONSTANTES QUE __SEGURAM __ VALUES __ 
+
+QUE 
+
+
+POTENCIALMENTE PODEM SER 'null' 
+
+
+
+
+(
+
+
+    E o button 
+
+    em 
+
+
+    'const button = document.querySelector('button')' REALMENTE 
+
+
+    PODERIA ESTAR COMO NULL.... ( 
+
+        isso 
+        pq o pointer armazenado em consts como essas ÀS VEZES NÃO APONTARÁ 
+
+        A ELEMENT ALGUM,
+
+
+
+        PQ 
+
+
+
+        AINDA QUE VOCÊ TENHA UM SELECTOR AÍ,
+
+
+        TALVZE NENHUM BUTTON EXISTA 
+
+
+         _ NESSA PAGe__ EM QUE O SCRIPT EXECUTA...
+         
+    )
+)
+
+
+
+
+
+
+
+
+
+
+--> E COMO O TYPESCRIPT NÃO CONSEGUE MERGULHAR NO SEU ARQUIVO HTML PARA 
+
+VERIFICAR 
+SE 
+
+
+
+ESSA CONST __ POSSUI UM ELEMENTO ANEXADO (pointer a esse element) 
+
+
+DENTRO DE SI....
+
+
+
+
+
+
+
+
+
+
+
+
+------> e se nenhum elemento existir dentro de 'button',
+
+
+FICAMOS COM NULL/UNDEFINED (ambos são tratados igualmente, aqui)...
+
+
+
+
+
+
+
+
+
+
+
+
+--------> para ver erros causados por esse CHECK,
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR REMOVE O ELEMENTO HTML DE BUTTON,
+
+E AÍ COMPILA --> ISSO FARÁ COM QUE 
+
+FIQUEMOS COM UM 'RUNTIME ERROR',
+
+
+
+pq 
+
+teremos lá no console o error:
+
+
+
+'Uncaught TypeError: Cannot read property AddEventListener of null' (
+
+
+
+    OK, CONFIRMADO O MEDO DO PROFESSOR....
+)
+
+
+
+
+--> NESSE CASO AÍ,
+
+
+
+RECEBEMOS 'null' 
+
+JUSTAMENTE PQ REALMENTE NAÕ TEMOS (não estamos ) com um BUTTON HTML ELEMENET NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE DEVEMOS DEIXAR 'strict'
+
+SETTADO COMO TRUE,
+
+
+
+
+
+e por isso que __dEVEMOS __ 'WORK AROUND' 
+
+essa 
+
+LIMITAÇÃO DE 'essa variável pode estar como undefined ou null'... ------> UM WORKAROUND __ BARATO_ PARA ISSO 
+
+
+
+É 
+
+
+
+ESCREVER o  "!' 
+
+
+NO FINAL DE CADA VALOR DE CONSTANTE....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+const button = document.querySelector("button');
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO VAI BASICAMENTE DIZER ' EU SOU O DESENVOLVEDOR, E __ SEI_ QUE ESSE ELEMENTO VAI EXISTIR'.... (non-null values)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ok........ --------->  É FINE USAR  O '!' em HIPÓTESES COMO ESSA...
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS SE VOCÊ TEM OUTRO CENÁRIO, 
+
+em que 
+
+
+
+
+__ VOCÊ __ 
+
+
+
+
+'NÃO TEM CERTEZA SE 
+
+
+
+
+
+TEREMOS REALMENTE UM ELEMENTO DENTRO DESSA CONST',
+
+
+
+
+TALVEZ SEJA 
+
+
+MELHOR  __ REVESTIR O 'CÓDIGO QUE TALVEZ FALHE/VÁ FALHAR '
+
+
+
+
+
+
+EM UM __ IF CHECK___, 
+
+
+
+IF CHECK __ QUE ESTARÁ __ LÁ DURANTE O RUNTIME (é claro)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE IF CHECK, 
+
+
+PODEMOS CHECAR__  SIMPLESMENTE SE 
+
+'button' 
+
+
+
+É ___ REALMENTE__ TRUTHY... ( 
+
+
+
+    e se esse button for NULL OU UNDEFINED, NÃO ENTRAREMOS NESSE BLOCK, 
+
+    PQ SERÁ CONSIDERADO FALSY....
+
+)
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+const button = document.querySelector("button');
+
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', () => {console.log('Clicked')})
+}
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+OK.... MOVEMOS ESSE CÓDIGO AÍ __ PARA __ DENTRO DESSE IF CHECK... --> AGORA MESMO 
+
+
+SEM 
+
+AQUELE 
+"!" 
+
+
+
+
+em 'document.querySelector('button')', 
+
+
+
+
+
+
+
+
+
+
+______ AINDA __ NAÕ VAMOS RECEBER ERRORS ... (
+
+    tudo pq 
+
+    o 
+
+    typescript VAI ENTENDER QUE ESSE CÓDIGO DO EVENTLISTENRE 
+
+
+    VAI ESTAR 
+
+    EXISTINDO DENTRO DESSE IF STATEMENT DE 'button' (que deve estar como DEFINED para poder rodar aquele 
+    
+    código restante de console.log)
+)
+
+
+
+
+
+
+
+
+
+
+------->  ESSE 'IF STATEMENT CASEIRO' 
+
+
+
+
+_ ASSEGURA_ QUE 
+
+
+
+ESSA CONSTANTE 'button'
+
+
+REALMENTE TERÁ QUE FICAR COMO 'NOT NULL/UNDEFINED',
+
+
+
+E QUE 
+
+
+
+ESSE CÓDIGO NÃO VAI FALHAR....
+
+
+
+
+
+
+
+
+
+-----> OK... ISSO SIGNIFICA QUE 
+
+ESSE CÓDIGO DE 
+
+''
+
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', () => {console.log('Clicked')})
+}
+
+
+
+
+
+
+
+
+
+
+
+''
+TALVEZ __ AINDA _SEJA 'THE CLEANER WORKAROUND',
+
+
+
+
+MAS __ é claro que _ 
+
+
+
+
+
+
+
+
+USAR O '!' 
+
+
+
+
+
+ECONOMIZA __ MAIS CÓDIGO, 
+
+
+E É MAIS PRÁTICO... (é uma option bem fine )
+
+
+
+
+
+
+
+
+(
+
+
+
+
+
+
+
+    ISSO SIGNIFICA QUE PODEMOS USAR QUAQLUER UM DOS DOIS,
+
+    tanto os 'if check' 
+
+    quanto o 
+
+    "!"...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... ---> DEPOIS DISSO,
+
+
+
+
+TEMOS A OPTION DE 
+
+'strictFunctionTypes' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+ // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR __ EXPLICA QUE __ ESSA É UMA SETTING __ UM POUCO MAIS AVANÇADA...
+
+
+
+
+
+
+
+
+
+
+
+ --> É USADA PARA COISAS MAIS NICHO,
+
+ 'TO CATCH SOME NICHE BUGS',
+
+
+
+
+ BUGS QUE VOCÊ PROVAVELMENTE NÃO TERÁ EM MUITOS APPs....
+
+
+
+
+
+
+
+
+
+
+
+ --> essa option tem relação __ COM __ 'FUNCTION TYPES' que 
+
+
+
+ VOCÊ 
+
+
+
+ TALVEZ ESTEJA SETTANDO (
+
+
+     no caso, 
+
+     NÃO TYPES DENTRO DE FUNCTIONS,
+
+
+     E SIM 
+
+
+
+'HOW A FUNCTION SHOULD LOOK LIKE, REGARDING THE PARAMETERS 
+
+AND RETURN VALUE'
+
+
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE VOCÊ TIVER CASES COMO ESSE, CASES EM QUE VOCÊ 
+
+
+
+ 'CREATE A RETURN TYPE',
+
+
+
+
+ COIAS QUE VOCÊ APRENDEU NO MÓDULO DE 'BASICS',
+
+
+
+ AÍ __ VOCê __ 
+
+
+
+
+
+
+
+ PODE, SE QUISER, ATIVAR ESSA OPTION  --------> ISSO PQ 
+
+
+
+ VOCÊ 
+
+
+ PODE 
+
+ ACABAR 
+
+ 'INTRODUCING BUGS'
+
+
+ ao 
+
+ seu código, principalmente quando você 
+
+
+ TRABALHA 
+
+
+
+
+
+
+
+ ___ COM 'CLASSES' 
+
+
+
+
+ e 
+
+
+ 'inheritance'... (
+
+
+
+
+     coisa que ainda não 
+
+     APRENDEMOS, E QUE DEVEMOS IGNORAR, POR ENQUANTO...
+ )
+
+
+
+
+
+ (
+
+     inheritance --> será que ~soa 'prototypes'?
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> AÍ TEMOS A OPTION DE 'strictBindCallApply':
+
+
+
+
+
+     // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PODE SER ÚTIL SE __ REALMENTE __ TRABALHARMOS COM 
+
+
+'bind',
+
+
+'call' 
+
+
+e 
+
+'apply'.... --------> PARA ISSO,
+
+
+
+
+DEVEMOS __ RAPIDAMENTE_ VER 1 EXEMPLO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMEÇAMOS COM O CÓDIGO DE 'app.ts':
+
+
+
+
+
+
+
+
+const button = document.querySelector('button')!; ///CERTAMENTE TEREMOS UM VALOR NESSe 'button', é isso que nos diz aquele "!" ao final...
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', () => {console.log('Clicked')})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>   OK... NESSE CASO,
+
+
+
+DIGAMOS QUE 
+
+
+
+
+
+
+
+
+ESSE CÓDIGO DE _ BAIXO_ _ É UMA FUNCTION....
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+const button = document.querySelector('button')!; ///CERTAMENTE TEREMOS UM VALOR NESSe 'button', é isso que nos diz aquele "!" ao final...
+
+
+
+
+
+ function clickHandler() {
+
+
+     console.log('clicked');
+
+
+ }
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', clickHandler)
+}
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ TENTAR EXECUTAR O CÓDIGO ASSIM, o typescript vai apitar E DIZER QUE 
+
+
+VOCÊ ESTÁ USANDO/escrevndo o CÓDIGO DAQUELE __ EVENTLISTENER DE FORMA EQUIVOCADA.... (eu já sei disso, e é exatamente por isso que não uso 'bind', e sim this/outras coisas)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+const button = document.querySelector('button')!; ///CERTAMENTE TEREMOS UM VALOR NESSe 'button', é isso que nos diz aquele "!" ao final...
+
+
+
+
+
+ function clickHandler() {
+
+
+     console.log('clicked');
+
+
+ }
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', clickHandler)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OK.... -> POR ALGUMA RAZÕA,
+
+
+
+
+VAMOS QUERER QUE SEMPRE QUE ESSA FUNCTION DE 'button.AddEventListener'
+
+
+
+FOR 
+
+_ EXECUTADA__, 
+
+
+
+
+
+seja settado corretamente o valor 
+
+
+
+
+
+
+
+
+da keyword de 'this' NESSA FUNÇAÕ (Apontando a algum valor/função ),
+
+ou que 
+
+
+
+
+
+
+ALGUNS ARGUMENTS SEJAM
+
+
+PASSADOS...
+
+
+
+
+
+
+
+
+
+
+
+
+-> AQUI, NO CASO,
+
+
+
+VAMOS QUERER QUE A FUNCTION DE 'clickHandler'
+
+
+ESPERE UM ARGUMENTO 'message,'
+
+
+QUE 
+
+SERÁ UMA STRING:
+
+
+
+
+
+
+
+
+const button = document.querySelector('button')!; ///CERTAMENTE TEREMOS UM VALOR NESSe 'button', é isso que nos diz aquele "!" ao final...
+
+
+
+
+
+ function clickHandler(message: string) {
+
+
+     console.log('clicked! ' + message); ////////EIS O CÓDIGO EM QUESTÃO.
+
+
+
+ }
+
+
+
+if (button) {
+
+
+    button.AddEventListener('click', clickHandler.bind(null))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---. É CLARO QUE ISSO JÁ ESTÁ FAZNDO COM QUE A LINHA DE 'button.AddEventListener'
+
+
+TENHA 
+
+'ERRORS' apontados pelo tyepscript...
+
+
+
+
+
+
+
+
+
+
+--> MINHA SINTAXE FICOU ASSIM:
+
+
+
+
+
+
+
+
+function clickHandler(message: string) {
+    console.log('Clicked !' + message)
+}
+
+
+
+const button = document.querySelector('button');
+
+
+if (button) {
+    button.addEventListener('click', () => {clickHandler('EXEMPLO')})
+}
+
+
+
+button.addEventListener('button', 
+
+
+() => {
+    console.log('exemplo');
+}
+
+);
+
+
+
+console.log('exemplo');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------> ALTERNATIVAMENTE, PODERÍA TER ESCRITO o 'clickhandler()' 
+
+
+ASSIM:
+
+
+
+
+
+
+
+'clickHandler.bind(null)' 
+
+
+
+
+
+
+
+'null'  --> É O PRIMEIRO ARGUMENTO, ARGUMENTO EM QUE INFORMAMOS 'A QUE QUEREMOS BINDAR A KEYWORD 'this' .....
+
+
+
+
+
+---> MAS SE O PROFESSOR ESCREVE ISSO aí, 
+
+
+ELE 
+
+_ RECEBE__ 1 ERRO.. ----------> ELE RECEBE 1 ERROR 
+
+
+
+QUE __ PODE SER 
+
+
+
+
+
+
+__EVITADO/ESCONDIDO 
+
+
+
+SE 
+
+
+FORMOS ATÉ O 'tsconfig.json'
+
+
+
+E TROCARMOS 'true' para 'false',
+
+
+NESSA OPÇÃO AQUI:
+
+
+
+
+
+
+// "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> DEIXAMOS ISSO COMO 'FALSE' -->  ESSA OPTION BASICAMENTE 
+
+
+'CHECKS WHICH FUNCTION
+
+__ ARE YOU __ CALLING BIND/CALL/APPLY FROM , 
+
+
+
+
+E _ SE __ A COISA QUE VOCÊ ESCREVEU DENTRO DO SLOT DE '.bind()'
+
+
+
+FAZ ALGUM SENTIDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO ATUAL ERA ESTE:
+
+
+
+
+
+
+
+
+
+
+function clickHandler(message: string) {
+    console.log('Clicked !' + message)
+}
+
+
+
+const button = document.querySelector('button');
+
+
+if (button) {
+    button.addEventListener('click', () => {clickHandler()}
+}
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+COM ISSO,
+
+O TYPESCRIPT PERCEBE QUE 
+VAMOS 
+QUERER _ 1 ARGUMENTO EM 'clickHandler',
+
+e que 
+
+essa function de 'clickHandler'
+
+
+PRECISA RECEBER UM PARÂMETRO QUE SEJA UMA STRING....
+
+
+
+
+
+
+
+
+--> ele percebe, sim, mas se não deixarmos aquela option de 
+
+
+''
+// "strictBindCallApply": true, 
+
+
+
+'',
+
+
+
+
+
+NÃO TEREMOS AUTO-COMPLETE E DICAS QUANTO A ISSO....
+
+
+
+
+
+
+
+----------> E SE O PROFESSOR DEIXAR 
+
+
+
+
+NOSSO _ _CÓDIGO __ SEM O PASS DE ARGUMENTOS,
+
+ELE FICA ASSIM:
+
+
+
+
+
+
+
+
+function clickHandler(message: string) {
+    console.log('Clicked !' + message)
+}
+
+
+
+const button = document.querySelector('button');
+
+
+if (button) {
+    button.addEventListener('click', clickHandler.bind(null)}
+}
+
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+'NULL' não é bem um parÂmetro....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> A SOLUÇAÕ PARA O ERRO É 'PROVIDE THIS SECOND ARGUMENT',
+
+que 
+
+
+É 
+O
+ 
+
+
+ ___ 'FIRST ARGUMENT THAT WE WANNA FORCE IN '...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------------>
+
+
+ O TYPESCRIPT __ É MT ESPERTO,
+
+
+
+ E SE _ NÓS TENTARMOS ___ PASASR UM NUMBEr___ A ESSE 'clickHandler' (segundo parâmetro)
+
+
+ com '.bind()',
+
+
+ ELE _ SÓ GANHARÁ UM ERRO,
+
+
+
+
+
+
+
+ ERRO DE COMPATIBILIDADE 
+
+ (
+
+pq lá no 'clickHandler'
+
+DEFINIMOS A COMPATIBILIDADE COMO 
+
+
+'SÓ STRINGS',
+
+
+
+ )
+
+
+
+
+
+
+
+ --> É SÓ PASSAR O TYPE QUE FOI REQUISITADO NA FUNCTION...
+
+
+
+
+
+
+
+
+ --> OK.... ISSO SIGNIFICA QUE 
+
+ ESSE É UM COMPORTAMENTO _ MUITO ÚTIL,
+
+ o 
+
+ de 
+
+ 'strictBindCallApply',
+
+
+
+
+ _ QUE __ garante _QUE VOCÊ NÃO VAI 
+
+
+
+
+ USAR 'ACIDENTALMENTE'
+
+
+ ESSE TIPO DE METHODS 
+
+ DE UMA MANEIRA QUE _ PREJUDICA SEU CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+
+ A OPTION de 'strictPropertyInitialization'
+
+
+ SÓ FICA IMPORTANTE QUANDO TRABALHAMOS COM CLASSES..
+
+
+
+
+
+
+
+ 'noImplicitTHis' --> tem a ver com a THIS KEYWORd. .... --> O TYPESCRIPT BASIACMENTE _ TENTA__ TE 
+
+
+ 'INFORMAR/AVISAR' QUE 
+
+
+
+
+ A KEYWORD THIS ESTÁ SENDO USADA EM LOOCAIS EM QUE 'ITS NOT CLEAR TO WHAT IT REFERS TO'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> POR FIM,
+
+ a option de 'alwaysStrict'
+
+ CONTROLA,
+
+ FORÇA QUE 
+
+ TODAS NOSSOS ARQUIVOS 
+
+ JAVASCRIPT 
+
+  
+
+  ESTÃO USANDO  'strict mode' (que é aquela tag de "use strict" nos nossos files...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --. COM ISSO, 
+
+
+  VIMOS TODAS AS OPTIONS DE 'strict'...

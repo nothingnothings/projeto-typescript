@@ -1,0 +1,1100 @@
+
+
+
+
+
+
+
+
+
+
+AGORA QUE REVISAMOS 'CLASSES',
+
+
+
+DEVEMOS DAR UMA OLHADA EM 
+
+'INTERFACES'...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+CRIAMOS UM NOVO PROJETO,
+
+
+
+'NOVOPROJETOEXEMPLO4',
+
+
+
+
+
+
+
+e aí 
+
+
+
+colocamos
+
+
+
+um novo arquivo ts,
+
+
+de nome 'interfaces'...
+
+
+
+
+
+
+
+
+
+
+--------> OK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA VEREMOS AS INTERFACES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... O QUE SÃO INTERFACES?
+
+
+
+
+
+
+
+--> BEM, NA VERSÃO MAIS SIMPLES POSSÍVEL,
+
+
+
+
+UMA INTERFACE SEMPRE 
+
+
+
+
+
+
+''DESCREVE A ESTRUTURA DE UM OBJECT''''... 
+
+
+
+
+
+
+
+
+-->  PODEMOS AS UTILIZAR PARA __ 
+
+
+
+DESCREVER COMO UM OBJECT DEVE SE PARECER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> antigamente,
+
+
+
+no curso de NODEJS,
+
+
+
+professor falou 
+
+que 
+
+
+
+'type aliases são parecidos com interfaces, você pode os usar como interfaces,
+
+mas 
+
+O 
+
+COMPORTAMENTO DELES COM 'methods', nos objects, é um pouco diferente''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR COMEÇA COM UM EXEMPLO...
+
+
+
+
+
+
+-> PARA CRIAR UMA INTERFACE,
+
+VOCê DEVE USAR A KEYWORD 
+
+EXCLUSIVA DO 
+
+
+typescript, que é 
+
+'interface' ...
+
+
+
+
+
+
+
+
+
+
+---> ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+interface Person {
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+interface Person {
+
+}
+
+
+
+
+
+
+
+
+
+
+--> É RECOMENDADO LETRA INICIAL MAIÚSCULA...
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... DENTRO DA INTERFACE,
+
+
+
+
+PODEMOS _ DEFINIR __ COMO 
+
+
+
+UM OBJETo 
+
+'person'
+
+DEVE SE PARECER....
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS AO __ CONTRÁRIO _ DE UMA CLASS,
+
+
+
+NÓS __ NÃO VAMOS __ USAR __ 
+
+
+
+
+
+'Interfaces'
+
+
+
+__ COMO  _ 
+
+
+
+''''BLUEPRINTS...'''' -------> EM VEZ DISSO,
+
+
+
+
+VAMOS 
+
+
+
+SIMPLESMENTE AS UTILIZAR COMO uns 'custom types'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI, NO CASO,
+
+VAMOS DEFINIR QUE 
+
+
+
+
+'Person'
+
+
+DEVERÁ TER 
+
+
+uma propriedade de 'name',
+
+que será uma STRING...
+
+
+
+
+
+
+
+
+
+----> TAMBÉM UMA AGE,
+
+de type 'number'...
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+NÓS ADICIONAMOS PROPERTIES/FIELD DEFINITIONS 
+
+
+
+
+__EXATAMENTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES....
+
+
+
+
+
+
+
+
+
+USAMOS KEY-TYPE PAIRS,
+
+
+essencialmente:
+
+
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+}
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+O QUE __ NÃO TEMOS, AQUI,
+
+NO CASO,
+
+SÃO OS 'CONCRETE VALUES'....
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE NÃO PODEMOS ESCREVER CÓDIGO COMO ESTE:
+
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string = 'Max'; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+}
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+'An interface cannot have an initializer'...
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ISSO SIGNIFICA QUE 
+
+
+SÓ PODEMOS DEFINIR UMA ESTRUTURA,
+
+
+
+MAS 
+
+NÃO OS VALORES...( valores concretos)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E TAMBÉM PODEMOS ADICIONAR METHODS,
+
+como
+
+'greet'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+interface Person {
+
+
+
+    name: string = 'Max'; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    greet: 
+}
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+E EXATAMENTE COMO PROPERTIES,
+
+
+NÓS NÃO VAMOS __ 
+
+ADICIONAR __ O 'ACTUAL METHOD'
+
+
+NESSE SLOT,
+
+e sim 
+
+SÓ _ SUA _ ESTRUTURA GERAL....
+
+
+
+
+
+
+
+------> A DESCRIÇÃO/ESTRUTURA DESSE METHOD --> 
+
+
+
+
+
+
+
+
+
+E PARA __ DEFINIR A ESTRUTURA DO METHOD 'greet' que esse object 'Person'
+
+DEVERÁ 
+TER,
+
+
+
+
+NÓS ADICIONAMOS 
+
+
+
+
+1) O NAME DA PROPRIEDADE...
+
+
+
+
+
+2) '()', parênteses, INDICANDO QUE ISSO É UM METHOD...
+
+
+
+
+
+
+
+
+3) POR FIM, o 'return type'... (por meio de ':')...
+
+
+
+
+
+
+
+
+
+-----> AQUI, NO CASO, QUEREMOS QUE ESSE METHOD RETORNE 'void',
+
+POR ISSO 
+
+
+
+ESCREVEMOS SÓ ASSIM:
+
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    greet(): void;
+}
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+CERTO... E DENTRO DOS PARÊNTESES DESSE METHOD,
+
+
+VOCÊ PODE ADICIONAR/ESPECIFICAR __ QUAISQUER_ PARAMETERS QUE ESSE METHOD TERÁ...
+
+
+
+
+
+
+
+
+
+
+
+-_> no caso, colocamos 'phrase',
+
+e especificamos 
+
+que 
+
+será 
+de type 'STRING'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    greet(phrase: string): void;
+}
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE __ NÃO TEMOS _ QUE ESPECIFICAR PARAMETERS (isso se o method não os exigir/precisar deles)..
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK..... ---> MAS E ENTÃO, AGORA,
+
+O QUE PODEMOS FAZER COM ESSA INTERFACE de 'Person'?
+
+
+
+
+
+
+
+
+
+
+--> QUAL A IDEIA POR TRÁS DISSO?
+
+
+
+
+
+
+
+
+
+-> BEM, PODEMOS A UTILIZAR PARA 'TYPE CHECK' UM objeto qualquer, por meio de ':' ...
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase);
+    }
+}
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+OK, ISSO SIGNIFICA QUE AGORA USAMOS NOSSA INTERFACE PARA 'MOLDAR'
+
+como 
+
+
+esse object deve se parecer...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... --> AGORA SEMPRE QUE TENTARMOS ASSIGNAR UMA PROPRIEDADE A ESSE 'user1',
+
+POR MEIO DA DOT NOTATION,
+
+VAMOS RECEBER 1 ERROR....
+
+
+(pq o formato de 'Person', dessa interface, terá sido DESRESPEITADO...)
+
+
+
+
+
+eX:
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase);
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase);
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION.... (essa propriedade NÃO EXISTE NAQUELA INTERFACE)...
+
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... ATÉ AÍ, EU ENTENDI...
+
+
+
+
+
+
+
+
+esta parte eu havia errado:
+
+
+
+    greet( 'asas') {
+
+
+
+
+
+
+
+
+        O CORRETO É ASSIM:
+
+
+
+            greet(phrase: 'asas') {
+
+
+
+
+
+
+
+
+--> UMA VERSÃO MAIS ELABORADA DESTE CÓDIGO É ESTA:
+
+
+
+
+
+
+
+interface Person {
+
+
+
+    name: string; ///adicionamos field definitions EXATAEMNTE COMO FAZÍAMOS/FAZEMOS COM TYPE ALIASES.... key-type pairs...
+    age: number; 
+    // age: number = 25;  ///esse código é inválido, não podemos INICIALIZAR propriedades de nossas interfaces, pq as interfaces são meros TYPES....
+    greet(phrase: string): void; ////dizemos 'ESSE OBJETO TERÁ UM METHOD DE 'greet()', que retornará VOID'...
+    ////esse method aceitará/exigirá um parâmetro 'phrase' de tipo STRING....
+
+}
+
+
+
+
+
+
+
+let user1: Person = {
+    name: 'Arthur',
+    age: 23,
+    greet(phrase: 'asas') {
+        console.log(phrase + ' ' + this.name); //eis o código em questão.
+    }
+}
+
+
+user1.hobbies = ['Coding']; ///USO INVÁLIDO DA DOT NOTATION.... (essa propriedade NÃO EXISTE NAQUELA INTERFACE)...
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+O QUE TEMOS DE LÓGICA DENTRO DE 'greet()'
+
+
+não interessa, o que interessa é só que 
+
+TENHAMOS 
+
+AQUELE 
+
+
+PARÂEMTRO DE 'phrase', de tipo STRING,
+
+e que 
+
+SEJA RETORNADO 'NOTHING' ( ou seja, void)...
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ISSO SIGNIFICA QUE 
+ESSE 
+
+SERÁ 
+
+
+1 OBJETO 'user1'
+válidoo,
+
+
+PQ 
+
+
+ELE 
+
+SATISFEZ 
+
+OS 
+
+
+REQUISITOS/FORMATO DE 
+
+NOSSA INTERFACE..
+
+
+
+
+
+
+
+
+
+
+
+----> ok, essa é uma interface, ela nos deixa 
+
+
+
+DEFINIR O FORMATO DE 1 OBJECT... --> E PODEOMS A UTILIZAR PARA 
+
+FAZER 
+
+'TYPECHECK'
+
+de objects que 
+
+tenham essa estrutura....

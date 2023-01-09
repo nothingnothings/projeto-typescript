@@ -1,0 +1,1055 @@
+
+
+
+
+
+
+
+
+OK, FICAMOS COM ESSE DUMMY SERVER RODANDO, SERVIDOR DE 
+
+
+
+
+
+
+
+
+
+
+import express from 'express';
+
+
+import bodyParser from 'body-parser';
+
+
+
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+
+
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> É CLARO QUE ESSE SERVER AINDA NÃO ESTÁ FAZENDO COISA ALGUMA...
+
+
+
+
+
+-> O PROFESSOR FALOU QUE QUER CONSTRUIR UMA REST API BEM SIMPLES,
+
+POR ISSO ELE VAI E CRIA UM FOLDER DE 'routes',
+
+
+
+
+em que 
+ele 
+
+define um arquivo 'routes',
+
+
+
+
+
+QUE VAI HANDLAR AS ROUTES 
+
+
+DESSA REST API.... -->   SERÁ UMA TODO API...
+
+
+
+
+
+
+
+
+
+JÁ ESCREVO ASSIM:
+
+
+
+
+
+
+import { Router } from 'express';
+
+const router = Router();
+
+router.get();
+
+router.post();
+
+router.delete();
+
+router.put();
+
+module.exports = Router;
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ESSE APP NÃO VAI FUNCIONAR COM O REACT, MAS É CLARO QUE PODERIA FUNCIONAR, VOCÊ PODERIA CONSTRUIR O FRONTEND COM O REACT E CONECTAR 
+
+A ESSA API... 
+
+
+
+
+
+
+
+
+
+--------------> OK.... 
+
+
+
+
+
+
+
+O APLICATIVO NÃO VAI SER MT COMPLEXO, MAS CONTERÁ UM MONTE DE CONCEITOS LEGAIS....
+
+
+
+
+
+
+
+
+
+
+-> ok.... ---> em 'routes.ts',
+
+
+
+o professor faz o que fiz....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Router } from 'express';
+
+
+
+
+const router = Router();
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS ELE REGISTRA OS MIDDLEWARES....
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS AGORA ESTOU RECEBENDO UM ERROR DE IMPORT...
+
+
+
+import routes from  './routes/routes'
+
+
+Module '"a:/projeto5- TYPESCRIPT/15-TYPESCRIPTCOMNODEJSEEXPRESSJS/NOVOPROJETO15/src/routes/routes"' has no default export.ts 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O CÓDIGO ESTAVA __ _aSSIM__:
+
+
+
+
+
+
+
+
+import { Router } from 'express';
+
+const router = Router();
+
+router.get('/');
+
+router.post('/');
+
+router.delete('/:id');
+
+router.patch('/:id');
+
+
+
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------> PARA __ CONSERTAR__ ESSE CÓDIGO, O PROFESSOR ESCREVEU __ ASSIM:
+
+
+
+
+
+
+
+
+
+import { Router } from 'express';
+
+const router = Router();
+
+router.get('/');
+
+router.post('/');
+
+router.delete('/:id');
+
+router.patch('/:id');
+
+
+
+
+export default router; /////////EIS O CÓDIGO EM QUESTÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, BASTA USAR A SINTAXE DE EXPORTS/IMPORTS __ DO REACT__ PARA _ CONSERTAR __ ESSE ERROR.... 
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------
+
+
+
+
+
+
+
+--> OK, AGORA SABEMOS QUAIS 
+
+
+
+
+ROUTES TEMOS...
+
+
+
+--> logo adicionaremos as functions...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CONECTAMOS ESSE ROUTER AO NOSSO RUNNING SERVER,
+
+
+POR MEIO DO CÓDIGO de 
+
+
+
+
+
+
+import express from 'express';
+
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+app.use(routes);
+
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO, FOI EXATAEMNTE ISSO QUE FIZ...
+
+
+
+
+
+
+
+
+
+
+-> CERTO... -> MAS AÍ O PROFESSOR VAI QUERER FORWARDAR TODOS OS REQUESTS QUE COMEÇAM COM 
+
+
+
+'localhost:3000/todos'
+
+para essa route de todos....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+import express from 'express';
+
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CASO O USER ENTRE EM UM 
+
+
+PATH QUE NÃO COMECE COM '/todos',
+
+
+
+ELE 
+
+VAI ENTRAR 
+
+
+NO NOSSO 'FALLBACK ROUTE',
+
+que 
+
+ficará embaixo de 'app.use('/todos')',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NA VERDADE, O PROFESSOR VAI COLOCAR O MIDDLEWARE QUE __ HANDLA __ERRORS__ __
+
+
+
+
+nesse local...
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.use('/',   //error handling middleware
+
+ 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS EU ESCREVI ERRADO, PQ NÃO SERÁ ASSIM.... --> esse error handling middleware vai ter aquela estrutura clássica de 
+
+
+
+
+'
+
+
+
+app.use(
+    (err, req, res, next) => {
+
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+app.use( ///error handling middleware (fallback)..
+
+    (error: , req, res, next) => {   
+
+    }
+ 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE ISSO VAI NOS DAR UMA PORRADA DE ERRORS, ERRORS QUANTO AO TYPE DESSES PARAMETERS- -> TEMOS QUE IMPORTAR OS TYPES 
+LÁ 
+
+DA PACKAGE DE 'express', se bem me lembro,
+
+para então 
+
+utilizá-los aqui...
+
+
+
+
+
+
+
+
+
+
+
+--> ALGO TIPO ISTO:
+
+
+
+
+
+import express from 'express';
+
+
+import { Request, Response, NextFunction } from 'express'
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.use( ///error handling middleware (fallback)..
+
+    (error: any, req: Request, res: Response, next: NextFunction) => {   
+
+    }
+ 
+)
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSE É UM MIDDLEWARE FUNCTION.... --> OK... --> O PROFESSOR ADICIONA AQUELE 'err'
+
+
+no início do negócio.... -->  TRANSFORMA ISSO EM UM ERROR HANDLING FUCNTION,
+
+
+
+
+
+FUNÇÃO QUE SERÁ DISPARADA
+ 
+
+  
+  AUTOMATICAMENTE PELO __ EXPRESS__ SE 
+
+  EM QUALQUER OUTRO MIDDLEWARE 
+
+
+
+
+
+
+  __ UM _ _ERROR FOR THROWN... 
+
+
+
+
+
+
+  -------> AÍ O PROFESSOR FALA DOS ERRORS DE TYPE QUE APARECEm (que eu já consertei)...
+
+
+
+
+
+
+
+
+
+
+  OK, MAS QUAL É O TYPE de 'err'? ----> É DE TYPE 'Error', DUH.... (mas eu não vi esse type, antes).. (é pq ele já vem com o express, sem necessidade de importar)....
+
+
+
+
+
+
+
+
+
+  -> OK, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+  import express from 'express';
+
+
+import { Request, Response, NextFunction } from 'express'
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.use( ///error handling middleware (fallback)..
+
+    (error: Error, req: Request, res: Response, next: NextFunction) => {   
+
+    }
+ 
+)
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RESOLVIDO... --> ESSE É NOSSO ERROR HANDLING MIDDLEWARE --> VAMOS QUERER MANDAR DE VOLTA UM RESPONES,
+
+por 
+
+
+
+
+meio de 
+
+
+'
+res.json(
+    {
+        message: 'Whoops, something went wrong'
+
+    }
+)
+
+'
+
+
+
+
+
+
+TALVEZ SETTAMOS UM STATUS DE 
+
+'400' (erro genérico)...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+import express from 'express';
+
+
+import { Request, Response, NextFunction } from 'express'
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.use( ///error handling middleware (fallback)..
+
+    (error: Error, req: Request, res: Response, next: NextFunction) => {   
+
+
+        res.status(400).json({
+            message: 'Whoops, something went wrong!'
+        })
+    }
+ 
+)
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+ADICIONAMOS NOSSAS ROUTES E NOSSO ERROR HANDLING MIDDLEWARE...
+
+
+
+
+
+--> aGORA RESTA ADICIOANR A LÓGICA DAS 
+
+
+API ROUTES...

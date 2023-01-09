@@ -1,0 +1,2045 @@
+
+
+
+
+
+
+
+
+
+
+
+---->  EXISTE OUTRO CONCEITO,
+
+
+CONCEITO 
+
+
+
+'LOOSELY RELATED' 
+
+A TUPLES,
+
+
+que é o conceito 
+
+dos 
+
+
+
+'Enums'.... 
+
+
+
+
+
+
+
+
+
+
+--> OS ENUMS ---> É A IDEIA DE TER 'A COUPLE OF SPECIFIC IDENTIFIERS', como GLOBAL 
+
+CONSTANTS 
+
+QUE 
+
+VOCÊ USA NO SEU APP... --> você vai representar tudo isso, esses IDENTIFIERS ESPECÍFICOS,
+
+
+COMO ___ NUMBERS__, 
+
+
+
+
+
+mas numbers a que VOCê VAI __ ASSIGNAR 'SOME HUMAN READABLE LABEL'...
+
+
+
+
+
+
+
+
+
+
+
+
+--->  SÃO OS ENUMS, ESSENCIALMENTE...
+
+
+
+
+
+
+
+
+
+
+
+___ENUMS___ --> ELES EXISTEM EM OUTRAS LINGUAGENS DE PROGRAMAÇÃO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+enums se parecem assim --_> 
+
+
+
+
+
+
+enum { NEW, OLD } ---------> 
+
+
+
+
+
+PARA ESCREVER UM 'ENUM',
+
+
+
+vocÊ 
+
+deve 
+usar 
+
+
+
+a keyword
+
+
+'enum',
+
+QUE 
+
+É 
+
+UMA KEYWORD 
+
+
+QUE 
+
+__SÓ __ EXISTE__ NO MUNDO 'TYPESCRIPT'.... ( e não no javascript)....
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS de 'enum',
+
+
+
+
+VOCÊ TEM CURLY BRACES E ENTÃO SEUS IDENTIFIERS...
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM... E ESSE 'TYPE', QUE É ADICIONADO PELO TYPESCRIPT,
+
+
+
+
+TE DÁ __ 
+
+
+'AN ENUMERATED LIST',
+
+
+uma 
+
+
+
+
+LISTA ENUMERADA... --------------> ISSO SIGNIFICA QUE 
+
+ESSES 'labels' (como 'NEW' e 'OLD', nesse exemplo)
+
+
+
+
+R
+ECEBEM, CADA UM DELES,
+
+
+1 
+
+
+'NUMBER'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+enum { NEW, OLD, NOW} 
+
+
+
+
+
+NEW -> 0
+
+
+
+OLD -> 1
+
+
+
+NOW -> 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> SÃO TRADUZIDOS PARA NUMBERS,
+
+
+começando por '0',
+
+
+
+
+EM QUE 
+
+
+
+TEMOS 'HUMAN-READABLE LABELS'
+
+
+com que 
+
+VOCÊ PODE 
+
+
+TRABALHAR NO SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA MOSTRAR UM EXEMPLO DISSO,
+
+críamos um arquivo 
+
+'enums.ts'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ REPLICAMOS AQUELE OBJETO 'person',
+
+com todas aquelas definições de seu OBJECT TYPE....
+
+
+
+ex:
+
+
+
+
+
+const person2: {
+
+    name: string;
+    age: number;
+    hobbies: string[];
+    role: [number, string]; //exemplo de TUPLE
+} = {
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: [2, 'author']  //exemplo de TUPLE
+}
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+MAS O PROFESSOR  O COMENTA PARA FORA,
+
+PQ 
+
+
+
+
+VAI ALTERÁ-LO UM POUCO....
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR AGORA VAI 
+
+
+QUERER 
+
+
+CRIAR 
+
+um 
+'role2',
+
+
+em que 
+
+
+VAMOS TER 
+
+
+
+
+
+
+
+
+
+
+'admin', 
+
+
+
+
+
+'read-only user'...
+
+
+
+e um 
+
+
+'author'
+
+
+
+
+
+
+
+
+
+
+------> O ADMIN VAI TER UM ID DE '0',
+
+
+
+
+
+READ-only user, '1',
+
+
+
+author 
+
+
+'2'...
+
+
+
+
+
+
+
+
+
+--> CERTO.... --> MAS COMO VAMOS ARMAZENAR ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: 2 ///// AQUI..
+}
+
+
+
+
+
+
+
+
+
+--> OK, AQUI TERÍAMOS UM 
+'author'... (pq é representado por '2')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+aqui:
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: 1 ///// AQUI...
+}
+
+
+
+
+
+
+
+
+AQUI, TERÍAMOS UM USER 'READ-ONLY' (menos privilégios)...
+
+
+
+
+
+
+
+
+
+
+AQUI:
+
+
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: 0 ///// AQUI...
+}
+
+
+
+
+
+
+
+AQUI, TERÍAMOS UM 'ADMIN'.... (representado por '0')....
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE 
+
+
+
+
+ISSO TRAZ PROBLEMAS... --> 
+
+NÓS, COMO DESENVOLVEDORES,
+
+
+TEREMOS PROBLEMAS 
+
+
+
+
+
+QUANTO A 'SE LEMBRAR DE QUAL NÚMERO É PARA CADA 
+
+
+VALOR/COISA'... ------> PRINCIPALMENTE DEPOIS DE LONGAS PAUSAS,
+
+
+
+TIMES GRANDES...
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE, COMO DESENVOLVEDORES,
+
+
+VAMOS QUERER 
+
+
+ALGUNS 
+
+'HUMAN-READABLE IDENTIFIERS'...
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE PODERÍAMOS ESCREVER ALGO ASSIM:
+
+
+
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: 'READ ONLY USER' ////EXEMPLO, ESSA STRING AÍ... 
+}
+
+
+
+
+
+
+
+
+
+
+--> UMA STRING BEM EXPLÍCITA.... --> poderíamos usar STRING VALUES EXPLÍCITOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--. O ÚNICO PROBLEMA É QUE MAIS TARDE,
+
+SE FORMOS 
+
+UTILIZAR ESSES VALORES EM 'IF CHECKS',
+
+
+
+
+
+como 
+
+
+
+'
+
+
+if (person.role === 'READ ONLY USER');' 
+
+
+
+
+
+
+
+
+----> AÍ JÁ SURGIRÁ O PROBLEMA... --> PODEMOS NOS ENBANANAR:
+
+
+
+
+
+'''não me lembro se era read-only, ou read_only, ou READ ONLY...'''' 
+
+
+
+
+
+
+
+
+--------> SE SEGUIRMOS O APPROACH DE 
+
+
+'STRINGS EXATAS' como identificadores,
+
+
+
+__ CORREMOS O RISCO __ DE ESQUECERMOS_ 
+
+O QUE 
+
+
+É 
+
+
+CADA STRING EXATA... -------> PQ 
+
+
+
+
+
+
+
+UMA STRING COMO 
+
+
+'READ-ONLY-USER'
+
+NÃO É A MESMA COISA QUE 
+
+'READ ONLY USER'..
+
+
+
+
+(
+
+    if checks vão bugar, nessas ocasiões....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE STRING IDENTIFIERS TAMBÉM TEM ESSES DOWNSIDES...
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE 
+
+É BEM COMUM 
+
+
+
+
+
+______ EM ____ JAVASCRIPT__ 
+
+
+
+DEFINIR__ 
+
+
+
+CONSTANTES GLOBAIS,
+
+
+
+como 
+
+
+
+'const ADMIN = 0' ,
+
+
+
+
+
+OU 
+
+
+
+'const ADMIN = "ADMIN" ',
+
+
+
+
+
+
+
+
+__ USAR__ CONSTANTES PARA __ SEGURAR VALORES COMO NUMBERS/STRINGS QUE REPRESENTAM 
+
+
+
+
+valores no nosso código (são representações, basicamente)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NUMBERS SÃO MELHORES DO QUE STRINGS, NESSE QUESITO,
+
+PQ 
+
+PODEM 
+
+'SAVE SOME EXTRA CODE IN BITS, IN THE MEMORY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E AÍ TAMBÉM PODERÍAMOS TER COISAS COMO 
+
+
+
+
+
+'const ADMIN = 0;
+const READ_ONLY = 1;
+const AUTHOR = 2;'
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+const ADMIN_USER = 'ADMIN_USER';
+
+const ADMIN_USER2 = 0; ///OUTRA FORMA DO CÓDIGO DE CIMA, NA VERDADE...
+const READ_ONLY = 1;
+const AUTHOR = 2;
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: [2, 'author'], //exemplo de TUPLE
+        role2: 'READ-ONLY-USER', //isso mostra bem o problema de usar STRING IDENTIFIERS em seu código, no lugar de 'enums'...
+        role3: READ_ONLY ////forma de usar 'string/number identifiers' que USÁVAMOS ANTIGAMENTE, EM PROJETOS COMO PROJETOS REACT...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, A VANTAGEM 
+
+DE 
+
+USAR 
+
+
+coisas como 
+
+
+
+'ADMIN_USER' (const)
+
+NO NOSSO CÓDIGO,
+
+É QUE 
+
+
+O 
+
+
+
+
+IDE JÁ NOS DÁ AUTO-COMPLETE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FUNCIONA, E É UM 'COMMON PATTERN' no javascript..
+
+
+
+
+
+
+
+
+
+
+
+
+--> O DOWNSIDE É QUE SE VOCê PASSAR O CURSOR EM CIMA 
+
+
+
+da referência a essa variable (variable como 'READ-ONLY') 
+
+
+
+
+
+
+O IDE __ VAI TE MOSTRAR _ QUE O INFERED TYPE SERÁ DE 'number'... (
+
+
+    o que significa que 
+
+    PODERÍAMOS ARMAZENAR QUALQUER NUMBER NO INTERIOR DESSA VARIABLE,
+
+
+    ATÉ MESMO UM NUMBER QUE NÃO SUPORTAMOS/nosso código não suporta...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DISSO, TEMOS QUE 
+
+CRIAR TODAS ESSAS CONSTANTES, E FAZER 'MANAGE' DELAS,
+
+
+CONSTANTES COMO ESTAS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const ADMIN_USER = 'ADMIN_USER';
+
+const ADMIN_USER2 = 0; ///OUTRA FORMA DO CÓDIGO DE CIMA, NA VERDADE...
+const READ_ONLY = 1;
+const AUTHOR = 2;
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR RESUME:
+
+
+
+
+esse código aí 
+
+
+de cima é 
+
+'TOTALLY FINE',
+
+MAS UM 
+
+
+ENUM DEIXA 
+
+ISSO TUDO BEM MAIS FÁCIL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO TYPESCRIPT,
+
+
+
+CRIAMOS UM 
+
+ENUUM 
+
+
+por 
+
+
+meio da 
+
+
+
+escrita da keyword 
+
+'enum'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+enum 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DESSA KEYWORD,
+
+ESCREVEMOS O 
+
+
+NOME __ DO ENUM... --> TIPICAMENTE 
+
+UTILIZAMOS,
+
+
+
+NO TÍTULO,
+
+
+uma inicial maiúscula...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+enum Role 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> USAMOS UMA LETRA MAIÚSCULA JUSTAMENTE PQ 
+
+UM 
+
+'enum' 
+
+É CONSIDERADO UM 'CUSTOM TYPE'.......
+
+
+
+
+ 
+
+
+
+
+
+
+CUSTOM TYPES ---> EXISTEM __ VÁRIOS, 
+
+E 
+
+OS 
+'ENUM' 
+
+
+SÃO 
+
+
+O PRIMEIRO TIPO de CUSTOM TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E DEPOIS DE ESCREVER 
+
+
+
+'enum Xxxxx',
+
+
+
+VOCÊ 
+
+
+
+ESCREVE '{}',
+
+
+
+
+
+
+
+DIRETAMETNE...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+enum Role {};
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+OK... AÍ, DENTRO DESSE NEGÓCIO,
+
+
+
+VOCê PODE 
+
+
+
+ASSIGNAR SEUS VALORES... --> 
+
+
+
+
+no caso ,
+
+
+vamos 
+
+escrever 
+
+
+
+'ADMIN', 'READ_ONLY' 
+
+
+e 
+
+'AUTHOR'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+enum Role { ADMIN, READ_ONLY, AUTHOR };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> IMPORTANTE!!!  --> FREQUENTEMENTE VOCÊ VERÁ enums COM 
+
+
+
+__ TODOS __ VALUES EM 'UPPERCASE' (UPPER_CASE) ... ------> MAS ISSO NÃO É UM 'MUST-DO'.... ---> OU SEJA,
+
+
+VOCÊ PODE 
+
+ESCREVER QUALQUER 'value name',
+
+
+
+
+
+e sem 
+
+UPPERCASE ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E, POR TRÁS DAS CENAS,
+
+
+
+
+
+
+
+
+
+ESSES VALORES 
+
+
+
+'ADMIN', 'READ_ONLY' E __ 'AUTHOR'
+
+
+
+
+TODOS 
+
+VÃO 
+
+RECEBER 
+
+
+OS VALORES 
+
+
+'0', '1' e '2'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... FICOU ASSIm:
+
+
+
+
+
+
+
+enum Role { ///EXEMPLO DE 'enum' (ADMIN SERÁ 0, READ_ONLY será 1, AUTHOR será 2)...
+    ADMIN, READ_ONLY, AUTHOR ///0, 1, 2
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> AÍ, SE VOCÊ QUER __ ACESSAR __ UM DOS VALORES 
+
+DESSE 
+
+'enum',
+
+
+
+VOCê 
+
+deve 
+
+ESCREVER ASSIM,
+
+
+
+NO LOCAL EM QUE QUER O UTILIZAR...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+role5: Role.ADMIN ---------> ISSO 
+
+
+VAI 
+
+
+
+
+REPRESENTAR 
+
+o valor de 
+
+
+'0' 
+
+
+
+
+(
+
+
+
+
+    pq 
+
+
+
+    é esse o slot de 'ADMIN',
+    nesse enum:
+
+    
+enum Role { ///EXEMPLO DE 'enum' (ADMIN SERÁ 0, READ_ONLY será 1, AUTHOR será 2)...
+    ADMIN, READ_ONLY, AUTHOR ///0, 1, 2
+}
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+EX
+
+
+
+
+
+
+enum Role { ///EXEMPLO DE 'enum' (ADMIN SERÁ 0, READ_ONLY será 1, AUTHOR será 2)...
+    ADMIN, READ_ONLY, AUTHOR ///0, 1, 2
+}
+
+
+
+
+const person2 = { //professor se livra do type assignment EXPLÍCITO, e aí volta ao 'type inference' (default do typescript)...
+        name: 'Max',
+        age: 30,
+        hobbies: ['Sports', 'Cooking'],
+        role: [2, 'author'], //exemplo de TUPLE
+        role2: 'READ-ONLY-USER', //isso mostra bem o problema de usar STRING IDENTIFIERS em seu código, no lugar de 'enums'...
+        role3: READ_ONLY_USER, ////forma de usar 'string/number identifiers' que USÁVAMOS ANTIGAMENTE, EM PROJETOS COMO PROJETOS REACT...
+        role4Enum: Role.READ_ONLY ///EXEMPLO DE _ COMO _ USAR um 'ENUM' que settamos anteriormente... (vai outputtar '1', pq é nesse slot que esse 'READ_ONLY' se encontra)....
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ou seja,
+
+
+
+
+
+
+É QUASE __ COMO SE ESTIVÉSSEMOS __ ACESSANDO UM 'OBJETO'.... (o enum é quase como um objeto, nessa escrita)....
+
+
+
+
+
+ex:
+
+
+
+role4Enum: Role.READ_ONLY;
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+SE EXECUTARMOS 
+
+
+O
+ COMPILER 
+
+
+
+ TYPESCRIPT PARA 
+
+ converter nosso código, veremos que a versão javascript dele ficará assim:
+
+
+
+
+
+
+
+
+ var Role;
+(function (Role) {
+    Role[Role["ADMIN"] = 0] = "ADMIN";
+    Role[Role["READ_ONLY"] = 1] = "READ_ONLY";
+    Role[Role["AUTHOR"] = 2] = "AUTHOR"; ///0, 1, 2
+})(Role || (Role = {}));
+
+
+
+
+
+
+
+
+
+------>  OU SEJA, É 
+
+
+
+
+REBUILT COMO UMA 
+
+
+'iffy' (uma função QUE 
+
+EXECUTA A SI MESMA)..........  ----> e o 'Role' ACABA SIMPLESMENTE 
+
+GERENCIADO 
+
+COMO 
+
+UM OBJECT, 
+
+no final das contas,
+
+
+
+
+
+COM PROPRIEDADES DE 'ADMIN', 'READ_ONLY' e 'AUTHOR',
+
+etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ASSIM QUE O TYPESCRIPT RECONSTRÓI ESSA FEATURE DO 'enum' 
+
+
+
+LÁ NO CÓDIGO JAVASCRPIT...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS COMO DESENVOLVEDORES,
+
+
+O QUE INTERESSA É QUE  
+
+
+
+
+
+
+
+
+SIMPLESMENTE 
+
+FICAMOS COM ESSES 'CONVENIENTLY STORED NUMBERS',
+
+
+
+
+
+__ NUMBERS__ QUE _ PODEM SER ENTÃO UTILIZADOS EM UMA 'HUMAN-READABLE WAY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK.... MAS É CLARO QUE COM 'ENUMS' NÃO ESTAMOS LIMITADOS AO BEHAVIOR
+
+
+
+ DEFAULT... -------> ISSO SIGNIFICA QUE 
+
+
+
+
+ VOCê _ NÃO PRECISA SEMPRE COMEÇAR COM '0'
+
+
+ COMO SEU 
+
+ STARTING NUMBER (esse 'ADMIN' não precisa ser obrigatoriamente '0', nesse exemplo, só por estar na primeira casa)....
+
+
+
+
+
+
+
+
+
+ --> PARA DAR OVERRIDE DESSES DEFAULTS,
+
+
+
+
+BASTA ESCREVER '=' e então ESCOLHER UM NÚMERO...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+enum Role { ADMIN = 5, READ_ONLY, AUTHOR}
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, O ADMIN VAI VIRAR '5',
+
+
+
+
+O 'READ_ONLY' vai ser '6',
+
+e o author será 
+'7',
+
+
+nesse exemplo ( o resto dos identifiers só vai 'increment' seu valor, 1 por vez...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+enum Role { ///EXEMPLO DE 'enum' (ADMIN SERÁ 0, READ_ONLY será 1, AUTHOR será 2)... -------> ESSA É A MANEIRA 'DEFAULT' DE ESCREVER UM 'ENUM'...
+    ADMIN, READ_ONLY, AUTHOR ///0, 1, 2
+}
+
+
+
+
+
+// enum Role { ///ESSA É A MANEIRA DE FAZER 'OVERRIDE' do default de seu ENUM.... (ou seja, vocÊ pode FAZER O PRIMEIRO ELEMENTO COMEÇAR COM '5', para que o próximo seja 6, e o próximo seja 7, TUDO AUTOMATICAMENTE)  --> isso pq OS elementos/referenciais nesse 'enum' sempre terão seus valores 'incremented' por 1, 1 por 1...
+//     ADMIN = 5, READ_ONLY, AUTHOR ///5, 6, 7 (basta passar o mouse por cima)...
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE, POR FIM,
+
+VOCÊ PODE ASSIGNAR __ SEUS PRÓPRIOS VALORES A CADA 1 DESSES IDENTIFIERS,
+
+
+SE VOCÊ PRECISA DE SEUS PRÓPRIOS 'CUSTOM NUMBERS':
+
+
+
+
+
+
+
+
+
+
+
+enum Role { ///EXEMPLO DE 'enum' (ADMIN SERÁ 0, READ_ONLY será 1, AUTHOR será 2)... -------> ESSA É A MANEIRA 'DEFAULT' DE ESCREVER UM 'ENUM'...
+    ADMIN, READ_ONLY, AUTHOR ///0, 1, 2
+}
+
+
+
+
+
+// enum Role { ///ESSA É A MANEIRA DE FAZER 'OVERRIDE' do default de seu ENUM.... (ou seja, vocÊ pode FAZER O PRIMEIRO ELEMENTO COMEÇAR COM '5', para que o próximo seja 6, e o próximo seja 7, TUDO AUTOMATICAMENTE)  --> isso pq OS elementos/referenciais nesse 'enum' sempre terão seus valores 'incremented' por 1, 1 por 1...
+//     ADMIN = 5, READ_ONLY, AUTHOR ///5, 6, 7 (basta passar o mouse por cima)...
+// }
+
+
+
+
+
+
+
+enum Role { ///OUTRA MANEIRA DE FAZER 'OVERRIDE' DO DEFAULT, dessa vez definindo CADA REFERENCIAL COM UM _ VALOR ESPECÍFICO (sem increments progressivos entre elementos)...
+    ADMIN = 100, READ_ONLY = 200, AUTHOR = 300
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALÉM DISSO,
+
+
+VOCÊ 
+
+PODE LOQUEAR E NEM MESMO USAR 
+
+
+
+
+'NUMBERS',
+
+
+pq 
+
+
+vocÊ pode usr 
+
+
+
+TEXT...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+enum Role { ///OUTRA MANEIRA DE FAZER 'OVERRIDE' DO DEFAULT, dessa vez definindo CADA REFERENCIAL COM UM _ VALOR ESPECÍFICO (STRINGS)...
+    ADMIN = 'TEXT1', READ_ONLY = 'TEXTO2', AUTHOR = 'TEXTS'
+}
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O COMPORTAMENTO MAIS UTILIZADO É O DEFAULT DE '0', '1', '2'.... 
+
+
+
+
+
+
+
+
+
+
+
+-->  MAS É CLARO QUE VOCÊ PODE USAR AS SINTAXES ALTERNATIVAS...
+
+
+
+
+
+
+
+
+
+
+--> A VANTAGEM É 
+
+O REFERENCIAL DE 
+
+
+'Role.ADMIN',
+
+
+'Role.READ_ONLY',
+
+
+
+ etc etc...
+
+
+
+
+ PARA 
+
+
+ ACESSAR 
+
+ SEUS VALORES... -> TUDO PARA QUE 
+ POSSAM 
+
+ SER USADOS 
+
+
+
+ EM IF CHECKS,
+
+
+
+ NOS SEUS IDENTIFIERS,
+
+
+
+ e tudo mais... ( você escreve assim para que __ VOCê TENHA 'IDENTIFIERS' QUE SÃO _ HUMAN-READABLE E QUE 
+ 
+ 
+ 
+ TENHAM UM 'MAPPED VALUE' por trás das cenas... )

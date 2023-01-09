@@ -1,0 +1,1463 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DE OBJECTS,
+
+
+TAMBÉM TEMOS 'ARRAYS'
+
+
+em javascript...
+
+
+
+
+
+
+
+
+-> ARRAYS SÃO ASSIM: []
+
+
+
+
+
+
+
+-> PODEMOS ARMAZENAR QUAISQUER COISAS LÁ DENTRO,
+
+
+
+
+PODEMOS 
+
+TER NESTED ARRAYS, OBJETOS,
+
+
+MIXED DATA (numbers e strings, etc etc)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E O TYPESCRIPT ___ TAMBÉM SUPORTA ARRAYS,
+
+
+e 
+
+QUALQUER 
+
+
+
+ARRAY JAVASCRIPT 
+
+É 
+
+
+SUPORTADO... --> 
+
+
+
+(
+
+
+
+    E O TYPE DE UM ARRAY PODE SER 'FLEXÍVEL' OU 
+
+    'STRICT'... -----> ISSO EM RELAÇÃO AOS 'ELEMENT TYPES'
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS DAR UMA OLHADA 
+
+
+NESSA QUES~TAO DE 'FLEXIBLE' E 'STRICT'
+
+
+dos arrayss...
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, CRÍAMOS UM 
+
+NOVO ARQUIVO,
+
+
+
+
+'arrayBasics.ts'...
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS QUE 
+
+
+
+UM OBJETO 'person'
+
+
+TAMBÉM 
+
+
+TEM 
+
+
+
+
+UMA KEY 
+
+DE 
+
+'hobbies',
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+const person = {
+
+
+    name: 'Max',
+    age: 30,
+    hobbies: []
+}
+
+
+
+
+
+-----------------------
+
+
+É CLARO QUE PODERÍAMOS TER DEFINIDO ESSE ARRAY NO LADO __ DE FORA __ DE NOSSO OBJETO,
+
+
+mas 
+
+o 
+
+set/define de ARRAY TYPES _ É EXATAMENTE O MESOM DENTRO/FORA DE OBJETOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... --> temos esse 'hobbies'... ----> 
+
+
+
+VAMOS QUERER 
+
+QUE 
+
+SEUS ELEMENTOS SEJAM 
+
+'strings'...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+const person = {
+
+
+    name: 'Max',
+    age: 30,
+    hobbies: []
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E O TYPESCRIPT JÁ PEGA, AUTOMATICAMENTE,
+
+QUE 
+O 
+
+TYPE 
+
+DESSAS COISAS DENTRO DO ARRAY (innerType) 
+
+É 
+
+
+
+
+DE 
+
+'string[]',
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+'(property) hobbies: string[]' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É UM 'STRING ARRAY' --> É ASSIM QUE O TYPESCRPIT 
+
+DESCREVE UM 'ARRAY OF DATA'... ------> 
+
+
+
+
+
+VOCÊ TEM O '[]',
+
+
+E NA FRENTE DELE 
+
+O 
+
+'TYPE' 
+
+DE 
+DATA 
+
+QUE 
+VAI FICAR 
+
+DENTRO DELE...
+
+
+
+
+
+
+
+
+
+
+
+-> COMO ELE PERCEBEU QUE 
+
+
+
+
+nesse array só tínhamos STRINGS, ELE 
+
+
+'infer' QUE 
+
+DENTRO DESSE ARRAY SÓ TEMOS STRINGS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO,E ISSO FAZ BASTANTE SENTIDO..
+
+
+
+
+--> MAS É CLARO QUE 
+
+
+
+VOCÊ PODE DEFINIR EXPLICITAMENTE o 
+
+'TYPE'
+de uma 
+
+variable...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+let favoriteActivities;  
+
+
+
+
+
+
+
+
+
+
+
+INICIALMENTE ESSA VARIÁVEL SERÁ 'EMPTY',
+
+
+mas 
+
+
+vamos qurer 
+
+
+
+DEFINIR SEU TYPE COMO SENDO O DE ALGUMA COISA...
+
+
+
+
+
+
+
+
+
+--> COMO QUEREMOS QUE 
+
+ELE 
+
+SEJA UM ARRAY DE STRINGS,
+
+ESCREVEMOS ASSIM:
+
+
+
+ex:
+
+
+
+
+
+let favoriteActivities: string[];  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->   OK, SERÁ UM ARRAY DE STRINGS...
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE SE TENTARMOS ESCREVER ALGO ASSIM , PARA DEFINIR O VALOR DESSE NEGÓCIO COMO SENDO 'APENAS 1 STRING SOLTA':
+
+
+
+
+let favoriteActivities: string[];  
+
+
+
+favoriteActivities = 'Sports'; /////////VAMOS RECBER IMEDIATAMENTE UM ERROR, PQ _ O VALOR __ DISSO SÓ _ PODERÁ SER '1 ARRAY DE STRINGS'...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+let favoriteActivities: string[];
+
+
+favoriteActivities = 'UMA STRING SOLTA'; //inválido re-define.... (assignment)
+
+
+
+favoriteActivities = ['STRING DENTRO DE ARRAY', 'STRING DENTRO DE ARRAY']; //válido re-define.. (assignment)...
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+também 
+
+não vamos ganhar um error se escrevemos isto:
+
+
+
+
+
+
+let favoriteActivities: string[];
+
+
+favoriteActivities = 'UMA STRING SOLTA'; //inválido re-define.... (assignment)
+
+
+
+favoriteActivities = ['STRING DENTRO DE ARRAY']; //válido re-define.. (assignment)...
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+ENTRETANTO,
+
+
+
+SE TENTAMOS 
+
+
+DEFINIR ESSA VARIABLE COMO SENDO UM 'ARRAY DE MIXED VALUES',
+
+
+
+com strings e numbers,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+let favoriteActivities: string[];
+
+
+favoriteActivities = 'UMA STRING SOLTA'; //inválido re-define.... (assignment)
+
+
+
+favoriteActivities = ['STRING DENTRO DE ARRAY', 1221]; //INVÁLIDO RE-DEFINE (mixed types, strings e numbers)
+
+
+
+
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+ISSO VAI _ NOS DAR__ 1 ERRO,
+
+
+PQ 
+
+
+VAMOS TER 1 'MIXED ARRAY' ,
+
+
+ARRAY 
+
+DE 
+
+STRINGS E NUMBERS... 
+
+
+
+
+
+
+
+
+
+--> SE QUISERMOS __ SUPORTAr_ 
+
+
+1 'MIXED ARRAY',
+
+
+
+
+PODERÍAMOS/PODEMOS ESCREVER ISTO:
+
+
+
+
+
+
+
+
+
+let favoriteActivities: any[] ---------> ISSO BASICAMENTE SIGNIFICA 'FAÇA O QUE VOCÊ QUISER, INSIRA QUAISQUER VALORES DENTRO DESSE ARRAY, valores QUE VOCÊ QUISER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCÊ QUISER SER MAIS __ ESPECÍFICO,
+
+PODE 
+
+DIZER SÓ 
+
+'QUERO UM MIXED ARRAY DE 
+
+
+STRINGS E NUMBERS',
+
+
+
+VOCÊ 
+
+
+
+
+ESCREVE ASSIM:
+
+
+
+
+let favoriteActivities: (string | number)[]; ////FAÇA/ESCREVA ISSO SE VOCÊ PLANEJA TER UM 'MIXED ARRAY TYPE'...
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> ANY[] --> É UM TYPE QUE 
+
+
+VOCÊ NÃO 
+
+
+VAI QUERER USAR MT,
+
+PQ VOCÊ PERDE OS BENEFÍCIOS QUE 
+
+O 
+
+TYPESCRIPT TE DÁ (
+
+
+    VOCÊ RETORNA AO MUNDO JAVASCRIPT, EM QUE VOCê PODE 
+
+
+    ESCREVER QUALQUER VALOR EM QUALQUER LUGAR,
+
+    o que é péssimo e causa errors... 
+)
+
+
+
+
+
+
+
+---> 'any[]' ----> MT FLEXÍVEL, 
+
+MAS 
+
+VEM COM O PREÇO 
+
+DE 
+PERDER TODOS OS BENEFÍCIOS DADOS PELO TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------. CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS OS ARRAYS NOS DÃO UM ÓTIMO EXEMPLO,
+
+
+EXEMPLO DO QUÃO 
+
+
+DINÂMICO 
+
+
+
+
+O TYPE INFERENCE DO TYPESCRIPT É ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PODEMOS ADICIONAR UM FOR LOOP TRADICIONAL,
+
+
+
+
+
+
+EM QUE ESCREVMOS:
+
+
+
+
+
+
+
+const person = { ///ISSO AQUI JÁ VAI TER 'type inference' do typescript (ou seja, se vocÊ tentar, mais tarde, trocar o valor de 'person.name', trocar de uma STRING PARA UM NUMBER, ele já vai AUTOMATICAMENTE DE DAR UM ERROR/AVISO...)
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 'SPORTS2'], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'] ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+}
+
+
+
+
+
+
+for (const hobby of person.hobbies) {
+
+    console.log(hobby);
+}
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É UM CÓDIGO BEM COMUM JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+--> SE COMPILARMOS ESSE NEGÓCIO,
+
+
+OBTEMOS 
+
+
+
+
+OS HOBBIES, PRINTADOs...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE É INTERESSANTE É QUE 
+
+SE PASSARMOS 
+
+
+
+
+O CURSOR EM 'hobby',
+
+
+
+
+
+PODEMOS __ ACESSAR__ QUALQUER METHOD __ EXISTENTE EM QUALQUER STRING (pq ele é CONSIDERADO, corretamente,  UMA STRING, pelo typescript)
+
+
+
+
+
+
+
+
+
+
+
+-> PODEMOS USAR, POR EXEMPLO,
+
+
+'toUpperCase()',
+
+
+
+EM CIMA 
+DE 
+
+'hobby',
+
+
+
+que o TYPESCRIPT NÃO VAI RECLAMAR.... -> ELE NÃO VAI RECLARMAR PPQ __ ELE _ SABE__ 
+
+
+QUE 
+
+ 
+ O 
+
+
+ 'hobbies'
+ é 
+
+ de 
+
+ TYPE 
+
+'
+string array'... ---> AÍ, QUANDO 
+
+
+
+ACESSAMOS ESSE 
+
+
+'hobby',
+
+
+
+
+
+sabemos que ele será uma string....
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ SE TEMOS UM 
+
+
+ARRAY DE MIXED TYPES (strings e numbers),
+
+a 
+
+história é diferente:
+
+
+
+
+
+
+
+
+
+for (const hobby of person.hobbies) {
+
+  // console.log(hobby.toUpperCase()); //NÃO PODEMOS USAR ESSE METHOD DIRETAMENTE, AQUI, pq o  TYPE É MIXED (é tanto NUMBER quanto STRING...)...
+}
+
+for (const hobby2 of person.hobbies2) {
+
+  console.log(hobby2.); ///AQUI APARECERÃO METHODS DE STRINGS, coisa normal...
+}
+
+
+
+
+
+
+
+-----------
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO... --> E ISSO TUDO É MT FLEXÍVEL,
+
+
+E UMA GRANDE FEATURE,
+
+QUE 
+DEIXA O WRITE DE 
+
+CÓDIGO BEM MAIS FLEXÍVEL E SEGURO...
+
+
+
+
+
+
+
+
+
+--> eX:
+
+
+
+
+
+
+
+
+'console.log(hobby.map())' ----> ISSO VAI NOS DAR UM ERRO TYPESCRIPT,
+
+PQ 
+
+'map()'
+
+É ALGO QUE __ SÓ PODE SER USADO EM ARRAYS, E NUNCA EM STRINGS... 
+
+
+
+
+
+e aqui, corretamente,
+
+
+recebemos esse error...
+
+
+
+
+
+
+
+
+
+
+
+--. É BOM QUE RECEBAMOS ESSE ERROR --> mostra a utilidade do type inference....
+
+
+
+
+
+
+EX:
+
+
+
+const person: {
+
+  name: string;
+  age: number;
+  hobbies: (string | number)[];
+  hobbies2: string[];
+  role: [number, string] /// EXEMPLO DE DEFINÇÃO DE TYPE 'tuple'...
+
+
+            ///vamos inferir 'explicitamente' JUSTAMENTE PARA QUE O field de 'role' consiga ter seu 'type' SETTADO COMO SENDO O DE UMA 'tuple' (tupla)....
+} = { 
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 12], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'], ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+  role: [2, 'author']
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo... e 'TUPLES'
+
+
+
+
+SÃO ___ 
+
+
+
+ESCRITAS ASSIM:
+
+
+role: [number, string];
+
+
+
+
+
+
+
+
+
+
+
+-> TUPLES SÃO UM CONSTRUCT ESPECIAL QUE O TYPESCRIPT COMPREENDE... --> 
+
+
+
+
+NO JAVASCRIPT 
+
+
+
+ELE 
+
+SERÁ UM ARRAY NORMAL,
+
+MAS DURANTE O DEVELOPMENT 
+
+AS 
+
+TUPLES 
+
+VAO TE DAR ERRORS ESPECIAIS....
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, O QUE 
+
+
+A 
+
+TUPLE 
+
+
+
+OBRIGA É 
+
+
+
+
+
+
+ARRAY DE 
+
+
+2 ELEMENTOS,
+
+O PRIMEIRO 
+
+É 
+
+
+
+
+1 NUMBER,
+
+O SEGUNDO É UM STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM NOSSO CÓDIGO ANTIGO:
+
+
+
+
+
+
+
+
+const person: {
+
+  name: string;
+  age: number;
+  hobbies: (string | number)[];
+  hobbies2: string[];
+  role: [number, string] /// EXEMPLO DE DEFINÇÃO DE TYPE 'tuple'...
+
+
+            ///vamos inferir 'explicitamente' JUSTAMENTE PARA QUE O field de 'role' consiga ter seu 'type' SETTADO COMO SENDO O DE UMA 'tuple' (tupla)....
+} = { 
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 12], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'], ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+  role: [2, 'author']
+}
+
+
+
+
+
+
+
+
+
+
+
+person.role[1] = 10; /////////ISSO VAI DAR UM ERRO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'person.role[1] = 10' 
+
+VAI NOS DAR 1 ERRO 
+
+JUSTAMENTE 
+PQ 
+
+
+VAMOS ESTAR TENTANDO TROCAR UMA 'STRING' por um '
+NUMBER'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... MAS AGORA TEMOS OUTRO PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const person: {
+
+  name: string;
+  age: number;
+  hobbies: (string | number)[];
+  hobbies2: string[];
+  role: [number, string] /// EXEMPLO DE DEFINÇÃO DE TYPE 'tuple'...
+
+
+            ///vamos inferir 'explicitamente' JUSTAMENTE PARA QUE O field de 'role' consiga ter seu 'type' SETTADO COMO SENDO O DE UMA 'tuple' (tupla)....
+} = { 
+  name: 'Maximillian',
+  age: 30,
+  hobbies: ['Sports', 12], //PASSE O CURSOR POR CIMA de 'hobbies', para ver os infered types...
+  hobbies2: ['Sports', 'Strinzxz'], ////PASSE O CURSOR POR CIMA, PARA VER OS INFERED TYPES...
+  role: [2, 'author']
+}
+
+
+
+
+person.role.push('admin'); ///ESSE CÓDIGO VAI PASSAR BATIDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ESSE CÓDIGO DE 
+
+''
+
+
+
+person.role.push('admin');
+
+
+
+''
+
+
+NÃO VAI DAR 
+
+ERROR NO TYPESCRIPT... --> ISSO SIGNIFICA QUE 
+
+
+ISSO 
+
+É _ UMA EXCEÇÃO, EXCEÇÃO QUE 
+
+É 
+
+
+'ALLOWED IN TUPLES'... ------>  O TYPESCRIPT NÃO CONSEGUE CATCHEAR 
+
+
+
+
+
+ESSE TIPO DE ERRO,
+
+
+mas tudo bem....
+
+
+(
+
+
+    ele ainda funciona com coisas como 'person.role[1] = 10'....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+--> MAS FORA DE 'push',
+
+
+NÓS TAMBÉM 
+
+
+GANHAMOS UM 
+
+POUCO DE SUPPORT 
+
+
+_ ACERCA DO 'FIXED LENGTH'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+person.role = [0, 'admin', 'user'] --------> VAMOS GANHAR UM ERRO,
+
+
+PQ 
+
+
+
+VAMOS ESTAR TENTANDO TROCAR O NÚMERO DE ELEMENTOS PARA '3', quando apenas 2, 'number' e 'string',
+
+SÃO PERMITIDOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--_>  OK, ISSO SIGNIFICA QUE 
+
+
+
+
+o push de elements é um bug/falha das tuples...
+
+
+
+
+
+
+
+
+
+
+--> MAS VOCÊ PODE USAR TUPLES QUANDO VOCÊ QUER SER AINDA MAIS CLARO SOBRE A DATA QUE VOCÊ VAI ESPERAR NO SEU ARRAY, NO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+----> TUPLES --> INTRODUZ ''STRICTNESS'' no seu app....

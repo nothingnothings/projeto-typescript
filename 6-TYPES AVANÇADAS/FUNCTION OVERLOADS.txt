@@ -1,0 +1,1709 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VIMOS 'INDEX PROPERTIES',
+
+
+
+que não são TÃÃÃO úteis...
+
+
+
+
+
+ex:
+
+
+
+
+
+interface ErrorContainer { //queremos que essa interface/object formado a partir dessa interface _ TENHA VÁRIAS PROPERTIES, properties que se omitem/escondem dependendo do case... (pq vamos querer ter 1 propriedade para CADA INPUT FIELD no nosso html, para que consigamos fazer error handling em todos eles ao mesmo tempo)....
+
+    ///esta é uma index property....
+    [prop: string]: string; ///agora todas as propriedades nesse object vão ter names que serão STRINGS ('[prop: string]' ), COM VALORES DE 'STRING' também... ':string' ....
+
+
+
+    id: string; ///ainda PODEMOS ADICIONAR 'PRE-DEFINED' PROPERTIES no nosso código, além daquela 'INDEX PROPERTY' vista ali em cima... ---> ENTRETANTO ,O __ TYPE_ DE NOSSAS PROPERTIES PRÉ-DEFINIDAS DEVE SER IGUAL AO TYPE DAQUELE 'index Property'...
+
+
+
+    /// exemplo2: number;//// não é permitido (Property 'exemplo2' of type 'number' is not assignable to 'string' index type 'string'.ts(2411)) ---> ver explicação logo acima...
+
+
+    exemplo: string;
+}
+
+
+
+
+
+
+
+const errorBag: ErrorContainer = {
+        id: 'asasjasoasjaso',
+        exemplo: 'UMA STRING',
+        1: 'OUTRA STRING', ///-_> OBS:::: SE USARMOS UM 'number' NO PROPERTY NAME, NÃO RECEBEREMOS UM ERRO (pq numbers podem ser interpretados, pelo javascript, COMO STRINGS, também)...
+        // 2: 125; //a única coisa REALMENTE PROIBIDA É COLOCAR, NESSE EXEMPLO, propriedades com VALORES QUE SEJAM DE 'number' (pq definimos na nossa interface que as propreidades deverão ser de 'string, conforme visto em ':string' ...).
+
+        email: 'Your email was invalid',
+        username: 'Passed username was invalid',
+        password: 'Inputted password was invalid',
+        zipCode: 'Invalid Zipcode' ////podemos colocar QUALQUER PROPRIEDADE AQUI DENTRO, tudo por causa daquela linha de  ''     [prop: string]: string;''  
+
+
+}
+
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A PRÓXIMA COISA QUE O PROFESSOR 
+
+QUER EXPLICAR É A FEATURE 
+
+
+
+
+DOS 'FUNCTION OVERLOADS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE É ISSO?
+
+
+
+
+
+
+
+
+-> É UMA FEATURE QUE TE DEIXA __ DEFINIR __ 'VARIOUS FUNCTION SIGNATURES FOR __ ONE AND THE SAME FUNCTION'''.....
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE __ PODEMOS__ TER MÚLTIPLAS MANEIRAS DE CHAMAR 1 MESMA FUNCTION,
+
+
+
+
+COM _ DIFERENTES_ PARAMETERS sendo PASSADOS,
+
+
+e que 
+
+
+DENTRO DESSA FUNCTION FARÃO COISAS DIFERENTES... (wtf, acho que já vi isso)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> UM BOM EXEMPLO DE LOCAL EM QUE 
+
+
+'function overloads'
+
+PODEM NOS AJUDAR 
+
+
+
+
+PODE 
+
+
+SER 
+
+VISTO 
+
+
+NOS NOSSOS CÓDIGOS ANTIGOS..
+
+
+
+
+
+
+---> NAQUELA FUNCTION De 'add',
+
+
+que escrevemos ANTERIORMENTE
+
+
+
+
+
+
+
+ex:
+
+ 
+
+
+
+
+type Combinable = string | number;
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+OK... O QUE ESSA FUNÇÃO FAZ, NA VERDADE,
+
+É 
+
+
+'TAKE TWO COMBINABLE VALUES',
+
+(
+
+
+    values de tipo 'Combinable'
+)
+
+,
+
+
+
+e aí 
+
+
+
+
+
+
+
+
+O TYPESCRIPT 
+
+
+
+
+NOS DIZ QUE 
+
+
+
+O__ RETURN__ TYPE DESSA FUNCTION TAMBÉM VAI SER DE COMBINABLE, QUANDO PASSAMOS O MOUSE EM CIMA:
+
+
+
+
+
+
+
+
+
+
+
+'function add(a: Combinable, b: Combinable): Combinable' 
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIMPLESMENTE QUER DIZER que __ o TYPESCRIPT_ SABE QUE __ A COISA QUE 
+
+
+ESSE NEGÓCIO VAI RETORNAR _ SERÁ_ OU UMA STRING, OU UM NUMBER, OBRIGATORIAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO, NA VERDADE, 'NÃO É VERDADE'....
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, NA VERDADE __ NÓS __, COMO DESENVOLVEDORES,
+
+
+
+SABEMOS QUE __ 
+
+
+
+
+ESTÁ 'KINDOF TRUE'
+
+
+
+
+
+
+
+
+--> é + ou - PQ  _________ NA VERDADE, SE 
+
+PASSARMOS 
+
+
+1 NUM E 1 NUM, vamos certamente ganhar 1 number, e vice-versa...
+
+
+
+
+
+
+
+
+
+
+
+----> OK, MAS PQ ISSO PODE 
+
+
+
+IMPORTAR? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMAGINE QUE VOCÊ EXECUTA ESSA FUNCTION 1 VEZ...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+type Combinable = string | number;
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+const result = add(1, 5);
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+SE VOCê PASSAR O MOUSE EM CIMA de 'add',
+
+
+VERÁ QUE O 
+
+TYPE RETORNADO SERÁ DE 'Combinable'... (mas sabemos, com certeza absoluta, que o valor retornado será um NUMBER)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS ISSO SIGNIFICA QUE O TS É BURRO,E QUE ELE NÃO SABERÁ 
+
+SE 
+
+O 
+
+RESULT VAI SER UM NUMBER OU UMA STRING..
+
+
+
+
+
+
+
+
+
+
+
+
+--------> isso vai realmente IMPORTAR 
+
+SE 
+
+
+ESTIVERMOS PASSANDO STRINGS A ESSA FUNÇÃO..
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+type Combinable = string | number;
+
+
+
+function add(a: Combinable, b: Combinable) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+const result = add(1, 5);
+
+
+
+
+
+
+const result2 = add('Max', 'Schwarz');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+A REAL DESVANTAGEM DISSO É QUE 
+
+AGORA,
+
+
+se tentarmos 
+
+EXECUTAR 
+
+
+
+
+
+METHODS TÍPICOS DE STRINGS EM 
+
+
+'result2',
+
+
+
+OBTEREMOS __ ERRORS_,
+
+PQ 
+O 
+
+
+JAVASCRIPT VAI DIZER QUE 
+
+
+'''O TYPE DELE É string | number, e não 'string' solo...'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Combinable2 = string | number; 
+
+
+
+
+
+function add2(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+
+
+add2(1, 5); /// ele diz que o VALOR RETORNADO SERÁ DE 'number' ou de 'string',  o que É INCORRETO, PQ O VALOR __ RETORNADO, NESSE CASO, VAI SER 100% UM NUMBER...
+
+
+
+const result2 = add2('Max', 'Schwarz'); ///ainda vamos ganhar 'combinable' como return type, o que é MEIO (completamente) ERRADO...
+
+
+
+
+
+
+
+result2.split(); /////////COMO ___ CONSEQUÊNCIA DISSO, DO 'type' desse 'result2' SER (string | number), __ NÃO PODEMOS/PODEREMOS __ CHAMAR FUNÇÕES DE STRING NELE, PQ ISSO NOS DARÁ ERRORS....
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ok... MAS COMO PODEMOS CONSERTAR ISSO,
+
+COMO PODEMOS FAZER COM QUE 
+
+
+
+
+
+
+SEJA POSSÍVEL 
+
+chamar '.split()'
+
+
+NO RESULT DESSA FUNCTION,
+
+sem incorrer em errors? 
+
+
+
+
+
+
+
+
+
+(talvez com o uso de 'as'? ) 
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+// const result2 = add2('Max', 'Schwarz') as string;
+
+
+
+
+
+
+
+//result2.split('a', ); //////// SE USAMOS 'as string', __ ISSO FUNCIONARÁ.... (é um possível FIX).... --> esse é o fix approach que usa 'TYPE CASTING'...
+
+
+
+
+
+
+
+----->  OK...
+
+
+
+
+
+
+
+
+
+
+
+UMA DAS SOLUÇÕES REALMENTE É O 'TYPE CASTING',
+
+usar o type casting para DECLARAR O VALOR DESSE CALL DE SUA FUNÇÃO COMO 
+
+
+'certamente string'....
+
+
+
+
+
+
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR FALA ISSO.... --> PODERÍAOMS USAR O TYPE CASTING, com a sintaxe do type casting...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ainda assim,
+
+
+
+PROFESSOR ARGUMENTA QUE _ NÃO É OPTIMAL USAR__ A SINTAXE DE TYPE CASTING ASSim... --> 
+
+
+
+
+ISSO PQ __ VAMOS TER QUE __ ___ ESCREVER AINDA MAIS CÓDIGO....
+
+
+
+
+
+
+
+
+--> vocÊ vai ter que escrever 'as string' TODA VEZ QUE VOCÊ EXECUTAR 
+
+SUA FUNÇÃO ASSIM:
+
+
+'add('Max', 'Schwarz')'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O TYPESCRIPT NÃO VAI ANALISAR NOSSO CÓDIGO DE FORMA ADEQUADA, ASSIM....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É EM CASOS COMO __ESSE__ QUE 
+
+
+
+_OS 'FUNCTION OVERLOADS'
+
+
+
+
+
+
+
+
+VÊM A CALHAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ESCREVER UM FUNCTION OVERLOAD,
+
+
+você usa a keyword 'function' REPETIDA,
+
+
+
+
+
+logo antes do código de sua function...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+function //////////EIS O CÓDIGO EM QUESTÃO.
+function add2(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+ISSO FEITO,
+
+VOCÊ 
+
+
+
+VAI ESCREVER NESSA 'FUNCTION ADICIONAL'
+
+
+o 
+
+
+
+__ MESMO __ NOME _ DA FUNCTION QUE VOCÊ QUER DAR 'OVERLOAD'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+function add2 //////////EIS O CÓDIGO EM QUESTÃO.
+function add2(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, 
+
+VOCê TAMBÉM COLOCARÁ __ PARAMETERS_  __ NESSA SUA EXPRESSÃO EXTRA...
+
+
+
+
+
+
+
+
+
+
+
+--> NO NOSSO CASO, VAMOS COLOCAR O TYPE DE 'number' e 'number' nos parâmetros...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function add2(a: number, b: number) //////////EIS O CÓDIGO EM QUESTÃO.
+function add2(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+POR FIM, _ VAMOS COLOCAR O 'RETURN TYPE'
+
+
+que 
+
+
+deve 
+
+
+
+SER __ CONSIDERADO/RECONHECIDO __ PARA __ QUANDO FOREM PASSADOS 
+
+
+
+
+VALORES__ DESSES TYPES AÍ...
+
+
+
+
+
+
+(como vamos querer que o negócio seja um NUMBER, escrevemos ':number'...):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+function add2(a: number, b: number): number //////////EIS O CÓDIGO EM QUESTÃO.
+function add2(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ENTENDI.... 
+
+
+
+
+
+
+E O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+function add3(a: number, b: number): number; /// EXEMPLO DE FUNCTION OVERLOADS....
+function add3(a: string, b: string): string;
+function add3(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+const result4 = add3(21, 12); 
+
+
+
+
+
+
+
+
+result4.toFixed(); //benefício de usar FUNCTION OVERLOADS...
+
+
+
+
+const result5 = add3('21', '12'); 
+
+
+
+
+result5.split('sss'); ///benefício de usar FUNCTION OVERLOADS ( o type estará definido como 'string', pq é isso que definimos no return type em '' function add3(a: string, b: string): string; '')
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESTAMOS DIZENDO:
+
+
+
+
+
+
+'''SE CHAMARMOS ESSA FUNCTION COM ESSE TIPO DE PARAMETROS,
+
+
+
+RETORNE UM NUMBER''''...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ESSA SINTAXE NÃO FUNCIONA NO JAVASCRIPT COMUM...- -> E ELA SERÁ 
+
+
+
+ELIMINADA 
+
+DURANTE 
+
+
+O PROCESSO DE COMPILAÇAÕ..
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O 
+
+
+
+TYPESCRIPT VAI FUNDIR 
+
+
+
+TODAS ESSAS DECLARAÇÕES EM 1 SÓ,
+
+
+
+
+E 
+
+
+aí 
+
+
+
+
+VAI COMBINAR A 
+
+
+
+INFO DESSAS LINES AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> VOCÊ PODE ADICIONAR QUANTOS OVERLOADS QUISERMOS, EM 1 MESMA FUNCTION...
+
+
+
+
+
+
+
+
+--> PODEMOS COLOCAr, além disso, coisas como 
+
+
+
+'function add (n: number): number;' 
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS VOCê PRECISA GARANTIR QUE SEU CÓDIGO DE DENTRO 
+
+
+DA FUNCTION FUNCIONA,
+
+
+
+E QUE 
+
+VOCÊ 
+
+RECEBE TODOS OS ARGUMENTOS NECESSÁRIOS, NO FINAL DAS CONTAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, ADICIONAMOS VÁRIOS OVERLOADS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////AGORA O APPROACH DOS FUNCTION OVERLOADS:
+
+
+
+///(sim, vocÊ precisa DUPLICAR o 'function add2')...., e também os PARÂMETROS...
+
+
+////aí você vai colocar o RETURN TYPE PARA CADA 'case' dos parâmetros que você receber, nessa sua função... (ex: '2 parametros com type de number, vou querer retornar 'number'  também''')....
+
+
+
+
+
+
+
+// function add3(a: number): number; //outros exemplos de overloads... (se deixarmos nosso 2o parametro como 'optional'...)
+
+function add3(a: number, b: number): number; /// EXEMPLO DE FUNCTION OVERLOADS....
+function add3(a: string, b: string): string;
+function add3(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+const result4 = add3(21, 12); 
+
+
+
+
+
+
+
+
+result4.toFixed(); //benefício de usar FUNCTION OVERLOADS...
+
+
+
+
+const result5 = add3('21', '12'); 
+
+
+
+
+result5.split('sss'); ///benefício de usar FUNCTION OVERLOADS ( o type estará definido como 'string', pq é isso que definimos no return type em '' function add3(a: string, b: string): string; '')
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+há mais algumas combinações possíveis, como estas:
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////AGORA O APPROACH DOS FUNCTION OVERLOADS:
+
+
+
+///(sim, vocÊ precisa DUPLICAR o 'function add2')...., e também os PARÂMETROS...
+
+
+////aí você vai colocar o RETURN TYPE PARA CADA 'case' dos parâmetros que você receber, nessa sua função... (ex: '2 parametros com type de number, vou querer retornar 'number'  também''')....
+
+
+
+
+
+
+
+// function add3(a: number): number; //outros exemplos de overloads... (se deixarmos nosso 2o parametro como 'optional'...)
+
+function add3(a: number, b: number): number; /// EXEMPLO DE FUNCTION OVERLOADS....
+function add3(a: string, b: string): string;
+function add3(a: number, b: string): string;
+function add3(a: string, b: number): string;
+function add3(a: Combinable2, b: Combinable2) {
+
+    if (typeof a === 'string' || typeof b === 'string') {
+
+        return a.toString() + b.toString();
+    }
+
+
+
+    return a + b; 
+}
+
+
+
+
+
+
+const result4 = add3(21, 12); 
+
+
+
+
+
+
+
+
+result4.toFixed(); //benefício de usar FUNCTION OVERLOADS...
+
+
+
+
+const result5 = add3('21', '12'); 
+
+
+
+
+result5.split('sss'); ///benefício de usar FUNCTION OVERLOADS ( o type estará definido como 'string', pq é isso que definimos no return type em '' function add3(a: string, b: string): string; '')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, OS CÓDIGOS DE ERRO TS SOMEM,
+
+
+
+PQ O TYPESCRIPT VAI SABER QUE 'result'
+
+será de type STRING 
+
+
+se chamarmos 
+a função 
+
+
+assim:
+
+
+
+
+
+
+'const result = add('Max', 'Schwarz')' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E SE PASSAMOS O MOUSE EM CIMA DE NOSSA FUNCTION,
+
+
+
+veremos
+
+
+isto:
+
+
+
+
+
+
+'function add(a: string, b: string): string (+3 overload)' ------->
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+
+
+'(+3 overload) '-------> ISSO SIGNIFICA QUE 
+
+
+
+
+TEMOS OUTROS 3 POSSÍVEIS 'returns'/configurações de 
+
+
+parameters-return 
+
+para 
+
+calls dessa function...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... ISSO SIGNIFICA QUE O TYPESCRIPT SABE QUE HÁ 3 OUTRAS MANEIRAS DE CHAMAR ISSO AQUI....
+
+
+
+
+(diferentes configurações de parameters)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ESSES SÃO OS FUNCTION OVERLOADS,
+
+E PODEM TE AJUDAR EM 
+
+
+
+SITUAÇÕES COMO ESTA,
+
+EM QUE 
+
+O 
+
+TYPESCRIPT 
+
+NÃO VAI CONSEGUIR 
+
+'INFER' O TYPE DE 
+
+UM RETURN TYPE _ POR CONTA PRÓPRIA CORRETAMETNE...
+
+
+
+
+
+
+(
+
+    aí voCê pode ser bem claro acerca das combinações DE ARGUMENTOS SUPORTADAS NA SUA FUNCTION....
+)

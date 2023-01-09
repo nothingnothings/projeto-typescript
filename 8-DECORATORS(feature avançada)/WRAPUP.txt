@@ -1,0 +1,513 @@
+
+
+
+
+
+
+
+VIMOS UM MONTE DE COISAS SOBRE DECORATORS...
+
+
+
+
+
+
+
+
+
+SÃO EXTREMAMENTE COMPLEXOS...
+
+
+ 
+
+
+-> vimos:
+
+
+
+
+1) O QUE SÃO 
+
+
+
+2) COMO OS CONFIGURAR 
+
+
+
+
+
+3) COMO FAZER COISAS COM ELES...
+
+
+
+
+
+
+
+4) O QUE FAZER COM ELES....
+
+
+
+
+
+5) O QUE VOCÊ PODE FARZE 
+
+
+
+
+
+6) ISSO TUDO TE MOSTRA A COMPLEXIDADE DOS DECORATORS, MAS TAMBÉM SEU PODER E 
+
+COMO _ oS UTILIZAR...
+
+
+
+
+
+
+
+7) HÁ MTAS PACKAGES, RICO ECOSSISTEMA, DE 
+
+PACKAGES QUE 
+
+
+
+DEPENDEM DE VALIDATORS... ---> 
+
+
+
+package de 
+
+
+
+
+
+'''class-validator''' ----> 
+
+
+
+
+
+
+
+
+
+
+ESSA PACKAGE TE DÁ UMA IMPLEMENTAÇÃO MAIS ELABORADA DE NOSSA 
+
+PRÓPRIA 
+
+'CUSTOM VALIDATION LOGIC' 
+
+em que 
+
+trabalhamos...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA PACKAGE PODE SER IMPORTADA EM QUALQUER PROJETO EM QUE VOCÊ ESTÁ TRABALHANDO...
+
+
+
+
+
+
+
+
+
+
+
+-> VOCÊ SIMPLESMENTE IMPORTA VÁRIAS DESSAS 'DECORATOR FUNCTIONS/FACTORIES',
+
+
+
+
+AS ADICIONA AS SUAS PROPRIEDADES (com mais ou menos EXTRA CONFIGURATION, dependendo do
+
+
+VALIDATOR QUE VOCê ESTÁ USANDO ) ---------> 
+
+
+
+
+
+
+
+
+
+E, NO FINAL DAS CONTAS, 'BEHIND THE SCENES',
+
+
+ESSA PACKAGE VAI 
+
+
+'MANAGE A CONFIG OBJECT',
+
+
+um 
+
+
+
+OBJETO CONFIGURATIOn, exatamente como 
+
+
+
+''
+
+
+const registeredValidators: ValidatorConfig = {}
+
+
+
+
+
+'''
+,
+
+
+
+
+
+
+
+
+
+
+
+EM QUE 
+
+
+SERÁ _ ARMAZENADO _ SEU 'VALIDATOR SETUP' 
+
+
+
+PARA AS DIFERENTES PROPRIEDADES NAS SUAS DIFERENTES CLASSES...
+
+
+
+
+
+
+
+-----> POR FIM, ESSA PACKGE TAMBÉM TE DÁ UMA FUNCTION DE 'validate()',
+
+
+
+
+
+
+ESSE METHOD,
+
+
+QQE OVCÊ TAMBÉM IMPORTA DO PACKAGE,
+
+E QUE 
+
+
+VOCÊ 
+
+
+
+
+
+
+
+__ PODE EXECUTAR _ E ENTÃO PASSAR seu object para dentro,  VOCÊ UTILIZA PARA 
+
+
+
+
+'''APPLY ALL THE VALIDATION LOGIC THAT YOU SET UP IN THE CLASS'''... --> OU SEJA,
+
+É 
+
+
+
+ESSENCIALMENTE 
+
+
+A MESMA COISA QUE FIZEMOS em 'validationComDecorators',
+
+
+
+
+
+
+
+
+
+__ MAS __ COM __ MAIS __ VALIDATORS/DECORATORS,
+
+
+E COM 
+
+TODO O HEAVY LIFTING FEITO PARA NÓS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É BOM ENTENDER COMO ISSO FUNCIONA, 
+
+
+
+em linhas gerais, 
+
+
+
+JÁ 
+
+
+QUE 
+
+JÁ TRABALHAMOS NISSO AÍ 
+
+
+
+
+com nossa versão de decorators, em um formato mais 'naive'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ANGULAR --> É UM FRAMEWORK __ QUE __ DEPENDE 
+PESADAMENTE DE 
+
+
+DECORATORS...
+
+
+
+
+
+
+EX: AQUELE DECORATOR DE 
+
+
+'component',
+
+QUE É 
+
+USADO 
+
+
+
+PARA __ CRIAR/ASSIGNAR UM 
+
+CÓDIGO 
+
+
+HTML DINÂMICO, 
+
+
+código que 'taps into some properties of your classes as well',
+
+
+
+COM UMA SINTAXE ESPECIAL FORNECIDA PELO ANGULAR.... --> tudo isso PARA __ ENTÃO _ RENDERIZAR ALGO, ALGO DINÂMICO, NA TELA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ANGULAR FAZ MAIS DO QUE OFERECER DECORATORS, MAS DECORATOR SÃO UMA PARTE CORE DO ANGULAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESTJS --> é uma framework 
+
+
+
+QUE UTILIZA PESADAMENTE 'TYPESCRIPT',
+
+
+
+
+
+E QUE 
+
+
+TAMBÉM 
+'EMBRACES'
+
+
+os 
+
+DECORATORS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO NEST VOCÊ USA 
+
+
+DECORATORS 
+
+
+PARA 
+
+
+SETTAR 
+
+CONTROLLERS,
+
+E ROUTES... ----->  também para definir os METHODS QUE OS USERS TEM QUE USAR 
+
+NOS HTTP REQUESTS,
+
+PARA 
+
+
+
+
+__ TRIGGAR__ CERTAS FUNÇÕES.... -----> TAMBÉM UM MONTE DE OUTROS DECORATORS QUE 
+
+VOCÊ PODE USAR PARA 
+'EXTRACT DATA FROM INCOMING REQUESTS',
+
+
+
+
+E ASSIM POR DIANTE.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DE NOVO, ESSE FRAMEWORK OFERECE ESSES DECORATORS A VOCÊ... --> ISSO PARA QUE VOCÊ 
+POSSA 
+
+
+OS 
+ADICIONAR 
+
+
+AOS SEUS METHODS, CLASSES, PROPERTIES, PARAMETERS,
+
+
+
+tudo para 
+
+'ADD EXTRA FUNCTIONALITY',
+
+
+
+
+
+
+
+
+
+QUE SERÁ CONSIDERADA PELO FRAMEWORK NO MOMENTO EM QUE ELE EXECUTAR SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+-> é por isso que é meta programming, extra configuration, extra logic,
+
+
+
+
+QUE É ENTÃO LEVADA EM CONSIDERAÇÃO PELO CÓDIGO DO FRAMEWORK , 
+
+
+QUE 
+
+AÍ 
+
+TRABALHA JUNTO COM SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+--> ok, esses são os decorators...

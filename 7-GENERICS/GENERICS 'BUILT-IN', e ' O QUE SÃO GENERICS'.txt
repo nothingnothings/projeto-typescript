@@ -1,0 +1,2305 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... PARA ISSO TUDO,
+
+
+VOLTAMOS AO NOSSO PROJETO DUMMY, AO SEU SETUP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor roda o servidor,
+
+
+etc etc..
+
+
+
+
+
+
+
+
+
+
+--> professor escreve 'tsc --watch'
+
+
+para 
+
+matner 
+
+
+o negócio 
+
+SUPERVISIONANDO NOSSO CÓDIGO TS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ACHA QUE É MAIS FÁCIL ENSINAR O 'GENERICS'
+
+POR MEIO 
+
+
+
+
+
+
+DE UM
+
+
+'DEFAULT TYPE'
+
+
+
+
+QUE 
+
+existe BUILTIN NO JAVASCRIPT,
+
+
+e que 
+
+TAMBÉM É UM GENERIC....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A COISA DE QUE O PROFESSOR ESTÁ FALANDO É o 'Array'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok....
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS UMA PÁGINA VAZIA, MAS PODEMOS BRINCAR COM O 'APP.TS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> DEFAULT TYPE, o 'Array' é um....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+críamos uma constante,
+
+'names'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+const names = ['Max', 'Manuel'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__O  TYPE__ DESSE NEGÓCIO SERÁ 'UM ARRAY DE STRINGS' (ou seja, 'string[]') ....
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... ---> MAS NA VERDADE,
+
+
+
+PODERÍAMOS PENSAR ESSE 'ARRAY DE STRINGS'
+
+
+
+COMO 
+
+
+
+'''''DOIS TYPES SENDO COMBINADOS''''' --------->  basta você pensar nisso
+
+
+
+como se FOSSE UM OBJECT....- -> 
+
+
+
+em 1 object,
+
+
+
+podemos ter propriedades DE DIFERENTES TYPES,
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+interface {
+
+
+    propriedade1: string;
+    propriedade2: number
+}
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... --> ISSO SIGNIFICA QUE UM ARRAY É ESSENCIALMENTE SÓ UMA 'COISA',
+
+
+COM DIFERENTE 'DATA'
+
+
+
+NO SEU INTERIOR.... -----> 
+
+
+
+
+
+
+
+
+
+NO NOSSO CASO,
+
+
+
+temos um array com VÁRIAS STRINGS...
+
+
+
+
+
+
+
+
+
+
+
+
+------->  é 'just an array', essencialmente....
+
+
+
+
+
+
+
+
+
+
+-> E SE REMOVEMOS AS STRINGS E DEIXAMOS SÓ 
+
+
+
+
+'const names = []',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__ O TYPESCRIPT VAI NOS COMUNICAR 
+
+
+
+que isso será 
+
+
+'const names: any[]' 
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+O TYPE DESSA CONST 'É UM ARRAY, DE TYPE/TYPES ANY'....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////O GENERIC 'BUILTIN' MAIS FAMOSO É 'Array'..., BUILTIN NO JAVASCRIPT...
+
+
+
+
+
+const names1 = []; ////type --> 'const names1: any[]'
+
+
+const names = ['Max', 'Manuel'];//// type --> 'const names: string[]'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> E, DE FATO,
+
+
+
+
+
+_______O  __ TYPESCRIPT__ CONEHCE O TYPE DE 
+
+
+
+'Array'...
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO QUER DIZER QUE PODERÍAMOS SIMPLESMENTE ESCREVER ALGO COMO ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+const names: Array////////
+
+
+
+
+
+
+
+
+
+
+-> SE ESCREVEMOS ALGO ASSIM, 
+
+GANHAMOS UM ERROR DE 
+
+
+
+''
+
+
+ //// ''' Generic type 'Array<T>' requires 1 type argument(s).''' ---> ou seja, NÃO PODEMOS DEFINIR ESSE NEGÓCIO SIMPLESMEENTE COMO UM ARRAY GENÉRICO, ESSE TYPE GENÉRICO...
+
+
+
+
+
+ '''
+
+
+
+
+
+
+
+
+
+
+ ----> MAS ISSO NOS MOSTRA QUE 
+
+
+ ESSE 
+
+ TYPE GENÉRICO DE 
+
+
+
+ 'Array'
+
+
+ REALMENTE EXISTE NO TYPESCRIPT... -----> 
+
+
+
+
+
+
+
+ E PODEMOS VER QUE É __ REALMENTE UM 'GENERIC TYPE',
+
+
+
+
+ E QUE __ 
+
+ REQUER 
+
+
+
+
+ '1 TYPE ARGUMENT' ( ou seja, 1 argumento que DESCREVA AS COISAS QUE TEREMOS NO INTERIOR DESSE ARRAY GENÉRICO... UM INNER TYPE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --------> NÓS NUNCA VIMOS GENERIC TYPES ANTES,
+
+
+
+ MAS ELES SÃO IMPORTANTES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> BEM.... MAS AÍ, NESSA MENSAGEM DE ERRO DO IDE,
+
+
+
+
+ temos aquela notação estranha de 
+
+
+
+
+ 'Array<T>' 
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------> SEMPRE QUE VOCê __ LEr__ ALGUMA COISA COMO 'XXX<T>' 
+
+
+
+
+ NO TYPESCRIPT, 
+
+ VOCÊ __ ESTARÁ_ LIDANDO COM UM 'GENERIC TYPE'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> UM 'GENERIC TYPE' É UM __ TYPE_ QUE É CONECTADO A UM OUTRO TYPE,
+
+
+
+ e que é a forma mais 'flexível' DAQUELE OUTRO TYPE ESPECÍFICO...
+
+
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+ Array ( ou 'any[]' ) É A FORMA MAIS FLEXÍVEL DE '['String1', 'String2']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------> VOLTAMOS AO EXEMPLO DO ARRAY:
+
+
+
+
+
+
+
+
+
+
+
+
+ 1) AQUI TEMOS ESTE CÓDIGO:
+
+
+
+
+
+
+
+ const names: Array = [];  /////(erro em Array)
+
+
+
+
+
+
+
+
+
+
+
+
+ --> NÓS __ SABEMOS QUE__  QUEREMOS ARMAZENAR UM ARRAY, AQUI....
+
+
+
+
+
+
+
+
+ --> e 1 ''' ARRAY EM SI'''', PODE SER UM TYPE... --> ISSO, POR SI SÓ,
+
+  
+
+
+  JÁ _ É UM TYPE... (
+
+
+      exatamente como um OBJECT JÁ É UM 'TYPE', por conta própria, ainda que não tenhamos colocado nenhuma data no seu interior....
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> MAS É EVIDENTE QUE UM ARRAY __ SEMPRE__ VAI 'STORE SOME DATA OF SOME TYPE'... -------> 
+
+
+
+
+
+
+
+
+
+
+  E O 'ARRAY TYPE' em si __ NÃO SE IMPORTA COM O 'TYPE' da data que 
+
+  você vai colocar lá dentro (
+
+
+      não se importa com o store de uma string de data,
+
+
+
+      ou um misturadão de objects e strings, etc etc..
+  )
+
+
+
+
+
+
+
+--> strings,numbers, mixed data, tudo isso não interessa ao 'generic type' de array....
+
+
+
+
+
+
+
+  ----> OK.... ATÉ AÍ, TUDO BEM...  -----> ENTRETNATO,
+
+
+
+  ELE SEMPRE VAI __ SE IMPORTAR,
+
+  VAI QUERER,
+
+
+  PELO MENOS 
+
+
+
+
+  '1 POUCO DE INFORMATION' (information mínima) ------> A MENOR QUANTIDADE DE INFORMAÇÃO QUE VOCÊ PODE PROVIDENCIAR,
+
+
+  PARA EVITAR UM ERROR,
+
+
+
+  é 
+
+  isto:
+
+
+
+
+
+
+
+
+
+  const names: any[] = []; 
+
+
+
+
+
+
+
+
+  (COM ISSO, ESPECIFICAMOS QUE 'VAMOS ESPERAR QUALQUER COISA DENTRO DESSE ARRAY')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+  E ESSA É REALMENTE UMA DAS MANEIRAS DE DEFINIR UM ARRAY TYPE,
+
+  ESCREVER ASSIM:
+
+
+
+
+
+
+  const names: any[] = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  outros exemplos:
+
+
+
+    const names: string[] = []
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
+
+
+
+
+
+
+A SINTAXE ALTERNATIVA, MAIS FEIA E FREQUENTEMENTE CONFUNDIDA COM REACT CODE (jsx),
+
+
+
+
+
+
+É ESTA AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+const names: Array<string> = []
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS NESSA VERSÃO DA ESCRITA PODEMOS ADICIONAR ALGUMAS FIRULAS,
+
+COMO UNION TYPES...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+const names: Array<string | number> = []
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ NA VERSÃO DE 'const names: string[] = []',
+
+
+
+
+SOMOS FORÇADOS 
+
+
+
+
+
+a DEFINIR OS UNION TYPES ANTES, E AÍ REFERENCIAR NESSE LOCAL....
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->  ok...... -------> TEREMOS 'UM TYPE CONECTADO A OUTRO TYPE',
+
+
+
+PQ VAMOS QUERER 
+
+SABER_ QUE _ TYPE__ 
+
+'INNER'
+
+VAMOS TER DENTRO DESSE TYPE 'OUTER' de 'Array'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> SE SABEMOS O QUE VAMOS ARMAZENAR NESSE ARRAY É UMA __ STRING,
+
+
+
+SABEREMOS QUE QUALQUER COISA QUE ACESSARMOS LÁ 
+
+
+DENTRO,
+
+
+tipo um 
+
+
+
+
+
+
+
+
+
+'''
+
+
+
+
+const names: string[] = [];
+
+
+
+
+
+names[0];///ISSO__ VAI CERTAMENTE RETORNAR UMA STRING, E PODEREI FAZER 'STRING STUFF', COM METHODS, COM ESSA STRING...
+
+
+'''''
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+const names: string[] = [];
+
+
+
+
+
+names[0];///ISSO__ VAI CERTAMENTE RETORNAR UMA STRING, E PODEREI FAZER 'STRING STUFF', COM METHODS, COM ESSA STRING...
+
+
+
+
+
+names[0].split()///ESSE CÓDIGO SERÁ RECONHECIDO/VALIDADO PELO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+                        const genericArray: string[] = ['MANU', 'MAX'];
+
+
+
+                        genericArray[0].split('a');
+                        genericArray.concat(); ////TODOS METHDOS DE STRINGS, PQ O TYPESCRIPT VAI SABER QUE ESSAS COISAS AÍ SÃO STRINGS....
+
+
+
+
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... O TYPESCRIPT N VAI RECLAMAR PQ VAI ENTENDER QUE ESSES ARRAY VAI SEGURAR STRINGS....
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE 
+
+
+CERTOS TYPES (Generic types), COMO ARRAY TYPES,
+
+
+
+
+
+PODEM __ SIMPLESMENTE_ FUNCIONAR MELHOR ( ou só 'funcionar') 
+
+
+
+
+
+SE VOCÊ 
+
+
+
+
+
+__ REALMENTE __ PROVIDENCIAR 'ADDITIONAL INFORMATION' SOBRE O TIPO DE DATA (type ) que é 
+
+
+PROVIDENCIADO NESSE GENERIC/ARRAY TYPE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'ARRAY TYPE' 
+
+é apenas um exemplo,
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ TEMOS OUTROS GENERIC TYPES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRO EXEMPLO DE GENERIC TYPE 
+
+
+
+
+
+
+
+
+
+
+
+'''PROMISES'''' ------------> PROMISES SÃO UMA FEATURE JAVASCRIPT, E NÃO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso pq VOCÊ PODE CRIAR PROMISES NO JAVASCRIPT,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...
+
+
+
+
+
+
+
+
+
+
+CERTO.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PODEMOS CRIAR UMA PROMISE POR MEIO DO CÓDIGO DE 'new Promise()' 
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const promise = new Promise();
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> NO CASO, 
+
+
+
+
+
+O CÓDIGO DE 'new Promise()', 
+
+
+
+
+
+
+__ ESSA CONSTRUCTOR FUNCTION,
+
+
+
+
+__ACEITA/EXIGE_ 1 ARGUMENTO, QUE SERÁ UMA FUNCTIOn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ UMA FUNCTION COM OS PARÂMETROS de 'resolve' e 'reject',
+
+
+PARÂMETROS QUE SÃO PASSADOS AUTOMATICAMENTE...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+//outro exemplo de GENERIC TYPE são 'PROMISES' (pq podemos 'RESOLVE' qualquer coisa, desde uma string até um OBJECT)....
+
+
+
+ 
+
+
+//ex:
+
+
+
+
+const promise = new Promise(
+    (resolve, reject) => {
+
+    }
+)
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES PARÂMETROS DE 'resolve/rejectg'
+
+
+
+VAO SER AUTOMATICAMENTE PASSADOS A NÓS, POR MEIO DO JAVASCRIPT NO BROWSER,
+
+
+
+
+
+
+
+
+
+
+
+__ E AÌ,
+
+
+EM 1 PROMISE,
+
+
+
+PODEMOS FAZER COISAS COMO 'set a timer' (setTimeout)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE CÓDIGO DO TIMER, PODEMOS FAZER O 
+
+
+'RESOLVE'
+
+
+
+DA NOSSA OUTER PROMISE...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+const promise = new Promise(
+    (resolve, reject) => {
+            setTimeout(
+                () => {
+
+
+
+                    resolve('RESOLVE PROMISE');
+                },
+
+
+                2000
+            )
+    }
+)
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+QUANDO ESCREVEMOS ISSO,
+
+
+
+
+
+OBSERVAMOS QUE ESSE CÓDIGO DE 
+
+'new Promise()' 
+
+
+
+
+
+__ VAI_ CRIAR 1 NOVO OBJECT,
+
+
+
+OBJECT 'promise' 
+
+
+QUE VAI FICAR 
+
+ARMAZENADO NESSa 'const promise'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E NESSA CONST, TEREMOS UM TYPE ESPECÍFICO,
+
+
+QUE SERÁ 
+
+
+
+
+'const promise: Promise<unknown>' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, SERÁ UM TYPE DE 'Promise',
+MAS COM 
+
+
+
+
+
+
+__  UM 'resolve' 
+
+QUE SERÁ DE TYPE 'UNKNOWN'... 
+
+
+
+
+
+
+
+
+
+
+
+
+-> 'UNKNOWN' -->  ISSO ACONTECE/ACONTECEU PQ O TYPESCRIPT NÃO FOI CAPAZ DE ENTENDER QUE VAMOS 'RESOLVE TO A STRING',
+
+
+
+nesse código aí....
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ESSA AUSÊNCIA DO 'resolve type',
+
+
+
+
+
+
+PODERÍAMOS ESCREVER ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+                        EIS O CÓDIGO EM QUESTAÕ.
+                        VVVV
+const promise: Promise<string> = new Promise(
+    (...)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ou seja,
+
+USAR A SINTAXE_ __ FEIA___ para dizer que 
+
+
+
+
+
+NO RESOLVE TEREMOS UM RESOLVE TYPE de 
+
+
+
+'string'...
+
+
+
+
+
+
+
+
+(will yield a string)...
+
+
+
+
+
+
+
+
+
+
+
+
+NOVAMENTE, AQUI ESTAREMOS DEFININDO:
+
+
+
+1) O 'MAIN TYPE' (que´e de 'Promise')....
+
+
+
+
+
+
+
+
+2) o 'RESOLVE TYPE/inner type' --> QUE SERÁ De 'string'....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const promise: Promise<string> = new Promise( //////// o type dessa const AGORA SERÁ DE 'Promise<string>', solucionado aquele problema do 'unknown' em 'Promise<unknown>' ...
+    (resolve, reject) => {
+            setTimeout(
+                () => { 
+                    resolve('RESOLVE PROMISE');
+                },
+
+
+                2000
+            )
+    }
+)
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UMA PROMISE, COMO UM ARRAY,
+
+'WORKS TOGETHER WITH OTHER TYPES',
+
+
+
+PQ ELA REALMENTE__ VAI EVENTUALMENTE 
+
+
+
+FAZER RESOLVE/RETURN 
+
+
+DE UMA DATA
+
+
+COM OUTRO TYPE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO AQUI EVENTUALMENTE RETORNAMOS UMA STRING,
+
+
+
+
+escrevemos essa info...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, MAS QUAL É A UTILIDADE DE DEFINIR O 'RESOLVE/RETURN TYPE'
+
+
+
+dessa 
+
+
+PROMISE COMO SENDO DE 'string'? 
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, SE NÓS DIGITARMOS SÓ UM 'promise type'  NORMAL, GENÉRICO,
+
+
+tipo assim (type 'any'):
+
+
+
+
+
+
+
+const promise: Promise<any> = new Promise(
+    (resolve, reject) => {
+
+    }
+)
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+SE FIZÉSSEMOS ISSO (mas isso NÃO É SUPORTADO),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÓS PODERÍAMOS EVENTUALMENTE USAR ESSA PROMISE, USÁ-LA COM THEN BLOCKS, TIPO ASSIM:
+
+
+
+
+const promise: Promise<any> = new Promise(
+    (resolve, reject) => {
+
+    }
+)
+
+
+
+
+promise.then(
+    (data) => {
+
+
+
+        console.log(data);
+
+
+        data.split(); ////ESSE CÓDIGO SERIA TIDO COMO _ _INVÁLIDO__ (Pq não saberíamos que o 'resolved type' SERÁ/SERIA DE 'string')....
+    }
+)
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const promise: Promise<string> = new Promise( //////// o type dessa const AGORA SERÁ DE 'Promise<string>', solucionado aquele problema do 'unknown' em 'Promise<unknown>' ...
+    (resolve, reject) => {
+            setTimeout(
+                () => { 
+                    resolve('RESOLVE PROMISE');
+                },
+
+
+                2000
+            )
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+promise.then(
+    (data) => {
+
+        console.log(data);
+
+
+        data.split('E'); ///OBS::: ISSO SÓ FUNCIONA/FUNCIONARÁ PQ DEFINIMOS O 'resolve type' DAQUELA 'const promise' COMO SENDO UMA STRING, por meio daquele código de  ''' const promise: Promise<string> = new Promise(''' 
+    }   
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OU SEJA,
+
+
+É ESSE 'INNER TYPe' 
+
+
+de nosso resolve type,
+
+e sua DEFINIÇÃO,
+
+
+que nos 
+
+DEIXAM 
+
+USAR O RESULTADO DE PROMISES (com then e catch)
+
+
+
+
+___ COM METHODS de strings/ outros tipos de method,
+
+a depender do TYPE DE
+
+
+
+SUA DATA 'RESOLVED'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> SE NÃO DEFINIMOS O 'RESOLVE TYPE,'
+
+
+ficamos 
+
+
+
+SEM AUTO-COMPLETIOn....
+
+
+
+
+
+
+
+
+
+
+
+
+
+outro exemplo:
+
+
+
+
+
+
+promise2.then(
+    (data) => {
+                console.log(data); //vai printar '25'...
+
+                data.toFixed(); //method de 'NUMBER', pq sabemos que isso será um NUMBER....
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE CONSEGUIMOS 'TYPE SAFETY' MELHOR COM 
+
+BUILTIN GENERICS... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM FLEXÍVEL QUANTO ÀQUILO QUE VOCÊ FAZ COM ESSA TYPE INFORMATION...
+
+
+
+
+
+
+
+
+
+
+--> UM ARRAY VAI SABER QUAL DATA ELE ARMAZENA,
+
+
+
+
+E UMA PROMISE VAI 'SABER A DATA QUE VAI RESOLVE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... --> E SE VOCÊ 
+
+
+CONSTRUIR SUAS PRÓPRIAS 'GENERIC CLASSES E FUNCTIONS',
+
+VOCÊ 
+
+VAI PODER FAZER QUALQUER COISA QUE VOCÊ QUISER NO INTERIOR DELAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO FINAL DAS CONTAS,
+
+
+
+
+GENERIC TYPES TE AJUDAM A TER 'ADDITIONAL TYPE INFORMATION' se você 
+
+TIVER UMA CLASS/FUNCTION 
+
+
+
+
+
+MAIS _ COMPLEXA,
+
+QUE __ FAZ_ ALGO__ COM  A DATA QUE ESTÁ 'COMING IN',
+
+
+
+
+
+
+
+
+
+DE MODO QUE __ ELE __ NAÕ SE INTERESSA 
+
+
+de verdade com a data sendo de 1 type específico,
+
+
+
+
+
+
+__ _MAS ___ EM QUE __ VOCÊ VAI QUERER 'STORE THE TYPE INFORMATIOn'
+
+da incoming data 
+
+
+
+NOS SEUS GENERIC TYPES, PARA TER MELHOR TYPE SAFETY....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  OK.... E AQUELES CÓDIGOS, de 
+
+
+
+'Array' 
+
+
+e 
+
+
+'new Promise()',
+
+
+AMBOS ERAM 
+
+
+
+'BUILTIN GENERICS'.
+
+
+
+
+
+
+
+
+
+
+-_> AGORA É HORA DE VER __ COMO CONSTRUIR__ NOSSOS GENERICS, POR CONTA PRÓPRIA... 

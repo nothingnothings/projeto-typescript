@@ -1,0 +1,1139 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK, VIMOS O BÁSICO DO INHERITANCE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS AGORA O PROFESSOR VAI NOS ENSINAR A 
+
+
+
+
+
+'OVERRIDE'
+
+
+METHODS/PROPRIEDADES DE 
+
+
+NOSSA BASE CLASS...
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... TEMOS O CÓDIGO 
+
+
+DO 'Department',
+
+a class base....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------->  NO CASO,
+
+
+
+VAMOS QUERER __ SUBSTITUIR__ O METHOD DE 'addEmployee' 
+
+
+
+
+POR UMM 
+
+
+
+
+PRÓPRIO DE 
+
+
+'AccountingDepartment',
+
+
+
+UMA VERSÃO DO METHOD QUE VAI SER UM PCO DIFERENTE...
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+
+
+    addEmployee() ////ISSO JÁ VAI NOS DAR UM ERROR, NO CASO....
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+--> ESSE NEGÓCIO JÁ VAI NOS DAR UM ERRO,
+
+ 
+ no caso...
+
+
+
+
+
+
+
+
+
+
+ --> nos deu um erro pq não escrevemos 
+
+
+ o formato completo, que é:
+
+
+
+ 'addEmployee() {}'....
+
+
+
+
+
+
+
+ Ex:
+
+
+
+
+
+
+
+
+
+
+ class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[], 
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+
+
+    addEmployee() {} ////ISSO JÁ VAI NOS DAR UM ERROR, NO CASO....
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+    addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+         
+    }
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, NESSE 
+
+'addEmployee',
+
+
+
+vamos querer colocar uma LÓGICA UM POUCO DIFERENTE 
+
+
+
+
+DO CÓDIGO ORIGINAL DISSO,
+
+
+
+
+
+
+
+vamos querer colocar um IF CHECK,
+
+e mais algumas coisas:
+
+
+
+
+
+
+
+
+
+
+
+
+
+addEmployee(name: string) {
+
+
+    if (name === 'Max') {
+        return;
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+--> SE O NAME FOR 'Max',
+
+
+vamos querer retornar NADA...
+
+
+
+(ou seja, 'void'...)...
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+-> MAS AGORA, SE TENTARMOS ESCREVER UM CÓDIGO DE PUSH PARA 
+
+
+DENTRO 
+
+
+DA PROPRIEDADE DE 'employees', 
+
+
+VAMOS 
+
+PRESENCIAR OUTRO PROBLEMA...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+addEmployee(name: string) {
+
+
+    if (name === 'Max') {
+        return;
+
+
+    }
+
+    this.employees.push(name); ///ISSO VAI NOS DAR UM ERROR_....
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O ERROR EM QUESTÃO SERÁ ESTE:
+
+
+
+
+
+
+
+
+
+'''
+
+Property 'employees' is private and only accessible within class 'Department5'.
+
+''''
+
+
+
+
+
+
+
+
+OK... EMPLOYEES NÃO É UMA PROPRIEDADE CONHECIDA...
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO PARA ISSO TER ACONTECIDO É QUE 
+
+
+
+
+'employees'
+
+ESTÁ COMO 'private'....
+
+
+
+
+
+
+
+
+
+--> BASTA VER ESTE TRECHO:
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string,
+        private employees: string[],  ////ESTE TRECHO Aqui...
+
+
+
+    )
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ISSO SIGNIFICA QUE __ PROPERTIES 'private' 
+
+
+
+REALMENTE _ SÓ EXISTEM __ DENTRO __ DAS CLASSES EM QUE AS  ESCREVEMOS/DEFINIMOS...
+
+
+
+
+
+
+
+(
+
+ISSO SIGNIFICA QUE 
+
+EM CLASSES QUE INHERITAM ESSAS PROPRIEDADES,
+
+
+ELAS NÃO EXISTIRÃO/estarão disponíveis....
+     
+)
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+OK, ISSO SIGNIFICA QUE 
+
+
+O 
+
+'AccountingDepartment
+'
+
+
+NÃO VAI TER ESSA PROPRIEDADE 
+
+de 
+
+
+
+'employees'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------> SE QUISERMOS __ QUE __ ESSA PROPRIEDADE__ CONSIGA __ FAZER PARTE 
+
+DA 
+
+
+'INHERITING CLASS' 
+
+
+
+__ E QUE ___ ELA _ AINDA __SEJA CONSIDERADA 'PRIVATE' (
+
+
+    ou seja,
+
+
+    IMUTÁVEL _ POR AÇÕES/ACESSO __ EXTERNO__ A NOSSA CLASSE, e sim 
+
+
+    apenas 
+
+    POR METHODS 
+
+    DESSA PRÓPRIA CLASS...
+),
+
+
+
+
+
+___ VAMOS TER QUE ESCREVER UMA GAMBIARRA...
+
+
+
+
+
+
+
+
+
+---------> A GAMBIARRA, NO CASO,
+
+É 
+
+
+
+
+A ESCRITA DE 'protected'... --->
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        
+        ///////private employees: string[], 
+        protected employees: string[], ////EIS O CÓDIGO EM QUESTÃO....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK...
+
+
+
+
+ENTÃO 
+
+
+isso 
+
+
+basicamente 
+
+
+quer dizer que 
+
+
+'protected' é uma versão MAIS LIGHT de 
+
+
+
+'private',
+
+
+PQ 
+
+
+
+ELA: 
+
+
+
+A) VAI FAZER COM QUE ESSA PROPRIEDADE EXISTA NAS 'INHERITING CLASSES',
+
+
+
+
+
+B) MAS VAI __ CONTINUAR __ COM a característica de 'private'; vai continuar __ NÃO DEIXANDO QUE VOCÊ ALTERE O VALOR ARMAZENADO NESSA PROPRIEDADE POR MEIO DE AÇÕES EXTERNAS A ESSA CLASS (Que não usem seus methods, essencialemnte)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO SIGNIFICA QUE AGORA PODEMOS ACESSAR 
+
+ESSA PROPRIEDADE 
+
+de 
+
+'employees'
+
+
+LÁ DE DENTRO
+
+
+DE 
+
+
+NOSSA CLASS DE 'AccountingDepartment'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class Department5 {
+
+    
+    
+ 
+    constructor(private name: string, //////essa propriedade __ NÃO EXISTIRÁ NAS CLASSES QUE INHERITAREM 'Department5'... (por causa da keyword de 'private'...)
+        ////private employees: string[], 
+        protected employees: string[], ///// VERSÃO DE 'private' (essa keyword) QUE __ FAZ COM QUE __ A PROPRIEDADE EM QUE VOCê EMBUTIU ISSO __ PASSE __ A EXISTIR EM CLASSES QUE INHERITAM ESSA CLASS de 'Department5', MAS QUE _ AO MESMO TEMPO AINDA DEIXE ESSA CLASS COMO 'private' ( ou seja, AINDA NÃO SERÁ POSSÍVEL ALTERAR O VALOR DESSA PROPRIEDADE POR MEIO DE RE-DEFINES EXTERNOS A ESSA CLASS/que não usem seus methods).... -> ou seja, 'protected' é uma versão MAIS LIGHT de 'private'.... (pq private não deixa essa propriedade ser 'inherited' pelas inheriting classes/extended classes)....
+        private ids: string[], 
+        private ssss: number[], 
+        private xxx: number, 
+        public yyyy: string,
+        private readonly id: string ///'READONLY' vai fazer com que o valor dessa propriedade seja _IMUTÁVEL__ (imortal, impossível de ser alterado)....
+        ) {
+
+      }
+    
+    
+      addEmployee(employee: string) {
+        this.employees.push(employee); 
+      }
+    
+      printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+      }
+    
+      describe(this: Department) {
+        console.log('Department: ' + this.name);
+      }
+    }
+    
+    
+
+
+
+
+
+
+
+   class AccountingDepartment extends Department5 {
+
+
+
+    constructor(id: string, private reports: string[]) {
+            // super(id, 'Accounting');
+            super('Accounting', ['a', 'b', 'c'], ['c1', 'x2'], [1, 5, 7], 122121, 'asasojasOsaj', id)
+    }
+
+    addEmployee(name: string) { ////vamos querer passar esse method POR CIMA DO METHOD JÁ EXISTENTE de 'addEmployee' na class de 'Department'...
+
+
+        if (name === 'Max') {
+
+            return; //retorna 'void'...
+        }
+
+
+        this.employees.push(name); //essa propriedade NÃO EXISTE NESSA CLASS.... --> na verdade, NÃO EXISTIA (keyword de 'private') --> MAS AGORA EXISTE, PQ USAMOS A KEYWORD DE 'protected'...
+    }
+
+
+    addReport(text: string) {
+
+        this.reports.push(text);
+    }
+
+
+    getReports() {
+        console.log(this.reports);
+        return this.reports;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK, AGORA ESSA LINHA DE 
+
+
+'this.employees.push(name)'
+
+
+
+
+VAI FUNCIONAR.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+OK....
+
+OS TAKEAWAYS SÃO:
+
+
+
+
+
+A) VOCÊ _ PODE_ OVERWRITTAR OS METHODS CRIADOS NAS SUAS 'BASE CLASSES'  --> aí essa implementação 'mais nova' será 
+
+usada no lugar da implementação 
+
+da class originária...
+
+
+
+
+
+
+
+B)  VOCê TAMBÉM TEM QUE CONTROLAR ACESSO A PROPRIEDADES 
+
+
+
+
+por meio 
+
+
+de 'protected' 
+
+
+
+( 
+
+
+    faz com que essa propriedade SEJA __ aCESSÍVEL__ POR MEIO DE SUAS 
+
+
+    'INHERITING CLASSES'
+
+
+
+    MAS INACESSÍVEL/INALTERÁVEL 
+
+
+    por códigos 
+
+
+    que existam no lado de FORA DE SUA CLASS ORIGINÁRIA.... (que não usem seus methods)...
+)
+
+
+
+
+
+
+-----------
+
+
+ certo....

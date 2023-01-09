@@ -1,0 +1,497 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS CONTINUAR COM ARRAYS E OBJECTS..
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ --> OUTRA SINTAXE BOA QUE VOCÊ 
+
+ VERÁ 
+
+ EM PROJETOS JAVASCRIPT 
+
+ MODERNOS 
+
+
+ É 
+
+
+
+
+ O OBJECT DESTRUCTURING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ você faz assim:
+
+
+
+
+
+const hobbies = ['EXEMPLO1', 'EXEMPLO2'];
+
+
+
+ const [hobby1, hobby2] = hobbies;
+
+
+
+
+
+
+ISSO FARÁ COM QUE 
+
+
+SEJAM CRIADAS 2 CONSTANTES,
+
+
+'const hobby1 = 'EXEMPLO1'',
+
+
+
+
+E 
+
+
+'const hobby2 = 'EXEMPLO2'; '
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+PROFESSOR EXPLICA/APONTA QUE 
+
+
+VOCê 
+
+
+__ ATÉ PODE USAR 
+
+'rest parameters'
+
+
+
+
+
+
+nesse DESTRUCTURING...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+const hobbies = ['EXEMPLO1', 'EXEMPLO2'];
+
+
+
+ const [hobby1, hobby2, ...remainingHobbies] = hobbies;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É USADO PARA __ OS CASOS__ EM QUE SEU 
+
+
+ARRAY/CONST EVENTUALMENTE 
+
+FICAR __ COM MAIS DO __ QUE o NÚMERO DE ELEMENTOS QUE 
+
+
+
+ELE 
+
+ORIGINALMENTE 
+
+
+
+tinha....
+(
+
+
+    AÍ TODOS 
+
+    OS 
+
+
+    HOBBIES 'REMAINING',
+
+    QUE NÃO FOREM 
+
+    'PULLED OUT INTO HOBBY1/HOBBY2'
+
+
+
+
+
+    _ VÃO SER ENFIADOS EM UMA CONST 
+
+
+
+    de nome 
+
+
+    'remainingHobbies'....
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BTW, DEESTRUCTURING __ NÃO É ALGO QUE __ VAI ALTERAR__ O 'ORIGINAL ARRAY'...
+
+(
+
+    O ARRAY ORIGINAL NÃO VAI FICAR VAZIO OU QUALQUER COISA DESSE GÊNERO...
+)
+
+
+
+
+
+
+
+
+
+
+-_> ISSO SIGNIFICA QUE OS VALORES QUE SÃO 'PULLED OUT' EM NOVAS CONSTANTES
+
+
+são 
+
+
+REALMENTE _ SÓ CÓPIAS DAQUELE VALOR ORIGINAL, no array original...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok.... EXISTE A MESMA COISA PARA OBJECTS, OBJECT DEESTRUCTURING....
+
+
+
+
+
+
+
+
+
+-> É A MESMA COISA, MAS NÃO CONSIDERA A ORDEM,
+
+
+E SIM 
+
+
+
+O NOME DOS OBJECTS 
+
+no outro lado..
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const person = {
+
+
+    age: 121,
+    name: 'asasda',
+    job: 'medic'
+}
+
+
+
+
+
+
+
+
+
+const {age, name, job} = person;
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+ISSO CRIARÁ 
+
+
+3 CONSTANTES, 
+
+
+
+
+DE NOME 
+
+
+'age',
+
+
+'name' 
+
+
+e 
+
+'job',
+
+
+com os valores dessas strings...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... 
+
+
+
+
+
+
+
+__ MAS E SE QUISERMOS __ 'OVERWRITE' 
+
+O VALOR 
+
+DA PROPRIEDADE?
+
+
+
+
+
+AÍ 
+
+
+ESCREVERÍAMOS ASSIM:
+
+
+
+
+
+
+
+
+const person = {
+
+
+    age: 121,
+    name: 'asasda',
+    job: 'medic'
+}
+
+
+
+
+
+
+
+
+
+const {age: 1521, name, job} = person;
+
+
+
+
+
+
+
+
+
+
+----> SE ESCREVEMOS ESSE { age: newAge} 
+
+
+NO OBJECT DESCTRUCTURING,
+
+
+
+
+
+NÓS ACABAMOS _ OVERWRITTANDO ________o NOME _ DESSA 
+
+
+
+
+PROPRIEDADE... (deixa de ser 'age', e passa a ser 'newAge', mas MANTÉM O MESMO VALOR...)
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO É SINTAXE __ JAVASCRIPT, E NÃO 
+
+
+
+TYPESCRIPT.... 
+
+
+
+
+
+
+
+
+
+
+----->
+
+
+
+
+
+
+
+
+OK.... OS VALORES DO OBJETO 'person'
+
+NÃO SÃO ALTERADOS,
+
+
+
+só são criadas PROPRIEDADES.... (E, no máximo, o NAME DAS PROPRIEDADES)..

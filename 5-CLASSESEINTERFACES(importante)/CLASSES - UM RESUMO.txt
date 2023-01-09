@@ -1,0 +1,152 @@
+
+
+
+
+
+
+
+
+
+
+ACABAMOS COM O TÓPICO DAS 'CLASSES'...
+
+
+
+
+
+ 
+
+ APRENDEMOS:
+
+
+
+
+
+
+
+ A) SOBRE AS CLASSES EM SI 
+
+
+
+
+ B) SUAS PROPRIEDADES 
+
+
+
+
+ C) OS ACCESS MODIFIERS (private para O INTERNAL ACCESS ONLY, public para o ACESSO EXTERNO).....
+
+ 
+
+
+D) O ACCESS MODIFIER DE 'protected' ---> VERSÃO LIGHT DE 'private', pq DEIXA AS INHERITING CLASSES TER ESSA PROPRIEDADE/METHOD (ao contrário de 'private'), MAS AO MESMO TEMPO NAÕ DEIXA QUE VOCÊ USE A DOT NOTATION NELAS... (no lado de fora)...
+
+
+
+
+ex: 'private method() {}'...
+
+
+
+
+
+
+
+
+
+E) PUBLIC --> ACESS FROM EVERYWHERE...
+
+
+
+
+
+
+F) METHODS QUE PODEMOS ADICIONAR
+
+
+
+
+
+G) STATIC METHODS E PROPERTIES (methods e properties que só existem NA CLASS, e inexistem nos objetos instanciados) ---> frequentemente usados para fins de UTILITY CLASSES... (grouping mechanism de METHODS)...
+
+
+
+
+
+H) ABSTRACT CLASSES --> CONCEITO IMPORTANTE QUANDO FALAMOS SOBRE OUTRO CONCEITO IMPORTANTE, A 'INHERITANCE' (o 'extend' nas nossas classes) -----> o 'extends' faz com que sejam legadas as propreidades e methods da class que lega....
+
+
+
+
+
+--> ISSO NOS DEIXA 'SHARE FUNCTIONALITIES'...  (até mesmo methods e properties 'static')...
+
+
+
+
+
+
+I ) O conceito de inheriting TAMBÉM NOS DEIXA ADICIONAR NOSSAS PRÓPRIAS PROPRIEDADES E METHODS na class que herda... ('stack' em cima das coisas que já existiam na class legatária)....
+
+
+
+J) APRENDEMOS QUE PODEMOS 
+
+FAZER 'OVERWRITE' 
+
+DE METHODS/PROPERTIES QUE EXISTIAM/EXISTEM PREVIAMENTE NA CLASS LEGATÁRIA .... (essa é uma das utilidades das abstract classes e seus abstract methods/properties)..
+
+
+
+
+(Exemplo: method de 'describe()'...)
+
+
+
+
+
+
+
+
+K) APRENDEMOS SOBRE O PATTERN SINGLETON,
+
+
+E TAMBÉM SOBRE PRIVATE CONSTRUCTORS... (fazem com que APENAS 1 INSTANCE DE 1 CLASS __ CONSIGA__ EXISTIR NO SEU CÓDIGO, em 1 determinado momento)..
+
+
+
+
+
+
+
+
+
+--> VIMOS BASTANTE SOBRE CLASSES...
+
+
+
+
+
+
+----> PRECISAMOS SABER O QUE SÃO CLASSES E OBJECTS, 
+
+também 
+
+
+o que são prototypes,
+
+
+pq 
+
+
+ISSO AÍ ESTÁ RELACIONADO UM POUCO COM O TYPESCRIPT,
+
+pq 
+
+
+a mágica do typescript 
+
+
+
+
+constrói a partir disso....

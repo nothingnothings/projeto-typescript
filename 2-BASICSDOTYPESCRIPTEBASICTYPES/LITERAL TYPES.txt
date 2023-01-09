@@ -1,0 +1,1148 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> AGORA TEMOS 'UNION TYPES'..
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS 'BUILD UP' SOBRE A IDEIA DE 'UNION TYPES',
+
+para 
+
+
+AGORA 
+
+INTRODUZIR ALGO CHAMADO DE 
+
+
+
+'LITERAL TYPES'..
+
+
+
+
+
+
+
+
+
+
+
+
+-------> LITERAL TYPES SÃO TYPES EM QUE 
+
+
+
+VOCÊ NÃO VAI DIZER COISAS SIMPLES 
+
+
+COMOO 
+
+
+
+'''ah, este parameter deve segurar um 
+
+
+NUMBER, OU UMA STRING'',
+
+
+
+
+E SIM 
+
+
+em que 
+
+VOCê 
+
+
+
+
+
+
+__ É 
+
+
+
+
+
+
+_________ BEM CLARO_______ (very clear)
+
+
+ACERCA 
+
+
+
+_ DO __ VALOR __ QUE ESSA CONSTANTE DEVERÁ SEGURAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> e já vimos isso anteriormente,
+
+
+quando 
+
+trabalhamos com aquela sintaxe de 
+
+
+
+
+
+
+''''
+
+
+
+
+const objetoExemplo: {
+
+
+    propriedade1: 'ESSASTRING'
+} = {
+
+
+    propriedade: 'ESSASTRING' //só assim evitamos um ERROR...
+}
+
+
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+-----> ISSO É VISTO, TAMBÉM,
+
+
+
+
+_ NAS __ CONSTANTES_....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+const number2 = 2.8; //////////--> O TYPE DISSO SERÁ __ PRECISAMENTE__ '2.8', e nada além disso (não será 'any', e não será 'number')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------->  O TYPESCRIPT FEZ O INFER DO TYPE DE '2.8'
+
+
+
+
+PQ _ ISSO _AÍ É UMA __ CONSTANTE... ---> ELA NUNCA VAI MUDAR,
+
+
+POR ISSO 
+
+O 
+
+TYPESCRPIT 
+
+
+SABE QUE 
+O 
+
+VALOR QUE 
+
+ASSIGNAMOS ALI 
+
+
+'É O VALOR EXATO QUE ISSO AÍ VAI SEGURAR, PARA SEMPRE'....
+
+
+
+
+
+
+
+
+
+
+------>  E ISSO EXISTE PARA COISAS ALÉM DE NUMBERS,
+
+
+PQ 
+
+EXISTE TAMBÉM PARA __ STRINGS__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E PARA STRINGS, O PROFESSOR EXPLICA QUE 'LITERAL TYPES' 
+
+
+
+PODEM SER MT ÚTEIS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE CITA ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+--> O EXEMPLO DA FUNÇÃO DE 'COMBINE':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function combine(n1: number | string , n2: number | string ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ---> NESSA FUNÇÃO,
+
+
+
+
+  NÓS __ ESPERAMOS
+   
+
+
+
+   'NUMBERS/STRINGS',
+
+
+
+   E COMBINAMOS ELAS DE MANEIRA DIFERENTE,
+
+   DE ACORDO COM O TYPE QUE RECEBEMOS, PASSADO COMO PARÂMETRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> MAS TBM VAMOS QUERER 
+
+
+
+__DEIXAr__ O 'CALLER'__ DESSA FUNÇÃO 
+
+
+
+
+___DEFINIR 'COMO O RESULTADO DEVERÁ SER RETURNED'.. ------>  FAREMOS ISSO 
+
+
+
+PARA 
+
+
+POSSAMOS 
+
+'FORCE' 
+
+
+
+
+
+
+UMA CONVERSION DE 'number - string',
+
+
+ou vice-versa,
+
+nessa função...
+
+
+
+
+
+
+
+
+
+------> PARA ISSO,
+
+
+PROFESSOR 
+
+DEFINE __ UM TERCEIRO PARâMETRO A SER RECEBIDO POR ESSA FUNÇÃO,
+
+
+parâmetro de 
+
+
+
+'resultConversion',
+
+
+E ELE 
+
+VAI QUERER 
+
+
+
+
+QUE 
+
+
+
+
+ISSO 
+
+AÍ SEJA DESCRITO/DEFINIDO COMO__ APENAS __ CAPAZ DE RECEBER UMA STRING... -> MAS 
+
+
+ESSA 
+
+STRING NÃO VAI SER UMA STRING GERAL,
+
+E SIM _ UMA STRING__ ESPECÍFICA...
+
+
+
+
+
+(como 'numberResult' e 'stringResult')...
+
+
+
+
+
+
+
+
+PODEMOS FAZER ESSE UNION  TYPE FACILMENTE, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function combine(n1: number | string, n2: number | string, resultConversion: 'numberResult', 'stringResult') {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string') {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number') ) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+ACHO QUE FICARIA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function combine2(n1: number | string , n2: number | string,
+    resultConversion: 'stringResult' | 'numberResult'
+    ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number' && resultConversion === 'numberResult') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string' && resultConversion === 'stringResult' ) {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number')) {
+        return;
+    } 
+  
+    return result;
+  }
+  
+
+
+
+
+
+  console.log(combine2('212', '45', 'stringResult'));
+
+
+
+
+
+
+
+
+
+  -----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... E É CLARO QUE PODERÍAMOS DEFINIR QUALQUER IDENTIFIER 'string'
+
+
+
+aí,
+
+como terceiro parâmetro...
+
+
+
+
+
+
+
+
+
+----> NO CASO DO PROFESSOR,
+
+
+
+ele 
+
+
+
+
+
+CODA UM 'CASE' 
+
+
+
+em que 
+
+
+
+ELE _ VAI QUERER __ CONVERTER 2 valores, sendo eles uma STRING,
+
+
+
+
+em NUMBERS...
+
+
+
+
+
+
+
+
+
+
+para isso,
+
+
+o 
+
+call fica 
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+const combinedStringAges = combine('30', '26', 'as-number'); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AÍ ELE ESCREVE UMA LÓGICA PARA _ FORÇAR_ A CONVERSÃO 
+
+
+DOS VALORES 
+
+
+de 'num1' e 'num2'
+
+
+
+(1 deles, uma STRING) 
+
+
+
+EM __ NUMBERS,
+
+PARA 
+
+QUE 
+
+ESSA CONVERSÃO OCORRA,
+
+QUANDO 
+
+
+
+
+DEFINIDO ESSE VALOR DE 
+
+'is-string'
+
+
+NO TERCEIRO PARÂMETRO De 'combine()' ...
+
+
+
+
+
+
+
+(pq sem esse call de 'as-number', 
+
+NORMALMENTE 
+
+VAMOS SEGUIR ATÉ O BLOCK E MQUE 
+
+
+
+
+
+
+
+SERÃO SÓ CONCATENADAS ESSAS STRINGS...
+)
+
+
+
+
+
+
+
+
+
+
+
+--------->  MAS NO CASO DO PROFESSOR, ESSE PARÂMETRO SERÁ __ OPCIONAL,
+
+
+
+
+PORTANTO 
+
+
+
+
+VAMOS USAR '?' (argumento opcional, acho)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... AGORA DEU CERTO:
+
+
+
+
+
+
+
+
+
+
+
+
+ function combine2(n1: number | string , n2: number | string,
+    resultConversion?: 'stringResult' | 'numberResult'
+    ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string' ) {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number')) {
+        return;
+    } 
+
+    if (typeof n1 === 'number' && typeof n2 === 'string' && resultConversion)  {
+        result = n1 + n2;
+    } 
+
+    return result;
+  }
+  
+
+
+
+
+
+  console.log(combine2('212', '45', 'stringResult'));
+
+
+
+  console.log(combine2('212', '45'));
+
+
+
+
+
+
+
+
+
+  --------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+se definimos esse LITERAL TYPE lá no negócio,
+
+
+
+ACABAMOS BEM MAIS ESPECÍFICOS,
+
+o que é 
+
+
+Bom....
+
+
+
+
+
+
+
+
+
+
+(
+
+    é por isso que não precisamos 
+
+
+    fazer 
+
+
+    'resultConversion: string'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O DOWNSIDE DE ter coisas como essas strings de 
+
+
+
+'stringResult'
+
+e 
+
+
+'numberResult'
+
+
+É 
+
+QUE 
+
+VAMOS TER QUE MEMORIZAR ISSO AÍ... ----> E DEVEMOS NOS CERTIFICAR DE QUE NÃO FIZEMOS UM 'MISTYPE'
+
+disso aí...
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE PODERÍAMOS USAR UM 'enum',
+
+
+
+MAS COM APENAS 2 VALORES,
+
+
+FAZ MAIS SENTIDO ADICIONAR UM 'literal type'
+
+LÁ 
+
+NA NOSSA DEFINIÇÃO DOS TYPES DOS PARÂMETROS DE 'combine',
+
+
+COMO EU HAVIA FEITO:
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+ function combine2(n1: number | string , n2: number | string,
+    resultConversion?: 'stringResult' | 'numberResult'
+    ) {
+
+    let result;
+
+    if (typeof n1 === 'number' && typeof n2 === 'number') {
+        result = n1 + n2;
+    } 
+    
+    if (typeof n1 === 'string' && typeof n2 === 'string' ) {
+        result = n1 + n2;
+    } 
+
+    if ((typeof n1 === 'number' && typeof n2 === 'string') || (typeof n1 === 'string' && typeof n2 === 'number')) {
+        return;
+    } 
+
+    if (typeof n1 === 'number' && typeof n2 === 'string' && resultConversion)  {
+        result = n1 + n2;
+    } 
+
+    return result;
+  }
+  
+
+
+
+
+
+  console.log(combine2('212', '45', 'stringResult'));
+
+
+
+  console.log(combine2('212', '45'));
+
+
+
+
+
+
+
+
+
+
+
+
+  -------------------------------------
+
+
+
+
+
+
+  ESTE CÓDIGO AQUI:
+
+
+
+
+
+
+
+  
+ function combine2(n1: number | string , n2: number | string,
+    resultConversion?: 'stringResult' | 'numberResult'
+    ) {
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ACABAMOS USANDO UM 'UNION TYPE',
+
+
+
+combinado com um 'LITERAL TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, temos uma 'versão específica' desse type..
+
+
+
+
+
+
+
+
+
+
+--> NÃO SÓ UMA STRING, 'ESTAS STRINGS ESPECÍFICAS'... --> e qualquer outro 
+
+tipo de string 
+
+
+NÃO SERÁ ACEITO...
+
+
+
+
+
+
+
+
+
+
+---------> ok.... entendi....
+
+
+
+
+
+
+
+
+
+
+--------> e se tivermos um TYPO,
+
+
+o typescript já nos fala disso...
+
+
+
+
+
+
+
+ex:
+
+
+
+'stringResul' -----> TYPESCRIPT VAI APONTAR QUE O CORRETO É 'stringResult'...
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES FORAM OS LITERAL TYPES,
+QUE SÃO 
+
+ESPECIALMENTE ÚTEIS QUANDO SÃO COMBINADOS COM 'UNION TYPES' ( xx | yy)....

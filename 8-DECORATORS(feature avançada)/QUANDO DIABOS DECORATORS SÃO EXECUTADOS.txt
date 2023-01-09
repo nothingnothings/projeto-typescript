@@ -1,0 +1,550 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> ANTES DE EXAMINARMOS MAIS EXEMPLOS DE DECORATORS,
+
+
+VAMOS APRENDER MAIS SOBRE A ORDEM DE EXECUÇÃO DOS DECORATORS....
+
+
+
+
+
+
+CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Method Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+
+function Log6(target: any, name: string, position: number) {
+  console.log('Parameter Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
+
+class Product3 {
+  title: string;
+
+  constructor(title: string, private _price: number) {
+    this.title = title;
+  }
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid price set - should be positive!');
+    }
+  }
+
+  @Log5
+  getPriceWithTax(@Log6 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PRIMEIRAMENTE,
+
+É 
+
+IMPORTANTE ENTENDER QUE 
+
+
+
+
+
+
+
+
+
+___ TODOS __ OS DECORATORS__ ESTÃO RODANDO, NESSE NOSSO CÓDIGO,
+
+
+
+
+
+
+
+
+
+___ SEM __ NÓS INSTANCIARMOS AQUELA CLASS de 'Product3'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM OUTRAS PALAVRAS,
+
+
+SE CRIARMOS UM NOVO PRODUCT COM 
+
+ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+const p1 = new Product('Book', 19);
+
+
+const p1 = new Product('Book 2', 151);
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log5(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Method Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+
+function Log6(target: any, name: string, position: number) {
+  console.log('Parameter Decorator');
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
+
+class Product3 {
+  title: string;
+
+  constructor(title: string, private _price: number) {
+    this.title = title;
+  }
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid price set - should be positive!');
+    }
+  }
+
+  @Log5
+  getPriceWithTax(@Log6 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+
+
+
+const p1 = new Product('Book', 19);
+
+
+const p1 = new Product('Book 2', 151);
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+SE ESCREVERMOS ESSA INSTANCIAÇAÕ,
+
+O CÓDIGO 
+
+
+DOS 
+
+DECORATORS,
+
+
+
+output deles com os console.logs,
+
+
+
+__ NÕA VAI RODAR_ COM MAIOR FREQUÊNCIA.... 
+(
+
+
+
+    ou seja,
+
+    nÃO 
+
+    É 
+
+    A INSTANCIAÇÃO DA CLASS QUE INTERESSA...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> TODOS ESSES DECORATORS, NÃO IMPORTA SUA NATUREZA (property decorators, method decorators, accessor decorator),
+
+
+
+
+TODOS _ ELES__ SÃO _ EXECUTADOs__ 
+
+
+
+__ QUANDO NOSSA 
+
+
+'CLASS' A QUE FORAM ATRIBUÍDOS_ ____ FOR __ DEFINIDA__ (e não quando for instanciadA)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+
+OS DECORATORS 
+
+
+
+__ NÃO__ SÃO __ 
+
+
+
+FUNCTIONS QUE RODAM DURANTE O RUNTIME, QUANDO VOCê  CHAMA UM METHOD OU TRABLAHA COM UMA PROPERTY... (
+
+
+
+n é isso que eles fazem, n é essa sua missão...
+
+)
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+O QUE OS DECORATORS FAZEM É TE PERMITIR 'DO SOME EXTRA, BEHIND THE SCENES WORK',
+
+
+
+___ SEMPRE__ QUE UMA CLASS É DEFINIDA...(
+
+
+
+
+aí o professor fala 
+
+
+
+do conceito do 'meta-programming',
+
+
+
+
+da ideia por trás dos decorators.... --> É O CORE USE-CASE DELES: VOCÊ NÃO 
+
+
+
+OS UTILIZA COMO EVENT LISTENERS para rodar algum código específico durante o runtime... -------> (você pode fazer isso, actually, mas precisa tweakar pesadamente o decorator em si).... 
+
+
+
+
+
+MAS O DECORATOR 
+
+
+
+EM SI _ É __ SÓ UMA FUNCTION QUE É __ EXECUTADA__ QUANDO 
+
+
+SUA CLASS É DEFINIDA,
+
+
+quando seus methods são registrados, etc etc ---> e É POR ISSO QUE 
+
+
+DECORATORS SÃO USADOS 'TO DO SOME BEHIND THE SCENES WORK',
+
+
+
+para __ SETUP SOME CODE
+,
+
+código que 
+
+
+
+
+DEVE SER EXECUTADO SEMPRE QUE NOSSAS CLASSES FOREM DEFINIDAS....
+
+
+)
+
+
+
+
+
+
+
+
+
+--------> esses decorators podem 'ADD EXTRA METADATA',
+
+
+ou 
+
+
+
+ARMAZENAR 
+
+
+ALGUMA DATA 
+
+
+SOBRE UMA PROPERTY_ _ EM ALGUM 
+
+LUGAR 
+
+DE 
+
+SEU PROJETO/LIBRARY EM QUE VOCÊ OS UTILIZA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SÃO ESSES PATTERNS QUE VEREMOS  AGORA, NAS LIBARRIES QUE 
+
+O PROFESSOR NOS MOSTRARÁ...
+
+
+
+
+
+
+
+
+-_> ELES ADICIONAM ALGUMAS FUNCIONALIDADES POR TRÁS DAS CENAS,
+
+
+
+
+
+FAZEM COISAS TOTALMENTE DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO  É IMPORTANTE DE ENTENDER, TAMBÉM, PARA COMPREENDER A UTILIZAÇÃO DE NOSSO 
+
+
+DECORATOR DE 
+
+'WithTemplate',
+
+
+que vimos anteriormente.... ----------> ESSE DECORATOR É/ERA 
+
+
+
+EXECUTADO 
+
+
+
+SEMPRE 
+
+QUE 
+
+AQUELA 
+
+CLASS 
+
+
+DE 
+
+
+'Person'
+
+
+ERA __ DEFINIDA,
+
+
+E NÃO 
+
+QUANDO 
+
+ERA 
+
+PROPRIAMENTE INSTANCIADa.. --------> 
+
+
+
+
+
+
+
+
+
+
+ok, é assim que decorators são executados....
+
+
+
+
+
+
+
+
+
+
+
+
+--> agora veremos alguns exemplos de use-cases de decorators,
+
+
+que tiram vantagem da 
+
+'ordem no runtime' 
+
+dos decorators 

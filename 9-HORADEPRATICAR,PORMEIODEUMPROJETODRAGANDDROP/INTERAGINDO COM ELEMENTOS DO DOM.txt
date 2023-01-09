@@ -1,0 +1,1822 @@
+ 
+
+
+
+
+
+
+
+
+
+
+ RENDERIZAMOS NOSSA PRIMEIRA FORM, SIM....
+
+
+
+
+
+
+
+
+
+ --> MAS A PRIMEIRA COISA QUE VAMOS PERCEBER QUE ESTÁ MEIO 'OFF':
+
+
+
+
+
+
+
+ 1) É O STYLING ___ DESSA FORM__...
+
+
+
+
+
+
+
+ --> o form parece ok, mas um pouco de distância entre as bordas do browser seria ideal...
+
+
+
+
+
+
+
+
+
+
+ --------> SE ENTRARMOS NO ARQUIVO 'app.css',
+
+
+
+ VEMOS QUE 
+
+TEMOS UM STYLE 
+
+
+
+DE 
+
+'#user-input',
+
+
+um 
+
+ID SELECTOR,
+
+
+
+EM QUE ADICIONAMOS UM POUCO DE MARGIN E PADDING....
+
+
+
+
+
+
+
+
+
+
+-> PARA APLICAR ISSO AÍ,
+
+
+DEVEOMS IR ATÉ O 
+
+CÓDIGO DO __ CONSTRUCTOR__ DE 'ProjectInput'...:
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+----> LÁ NAQUELE TRECHO EM QUE 
+
+
+
+OBTEMOS ACESSO AO 'element' (this.element),
+
+
+
+
+NÓS PODEMOS FAZER 'reach out' a esse ELEMENT AÍ 
+
+
+
+E ENTÃO ADICIONAR UM 'id',
+
+
+
+
+POR MEIO DA PROPRIEDADE de '.id' 
+
+
+nesse ELEMENTo.... ------> AÍ VAMOS COLOCAR QUE O ID SERÁ DE 'user-input'...
+
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content, true); 
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; ///EIS O CÓDIGO EM QUESTÃO.
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ISSO VAI ADICIONAR O STYLING APROPRIADO,
+
+
+
+E NOSSA PÁGINA VAI FICAR BEM MAIS BONITA.. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> AGORA, LÁ NO CHROME DEVTOOLS,
+
+
+vemos que 
+
+agora 
+
+a form está assim:>
+
+
+
+<form id="user-input">
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+OK... COM ESSE STYLING MELHOR,
+
+
+JÁ ESTAMOS 
+
+'FAZENDO A PRÓXIMA ETAPA',
+
+
+
+que é justametne o 
+
+
+
+
+'INTERACT' com O DOM ELEMENT, ATRAVÉS DO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ESSA NÃO É A ÚNICA INTERAÇÃO QUE VAMOS QUERER FAZER, AQUI...
+
+
+
+
+
+
+
+
+
+
+
+--> COMO ADICIONAMOS UMA __ FORM,
+
+
+
+O PROFESSOR VAI QUERER TER ACESSO AOS DIFERENTES 
+
+'INPUT FIELDS' 
+
+
+
+QUE TEMOS NELA,
+
+TUDO PARA QUE POSSAMOS 
+
+
+'read the values'
+
+
+QUANDO A FORM FOR SUBMITTADA...
+
+
+
+
+
+
+
+
+
+------> TBM PARA QUE __ SEJA__ SETTADO UM EVENTLISTENER para o button de 'add project'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFIICA QUE __ PRECISAMOS __ DE ACESSO __ AOS:
+
+
+
+
+
+1) FORM OVERALL, PARA FAZER 'LISTEN' DA SUBMISSION...
+
+
+
+
+2) TODOS OS INPUT FIELDS NA FORM, PARA CONESGUIR OS VALUES DELES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+LÁ NO CONSTRUCTOR,
+
+
+
+
+VAMOS QUERER CONSEGUIR ESSES VALORES 
+
+
+
+
+__ANTES__ DO ATTACH __ DO 'element'
+
+
+
+NO DOM,
+
+
+
+MAS DEPOIS DO SET DO STYLING (set do id desse element)....
+
+
+
+
+
+
+
+
+
+
+---> vamos conseguir acesso aos input fields....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mais precisamente, o VALUE desses input values...
+
+
+
+
+
+
+
+
+--> E O PROFESSOR VAI QUERER __ ARMAZENAR__ ESSES INPUT FIELDS__ COMO PROPRIEDADES 
+
+DESSA 
+
+CLASS 
+
+
+
+DE 
+
+
+'ProjectInput'...
+
+
+
+
+
+
+
+--> PARA ISSO, ELE ADICIONA MAIS FIELDS 
+
+
+
+em 
+
+
+'ProjectInput':
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; 
+
+    titleInputElement: HTMLInputElement;
+
+
+
+
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content, true); 
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; 
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+TODOS ESSES FIELDS SERÃO DE TYPE 'HTMLInputElement':
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; 
+
+    titleInputElement: HTMLInputElement;
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content, true); 
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; 
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+---------------------------
+
+
+
+
+
+AGORA PODEMOS 'POPULATE' esses fields,
+
+lá no constructor...
+
+
+
+
+
+
+
+-> BASTA ESCREVER ALGO COMO ISTO:
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; 
+
+    titleInputElement: HTMLInputElement;
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {     
+
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        const importedNode = document.importNode(this.templateElement.content, true); 
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; 
+
+        this.titleInputElement = this.element.querySelector('#title');
+        this.descriptionInputElement = this.element.querySelector('#description'); //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people');
+        
+         this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+------------------------------------------
+
+
+
+
+
+OK... --> isso vai realmente 
+
+
+
+
+
+SELECIONAR ESSES NEGÓCIOS,
+
+
+
+
+ESSE HTMLInputElement,
+
+
+E VAI 
+
+OS ARMAZENAr 
+
+DENTRO DESSAS 
+
+
+
+
+
+PROPRIEDADES...
+
+
+
+
+
+
+
+
+
+--. É CLARO QUE ANTES DISSO VOCÊ PRECISA USAR O 'type casting' para 
+
+
+COMUNICAR QUE ESSES SERÃO 'HTMLInputElement'...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {     
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+        
+        
+        this.attach();                                      
+    }   
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+
+const projectInput = new ProjectInput();  /// É ISTO QUE vai fazer toda a diferneça (pq nós temos 'this.attach() )
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+
+ISSO FEITO,
+ 
+
+ teremos adicionado esses elements como 
+
+
+
+
+ PROPRIEDADES, nessa class... -----> 
+
+
+
+
+
+
+
+
+
+ elas serão settadas como sendo isso quando INSTANCIARMOS ESSA CLASS... (criarmos um object)...
+
+
+
+
+
+
+
+
+
+
+
+ -----> AGORA SÓ PRECISAMOS ADICIONAR UM LISTENER à NOSSA FORM...
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO,
+
+
+
+
+
+ COLOCAMOS UM LISTENER NA NOSSA FORM...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PROFESSOR ADICIONA 
+
+
+
+UM NOVO 
+
+METHOD 
+
+
+'private'
+
+
+
+NA NOSSA CLASS,
+
+
+
+METHOD QUE SE CHAMARÁ de 
+
+
+
+
+
+'configure()'
+
+
+
+
+
+
+
+
+
+
+
+--> É UM METHOD QUE VOCÊ NÃO PRECISARÁ ADICIONAR/NÃO PRECISA ADICIONAR,
+
+
+
+MAS QUE __O PROFESSOR __ QUER MANTER_ _ESSA 
+
+
+
+
+SEPARAÇÃO 
+
+ENTRE 
+
+
+'
+SELECTION E ROUGH SETUP'  __ LÁ _ _NO CONSTRUCTOR,
+
+
+
+
+E ENTAÕ 
+
+
+
+A 'INSERTION/FINE-TUNING' 
+
+
+EM __ METHODS__ SEPARADOS__...
+
+
+
+
+
+
+
+
+-> PARA ISSO,
+
+
+A FUNÇÃO 
+
+
+'configure'
+
+
+VAI 
+
+REACH OUT 
+
+ao elemento 'this.element',
+
+que é A NOSSA FORM NESSA 
+
+CLASS/OBJECT de 'ProjectInput',
+
+
+
+
+
+
+
+
+
+E AÍ __ VAI ADICIONAR UM EVENTLISTENER DE TYPE 'submit'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+private configure() {
+    this.element.addEventListener(
+        'submit',
+
+        (event) => {
+                event.preventDefault();
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... MAS PROFESSOR NÃO VAI QUERER EXECUTAR ESSE SEGUNDO PARÂMETRO DO EVENTLISTENER
+como 
+
+
+UMA ANON FUNCTION..
+
+
+
+
+
+
+em vez disso,
+
+VAMOS BINDAR ISSO A UM METHOD..
+
+
+
+METHOD PRIVATE ---> ESSE METHOD NUNCA SERÁ ACESSADO 'DO LADO DE FORA DA CLASS'..., __ SEMPRE SERÁ ACESSADO __ _ DO LADO _ DE DENTRO...
+
+
+
+
+(
+
+    tanto o 'configure' como esse 'submitHandler', que 
+
+    CRIAREMOS AGORA, serão 'private'...
+)
+
+
+
+eX:
+
+
+
+private submitHandler() {
+
+}
+
+
+
+private configure() {
+    this.element.addEventListener(
+        'submit',
+
+        submitHandler
+
+    )
+}
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+OK... MAS ESSE 'submitHandler'
+
+
+VAI SER UM METHOD QUE VAI OBRIGATORIAMENTE RECEBER O OBJETO 'event',
+
+lá no eventListener....
+
+
+
+
+
+
+
+--> por isso escrevemos:
+
+
+
+
+private submitHandler(event: Event) {
+
+}
+
+
+
+private configure() {
+    this.element.addEventListener(
+        'submit',
+
+        this.submitHandler
+
+    )
+}
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+OK......... -----> MAS ONDE VAMOS CHAMAR ESSE 'this.configure()',
+
+
+
+NESSA NOSSA CLASS?
+
+
+
+
+
+BEM, VAMOS CHAMAR __ LÁ NO CONSTRUCTOR,
+PQ 
+
+ESSA 
+
+CLASS SÓ FUNCIONA COM INSTANCIAÇÃO (ela é meio automática)....
+
+
+
+
+
+
+
+-------> VAMOS CHAMAR 'configure' LOGO ANTES DO ATTACH, E LOGO DEPOIS DO GET DOS 'INPUTELEMENTS' de nossa form...
+
+
+
+
+
+
+ou seja:
+
+
+
+
+1) DEFINIMOS O STYLE DESSA FORM, com o set de seu id, com 'this.element.id' 
+
+
+
+
+2) DEFINIMOS OS INPUT FIELDS como PROPRIEDADES de nosso OBJETO, capazes de serem acessadas DO LADO DE FORA de nossa class/object...
+
+
+
+
+
+3) EXECUTAMOS 'configure' PARA __ SETTAR__ UM EVENTLISTENER DE 'submit' nessa form, pq queremos que ela tenha esse eventListneer...
+
+
+
+
+
+
+
+
+4) ANEXAMOS/ATTACHEAMOS ESSE  element ao dom, por meio do código de 'this.attach()'...
+
+  private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+
+
+    -----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO SIGNIFICA QUE A ÚNICA COISA QUE RESTA, AGORA, É CODAR 
+
+
+o código de 
+
+'submitHandler',
+
+que 
+
+até agora está vazio...
+
+
+
+
+
+
+
+
+
+--> PROVAVELMENTE, EM 'submitHandler',
+
+
+
+
+VAMOS QUERER __ rodar alguma lógica de INSTANCIAÇÃO de 
+
+
+
+
+
+1 object 'Project'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> 
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, PROVAVELMENTE A PRIMEIRA COISA QUE SERÁ FEITA SERÁ UM RUN DE 'event.preventDefault()'...
+
+
+
+
+EX:
+
+
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+
+        event.preventDefault();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------> DEPOIS DISSO,
+
+
+O PROFESSOR VAI QUERER GANHAR ACESSO AOS 'input values',
+
+QUE PODEM 
+
+SER 
+
+ACESSADOS POR COISAS COMO 
+
+
+'this.titleInputElement.value',
+
+
+
+
+
+__ OU SEJA,
+
+ACESSO DE NOSSAS PROPRIEDADES....
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ISSO FEITO, PROVAVELMENTE VAMOS __ APLICAR VALIDATION A ESSES INPUTS,
+
+
+
+
+
+PROVAVELMENTE POR MEIO DE DECORATORS (se o professor for louco)...
+
+
+
+
+--> ISSO FEITO,
+
+VAMOS 
+
+'DO SOMETHING WITH THESE INPUTS '( esse do something provavelmente será O CREATE DE 1 ELEMENTO 'ProjectInput' lá no dom)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... PROFESSOR RODA 'event.preventDefault()'
+
+PARA 
+
+
+
+
+EVITAR O 'DEFAULT BEHAVIOR'
+
+
+
+da form submission, que TRIGARRIA UM SEND DE HTTP REQUEST, QUE NÃO QUEREMOS...
+
+
+
+
+
+
+
+
+
+
+--> EX:
+
+
+
+
+
+
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement.value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------>
+
+
+
+
+OK.. MAS SE FAZEMOS ISSO, RECEBEMOS UM ERROR DE 
+
+
+
+'Uncaught TypeError: Cannot read property 'value' of undefined 
+
+at 
+
+
+'HTMLFormElement.submitHandler'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS QUAL É A RAZÃO DISSO, desse error?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NÃO ENTENDI... --> o que está acontecendo de erraodo?  -------> 
+
+
+
+
+
+
+NOSSA... É A PORCARIA DO COMPORTAMENTO DA KEYWORD 'this' 
+
+
+dentro de 
+
+'submitHandler'...
+
+
+
+
+
+
+
+
+
+
+-----> TEMOS 2 OPÇÕES, AQUI:
+
+
+
+
+
+
+
+
+
+1) USAR O METHOD de 'bind',
+ 
+
+ nesse 
+
+
+
+ negócio aí,
+
+
+
+ para aí bindar o 'this' keyword 
+
+
+
+
+ À CLASS DE 'ProjectInput'...
+
+
+
+
+
+ (tentar fazer isso):
+
+
+
+
+
+
+ private configure() { ///inserting and fine-tuning of the element  in our dom.... --> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+    this.element.addEventListener(
+        'submit',
+        ///bind da 'this' keyword À class de 'ProjectInput', para evitar error....
+        this.submitHandler.bind(this)
+    )
+}
+
+
+
+
+
+
+
+
+
+
+--------> E ISTO AÍ REALMENTE __CONSERTOU.... -------> é aquele código idiota de 
+
+
+'this.submitHandler.bind(this)'...
+
+
+
+
+
+
+
+
+
+
+------> CLARO QUE SE USARMOS AQUELE NOSSO DECORATOR DE AUTOBIND,
+
+
+
+
+podemos 
+
+simplificar o write desse function call....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) { ///colocamos '_' e '_2' para indicar ao typescrpit uqe NÃO ESTAMOS INTERESSADOS NESSES VALORES, MAS AINDA VAMOS OS ACEITAR...
+    // function Autobind(target: any, name: string, descriptor: PropertyDescriptor) {
+
+    
+    const originalMethod = descriptor.value; ///ISSO VAI NOS DAR ACESSO AO 'MÉTODO ORIGINAL/INICIAL' nesse descriptor do method de 'showMessage()'...
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        get() {  //esse getter será algo novo/editado/adicionado __ NESSE METHOD EM QUE VAMOS COLOCAR ESSE DECORATOR...
+
+            
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+
+        }         
+
+        ///o código do GETTEr ('get')  --> VAI SER EXECUTADO  __ANTES__ DO CÓDIGO PROPRIAMENTE DITO de nosso method... (ele que faz o trabalho 'ANTECIPADO', por assim dizer... 'lays the ground'...)
+        }
+
+        return adjustedDescriptor;
+
+}
+
+
+
+class Printer2 {
+  message = 'This works';
+
+  constructor() {}
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+
+  showMessage2() {
+    return this.message;
+  }
+}
+
+const newPrinter2 = new Printer2();
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+ESSE AUTOBIND DECORATOR É _ MUITO ÚTIL, MESMO...
+
+
+
+
+
+
+-> O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) { ///// USAREMOS NOS NOSSOS METHODS na nossa class...
+
+    
+    const originalMethod = descriptor.value; 
+
+    const adjustedDescriptor: PropertyDescriptor = {
+        configurable: true,
+        get() {  
+
+            
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+
+        }         
+
+        
+        }
+
+        return adjustedDescriptor;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+class ProjectInput {/////resumo desta class:
+
+    ///a ideia é ter A 'SELECTION AND ROUGH SETUP' lá no constructor... já A 'ACTUAL INSERTING AND FINE-TUNING' será feita LÁ NOS METHODS, PARTICULARMENTE NO NOSSO METHOD de 'configure()', que será usado PARA ___ INSERIR UM 'eventListener' NA FORM CRIADA POR NÓS....
+
+
+
+
+
+    templateElement: HTMLTemplateElement; ///eis o código em questão. Vai consertar o aviso de 'isso não existe no type 'ProjectInput'...
+
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement; //EIS O CÓDIGO EM QUESTÃO.
+
+    titleInputElement: HTMLInputElement; ///INPUT FIELDS DA FORM...
+    descriptionInputElement: HTMLInputElement;
+    peopleInputElement: HTMLInputElement
+
+
+
+
+
+    constructor() {     ///'SELECTION AND ROUGH SETUP of our element in the dom'....
+
+
+
+        // const templateEl =  document.getElementById('project-input'); ///sintaxe alternativa ao uso de '!' naquele valor de 'this.templateElement'...
+        // if(templateEl) {
+        //     this.templateElement = templateEl;
+        // }
+
+
+        // this.templateElement = <HTMLTemplateElement>document.getElementById('project-input')!; ////SINTAXE ALTERNATIVA.
+        this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+        //// o type desse 'importedNOde' será de 'DocumentFragment'... --> inferido pelo typescript automaticamnete....
+        const importedNode = document.importNode(this.templateElement.content, true); ////'content' É UMA PROPRIEDADE QUE SEMPRE EXISTE EM ELEMENTOS DE TIPO 'HTMLTemplateElement'... --> ela simplesmente DÁ UMA REFERENCE AO __cONTEÚDO__ DE UM TEMPLATE (código html ENTRE AS TAGS '<template>'..)...
+                                                                                        ///primeiro parâmetro DEVE SER UM POINTER AO CONTEÚDO DO SEU TEMPLATE EM QUESTÃO...
+                                                                                        ///segundo parâmetro deve ser true/false, dependendo DE SUAS INTENÇÕES: SE VOCê PLANEJA CRIAR UM DEEP CLONE (com as nested coisas todas intactas, no interior desse template), coloque 'true', caso contrário, defina 'false'....
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+        
+        this.configure();
+        this.attach();                                      
+    }   
+
+
+    private attach() {///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+
+
+
+
+}
+
+
+
+private configure() { ///inserting and fine-tuning of the element  in our dom.... --> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+    this.element.addEventListener(
+        'submit',
+        //this.submitHandler.bind(this) //// --> esse código foi substituído POR NOSSO 'AUTOBIND DECORATOR', que é muito útil... (ver method de 'submitHandler')
+        ///bind da 'this' keyword À class de 'ProjectInput', para evitar error....
+        this.submitHandler
+    )
+}
+
+
+
+
+}
+
+
+
+
+
+const projectInput = new ProjectInput();  /// É ISTO QUE vai fazer toda a diferneça (pq nós temos 'this.attach() )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ex:
+
+
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+
+
+
+
+}
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+salvamos tudo isso, e agora o código funciona..
+
+
+
+
+
+
+
+
+NA PRÓXIMA AULA, PROFESSOR 
+
+USA 
+
+
+
+
+O NEGÓCIO DO DECORATOR...  

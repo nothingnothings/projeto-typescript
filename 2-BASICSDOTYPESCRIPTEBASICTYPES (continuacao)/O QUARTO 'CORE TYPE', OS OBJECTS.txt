@@ -1,0 +1,1493 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AGORA DEVEMOS VER MAIS SOBRE OS CORE TYPES SUPORTADOS PELO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> O QUARTO 
+
+
+
+
+
+
+CORE TYPE É O 'OBJECT TYPE'...
+
+
+
+
+
+
+
+ex:
+
+
+{
+    age: 30
+}
+
+
+
+
+
+
+
+
+
+--> QUALQUER JAVASCRIPT OBJECT É DE TYPE 'Object' (é um TYPE MEIO GENÉRICO, AMPLO)...
+
+
+
+
+
+
+
+
+
+
+
+--> AINDA ASSIM, O PROFESSOR 
+
+APOTNA QUE 
+
+
+HÁ COMO DEFINIR TYPES MAIS ESPECÍFICOS DE 'OBJECT',
+
+
+
+objects com CERTAS PROPRIEDADES/CARACTERÍSTICSA,
+
+ 
+
+
+
+
+
+
+ '''any javascript object, more specific types (type of object) are possible''....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS VEREMOS ISSO MAIS TARDE..
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA ESTUDARMOS OBJECTS,
+
+ PROFESSOR CRIA UM NOVO ARQUIVo
+
+
+
+
+ 'app.ts',
+
+
+ E RENOMEIA ESTE ANTIGO, COM AS COISAS BÁSICAS,
+
+
+ DE 
+
+ 'basics.ts'...
+
+
+
+
+
+
+
+
+
+
+ --> AÍ O PROFESSOR ESCREVE ISTO:
+
+
+
+
+
+
+
+
+ const person = {
+
+     name: 'Maximillian',
+     age: 30
+ }
+
+ 
+
+
+
+
+
+
+
+
+
+ --> ESSE É UM OBJECT COMUM...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> PROFESSOR FAZ CONSOLE.LOG 
+
+ DESSE 
+
+ OBJEOT...
+
+
+
+
+ ex:
+
+
+
+
+ 
+
+
+ const person = {
+
+     name: 'Maximillian',
+     age: 30
+ }
+
+ 
+
+
+
+console.log(person);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE FIZERMOS ISSO,
+
+
+VEREMOS ESSE OBJETO PRINTADO NO NOSSO CONSOLE...S
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE PODEMOS FAZER, TAMBÉM,
+
+
+EM JAVASCRIPT,
+
+
+É 
+
+TENTAR ACESSAR ALGUMAS __ PROPRIEDADES__ 
+NESSE OBJECT...
+
+
+
+
+
+
+vamos tentar acessar a prop de 
+
+'nickname',
+
+QUE 
+
+NÃO EXISTE NESSE OBJETO...
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+ const person = {
+
+     name: 'Maximillian',
+     age: 30
+ }
+
+ 
+
+
+
+console.log(person, person.nickname);
+
+
+
+
+
+
+-------------------------------------------------
+
+
+
+
+
+
+ASSIM QUE FIZERMOS ISSO,
+
+VEERMOS 
+
+QUE 
+
+
+
+O 
+
+TYPESCRPIT NÃO GOSTARÁ DISSO ( ele vai destacar que essa proprpiedae _ NÃO EXISTE__ DENTRO DESSE TYPE/object)....
+
+
+
+
+
+
+
+
+
+
+
+------> SE TENTARMOS COMPILAR,
+
+O 
+
+
+
+COMPILADOR TYPESCRIPT NÃO VAI GOSTAR....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE __ VAI _ __ SABER__ QUE NÃO TEMOS 
+
+
+ESSA PROPRIEDADE DE 
+
+
+'nickname'
+
+
+PQ 
+
+ELE 
+
+
+
+_ INFERIU_QUE ELE NÃO EXISTE 
+
+
+
+na nossa CONST 'person',
+
+que 
+
+
+
+tem o type de 
+
+
+'{
+    name: string,
+    age: number
+}
+'
+
+
+
+
+
+
+
+
+
+
+HMM.... TUDO ESTÁ FAZENDO MAIS SENTIDO... --> VOCÊ CONSEGUE VER ISSO,
+
+ESSE 
+
+
+'INFERED TYPE', 
+
+
+
+que 
+
+é 
+
+IMAGINADO PELO TYPESCRIPT,
+
+se você 
+
+PASSAR 
+o
+
+CURSOR EM CIMA DE 
+
+
+
+
+'person' em 
+
+
+'person.nickname'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+
+
+
+
+
+--. OU SEJA,
+
+O NEGÓCIO __ SABE__ QUE NÃO É UM 'OBJETO QUALQUER',
+
+
+E SIM 
+UM 
+
+
+'CONCRETE OBJECT',
+
+um objeto CONCRETO COM ESSAS 
+
+
+PROPRIEDADES 
+
+DETERMINADAS,
+
+
+
+E PROPRIEDADES COM ESSES TYPES ESPECÍFICOS...
+
+
+
+
+
+
+
+
+--> name: string,
+
+
+age: number...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E ISSO AÍ JÁ PODE SER CONFUSO.... --> 
+
+
+
+
+
+
+isto aqui pode SE PARECER COM UM OBJETO JAVASCRIPT:
+
+
+
+
+
+const person: {
+    name: string;
+    age: number;
+}
+
+
+
+
+
+
+
+
+
+-----> ENTRETANTO, __ ISSO __ NÃO É UM OBJETO JAVASCRIPT...
+
+
+
+
+
+
+DIFERENÇAS:
+
+
+1) TEMOS ';' no lugar de ',' 
+
+
+
+
+2) depois, temos ':' NO LUGAR DE '='...
+
+
+
+
+
+
+
+
+
+
+ISSO NÃO É UM OBJETO JAVASCRIPT,
+
+
+E SIM 
+
+É 
+
+
+
+O '''OBJECT TYPE INFERED BY TYPESCRIPT''... (ou seja, não é um objeto mágico criado em algum lugar, em alguma dimensão)...
+
+
+
+
+
+
+
+E OBJECT TYPES __ SÃO __ ESCRITOS__ QUASE COMO __ 
+
+
+
+'JAVASCRIPT OBJECTS',
+
+
+MAS POSSUEM A DISTINÇÃO DE NÃO 
+
+
+
+TER 
+'KEY-VALUE PAIRS'
+,
+
+
+E SIM 
+
+
+'KEY-TYPE' PAIRS...
+
+
+
+
+
+
+
+
+---> OK.. ACHO QUE ENTENDO...
+
+
+
+
+
+
+
+
+--> OBJECT TYPES EXISTEM __ PARA _ 'DESCREVER O TIPO DE OBJECT QUE ESTÁ SENDO USADO EM ALGUM LUGAR'...
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODERÍAMOS SER MAIS GENÉRICOS,
+
+
+
+PODERÍAMOS 
+
+
+DEFINIR UM TYPE GENÉRICO DE 'object',
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+const person: object = {
+    name: 'Maximillian',
+    age: 30
+}
+
+
+
+
+
+
+
+
+
+
+
+---> ESSE É UM TIPO GENÉRICO PQ __ 
+ESSE OBJECT __ PODE SER QUALQUER TIPO DE OBJECT,
+
+ 
+
+
+
+
+
+....
+
+
+
+
+
+
+--> SE PASSARMOS O CURSOR EM CIMA DE 'person',
+
+veremos que o typescript mostrará 
+
+
+'const person: object' (mostrando que o typescript SÓ ESTÁ SE IMPORTANDO COM O FATO DE ESSE NEGÓCIO SER _ UM OBJECT, 
+
+
+
+sem se importar com o FORMATO desse object)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... TYPESCRIPT SÓ SE IMPORTA COM O FATO DE ISSO SER UM 'OBJECT TYPE' ---> MAS 
+
+
+SE 
+
+TENTARMOS COMPILAR NOSSO CÓDIGO,
+
+AINDA VAMOS GANHAR AQUELE 
+
+ERROR de 
+
+
+
+
+'''nickname não existe nesse type de object''' ( mesmo com essa definição de 'object' geral/genérica )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS _ É IMPORTANTE QUE TUDO __ COMEÇA COM ESSE 'GENERIC OBJECT TYPE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NA GRANDE MAIORIA DOS CASOS VOCÊ NÃO VAI QUERER USAR 
+
+ESSE 
+
+TYPE GENÉRICOZAO,
+E SIM 
+
+
+
+UM TYPE MAIS __ DEFINIDO,
+
+PARA 
+
+TER 
+
+'FULL SUPPORT'....
+
+
+
+
+
+
+
+
+
+
+------> EXEMPLO DE UTILIDADE EM DEFINIR 'TYPEs' bem delineados:
+
+
+
+
+
+
+const person: object = {
+    name: 'Maximillian',
+    age: 30
+}
+
+
+
+
+
+
+
+
+--> ^^^^^ ESSE CÓDIGO AÍ __ NÃO VAI NOS __ DAR AUTO-COMPLETION ALGUM,
+
+
+O 
+
+
+IDE NÃO VAI NOS AJUDAR EM MERDA NENHUMA..
+
+
+
+
+
+
+
+
+
+
+--> JÁ SE ESCREVEMOS ASSIm:
+
+
+
+const person: {
+    name: string;
+    age: number;
+
+} = {
+    name: 'Maximillian',
+    age: 30
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESCREVEMOS ASSIM,
+
+quando referenciarmos 
+
+
+
+
+'person. .....',
+
+
+
+VAMOS
+
+
+
+GANHAR AS OPÇÕES 
+
+'name' 
+
+e 
+
+
+
+'age',
+
+QUE 
+
+
+SÃO PROPRIEDADES 
+
+
+VÁLIDAS DENTRO DESSE OBJECT (existentes, ao contrário de 'nickname', que NÃO EXISTE)....
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ESSA SINTAXE ALI DE CIMA, UTILIZADA POR MIM,
+
+
+REALMENTE 
+
+
+
+FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE TEMOS QUE SER MAIS ESPECÍFICOS,
+
+
+DEVEMOS 
+
+
+
+
+ADICIONAR 'SPECIFIC OBJECT TYPES',
+
+
+
+
+
+
+
+
+que é 
+
+
+o tipo de coisa que o 
+
+
+
+
+TYPESCRIPT TAMBÉM FAZ 'INFER' AUTOMATICAMENTE...
+
+
+
+
+
+
+
+
+
+-----> ok....
+
+
+
+
+
+
+
+
+
+o professor faz exatamente isso,
+
+ele 
+
+escreve:
+
+
+
+
+
+const person: {} = {
+        name: 'Maximillian',
+        age: 30
+}
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE {} é UMA NOTATION ESPECIAL DO 
+
+
+
+TYPESCRIPT,
+
+
+
+
+É UMA NOTATION DE UM 'SPECIAL OBJECT TYPE',
+
+em que 
+
+PROVIDENCIAMOS 
+
+
+
+
+UM POUCO DE INFORMAÇÃO SOBRE A ESTRUTURA DO 
+
+OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> '{}' --> dizemos ao typescript que ISSO É __ UM TIPO DE OBJECT, OBJECT ESPECÍFICO..
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AÍ ADICIONAMOS 
+
+
+
+OS 
+
+'KEY-TYPE' PAIRS....
+
+
+
+
+
+
+
+
+
+
+--> o professor escreve assim:
+
+
+
+
+const person: {
+
+    name: string
+} = {
+        name: 'Maximillian',
+        age: 30
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------->  AGORA, SE DEIXARMOS ASSIM, O 
+
+
+
+IDE VAI NOS DAR UM ERRO SOBRE 'age',
+
+
+PQ DENTRO DAQUELE '{}" 
+
+SÓ DEIXAMOS 
+
+
+UM 'key-type' 
+
+pair 
+
+
+de 
+
+'NAME',
+
+
+e ñão falamos nada sobre uma propriedade 'age' (que será considerada INVÁLIDA, se não escrevermos nada dentro daquele '{}" )...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+const person: {
+
+    name: string;
+    age: number
+} = {
+        name: 'Maximillian',
+        age: 30
+}
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+AJUSTAMOS,
+
+COLOCAOMS UM ';'
+
+
+E MAIS UM KEY-TYPE PAIR....
+
+
+
+
+
+
+
+
+
+
+
+----> OBS:::: VOCÊ DEVE COLOCAR 'number',
+
+para 
+
+
+ser 
+
+BEM MAIS ESPECÍFICO, MAS NÃO 
+
+
+
+ESPECÍFICO __ AO EXTREMO/EXAGERADo..
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ QUISER __ SER __ REALMENTE ESPECÍFICO,
+
+VOCê 
+PODE 
+
+DEFINIR,
+
+NESSES SLOTS,
+
+
+
+
+valores como 
+
+
+'30',
+
+
+
+ou 
+'STRING ESPECÍFICA' (se você fizer isso, dentro desse object 'person' SÓ PODEREMOS __ DEFINIR ESSES EXATOS VALORES,
+
+SEM VARIAR, SENÃO OCORRERÃO ERRORS...)
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+const person: {
+
+    name: 'NOME ESPECÍFICO';
+    age: 155
+} = {
+        name: 'NOME ESPECÍFICO', ///SÓ ASSIM EVITAREMOS AQUELE ERROR, pq definimos que SÓ ESSES VALORES ESPECÍFICOS SERÃO VÁLIDOS, NESSE NOSSO OBJECT..
+        age: 155
+}
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ok, mas o professor 
+
+
+deixa só 
+
+'name: string' 
+
+
+
+e 
+
+'age: number'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA ESTAMOS BASICAMENTE  EXPLICITAMENTE 
+
+
+SETTANDO 'the same type typescript infered before' (
+
+
+
+
+
+    pq o typescript já vai AUTOMATICAMENTE 
+
+
+
+    DIZER QUE 
+
+    'name deverá ser uma string',
+
+    'age deverá ser um number',
+
+    etc etc...
+)
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AÍ O PROFESSOR QUER NOS MOSTRAR ALGO INTERESSANTE...
+
+
+
+
+
+
+
+--> ELE TROCA O CÓDIGO PARA A FORMA 'SUB-OPTIMAL',
+
+
+
+
+
+EM QUE 
+
+
+
+
+DEFINIMOS _ EXPLICITAMENTE 
+
+
+_ UM TYPE/TYPES QUE 
+
+O 
+
+
+TYPESCRIPT JÁ SERIA/É CAPAZ DE 'INFER',
+
+
+
+
+SE NÓS COMPILARMOS ESSE CÓDIGO,
+
+
+ELE 
+
+VAI FUNCIONAR,
+
+
+
+
+
+
+
+
+MAS AÍ VERMEOS 
+
+QUE 
+
+ESSE 
+
+TYPE ASSIGNMENT DESNECESSÁRIO SERÁ AUTOMATICAMENTE REMOVIDO DE NOSSO OUTPUT '.js'....
+
+
+
+
+
+
+
+
+
+
+
+
+O OUTPUT de 
+
+'objectBasics.js'
+
+
+
+FICARÁ ASSIM:
+
+
+
+
+------------------------------
+
+var person = { // OU SEJA, OS TYPES __ SUMIRAM__ (type assignments sumiram)....
+
+
+    name: 'Maximillian',
+    age: 30
+}
+
+
+console.log(person.name);
+
+----------------------------------
+
+
+
+
+
+
+
+
+ISSO É ESPERADO,
+
+PQ 
+
+TYPE ASSIGNMENTS __ NÃO __ SÃO __ PARTE 
+
+DO 
+
+JAVASCRIPT, como professor mencionou anteriormente....
+
+
+
+
+
+
+
+
+
+
+
+----> TYPES SÃO 'TYPESCRIPT ONLY',
+
+
+
+
+
+E O PROFESSOR SÓ MOSTROU ISSO DE NOVO 
+
+PARA 
+
+
+DEMONSTRAR QUE 
+
+
+
+ESSA 
+
+ESCRITA 
+
+
+DE 
+
+
+
+'const person : {
+    name: string;
+    age: number
+
+}
+
+'
+
+SÓ É A REPRESENTAÇÃO DO TYPESCRIPT DE UM OBJECT TYPE COM O QUAL VOCÊ ESTÁ TRABALHANDO 
+
+
+(
+
+    e 
+
+     a sintaxe melhor ainda é 
+
+     só 
+
+
+     'const person {
+         name: 'Seu nome',
+         age: 30
+     }
+)
+
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+Of course object types can also be created for nested objects.
+
+Let's say you have this JavaScript object:
+
+const product = {
+  id: 'abc1',
+  price: 12.99,
+  tags: ['great-offer', 'hot-and-new'],
+  details: {
+    title: 'Red Carpet',
+    description: 'A great carpet - almost brand-new!'
+  }
+}
+This would be the type of such an object:
+
+{
+  id: string;
+  price: number;
+  tags: string[];
+  details: {
+    title: string;
+    description: string;
+  }
+}
+So you have an object type in an object type so to say.
+
+
+
+
+
+
+
+
+
+---------------------------------------------------

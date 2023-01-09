@@ -1,0 +1,2390 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> agora que somos capazes de FETCHEAR O USER INPUT E O VALIDAR,
+
+
+
+
+
+
+
+COM A AJUDA DE NOSSA LÓGICA 'TYPESCRIPT-DRIVEN',
+
+
+
+
+
+
+
+
+
+
+NÓS DEVEMOS CONTINUAR,
+
+E VER O QUE MAIS PODEMOS FAZER COM ESSA 'GATHERED USER INPUt',
+
+para 
+
+fazer algo mais do que 
+
+apenas outputtá-la 
+
+
+no console...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ ATÉ AGORA SÓ PRINTAMOS A GATHERED INFORMATION NO CONSOLE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O OBJETIVO DEVE SER:
+
+
+
+
+1) O RENDER dESSA LISTA DE PROJECTS, COM BASE NESSE TEMPLATE: (
+
+
+                <template id="project-list">
+      <section class="projects">
+        <header>
+          <h2></h2>
+        </header>
+        <ul></ul>
+      </section>
+    </template>
+
+
+)
+
+
+
+
+
+EM QUE 
+
+CADA __ PROJECT ITEM SERÁ BASEADO NESTE TEMPLATE:
+
+
+(
+<template id="single-project">
+      <li></li>
+    </template>
+
+)
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... -------> E NÓS VAMOS OUTPUTTAR A INFORMATION QUE ACUMULAMOS POR MEIO DE 
+
+'gatherUserInputs',
+
+
+
+tudo nesses templates aí... (nos 'single-project")...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+
+
+
+
+-------> ALÉM DE TERMOS AQUELA CLASS DE 
+
+
+
+
+'ProjectInput' (
+
+
+    que era responsável pelo 
+
+
+    RENDERING DA FORM E 
+
+    PELO 
+
+    '
+    GATHER E VALIDATE DO USER INPUT',
+),
+
+
+
+
+
+
+
+TAMBÉM VAMOS QUERER TER OUTRA CLASS,
+
+
+DESSA  
+
+VEZ RESPONSÁVEL 
+
+PELO RENDER DE UMA __ LIST_  OF  PROJECTS... ------->
+
+
+
+
+
+NA VERDADE,
+
+
+SPLITTAREMOS ISSO EM 2 CLASSES:
+
+
+
+
+
+
+
+
+
+
+
+1a class --> SERÁ PARA A 'LIST' (unordered list) DE PROJECTS...
+
+
+
+
+
+
+2a class ---> para os PROJECTITEM _ NA LIST_>..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, 
+
+
+precisamos encontrar alguma maneira de 'PASS THAT GATHERED USER INPUT',
+
+
+
+userInput que acaba RETORNADO POR AQUELA function de 'gatherUserInputs',
+
+
+
+
+
+
+
+
+QUE FICOU COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+private gatherUserInputs(): [string, string, number] | void {
+
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+
+
+
+    const titleValidatable: Validatable = {
+        value: enteredTitle, 
+         required: true,
+          minLength: 5 ///lógica de validation, etc....
+  
+  
+      }
+  
+  
+  
+          const descriptionValidatable: Validatable = {
+  value: enteredDescription,
+   required: true,
+    minLength: 5
+  
+  
+      }
+  
+  
+      const peopleValidatable: Validatable = {
+          value: +enteredPeople,  
+          required: true, 
+          min: 1, 
+          max: 10
+      }
+
+      if (
+        !validate(titleValidatable) ||
+        !validate(descriptionValidatable) ||
+        !validate(peopleValidatable) 
+    ) 
+    {
+
+
+        alert('Invalid input, please try again.');
+        return;
+    } else {
+
+        return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+-----> essa function aí retorna os valores de nossos input fields (validados e acumulados)...
+
+
+
+
+
+
+
+
+
+---------> PRECISAMOS PEGAR ESSES VALORES E INSTANCIAR 1 OBJECT 'Project' a partir deles (por meio dessa class aí)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROVAVELMENTE VAMOS INSTANCIAR ESSE 'project'
+
+LÁ 
+
+
+
+NAQUELE METHOD DE 'submitHandler',
+
+
+
+
+
+na nossa class de 'ProjectInput':
+
+
+
+
+
+@Autobind
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+  
+
+        this.clearInputs();
+
+
+        //////tipo aqui...
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+PROFESSOR começa, etapa por etapa...
+
+
+
+
+
+
+
+
+
+
+-------> COMEÇAMOS PELO ADD DE UMA CLASS DE 'project list'...
+
+
+
+
+
+
+
+
+
+--> O EXATO lugar em que colocamos, no flow de nosso código, não importa...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR DIZ QUE VAI __ 'DEPENDER' da class de 'ProjectList',
+
+
+
+
+dentro do 'ProjectInput'...
+
+
+
+
+
+
+
+
+
+--> A IDEIA DISSO TEM UM POUCO DE RELAÇÃO COM O QUE FIZEMOS EM 'ProjectInput'...
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE VAMOS QUERER FAZER É 
+
+
+'REACH OUT TO OUR LIST TEMPLATE',
+
+
+
+
+E AÍ 
+
+
+
+
+
+
+RENDERIZAR 
+
+
+
+
+ESSA LIST 
+
+EM ALGUM 
+
+
+LOCAL DE NOSSO APP (ainda não sei que lugar será, mas talvez embaixo daquela div de id "app")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+
+    constructor() {
+
+
+
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+--> NÓS JÁ PODEMOS ADICIONAR OS FIELDS/PROPRIEDADES NECESSÁRIOS A ESSA LIST,
+
+
+
+
+que no caso serão (Exatamente como 'ProjectInput')
+
+
+
+'templateElement' 
+
+
+e 
+
+
+'hostElement'..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+
+    constructor() {
+
+
+
+
+    }
+
+
+
+
+}
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+PROFESSOR EXPLCIA QUE TAMBÉM VAMOS PRECISAR DO 'elemento em si',
+
+
+representado por 
+
+
+'element: HTMLFormElement'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLFormElement;
+
+    constructor() {
+
+
+
+
+    }
+
+
+
+
+}
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+----> certo, mas algumas desses fields/propriedades PRECISARÃO SER TWEAKADOS (pq eu acho que o element agora NÃO SERÁ MAIS UMA 'HTMLFormElement')...
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ --------> OS TYPES VÃO DIFERIR....
+
+
+
+
+
+
+
+
+ -------> O 'hostElement'
+
+
+ AINDA SERÁ AQUELA DIV, aquele 'HTMLDivElement',
+
+
+
+
+
+ PQ AINDA VAI SER AQUELE LOCAL 
+
+
+
+
+
+ '''
+
+     <div id="app"></div>
+
+     ''''
+
+
+
+
+     no 
+
+
+
+
+html...
+
+
+
+
+
+
+
+
+
+---> MAS o element EM SI NÃO SERÁ UMA FORM,
+
+E SIM 
+
+um 
+
+'HTMLElement'...  (
+
+    pq não existe um type de 'HTMLSectionElement'...
+)
+
+
+
+
+
+
+
+
+------> ESCREVEMOS SÓ 'HTMLElement'...
+
+
+
+
+
+
+
+
+HTMLElement --> USADO PARA TAGS HTML EM GERAL..
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... AGORA, É CLARO,
+
+
+
+
+PRECISMAOS 
+
+
+
+
+GANHAR ACESSO A ESSES ELEMENTS...
+
+
+
+
+
+
+--> podemos copiar o código de 'select' lá 
+
+de 'ProjectInput',
+
+
+
+
+
+
+aquele trecho de 
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+ this.templateElement = document.getElementById('project-input') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+
+       
+        const importedNode = document.importNode(this.templateElement.content, true); 
+
+        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input'; 
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+
+
+
+
+
+
+
+'''''''''''''''''
+
+
+
+
+
+
+
+
+
+--> vamos pegar isso aí e editar...
+
+
+
+
+
+
+
+
+
+-----> COLOCAMOS TUDO ISSO LÁ no 'constuctor()' de projectList...
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor() {
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.className = 'projects'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+
+
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+---> TAMBÉM PODEMOS ASSIGNAR UM 'id' 
+
+
+
+nesse elemento... (eu achava q era só um 'className')...---> O ID DEVERÁ SER __ DINÂMICO, NA VERDADE,
+
+
+E NÃO HARDCODED...
+
+
+
+
+
+
+
+
+
+---> __ O ID_ _DEVE __ SER DINÂMICO _PQ NÃO VAMOS TER APENAS 1 LISTA DE 
+
+'projects' (vamos ter active e finished)...
+
+
+
+
+
+
+
+
+
+
+
+-----> VAMOS QUERER TER 2 LISTS NO FINAL PROJECT,
+
+
+
+
+
+por isso 
+
+
+
+
+
+
+VAMOS QUERER RECEBER UMA 'ADDITIONAL INFORMATION' NO CONSTRUCTOR DE NOSSA CLASS 'ProjectList'....
+
+
+
+
+
+
+
+
+
+
+--> ESCREVEMOS 'ListType',
+
+
+
+
+
+
+para significar o 'type da list',
+
+
+
+E AÍ USAMOS O SHORTCUT DO TYPESCRIPT PARA DEFINIR PROPRIEDADES,
+
+QUE FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor(private projectType: string) { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id =  ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'...
+        this.element.className = 'projects'; ///isso vai adicionar o STYLING DEFINIDO LÁ NO NOSSO 'app.css'... (pq esse HTMLFormElement NÃO VAI TER ESSE ID, out of the box)....
+
+
+        this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
+        console.log(this.titleInputElement.value);
+        this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement; //EIS O CÓDIGO EM QUESTÃO.
+        this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement ;
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+--> eu escrevi
+
+
+
+'''constructor(private listType: string) {''',
+
+
+
+
+
+MAS ISSO NA VERDADE 
+
+
+
+
+NÃO VAI SER DE TYPE 'string',
+
+E SIM 
+
+
+SERÁ 
+
+
+DE 
+
+
+UM 'LITERAL TYPE',
+
+
+
+literal type (ou seja, 'active', 'finished', esses são os comandos suportados)....
+
+
+
+
+
+
+
+
+
+--> e aí colocamos um union type nesse literal type, para encaixar bem:
+
+
+
+
+
+
+
+
+
+'''constructor(private projectType: 'active' | 'finished') {''',
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO AINDA ESTÁ ERRADO, PQ O STYLING SERÁ, NA VERDADE,
+
+escrito assim:
+
+
+
+
+
+
+
+
+this.element.id = `${listType}-projects`   (active ou finished-projects)...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+COM ISSO, ESTAMOS GANHANDO ACESSO A TODOS 'CORE ELEMENTS'
+
+e ADICIONANDO 1 ID À 'section' que ESTAMOS CONSEGUINDO LÁ DE NOSSO 
+
+
+
+TEMPLATE...
+
+
+
+
+
+
+
+
+
+
+--> AGORA, NO CASO, RESTA FAZER O __ RENDER__ DESSE ELEMENTO NO NOSSO DOM...
+
+
+
+
+
+
+
+
+
+
+-------> PARA ISSO, NOVAMENTE, O PROFESSOR ADICIONA 
+
+UM METHODO 'private',
+
+
+
+DE 'attach()',
+
+
+
+EXATAMENTE COMO FIZEMOS 
+
+LÁ 
+
+
+NA NOSSA CLASS de 
+
+
+'ProjectInput'...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+    }
+
+
+
+
+    private attach() {
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MESMA LÓGICA USADA EM 'ProjectInput':
+
+
+
+
+
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+--> CERTO... AÍ VAMOS UTILIZAR ISSO, DENTRO DO CONSTRUCTOR DE 'ProjectList'....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+class ProjectList {
+
+
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+
+
+
+    constructor(private listType: 'active' | 'finished') { ///vamos alimentar nossa class, no momento de sua instanciação, com A INFO __ DE QUAL ___ PROJECTLIST QUEREMOS CRIAR (active/finished projectList)...
+        this.templateElement = document.getElementById('project-list') as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app') as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.listType}-projects`; ///esse id vai ser dinâmico, id de styling, JUSTAMENTE PQ TEREMOS 2 LISTS, UMA DE 'FINISHED PROJECTS' e outra de 'active'... --> ou aactive, ou finished...
+
+
+        this.attach();
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterbegin', this.element );
+    }
+
+}
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+----> MAS AQUI COLOCAMOS UM PEQUENO AJUSTE.. --> NÃO VAMOS QUERER RENDERIZAR ESSE NEGÓCIO 'afterbegin',
+
+
+e sim 
+
+'beforeend',
+
+
+PQ QUEREMOS QUE ELE __ FIQUE__ ABAIXO__ de nossa form... (before the closing tag of the host element)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... aí 'attach()' 
+
+
+É CHAMADO NO CONSTRUCTOR PARA FAZER ATTACH DE NOSSO 'createdElement'
+
+LÁ NO DOM....
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS essa 'ProjectList'
+
+
+
+
+
+TEM UMA DIFERENÇA FUNDAMENTAL EM RELAÇÃO à 'ProjectInput':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COM ESSA LIST,
+
+
+
+O RENDER NÃO É FEITO SÓ COM 'O ADD DA LIST AO DOM'... -------> ISSO _ PQ NÓS _ PRECISAMOS __ 
+
+
+
+
+
+
+DA DATA DOS INPUT FIELDS,
+
+colocada 
+
+
+em 
+
+
+1 PROJECT OBJECT (instanciado a partir de uma CLASS de mesmo nome),
+
+
+
+
+QUE 
+
+
+
+SERÁ __ ENTÃO INSERIDO__ NESSE OBJETO/CLASS DE 
+
+
+
+'ProjectList'...
+
+
+
+
+
+
+
+
+
+
+
+-------> 
+
+
+
+
+QUANTO à LIST,
+
+
+
+seu código html é este:
+
+
+
+
+  <template id="project-list">
+      <section class="projects">
+        <header>
+          <h2></h2>
+        </header>
+        <ul></ul>
+      </section>
+    </template>
+
+
+
+
+
+
+
+
+
+
+    ----------> ISSO SIGNIFICA QUE AINDA TEMOS um '<header>',
+
+
+    com uma 
+
+
+
+TAG H2 VAZIA...
+
+
+
+
+
+
+
+
+--> QUEREMOS 
+
+
+ADICIONAR TEXTO A ESSA TAG...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR ADICIONA UM NOVO METHOD,
+
+
+
+
+UM METHOD 'private'...
+
+
+
+
+
+
+
+
+
+
+--> SERÁ UM METHOD de 'renderContent()'..
+
+
+
+
+
+
+
+
+--> A IDEIA DO PROFESSOR É JUSTAMENTE__ PREENCHER__ 
+
+AQUELE 
+
+
+'h2',
+
+
+O BLANK SPACE
+ 
+
+ DENTRO DAQUELE TEMPLATE....
+
+
+
+
+
+
+
+
+
+
+ ---> vamos até esse method, e há algumas coisas que o professor quer fazer...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> A PRIMEIRA COISA QUE O PROFESSOR QUER FAZER É 
+
+
+
+
+
+ colocar um 'identifier'
+
+
+
+ naquela UNORDERED LIST 
+
+
+
+ de 'ul' 
+
+
+ nesse código:
+
+
+
+
+
+ 
+
+  <template id="project-list">
+      <section class="projects">
+        <header>
+          <h2></h2>
+        </header>
+        <ul></ul> ////EIS O CÓDIGO EM QUESTÃO.
+      </section>
+    </template>
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--------> ELE QUER ADICIONAR UM ID A ESSE NEGÓCIO, ISSO PQ __ MAIS TARDE__ VAMOS QUERER O SELECIONAR,
+
+
+
+
+
+SELECIONAR COM FACILIDADE....
+
+
+
+
+
+
+
+
+
+
+--> professor escreve uma constante de 'listId',
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+private renderContent() {
+
+    const listId = ``
+}
+
+
+
+
+
+
+
+
+
+
+--> ESSE 'listId'
+
+SERÁ UM TEMPLATE LITERAL,
+
+
+
+UMA STRING EM QUE PODEMOS INJETAR CONTEÚDO DINÂMICo...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS BASEAR ISSO NO 'type' 
+
+
+da PROJECTLIST/section... --> E, DEPOIS DISSO, PROFESSOR QUER INSERIR '-projects-list':
+
+
+
+
+
+
+
+
+
+private renderContent() {
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+}
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+ok... ISSO FEITO,
+
+VAMOS QUERER 'GANHAR ACESSO A UL'
+
+
+
+QUE TEMOS DENTRO DE nosso 'element' (this.element),
+
+
+TUDO POR MEIO DE UM CÓDIGO COMOO 
+
+
+
+
+
+
+'this.element.querySelector('ul');' 
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO, VAMOS QUERER DEFINIR O 'id' desse negócio como EQUIVALENTE A 'listId':
+
+
+
+
+
+
+
+
+
+
+private renderContent() {
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+
+    this.element.querySelector('ul').id = listId;
+}
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId;
+
+}
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+OK... ESSA É A PRIMEIRA COISA QUE VAMOS QUERER FAZER, DEIXAR ESSE 'id' 
+
+
+
+desse elemento aí, elemento que é nossa UNORDERED LIST...
+
+
+
+
+
+
+
+
+
+--> A SEGUNDA COISA QUE VAMOS QUERER FAZER, nesse 'renderContent()',
+
+É 
+
+
+
+
+
+___ SETTAR__ O 'textContent'
+
+DAQUELA 
+
+TAG 
+
+DE 
+
+'h2'....
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+O PROFESSOR ESCREVE ALGO Como  
+
+
+
+
+
+
+
+
+
+
+
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector('h2')!.textContent = this.listType
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ISSO VAI ADICIONAR o 'listType'
+
+
+COMo 
+
+
+
+
+
+'NOME' que será printado nesse 'h2'...
+
+
+
+
+
+
+
+--> CLARO QUE PODMEOS DEIXAR ISSO MAIS BONITO, TALVEZ POR UM CÓDIGO COMO ESTE:
+
+
+
+
+
+
+
+
+
+
+private renderContent() { ///usado para PREENCHER O CONTEÚDO DE 'h2' e tals, dentro do TEMPLATE de 'list'... (naquela section, dentro de seu heaeder)....
+
+    const listId = `
+    ${this.listType}-projects-list
+    `
+    
+    this.element.querySelector('ul')!.id = listId; //vai adicionar esse 'id' a nossa UNORDERED LIST no template de 'project-list'....
+
+    this.element.querySelector('h2')!.textContent = `${this.listType.toUpperCase()} PROJECTS `
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+OK... ESSA 'H2'
+
+vai ficar tipo 
+
+'ACTIVE PROJECTS'... --> header dessa section, essencialmente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, ESTAMOS GERALMENTE 'DONE'
+
+com essa list....
+
+
+
+
+
+
+--> AGORA SÓ FALTA ADICIONAR 'ITEMS' a essa list...
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS ISSO DEPOIS...
+
+
+
+
+
+
+
+
+
+
+--> MAS JÁ PODEMOS chamar 'this.renderContent()'
+
+
+
+DENTRO DE NOSSO CONSTRUCTOR, depois do 'attach()' (ou seja, DEPOIS DE ANEXAR ESSA NOSSA LIST AO DOM)...
+
+
+
+
+
+
+
+
+
+
+
+--> SERIA NICE SE PUDÉSSEMOS VER 
+
+
+ESSE 'ProjectList'
+
+
+EM AÇÃO...
+
+
+
+
+
+
+
+
+
+
+--> PARA VER ELA EM AÇÃO,
+
+VOCÊ DEVE A INSTANCIAR 
+lá 
+
+no call de 'submitHandler',
+
+
+LÁ 
+
+
+
+NA CLASS DE 'ProjectInput'...
+
+
+
+
+
+
+
+
+
+
+
+-------> certo.... mas aqui estamos com um problema, o validation do 'enteredPeople'
+
+NAÕ ESTÁ FUNCIONANDO (está sempre dando como 'valid')...
+
+
+
+
+--> OK, AGORA CONSERTEI, MAS A LIST AINDA ESTÁ SENDO ADICIONADA,
+
+MESMO QUANDO A VALIDATION FALHA....
+
+
+
+
+
+
+
+
+
+
+OK, AGORA CONSERTEI, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+private submitHandler(event: Event) { ///vai ser usado no nosso eventListener, por isso esse parâmetro de 'event', de type 'Event'..  ---> ///propriedade apenas capaz de ser acessada por EXECUÇÕES DENTRO DE NOSSA CLASS... (ou dentro do object) --> vocÊ só não pode usar A DOT NOTATION, no lado de fora, mesmo...
+
+    event.preventDefault();
+    console.log(this.titleInputElement); // se chamamos 'solto' assim, com esse 'this', vamos conseguir __ 'UNDEFINED', resultando em um erro... . 
+    console.log(this.titleInputElement.value);  /// --> para consertar esse comportamento, precismaos bindar a 'this' keyword a nossa class de 'ProjectInput'...
+      const userInput =  this.gatherUserInputs();
+      if (Array.isArray(userInput)) { //se entrmaos nesse BLOCK, o valor recebido em 'userInput' realmente foi uma TUPLE, E NÃO 'undefined' (que é o valor recebido quando a validatioN FALHA)...
+
+        const [title, desc, people] = userInput; //vamos fazer algo com esse input aí, extraído por meio do array destructuring...
+        
+        console.log(title, desc, people, 'LINE');
+
+
+        // const newProject = new Project(title, desc, people);
+
+        // if(!validate(newProject)) {
+        //     console.log(validate(newProject))
+        //     alert('Invalid input, please try again');
+        //     this.clearInputs
+        //     return;
+        // }
+
+
+        // projects.push(newProject);
+        // console.log(projects, 'TYPE');
+        this.clearInputs();
+        const newProjectList = new ProjectList('active');
+
+    }
+
+
+    this.clearInputs();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------> foi só colocar 'const newProjectList = new ProjectList('active')'
+
+
+LÁ NO INTERIOR DQUELE IF BLOCK de 'if(Array.isArray(userInput))' (que checa por nossa TUPLE)...
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+ ---> OK, MAS CONTINUANDO,
+
+
+ ESSE COMBO 
+
+
+ de 
+
+ '
+ this.attach()'
+
+
+
+ e 
+
+ 'this.renderContent()'
+
+
+
+ ESTÁ REALMENTE ANEXANDO NOSSA 'LIST' no dom...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> entretanto, o único problema é que essa list ESTÁ VAZIA, 
+
+ NÃO HÁ NENHUM ELEMENTO 'Project'
+
+ NO SEU INTERIOR....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR TESTA ISSO AÍ,
+
+ na developer tools...
+
+
+
+
+
+
+
+
+
+
+ ------> PROFESSOR FAZ UM TEST DA LIST,
+
+
+
+
+ tipo com 
+
+
+
+
+
+ 'const prjInput = new ProjectInput();
+ const activePrjList = new ProjectList('active');
+  const finishedPrjList = new ProjectList('finished');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> COMO PRÓXIMA ETAPA,
+
+
+  DEVEMOS FAZER/ESCREER 
+
+
+
+  'SOME WAY' 
+
+  QUE FAZ 
+
+  COM QUE 
+
+
+
+  UM NOVO PROJECT SEJA 'CRIADO NO CÓDIGO' (uma nova data strucutre)
+
+
+  __ E, AO MESMO TEMPO, NO DOM...
+
+
+
+
+
+
+
+
+  --> PRECISAMOS DE UMA NOVA DATA STRUCUTURE QUE REPRESENTA 
+
+
+  1 
+
+  PROJECT...
+
+
+
+
+
+
+
+
+
+  --. E AÍ PRECISAMOS PASSAR ESSA INFO SOBRE O NOVO OBJETO __A ESSA _ LIST de 'Active Projects'... 
+
+  (
+
+
+
+      pq cada novo project deve ser ACTIVE POR DEFAULT...
+  )
+
+
+
+
+
+
+
+
+
+  --> HÁ MTAS MANEIRAS DE CONSEGUIR IMPLEMENTAR ISSO,
+
+  MAS O PROFESSOR VAI FAZER 
+
+  ISSO 
+
+
+  POR MEIO DE UMA MANEIRA QUE __ ELE INVENTOU, ISSO NA PRÓXIMA AULA..

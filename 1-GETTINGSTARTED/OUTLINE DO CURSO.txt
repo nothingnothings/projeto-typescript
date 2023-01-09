@@ -1,0 +1,307 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ESTE CURSO TEM MT CONTEÚDO...
+
+
+
+
+
+
+
+
+
+
+
+1) GETTING STARTED 
+
+
+
+
+
+2) TYPESCRIPT BASICS --> os types 'CORE', e como o negócio geralmente funciona.... um bom entendimento de typescript...
+
+
+
+
+
+
+3) DEPOIS, VEREMOS __ O FUNCIONAMENTO DO COMPILER TYPESCRIPT, E _ SOBRE SUA CONFIGURAÇÃO... --> é importante entender o que podemos configurar lá, e o que cada SETTING faz..
+
+
+
+
+
+
+4) VEREMOS NEXT-GEN JS FEATURES, como elas funcionam e como podemos as utilizar no typescript...
+
+
+
+
+
+
+
+
+
+
+5) CLASSES E INTERFACES... ---> INTERFACES --> É UMA FEATURE TYPESCRIPT TOTALMENTE NOVA, E PQ DEVEMOS AS UTILIZAR....
+
+
+
+
+
+
+
+
+6) VEREMOS 'ADVANCED TYPES', E FEATURES AVANÇADAS TYPESCRIPT...
+
+
+
+
+
+
+
+7) OUTRA FEATURE AVANÇADA, É O 'GENERICS' ---> veremos o que é, e pq É SUPER ÚTIL... 
+
+
+
+
+
+
+
+8) DECORATORS --> feature bem legal, adicionada pelo typescript.... --> VEREMOS COMO _ CONSTRUIR __ DECORATORS BEM ÚTEIS..
+
+
+
+
+
+
+
+já teremos aprendido 
+
+BASTANTE 
+
+SOBRE O TYPESCRIPT,
+
+
+neste ponto...
+
+
+
+
+
+
+
+10) VAMOS PRATICAR, 1 MÓDULO INTEIRO EM QUE 
+
+CONSTRUÍMOS UM PROJETO INTEIRO 
+
+
+COM TYPESCRIPT,
+
+do zero.... --> VEREMOS AS FEATURES QUE APRENDEMOS, EM AÇÃO... -> veremos como elas funcionam em conjunto,
+
+e como SIMPLIFICAM O BUILD DE UM PROJECT...
+
+
+
+
+
+
+
+
+11) TRABALHAREMOS EM UM NOVO PROBLEMA, E AÍ __ TRABALHAREMSO COM 
+
+
+'NAMESPACES E MODULES',
+
+que 
+
+DEIXARÃO NOSSO 
+
+CÓDIGO MAIS LEGÍVEL E COMPREENSÍVEL...
+
+
+
+
+
+
+
+
+12 ) TRABALHAREMOS COM O WEBPACK (webpack + typescript).... ----> VAMOS O UTILIZAR COM O 
+
+
+TYPESCRIPT PARA TER UM DEVELOPMENT SETUP MELHOR, E PARA TER 
+
+O MELHOR DOS 2 MUNDOS... 
+
+(código que funciona bem para seus end-users)...
+
+
+
+
+
+
+
+
+13) THIRD-PARTY LIBRARIES e 
+
+
+O TYPESCRIPT (algumas third-party libraries que 
+
+
+EMBRAÇAM O TYPESCRIPT.... mas algumas NÃO SUPORTAM, e veremos isso aí)
+
+
+
+
+
+
+
+
+14) CENÁRIOS ESPECÍFICOS,
+
+
+
+'REACT + TYPESCRIPT' 
+
+
+'NODEexpress + TYPESCRIPT'
+
+
+
+
+
+
+(2 MÓDULOS SOBRE ISSSO)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SÃO 2 TIPOS POPULARES E BEM ESPECÍFICOS DO TYPESCRIPT...
+
+
+
+
+
+--> mt conteúdo,
+
+
+vamos começar...
+
+
+
+
+
+
+
+
+--> PROFESSOR FALA SOBRE 'ESLINT 'no 
+
+visual studio code...
+
+
+
+
+
+
+
+
+--> MATERIAL ICON THEME.... (é o que já utilizo)...
+
+
+
+
+
+
+
+--> 'Path Intellisense'... ----> ESTE NÃO TENHO...
+
+
+
+
+
+
+
+'VISUAL STUDIO CODE PLUGIN THAT AUTOCOMPLETES FILENAMES'...
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM O 'PRETTIER', que 
+
+te deixa 
+
+
+
+formatar o código melhor...
+
+
+
+
+
+
+
+
+
+--> SHORTCUT DE 'FORMAT DOCUMENT '-->  CTRL ALT F'....
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, TEMOS O 'TSLINt',
+
+
+
+MAS 
+
+
+
+ISSO SERÁ MERGEADO COM O 'ESLINT' no futuro..
+
+
+
+
+--> POR ISSO NÃO PRECISAMOS DISSO....
+-----------------------
+
+
+
+
+
+----> temos um bom editor,
+
+com um monte de suporte typescript, etc...

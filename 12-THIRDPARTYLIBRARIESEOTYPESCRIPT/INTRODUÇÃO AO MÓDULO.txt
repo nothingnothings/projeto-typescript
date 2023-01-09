@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+
+
+
+
+TYPESCRIPT E THIRD PARTY LIBRARIES....
+
+
+
+
+
+
+
+
+
+
+--> USANDO O PODER DO TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+--> GERALMENTE NÃO ESCREVEMOS TODO O CÓDIGO DE NOSSOS PROJETOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> CORE BUSINESS LOGIC...
+
+
+
+
+
+
+
+
+
+-->vEREMOS THIRD PARTY LIBRARIES E COMO PODEMOS AS ADICIONAR AOS NOSSOS PROJETOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS 2 TIPOS DE LIBRARIES PRINCIPAIS, e o que 
+
+o trabalho com elas em um projeto typescript significa...
+
+
+
+
+
+
+
+
+
+
+
+
+1) NORMAL LIBRARIES E USO DELAS COM TYPESCRITP....
+
+
+
+
+
+
+
+2) LIBRARIES ESPECÍFICAS AO TYPESCRIPT (
+
+
+    a diferença é que 
+
+    elas trabalham com 
+
+
+    FEATURES EXISTENTES APENAS NO TYPESCRIPT, INEXISTENTES 
+
+    NO 
+
+    JAVASCRIPT...
+)

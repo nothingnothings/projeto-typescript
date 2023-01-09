@@ -1,0 +1,352 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VIMOS TYPESCRIPT EM AÇÃO.... --> E ELE FORNECE GRANDES VANTAGENS....
+
+
+
+
+
+
+
+
+-> FAZ O WRITE DE JAVASCRIPT SER BEM MAIS FÁCIL,
+
+BEM MAIS TRANQUILO...
+
+
+
+
+
+
+
+
+
+
+
+
+---> TYPES --> TEMOS DE SER BEM MAIS EXPLÍCITOS SOBRE COMO NOSSO CÓDIGO VAI FUNCIOANR,
+
+
+
+EVITAMOS ERROS DESNECESSÁRIOS...
+
+
+
+
+
+
+
+
+
+
+
+---> TAMBÉM PODEMOS USAR IDEs 
+
+
+modernos,
+
+
+
+QUE 'PICK UP THESE TYPES',
+
+
+
+que 
+
+
+NOS DÃO 
+
+MELHOR AUTO-COMPLETE
+ 
+
+
+
+
+
+
+ E __ 'BUILT-IN' ERRORS QUE 
+
+
+
+ SÃO MOSTRADOS ATÉ 
+
+ MESMO ANTES 
+
+ DE 
+
+ COMPILARMOS O CÓDIGO,
+
+ PQ 
+
+ ELES 
+
+ JÁ SABEM TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+ -> MAS TAMBÉM GANHAMOS OUTRAS FEATURES ---> PODEMOS USAR/ESCREVER 
+
+ 'NEXT-GEN JAVASCRIPT FEATURES',
+
+
+ QUE 
+ VÃO 
+
+ SER ENTÃO COMPILADAS 
+
+
+ EM JAVASCRIPT VELHÃO.... -----> SE VOCÊ CONHECE O 
+
+
+ BABEL,
+
+ É TIPO O BABEL,
+
+
+ MAS 
+
+ JÁ __ 
+
+
+
+
+ 'BUILTIN' 
+
+
+ no typescript ----> PODEMOS USAR FEATURES MODERNAS JAVASCRIPT E AINDA 
+
+ ASSIM 
+
+
+
+
+
+
+ PRODUZIR E SHIPPAR __ CÓDIGO__ QUE FUNCIONA EM BROWSERS MAIS ANTIGOS,
+ TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O TYPESCRIPT TAMBÉM 
+
+
+ ADICIONA FEATURES QUE 
+
+
+ SÓ ELE ENTENDE,
+
+ COMO 
+
+
+ 'INTERFACES' 
+
+
+
+ E 
+ '
+ GENERICS'...
+
+
+
+
+
+
+
+
+ --> SÃO FEATURES QUE NÃO PODEM/NÃO SÃO COMPILADAS EM JAVASCRIPT,
+
+
+ MAS 
+
+ SÃO 
+
+ FEATURES 
+
+ QUE SERVEM 
+ PARA 
+
+ AUXILIAR NO DEVELOPMENT,
+
+
+ QUE 
+ NOS DÃO 
+
+ ERRORS 
+
+
+ MAIS CLAROS,
+
+ E NOS AJUDAM A EVITAR AINDA MAIS ERRORS....
+
+
+
+
+
+
+
+
+
+
+
+ --> OU SEJA,
+
+
+
+
+ TYPESCRIPT NOS DÁ AINDA MAIS FEATURES.... ---> O TYPESCRIPT ATMBÉM
+  
+
+
+
+  NOS DÁ ALGUMAS FEATURES 
+
+  'META',
+
+
+como 
+
+
+'DECORATORS' --> professor tem um módulo inteiro sobre isso...
+
+
+
+
+
+
+
+
+
+
+
+----------> VAI EXPLICAR PQ DECORATORS SÃO TÃO META, E PQ SÃO INCRÍVEIS...
+
+
+
+
+
+
+
+
+
+
+
+--> TYPESCRIPT TBM É ALTAMETNE CONFIGURÁVEL --> PROFESSOR TEM UM MÓDULO INTEIRO EM QUE 
+
+ELE 
+
+
+FALA 
+
+SOBRE O COMPILER E SOBRE 
+
+COMO 
+
+O 
+
+CONFIGURAR ---> deixá-lo mais solto,
+
+mais restrito,
+
+
+etc etc,
+
+
+
+DIZER EXATAMENTE COMO DEVE SE COMPORTAR... 
+
+
+
+
+
+
+
+
+
+
+
+
+-----> POR FIM,
+ 
+
+
+
+ COM 'MODERN TOOLING',
+
+
+ IDEs modernos,
+
+ VOCê GANHA SUPORTE 
+
+ ATÉ MESMO 
+
+
+ EM PROJETOS 
+
+
+ 'NON-TYPESCRIPT' -->  O ___ VISUAL STUDIO CODE __ TE DÁ 
+
+
+ MELHOR SUPORTE A´TE MESMO 
+
+
+ EM ARQUIVOS 
+
+ JAVASCRIPT 'plain',
+
+ PQ 
+
+
+
+
+ _ ELE __ USA O TYPESCRIPT UNDER THE HOOD,
+
+
+
+ AINDA QUE 
+
+ VOCê 
+
+
+ NÃO O USE EXPLICITAMENTE... (um 'free gain', que você ganha OUT-OF-THE-BOX, quando você usa 
+ 
+ 
+ MODERN TOOLS E CONHECE TYPESCRIPT...) ------> MTAS RAZÕES PARA USAR O TYPESCRIPT... e é provavelmente 
+
+ por isso que 
+
+ estamos estudando este curso...
+
+
+
+
+
+
+ 

@@ -1,0 +1,699 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> COMEÇAMOS....
+
+
+
+
+
+
+
+
+VAMOS QUERER CONSTRUIR UMA REST API BEM SIMPLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS VOCÊ PODE CONSTRUIR QUALQUER TIPO DE APP COM O TYPESCRIPT...
+
+
+
+
+
+
+
+
+
+
+--> professor cria um app.ts,
+
+ que será a root entry file para spinnarmos nosso server... 
+
+
+
+
+
+
+
+
+ --> LÁ O PROFESSOR VAI QUERER IMPORTAR 
+
+
+ O EXPRESS,
+
+ E O BODY PARSER...
+
+
+
+
+
+ ELE FARÁ ISSO ASSIM:
+
+
+
+
+
+
+
+
+ import { BodyParser } from "body-parser";
+
+
+
+import { Express } from "express";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUER DIZER,
+
+ EU __ ACHAVA__ QUE ELE IA FAZER ASSIM,
+
+ MAS A SINTAXE QUE ELE USOU FOI ESTA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ const express = require('express');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VOU IMITAR A SINTAXE DELE, PQ TAMBÉM ACHO MELHOR...
+
+
+
+
+const express = require('express');
+
+const bodyParser = require('body-parser');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, MAS ISSO _ NÃO ME DÁ AUTO-COMPLETE...
+
+
+
+
+
+
+
+
+
+--> AGORA, ESSA SINTAXE AQUI:
+
+
+
+
+
+
+import express from 'express';
+
+
+
+const app = express();
+
+
+
+
+
+
+
+
+
+
+
+
+--> FUNCIONA, E COM O AUTOCOMPLETE...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+import express from 'express';
+
+
+import bodyParser from 'body-parser';
+
+
+const app = express();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+import express from 'express';
+
+
+import bodyParser from 'body-parser';
+
+
+
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+
+
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... O PROFESSOR JÁ NOS FALA DO ERRO DE '
+
+const express = require('express')' 
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O REQUIRE É UMA FUNÇÃO QUE EXISTE NO SERVERSIDE, MAS NÃO 
+
+
+
+
+
+FUNCIONA NO BROWSERSIDE....
+
+
+
+
+
+
+
+
+
+--> E, DE FATO, EM 
+
+
+'tsconfig.json'
+
+
+NAÕ ESTAMOS USANDO NENHUMA LIB QUE SUPORTE ESSE 'require'..
+
+
+
+
+--> PARA FAZER ISSO FUNCIONAR,
+
+
+essa sintaxe de 'const express= require()',
+
+
+
+
+
+
+
+
+NÓS SOMOS OBRIGADOS A INSTALAR UM TYPE EXTRA, POR MEIO DE 
+
+
+
+'npm install --save-dev @types/node'....
+
+
+
+
+
+
+
+
+
+--> SE FIZERMOS ISSO,
+
+
+
+
+FUNCIONA, E NOSSO ERRO SOME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS AINDA ASSIM, NÃO GANHAMOS AUTO-COMPLETION no 'app.listen()'
+
+
+
+
+
+--> PARA CONSERTAR ISSO, PODEMOS usar a sintaxe do 'import' 
+
+
+
+
+
+
+
+--> o professor também instala o types de 'express'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... MAS AINDA NÃO GANHAMOS AUTO COMPLETE ---> A RAZÃO PARA ISSO 
+
+
+E´
+
+
+A SINTAXE DE IMPORTS QUE ESTAMOS USADNO,.... --> 
+
+
+
+
+
+
+
+
+DEVEMOS USAR A IMPORT SYNTAX DO TYPESCRIPT, QUE É A DE 
+
+'import'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> certo.... com isso, ficamos com typescript support...
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS OUTRO DETALHE:
+
+
+
+
+
+
+
+em 'node',
+
+
+
+
+EXISTE OUTRA 
+
+SINTAXE DE IMPORTS QUE TAMBÉM É SIMILAR A ESSA DE 'import express from 'express' '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA SINTAXE ESTÁ COM UMA FLAG DE 'EXPERIMENTAL',
+
+e está como EXPERIMENTAL
+
+
+
+
+__ FAZ MT TEMPO__... -----> É POR ISSO QUE USAR O COMMONJS NO 
+
+
+NODEJS É 
+
+
+
+
+O MAIS DEFAULT E COMUM MANEIRA DE ADICIONAR IMPORTS E EXPORTS.... -------> ESSA SINTAXE 
+
+
+
+
+
+EXPERIMENTAL É SUPORTADA, SE VOCÊ SETTAR ESSA FLAG DE EXPERIMENTAL... --> MAS 
+
+
+NESSE CODE NÃO ESTAMOS 
+
+USANDO ESSA SINTAXE EXPERIMENTAL,
+
+
+
+
+
+EM VEZ DISSO ESTMAOS USANDO ESSA SINTAXE TYPESCRIPT,
+
+QUE OBVIAMENTE MUDARÁ QUANDO COMPILARMOS NOSSO CÓDIGO PARA  JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR COMPILA NOSSO CÓDIGO, PARA DEMONSTRAR ISSO...
+
+
+
+
+
+
+
+
+
+--> REALMENTE, O CÓDIGO FICA BEM DIFERENTE:
+
+
+
+"use strict";
+// let age: number;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// age = 30;
+// console.log(age);
+// const express = require('express');
+// const bodyParser = require('body-parser');
+const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const app = (0, express_1.default)();
+const body = body_parser_1.default.json({ strict: true });
+app.use(body);
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+--> ELE REALMETNE PASSA A USAR O 'require()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ESSE É O CÓDIGO QUE SERÁ EXECUTADO DE FATO...
+
+
+
+
+
+
+
+
+
+--> PODEMOS EXECUTAR ESSE ARQUIVO JS COM O NODEMON ,
+
+
+basta 
+
+ir 
+
+até 
+
+
+o 
+
+
+'package.json'
+
+e então 
+
+
+
+
+
+ADICIONAR UM NOVO SCRIPT,
+
+
+tipo assim :
+
+
+
+
+
+"start": "nodemon dist/app.js" 
+
+
+
+
+--------------------
+
+
+OK, AGORA ISSO ESTÁ FUNCIONANDO...
+.
+
+
+
+--> ESSE É O SETUP NORMAL DO TYPESCRIPT QUE PODEMOS USAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... PODEMOS USAR ESSA SINTAXE DE IMPORTS,
+
+
+
+QUE O OUTPUT SERÁ 
+
+
+
+CÓDIGO JAVASCRIPT NORMAL NODEEXPRESS...
+
+
+
+
+
+
+
+-_> AGORA VAMOS VER COISAS MAIS ÚTEIS...

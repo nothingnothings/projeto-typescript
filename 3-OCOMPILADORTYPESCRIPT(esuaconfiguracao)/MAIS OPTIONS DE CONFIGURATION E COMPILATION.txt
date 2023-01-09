@@ -1,0 +1,386 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... TAMBÉM INTERESSANTE É A OPÇÃO de 
+
+
+'allowJs':
+
+
+
+
+
+
+  /* JavaScript Support */
+    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
+    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. */
+    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
+
+
+
+
+
+
+
+
+
+
+    --------> SE VOCê DEFINE ESSA OPTION COMO TRUE (e também 'checkJs'),
+
+
+
+    VOCê
+
+
+    PODE __ TAMBÉM DEIXAR_ 'js files'
+
+    ENTRAR NA SUA COMPILATION...
+
+
+
+
+
+
+
+
+
+
+--> COM 'allowJs',
+
+UM ARQUIVO JAVASCRIPT 
+
+
+(arquivos em geral)
+
+
+SERÃO 
+
+
+
+__COMPILADOS PELO TYPESCRIPT... --> isso significa que 
+
+
+MESMO ARQUIVOS SEM EXTENSÃO 
+'
+.ts'
+
+
+
+
+SERAÕ 
+
+COMPILADOS...
+
+
+
+
+
+
+
+
+
+ --------> COM 'checkJs',
+
+
+
+O TYPESCRIPT __ NÃO VAI __ COMPILAR __ SEUS ARQUIVOS,
+
+MAS __ VAI__ 
+
+
+
+
+FAZER UM 'CHECK' DA SINTAXE LÁ DENTRO,
+
+E 
+
+'REPORT POTENTIAL ERRORS.'.. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ESSAS OPTIONS __ PODEM SER ÚTEIS_ SE VOCê 
+
+
+NÃO QUER REALMENTE USAR O TYPESCRIPT,
+
+
+E SIM 
+
+
+
+__ só tirar __ VANTAGEM__ DE ALGUMAS DE SUAS FEATURES ---------> 
+
+
+
+
+
+
+
+
+OK, MAS COMO 
+
+
+ELE PODE NOS AJUDAR,
+
+ HEIN...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> pq se usamos o typescript SEM USAR NENHUMA DE SUAS FEATURES 
+
+ CORE,
+
+ NOSSO 
+
+
+ CÓDIGO VAI SER BASICAMENTE ESCRITO com 'any' 
+
+ em todas as variables/parameters....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR 
+
+ DIZ QUE 
+
+ NÃO PRECISAMOS 
+
+ DESSA OPÇÃO NESSE PROJETO,
+
+
+
+
+
+
+MAS QUE 
+
+
+
+PODEMOS USAR ESSA OPTION EM PROJETOS 
+
+
+
+EM QEU 
+ _ NÃO QUEREMOS USAR NEM UM POUCO DO 'typescript'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OU ENTÃO,
+
+ VOCê 
+
+ PODE TER UMA SITUAÇÃO EM QUE VOCê TEM 
+
+
+ ALGUAMS VANILLA JS 
+
+
+ FILES DO LADO DOS SEUS ARQUVOS .ts,
+
+
+
+
+
+ algumas files CUJA SINTAXE VOCê TAMBÉM VAI QUERER CHECAR, SIMULTANEAMENTE,
+
+ POR ALGUMA RAZÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEPOIS DISSO,
+
+ TEMOS UMA OPÇÃO 'jsx':
+
+
+
+
+
+
+
+
+ 
+    // "jsx": "preserve",                                /* Specify what JSX code is generated. */
+    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
+    // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
+    // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
+    // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    // "useDefineForClassFields": true,     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR APONTA QUE ESSA OPTION de 'jsx'
+
+NÃO IMPORTA PARA NÓS NO MOMENTo...
+
+
+
+
+
+
+
+--> OUTRAS OPTIONS QUE NÃO SÃO IMPORTANTES (no momento) 
+PARA ELE
+
+
+SÃO 
+
+
+'declaration' 
+
+e 
+
+
+'declarationMap'...:
+
+
+
+
+
+
+
+
+
+ /* Emit */
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declarationMap": true,         
+
+
+
+
+
+
+
+
+-----> ELE 
+
+EXPLICA 
+
+
+
+
+QUE 
+
+ARQUIVOS 
+
+'.d.ts' 
+
+
+
+SÓ __ SÃO IMPORTANTES __ SE VOCê PLANEJA 
+
+
+SHIPPAR __ SEU PROJETO COMO UMA __ LIBRARY__ PARA OUTRAS PESSOAS..
+
+
+
+
+
+
+
+
+
+---------> d.ts ---> isso basicamente te ajuda com arquivos 
+
+'manifest',
+
+
+
+QUE SÃO BASICAMENTE ARQUIVOS que descrevem TODOS OS ARQUIVOS QUE VOCê TEM 
+
+
+NO SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+----------> MAS AÍ TEMOS UMA OPTION QUE É INTERESSANTE,
+
+A OPTION DE 
+
+'sourceMaps'' (vista na próxima aula)...
+
+

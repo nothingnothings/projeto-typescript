@@ -1,0 +1,825 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... SE CONTINUARMOS,
+
+
+
+TEMOS MAIS OPTIONS...
+
+
+
+
+
+
+
+
+as options de 
+
+
+
+'noUnusedLocals',
+
+
+
+
+'noUnusedParameters',
+
+
+
+'noImplicitReturns' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ A OPTION DE 'noFallthroughCasesInSwitch' -----> TE AJUDA COM SWITCH STATEMENTS, EM QUE VOCÊ TALVZE SE ESQUEÇA DA KEYWORD DE 'break'... (bem comum)....
+
+
+
+
+
+
+----> ESSAS 3 
+
+OPÇÕES TE AJUDAM COM 'CODE QUALITY'....
+
+
+
+
+
+
+
+
+
+
+
+
+------> TYPESCRIPT __ VAI RECLAMAR__ SE VOCÊ TEM ALGUMAS 'UNUSED VARIABLES'
+
+
+
+e assim por diante...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... ISSO SIGNIFICA QUE 
+
+SE LIGARMOS ESSAS 3 
+
+
+OPTIONS ('no unused locals', 'no unused parameters' e 'no noImplicitReturns') ,
+
+
+
+
+
+
+
+O TYPESCRIPT VAI RECLAMAR DE COISAS COMO 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISTO AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> digamos QUE _ TEMOS UMA VARIABLE_ EXISTENTE__ LOCALMENTE__ 
+
+
+
+EM 
+
+
+
+UMA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+ex (variable de 'userName' dentro da function):
+
+
+
+
+
+
+
+function clickHandler(message: string) {
+    let userName = 'Max'; ////////// SE VOCÊ ESCREVER ISTO, VERÁ QUE 'TEREMOS LINHAS AMARELAS, MAS NÃO VERMELHAS' (ou sjea, é MAIS COMO UM AVISO/HINT).... 
+    console.log('Clicked !' + message)
+}
+
+
+
+
+
+
+
+
+
+
+
+----------> ENTRETANTO, SE MANTERMOS AQUELA OPTION DE 'noEmitOnError',
+
+
+
+NÃO VAMOS TER NOSSO CÓDIGO JS COMPILADO,
+
+
+
+PQ, EXPLICA O PROFESSOR,
+
+
+
+'''TYPESCRIPT IS ONLY ERRORS'''',
+
+
+só sabe se MANIFESTAR ATRAVÉS DE ERRORS....
+
+
+
+
+
+
+
+ex:
+
+
+'error TS6133: 'username' is declared but its value is never read'...
+
+
+
+(
+
+
+
+    esse erro aparece/apareceu 
+
+    JUSTAMNETE 
+
+    POR CAUSA 
+
+
+
+    DA OPTION DE 'noUnusedLocals'.... -->  OU SEJA, VARIÁVEIS 
+
+LOCAIS SEMPRE DEVEM SER USADAS..
+
+
+)
+
+
+
+
+
+
+
+
+
+------> OK.... 'noUnusedLocals' __ IMPEDE QUE VARIABLES LOCAIS 
+
+FIQUEM 'UNUSED'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> mas e quanto A 'UNUSED GLOBAL VARIABLES'...? 
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM, O PROFESSOR  cria uma CONSTANTE CHAMADA DE 'appId'...:
+
+
+
+
+
+
+
+
+
+
+let appId = 'abc'; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ VARIABLES __ GLOBAIS __ SÃO PERMITIDAS PELO TYPESCRIPT,
+
+ISSO 
+
+PQ 
+
+ELE __ NAÕ TE COMO SABEr 
+
+
+
+
+
+
+SE VOCê VAI PRECISAR DESSA 'GLOBALLY DEFINED
+
+
+VARIABLE'
+
+
+em  
+
+
+_OUTRO ARQUIVO 
+
+
+DE SCRIPT....  -----> E É POR ISSO QUE ESSE 'WRITE PORCO 'é permitido.....
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+MAS EM UMA 
+
+FUNCTION EM QUE 
+
+
+
+
+
+NÃO HÁ NENHUM LUGAR EM QUE 
+
+
+
+
+
+SEJA NECESSÁRIO USAR ESSA VARIABLE,
+
+
+O 
+
+
+
+TYPESCRIPT VAI SIMPLESMENTE TE XINGAR, E NADA MAIS... (error)....
+
+
+
+
+
+
+
+
+
+
+--> O MESMO OCORRE PARA __ A AUSÊNCIA DE DEFINIÇÃO DE TYPES 
+
+
+na sua função....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+function clickHandler(message: string, age: number {
+
+    let userName = 'Max' ///EXEMPLO DE CÓDIGO COM 'UNUSED LOCAL VARIABLES', que devem ser exterminadas, considerando aquele filme do XMEN...
+
+
+
+})
+
+
+ 
+
+
+
+
+
+
+
+ --> COISAS UNUSED SÃO MELHORES QUANDO REMOVIDAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> 'noImplicitReturns' -------> isso significa que 
+
+
+
+
+NÓS VAMOS GANHAR UM ERROR 
+
+SE TIVERMOS UMA FUNCTION _ QUE __ àS VEZES __ FAZ__ O RETURN DE ALGO, E ÀS VEZES 
+
+NÃO O FAZ... (returns meio aleatórios, em uma function)....
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA ISSO, PARA DEMONSTRAR, PROFESSOR CRIA UMA FUNCTION DE 'add' nova...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+
+
+
+    return n1 + n2;
+}
+
+
+
+
+
+
+
+
+
+
+-----> OK, NESSA FUNCTION TEREMOS 2 NUMBERS, E ELA RETORNARÁ o resultado da soma dos 2 parâmetros....
+
+
+
+
+
+
+
+
+
+
+--> MAS DIGAMOS QUE 
+
+
+
+VAMOS _ CHECAR__ SE 
+
+'n1 + n2'
+ 
+
+
+ É MAIOR DO QUE 0... ------> ISSO PQ __ SÓ VAMOS QUERER __ RETORNAR __ 
+
+
+ A ELE 
+
+ A 
+
+ FASE 
+
+ SE FOR SATISFEITA AUQELA CONIDTION... ------> ISSO SIGNIFICA, EM OUTRAS PALAVRAS,
+
+
+
+ QUE O TYPESCRIPT __ VAI DETECTAR_  QUE 
+
+
+ ESSA 
+ FUNCTION 
+
+ VAI 
+ RODAR/entregar 
+ 
+  TANTO 
+
+
+
+
+
+'RETURN n1 + n2' 
+
+
+
+COMO 
+
+
+_ NADA__ 'undefined', a execuçaõ de nenhum código......
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+function add(n1: number, n2: number) {
+
+
+    if (n1 + n2 > 0) {
+            return n1 + n2;
+
+    }
+
+    ///aqui não vamos retornar NADA....
+}
+
+
+
+
+
+
+
+------> É CLARO QUE _ ESSE CÓDIGO __ VAI NOS DAR 1 ERRO,
+ 
+
+
+ JUSTMANETE POR CAUSA DA OPTION de 'noImplicitReturns',
+
+
+ QUE _ TE OBRIGA_ A 
+
+ ESCREVER 
+
+ OS 
+
+
+ 'return'
+
+
+
+ em cada 1 de nossas function...
+
+
+
+
+
+
+
+
+
+
+
+ EX (versão correta):
+
+
+
+
+
+
+
+ 
+
+
+function add(n1: number, n2: number) {
+
+
+    if (n1 + n2 > 0) {
+            return n1 + n2;
+
+    }
+
+    return; ///DEVEMOS __ RETORNAR DELIBERADAMENTE cada 1 dos resultados dos statements....
+}
+
+
+
+
+
+
+
+-----------------------
+
+
+
+A OMISSÃO DESSE 'return' 
+
+
+
+NÃO É PERMITIDA...
+
+
+
+
+
+
+
+
+
+
+--> SÓ É PERMITIDa ESSA OMISSÃO  
+
+
+__ SE VOCÊ __ ESTÁ EM 1 FUNCTION QUE 'não retorna coisa alguma',
+
+
+
+
+
+
+
+
+
+
+COMO ESTA AQUi:
+
+
+
+
+
+
+
+
+
+function clickHandler(message: string) {
+
+    console.log('Clicked', message)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCÊ TEM, no seu código,
+
+
+1 pequena função que faz o  ACTUAL RETURN DE ALGO,
+
+
+
+VOCÊ É OBRIGADO A ESCREVEr 'return' 
+
+EM TODAS SUAS FUNCTIONS, EM TODOS OS CASES.... (certo).......
+
+
+
+
+
+
+
+
+
+
+
+QUANTO AO RESTO DAS OPTIONS, PODEMOS AS IGNORAR...
+
+
+
+
+
+
+
+
+'MODULE RESOLUTION OPTIONS'... --> N IMPORTAM MT A NÓS AQUI,
+
+
+NEM EM MTOS PROJEOTS...
+
+
+
+
+
+
+
+
+
+
+'source map options '--> as settings default geralmente são fine, são suficientes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> experimental options --> veremos depois,
+
+
+ESPECIALMENTE OS 'EXPERIMENTAL DECORATORS '--> ESSE SETOR 
+
+TE 
+
+DEIXA VER 
+
+FEATURES
+
+SUPER EXPERIMENTAL,
+
+QUE 
+
+
+TALVEZ 
+
+
+EXISTIRÃO NO JAVASCRIPT NO FUTUOR... (
+
+
+
+E VOCÊ PRECISA EXPLICAR 
+
+AO 
+
+
+
+TYPESCRIPT QUE QUER AS UTILIZAR, EXPLICIAMETNE..
+
+
+)
+
+
+
+
+
+
+
+
+OK.. ACABAMOS ESSE ARQUIVO,
+
+
+1 MONTE DE OPTIONS QUE PODEMOS 
+
+
+ALTERAR, AQUI....
+
+
+
+
+
+
+
+
+
+--> OS DOCS TE MOSTRAM TUDO QUE VOCÊ QUER SABER SOBRE AS OPTIONS...

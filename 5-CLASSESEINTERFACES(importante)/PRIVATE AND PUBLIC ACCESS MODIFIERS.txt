@@ -1,0 +1,1680 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... VIMOS UMA CLASS BEM BÁSICA,
+
+
+
+
+E O SEU COMPORTAMENTO 
+
+
+
+
+com 'this':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Department { ///é assim que vocÊ ESCREVE CLASSES __ NO TYPESCRIPT, supostamente ( COM ESSA DEFNIÇÃO DE 'KEY-TYPE' pairs)...
+//         ///ainda VAMOS PRECISAR DE CONSTRUCTOR FUNCTIONS NAS NOSSAS CLASS, EXATAMENTE COMO NO JAVASCRIPT COMUM...
+
+
+//     name: string = 'VALORDEFAULTQUESERÁSETTADOSENENHUMPARÂMETROFORPASSADO A ESSA SUA CLASS'; 
+//     number: number;
+
+
+//     constructor(n: string, z: number) {
+//         this.name = n; //// essa propriedade vai ser aquele 'name' visto ali em cima
+//         this.number = z; //essa propriedade vai ser aquele 'number' definido ali em cima....
+//     }
+
+
+
+
+//     describe() {
+//         // console.log('Department: ' + name); //essa variable __ NÃO EXISTE_ DENTRO DO CONTEXTO DE 'describe', e essa escrita/sintaxe é ERRADA...
+
+//         console.log('Department: ' + this.name); ////ISSO VAI SE REFERIR à PROPRIEDADE 'name' DE CADA OBJECT CRIADO A PARTIR DE NOSSA CLASS...
+//     }
+// }
+
+
+
+
+
+
+// const shiningApartment = new Department('salao', 55);
+
+
+
+
+
+// console.log(shiningApartment);
+
+
+
+
+
+
+// shiningApartment.describe(); ///////ISSO VAI PRINTAR 'Department: salao' ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+const accounting = new Department('Accounting');
+
+
+
+
+
+
+accounting.describe();
+
+
+
+
+
+// const accountingCopy = { describe: accounting.describe }; ///////object que nÃO FOI CRIADO COM A INSTANCIACAO DE NOSSA CLASS... (class de 'Department")...
+
+
+
+// accountingCopy.describe(); //// esse código é considerado INVÁLIDO_ JUSTAMNETE__ PQ ESTAMOS TENTNADO CHAMAR 'describe()' (esse method) EM 1 OBJECT_ _QUE __ NÃO _ É UM OBJECT CRIADO A PARTIR DA INSTANCIAÇÃO DAQUELA CLASS DE 'Department', que foi passada como type lá em 'describe(){}'... (e isso faz com que o 'THIS' de 'accounting' NÃO ACABE SE RFEFERINDO A UM OBJECT DE TYPE 'DEPARTMENT'  )
+
+
+/// como consertar ^^^^^esse código? --> bem, basta ADICIONAR A PROPRIEDADE DE 'name' A ESSE OBJECT de 'accountingCopy'.... (ou seja, esse object TEM QUE TER A MESMA ESTRUTURA DE NOSSA 'CLASS' de 'Department', pq é ISSO QUE ESTÁ __ EXIGINDO _ AQUELE PARÂMETRO de 'this: Department', lá em 'describe()', no interior dessa class)...
+
+
+const accountingCopy = { describe: accounting.describe, name: 'asihasiashais'}; ///////object que nÃO FOI CRIADO COM A INSTANCIACAO DE NOSSA CLASS... (class de 'Department")... --> ENTRETANTO, POR MEIO DO ADD da propriedade 'name', ACABAMOS COM O ERRO DE 'você não pode usar essa propriedade de describe pq o type desse seu object não é de type 'Department', definido nesse method....
+
+
+
+const accountingCopy2 = {describe: accounting.describe };
+
+
+accountingCopy2.describe(); ///ler explicações ao redor destes códigos....
+
+// accountingCopy.describe();
+
+accountingCopy.describe(); //vai printar 'Department: assashashasahj'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+MAS QUANDO TRABALHAMOS COM CLASSES,
+
+
+
+
+
+ELAS FREQUENTEMENTE 
+
+
+FICAM MAIS COMPLEXAS DO QUE ISSO,
+
+
+
+
+
+
+
+TIPICAMENTE ARMAZENAM MAIS DATA EM SEU INTERIOR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> uma class, por exemplo,
+
+
+deve ter 'EMPLOYEES'..
+
+
+
+
+
+-->  ESSE 'EMPLOYEES' DEVERÁ SER UM ARRAY DE STRINGS...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[]
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string, o: string[]) {
+        this.name = n;
+        this.employees = o;
+
+    }
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor ESCREVEU ESSE ARRAY ASSIM:
+
+
+
+
+'employees: string[] = []',
+
+
+MAS 
+
+ESSA 
+
+É 
+
+A ESCRITA MENOS ABREVIADA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ ELE COLOCA UM METHOD DE 'addEmployee',
+
+
+
+
+EM QUE __ O PARAMETER__ SERÁ 'employee', uma STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no caso DESSA NOSSA CLASS,
+
+
+VAMOS QUERER QUE 
+
+INICIALMENTE NAÕ EXISTA 
+
+ESSA 
+
+KEY DE 
+
+'employees', e que 
+
+ELA 
+SÓ SEJA 
+
+ADICIONADA 
+
+QUANDO ESSE METHOD DE 'addEmployee'
+
+
+
+for executado..
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string, o: string[]) {
+        this.name = n;
+    }
+
+
+
+    addEmployee(employee:string) {
+
+
+        this.employees.push(employee); //EIS O CÓDIGO EM QUESTÃO.
+    }
+
+
+
+
+
+
+
+
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+
+
+
+
+
+
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> CERTO... MAS SE ESCREVEMOS ASSIM,
+
+
+
+RECEBEMOS UM ERROR:
+
+
+
+
+
+''Property 'employees' has no initializer and is not definitely assigned in the constructor.''' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS O PROFESSOR ADICIONA UM NOVO METHOD,
+
+
+de 'printEmployeeInformation'...
+
+
+
+
+(ISSO CONSOLE.LOGGARÁ A LENGTH  de 'employees' E OS EMPLOYEES EM SI)...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+
+
+    printEmployeeInformation() {
+
+
+        console.log(this.employees.length);
+        console.log(this.employees);
+
+    }
+
+
+
+
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS AÍ O PROFESSOR  
+
+
+
+VAI QUERER 
+
+
+EXECUTAR UNS CÓDIGOS DE 'addEmployee',
+
+
+
+
+E TAMBÉM 
+
+
+RODAR 'printEmployeeInformation'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+
+
+    printEmployeeInformation() {
+
+
+        console.log(this.employees.length);
+        console.log(this.employees);
+
+    }
+
+
+
+
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+accounting.addEmployee('Max');
+accounting.addEmployee('Manu');
+
+
+
+accounting.printEmployeeInformation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS AQUI TEREMOS UM PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class Department {
+
+
+    name: string;
+    employees: string[];
+
+
+    constructor (n: string) {
+        this.name = n;
+    }
+
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+
+
+    printEmployeeInformation() {
+
+
+        console.log(this.employees.length);
+        console.log(this.employees);
+
+    }
+
+
+
+
+
+    describe(this: Department) { //////////EIS O CÓDIGO EM QUESTÃO. ----->  ---->  SE VOCÊ COLOCA 'this'  COMO __ PARÂMETRO __  EM  1  DE SEUS  METHODS em 1 class, __ VOCÊ ATIVA UMA FEATURE ESPECIAL NO TYPESCRIPT... -------> SE VOCê ADICIONA  UM PARAMETER DE 'THIS' no seu method, _ NÃO SERÁ REALMENTE UM PARAMETER DE 'THIS' que  será esperado... (pq você AINDA SERÁ CAPAZ DE CHAMAR '.describe()" SEM _ PASSAR NENHUM VALOR COMO PARÂMETRO DESSE CALL)....
+            ///esse 'this' aqui é usado para 'CONSERTAR'/TELL A HINT TO TYPESCRIPT __ ABOUT_ WHAT 'THIS' SHOULD REFER TO....
+            ////tipicamente settamos o 'this' de nossos methods __ COMO __ REFERENTE A __ NOSSA __ CLASS EM SI.... (é uma convenção)... --> isso __ CONSERTA O COMPORTAMENTO Da keyword 'this' em calls como de 'accountingCopy.describe()'... 
+            // O QUE FAZ ESSE PARÂMETRO DE 'this: Department'? --> QUANDO DESCRIBE() FOR EXECUTADO, o  'this' DENTRO DE 'describe' DEVERÁ  SE REFERIR  SEMPRE__ A UMA __ ''''' INSTANCE QUE É BASEADA NA CLASSE DE DEPARTMENT''''' 
+       
+       
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA QUE O PROFESSOR MENCIONA É QUE __ 
+
+É POSSÍVEL,
+
+NA CONFIGURAÇÃO ATUAL DO CÓDIGO,
+
+
+
+
+
+__ ACESSAR__ E ADICIONAR__ NOVOS EMPLOYEES 
+
+
+
+__DIRETAMENTE__ POR 
+
+MEIO 
+
+
+DA 
+
+ESCRITA JAVASCRIPT, SEM USAR AQUELE METHOD...
+
+
+
+
+
+
+
+(
+
+
+    ou seja,
+
+
+
+    por 
+
+
+
+    códigos como este:
+
+
+
+
+
+
+
+
+
+ const accounting = new Department('Accounting', ['a', 'b']);
+
+
+
+
+
+
+ accounting.employees.push('c'); ///ISSO FARÁ PUSH DIRETO DE um novo 'employee' dentro do array interno de 'employees' de 'accounting'...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->  VOCê ATÉ PODERIA PENSAR:
+
+
+
+'oh, legal, temos mais uma maneira de editar esse array''.. -> BEM... --> MAS QUANDO 
+
+
+
+
+VOCê 
+
+
+CONSTRÓI APLICATIVOS 
+
+MAIS COMPLEXOS,
+
+VOCÊ TIPICAMENTE 
+
+
+VAI QUERER _ _EVITAr__ SITUAÇÕES COMO ESSA... -------> VOCÊ QUER ASSEGURAR 
+
+
+
+
+QUE SÓ _ EXISTIRÁ/EXISTE__ 1 'CLEAR PATH' 
+
+
+PARA __ USAR__ SUA CLASS PARA FAZER ESSA COISA... (e vai querer BLOQUEAR ESSAS 'MANEIRAS ALTERNATIVAS' de fazer as coiass).....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ SE VOCÊ ESTIVER TRABALHANDO 
+
+
+COM 1 TIME MAIOR,
+
+
+1 
+
+COLEGA VAI QUERER USAR O APPROACH 'A' PARA ADICIONAR 
+
+
+
+
+UM 
+
+
+
+EMPLOYEE,
+
+
+AO PASSO QUE OUTRO COLEGA PODE QUERER USAR O APPROACH 'B' (e seria 
+
+
+bem mais organizado se 
+
+
+
+existisse APENAS 1 APPROACH, bem claro e uniforme,  de fazer a mesma coisa....
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+----> ALÉM DISSO,
+
+
+
+
+
+
+FREQUENTEMENTE NOS SEUS METHODS VOCÊ FARÁ MAIS DO QUE 'SÓ ADICIONAR 1 ELEMENTO A UM ARRAY'... --> 
+
+
+
+
+
+
+
+VOCê PROVAVELMENTE 
+TERÁ VALIDATION, coisas extras, etc, COISAS QUE 
+
+
+__ NÃO SERÃO/SERIMA
+ 
+
+
+ EXECUTADAS SE VOCÊ SÓ USASSE UM CÓDIGO PORCO E DIRETO 
+
+
+ como 
+
+
+
+
+
+ 'accounting.employees.push('c');' 
+
+
+
+
+
+ (
+
+     ASSIGNAR DIRETAMENTE UM VALOR.....
+
+
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> E É CLARO QUE 
+
+
+ O __ TYPESCRIPT_ NOS OFERECE 
+
+ UMA FEATURE __  QUE BLOQUEIA ESSE COMPORTAMENTO.....
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> OK.... MAS O QUE ELE OFERECE?
+
+
+
+
+
+
+
+
+
+
+ ------> ELE OFERECE A FEATURE DAS 'PRIVATE PROPERTIES'... 
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA __ CRIAR __ UMA 'PRIVATE PROPERTY'
+
+
+
+ em uma __ CLASS_ (fazendo com que TODAS AS PROPERTIES CRIADAS NOS OBJECTS CRIADOS A PARTIR DESSA CLASS __ TAMBÉM FIQUEM 'PRIVATE'),
+
+
+
+
+
+
+ VOCê 
+
+ DEVE 
+
+ ADICIONAR A 
+
+
+
+
+
+ KEYWORD
+
+
+
+
+ 'private'
+
+
+
+ NA FRENTE 
+
+
+ DA SUA PROPRIEDADE...
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+
+ class Department {
+
+
+    name: string;
+    private employees: string[]; /////////EIS O CÓDIGO EM QUESTÃO.
+
+
+    constructor (n: string, emp: string[]) {
+        this.name = n;
+        this.employees = emp;
+    }
+
+
+    addEmployee(employee: string) {
+        this.employees.push(employee); ///array de 'employees' PASSARÁ A EXISTIR quando esse method for executado....
+    }
+
+    printEmployeeInformation() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+    }
+
+
+
+    describe(this: Department) {
+            console.log('Department: ' + this.name);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBS:::: PROFESSOR TAMBÉM NOS ENSINA QUE 
+
+VOCÊ PODE USAR 
+
+'private'
+
+
+EM COISAS QUE _ NÃO SÃO PROPRIEDADES,
+
+COMO 
+
+'__METHODS__' , TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE 
+AGORA 
+
+
+
+'employees'
+
+
+É UMA __ PROPRIEDAED__ 
+
+
+
+
+__ QUE __ SÓ __ PODE 
+
+
+__ SER ACESSADA__ DO LADO__ DE DENTRO __ DA CLASS... (ou seja, dentro do CREATED OBJECT) ---> ISSO 
+
+SIGNFIICA QUE 
+
+
+
+SO´
+
+METHODS 
+
+QUE 
+EXISTEM 
+
+
+
+DENTRO DE NOSSA CLASS/OBJECTS __ 
+
+
+
+
+__ SÃO CAPAZES_ _DE ALTERAR ESSA PROPRIEDADE, 
+
+
+em cada object....
+
+
+
+
+
+
+
+
+
+
+
+--> SE TENTAMOS ESCREVER ALGO COMOO 
+
+
+
+'accounting.employees[2] = 'Mark'
+,
+
+
+
+
+
+__ GANHAMOS UM ERROR, PORTANOT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA AS PESSOAS SERÃO FORÇADAS A USAR ESSE METHOD DE 'addEmployee'
+
+
+PARA 
+
+ALTERAR 
+
+ESSE ARRAY DE 'employees'
+
+EM CADA OBJECT 'Department'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO, ESSE 'private',
+
+
+É AQUILO QUE 
+
+
+CHAMAM DE 'modifier'
+
+
+
+
+
+
+
+
+
+
+-> É A KEYWORD 'private', que __ é um MODIFIER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> A KEYWORD 'public'
+
+TAMBÉM É UM MODIFIER,
+
+MAS __ PRATICAMENTE__ NUNCA __ É UTILIZADA... --> N É UTILIZADA __ PQ É O DEFAULT_ 
+
+DE 
+
+
+
+
+SUAS CLASSES (
+
+
+
+    'name: string;'
+
+
+
+    É EXATAMENTE A MESMA COISA QUE 
+
+
+    'public name: string;'
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> A DIFERENÇA 
+
+É 
+
+QUE 
+
+'
+publci' 
+
+PROPERTIES SÃO ACESSADAS DO LADO 
+
+DE FORA,
+
+
+
+
+
+__ AO PASSO __ QUE 
+
+
+PRIVATE PROPERTIES, NÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TECNICAMENTE,
+
+
+O 
+
+__ JAVASCRIPT__ NÃO CONHECE 
+
+
+ESSAS KEYWORDS DE 'private' e 'public' --> SÓ EM 
+
+
+VERSÕES MUITO MODERNAS,
+
+ADICIONADAS RECENTEMENTE,
+
+COISAS 
+
+
+ASSIM EXISTEM...
+
+
+
+
+
+
+
+
+
+
+
+--> NO PASSADO,
+
+O JS 
+
+NEM FAZIA IDEIA QUE ISSO EXISTE.... (properties sempre eram public)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS ESSA FEATURE DE PUBLIC/PRIVATE __ NÃO EXISTE DURANTE O RUNTIME,
+
+
+PQ O JAVASCRIPT ATÉ RECENTEMNETE__  SÓ _ 
+CONHECIA 
+
+
+PUBLIC 
+
+
+
+PROPERTIES.... -------> ISSO SIGNIFICA QUE 
+
+
+
+
+SE DEIXARMOS ESSE 'ERROR' E COMPILARMOS NOSSO CÓDIGO,
+
+
+
+
+
+
+
+
+___ A ALTERAÇÃO DAS PROPRIEDADES/METHODS 'private'
+
+
+AINDA VAI OCORRER __,
+
+
+PQ 
+
+O 
+
+JAVASCRIPT É BURRO E N ENTENDE, POR CONTA PRÓPRIA,
+
+QUE 
+
+
+ESSA SINTAXE É ERRADA/NÃO DEVE SER PERMITIDA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE VOCÊ DEVE TER CUIDADO COM ISSO...
+
+
+
+
+
+
+
+
+A SINTAXE __ DO VANILLA JAVASCRIPT ACERCA DE 'private field syntax'
+
+
+
+,
+
+ALÉM DISSO,
+
+__N ÃO USA ESSA SINTAXE DE 'public/private' 
+
+
+
+
+
+
+
+(USA 
+
+KEYWORDS DIFERENTES...)
+
+
+
+
+
+
+
+
+
+A SINTAXE NO JAVASCRIPT VANILLA É ASSIM:
+
+
+
+
+
+
+class ClassWithPrivateField {
+  #privateField;
+}
+
+class ClassWithPrivateMethod {
+  #privateMethod() {
+    return 'hello world';
+  }
+}
+
+class ClassWithPrivateStaticField {
+  static #PRIVATE_STATIC_FIELD;
+}
+
+class ClassWithPrivateStaticMethod {
+  static #privateStaticMethod() {
+    return 'hello world';
+  }
+}
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS COM ISSO, PODEMOS EVITAR CÓDIGO COMO ESSE, COM 'MÚLTIPLOS APPROACHES/GAMBIARRAS',
+
+
+e então 
+
+
+FORÇAR TODO MUNDO A ESCREVER CÓDIGO MAIS LIMPO....

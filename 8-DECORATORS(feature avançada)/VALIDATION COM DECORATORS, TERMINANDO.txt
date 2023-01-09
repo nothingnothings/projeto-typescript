@@ -1,0 +1,2393 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA IMPLEMENTAR A FEATURE DE 'VALIDATION' por meio de decorators, nosso código estava ficando assim:
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+
+
+function PositiveNumber() {//DECORATOR (property decorator)
+
+}
+
+
+function Required() { ///decorator (property decorator)
+
+}
+
+
+function Validate(obj: object) { ///decorator (acho...)....
+
+}
+
+
+
+
+
+
+
+
+
+class Course {
+  @Required
+  title: string;
+
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+
+
+    const newCourse = new Course(title, price);
+    
+
+    if(!Validate(newCourse)) {
+
+      alert('Invalid input, please try again.');
+      return;
+
+    }
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ANTES DE MAIS NADA,
+
+
+
+
+
+
+
+
+
+O PROFESSOR CRIA ___ UMA INTERFACE,
+
+DE NOME 
+
+
+'ValidatorConfig',
+
+
+
+em que 
+
+ELE 
+
+VAI QUERER 
+
+
+
+CONFIGURAR AQUELA 
+
+
+'STORAGE' com a qual vamos ter que trabalhar....
+
+
+
+
+
+
+
+
+
+
+
+--> A IDEIA DO PROFESSOR É TER UM PUNHADO DE PROPRIEDADES (infinitas, no caso, ou INDETERMINADA SUA QUANTIDADE, para ser mais exato)...
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA FAZER ESSE ADD DE 'PROPRIEDADES INFINITAS' (o nome fancy é  'INDEXABLE TYPES'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENCONTREI  A AULA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA ISSO,
+
+
+PROFESSOR QUER COMEÇAR COM 
+
+
+
+
+
+os 
+
+
+
+
+
+
+'INDEX TYPES' ------------> É UMA __ FEATURE__ QUE __
+
+
+
+
+
+
+
+
+__ NOS DEIXA__ CRIAR OBJECTS __  QUE SÃO ___ MAIS FLEXÍVEIS__ A RESPEITO DAS __ PROPRIEDADES__ 
+
+QUE 
+
+
+ELES 
+
+
+
+PODERÃO TER...
+
+
+
+
+
+
+
+
+(
+
+
+
+    ou seja, 'conjuntos de propriedades', penso eu....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS O QUE O PROFESSOR QUER DIZER POR ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, DIGAMOS QUE __ VOCÊ ESTÁ ESCREVENDO UM APP EM QUE __ VOCÊ _ ESTÁ __ VALIDANDO O USER INPUT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> TEMOS MÚLTIPLOS INPUT FIELDS,
+
+
+E dependendo do que o user inputta,
+
+
+
+
+
+VAMOS QUERER 
+
+'STORE' E 'SHOW'
+
+DIFERENTES 
+
+MENSAGENS DE ERRO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO, SE FOR UM FIELD DE 'email',
+
+VAMOS QUERER 
+
+CHECAR 
+SE 
+
+O NEGÓCIO É REALMENTE UM EMAIL,
+
+ 
+
+ e se não for,
+
+
+ VAMOS QUERER 
+
+
+
+
+ ,MOSTRAR UMA MENSAGEM DE ERRO PRÓPRIA,
+
+
+
+
+   
+PROVAVELMENTE EM UM 'ERROR CONTAINER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR AÍ QUE VAMOS COMEÇAR...
+
+
+
+
+
+
+
+
+
+
+-_> PROFESSOR CRIA UMA NOVA INTERFACE,
+
+em 1 novo arquivo....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+interface ErrorContainer {
+
+
+    
+}
+
+
+
+
+
+
+
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTINUANDO... É POR ISSO QUE O PROFESSOR VAI ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+interface ValidatorConfig {
+  [property: string]: {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> certo.... isso significa que CADA PROPERTYNAME/property SERÁ DE TIPO 'string',
+
+
+
+e 
+
+
+
+VAI __ SEGURAR__ UM 'OBJECT'...
+
+
+
+
+
+
+
+
+
+
+
+---> DENTRO DE CADA OBJECT,
+
+
+
+
+
+
+
+TEREMOS AS 'CONCRETE PROPERTIES' das __ CLASSES__ 
+
+
+
+
+
+
+QUE POSSUEM VALIDATORS ANEXADAS NAS PROPRIEDADES INTERIORES... ----> é por isso que dentro desse objeto teremos a expressão '[validatableProperty: string]'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E O VALOR PARA cada uma dessas 'validatableProperty'
+
+
+
+
+_DEVERÁ _ SER 'UM ARRAY DE STRINGS', 
+
+
+
+em que 
+
+
+BASICAMENTE TEREMOS COISAS COMO 'required, positive', etc etc... (ou seja, uma LISTA DOS VALIDATORS usados nessa class)..
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+interface ValidatorConfig {
+  [property: string]: {
+
+    [validatableProperty: string]: string[] //'required', 'positive'
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, PODEREMOS CRIAR UMA CONSTANTE DE NOME 
+
+'registeredValidators',
+
+
+ 
+
+
+ QUE SERÁ DE TIPO 'ValidatorConfig',
+
+
+ e que 
+
+
+
+ INICIALMENTE_ SERÁ_ UM OBJETO VAZIO (mesmo nós tendo esse type, ele será válido, pq essa é a característica 
+ 
+ dos indexable types: como o número/nome de suas propriedades é VARIÁVEL, podemos deixar nossos objects com esse type __ VAZIOs)....
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ EX:
+ 
+ 
+ 
+ 
+ 
+interface ValidatorConfig {
+  [property: string]: {
+
+    [validatableProperty: string]: string[] //'required', 'positive'
+
+
+  }
+}
+
+
+const registeredValidators: ValidatorConfig = {}
+
+
+
+
+
+
+
+
+
+
+
+--> isso pq inicialmente, 
+
+
+
+quando carregamos nosso app,
+ 
+ não existem errors (serão preenchidos eventualmente, eis a utilidade desses 'indexable types')...
+
+
+
+
+
+
+
+ ---------> OK.... -----> AÍ ALI, 
+
+
+
+
+ nos nossos DECORATORS,
+
+
+
+ QUEREMOS ADICIONAR ALGO ÀQUELE 'registry'... (de 'registeredValidators')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VOCê DEVE TER EM MENTE QUE __ UMA 'property decorator function'
+
+
+
+
+ SEMPRE 
+
+ RECEBE 2 ARGUMENTOS:
+
+
+
+
+
+
+
+
+ 1) O target (que é o prototype do object, se estamos falando de um decorator em uma INSTANTIATED CLASS)....
+
+
+
+
+
+
+
+
+
+ 2) DEPOIS DISSO, A 'propertyName' 
+
+
+
+
+
+
+
+
+ ----> ISSO QUER DIZER QUE __ NÓS NÃO VAMOS CONSEGUIR O 'DESCRIPTOR' para 
+
+ DECORATORS DE PROPERTIES...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+ function Required(target: any, propName: string)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> AÍ, DENTRO DESSE DECORATOR, VAMOS ACESSAR 
+
+ 
+
+
+ 'registeredValidators'
+
+
+
+ E ENTÃO VAMOS ADICIONAR UMA NOVA 'ENTRY',
+
+ uma nova 
+
+
+ __PROPRIEDADE_, POR ASSIM DIZER...
+
+
+
+
+
+
+
+
+
+
+
+ --> faremos isso por meio 
+
+ de uma escrita 
+ como 
+
+
+ 'registeredValidators[target.constructor]'
+
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+ const registeredValidators = ValidatorConfig = {};
+
+
+
+ function Required(target: any, propName: string) {
+
+   registeredValidators[target.constructor];
+ }
+
+
+
+
+
+
+
+
+
+
+
+ -_> OK,MAS PQ ESSA ESCRITA? 
+
+ é 
+
+ pq 
+
+
+
+ o  PROTOTYPE DA INSTANCE COM QUE ESTAMOS TRABALHANDO (que é 'Course')
+
+
+ VAI 
+
+ TER 
+
+
+ 
+ UMA KEY DE 'contructor',
+
+
+ QUE __ VAI _ APONTAR__ À CONSTRUCTOR FUNCTION 
+
+
+
+ QUE FOI USADA PARA CONSTRUIR NOSSO OBJETO (basicamente, será o nome de 'Course', pq é isso que será retrievado da constructor function, passada por meio dessa escrita de 'target.constructor'...).
+
+
+
+
+
+
+
+
+
+
+
+ ----> E COMO 'constructor' é uma __ FUNCTION, PODEMOS ACESSAR A PROPRIEDADE 'name' 
+
+
+ NO INTERIOR DELA __ PARA__ CONSEGUIR SUA 'FUNCTION NAME' (Que será 'Course')...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ const registeredValidators = ValidatorConfig = {};
+
+
+
+ function Required(target: any, propName: string) {
+
+   registeredValidators[target.constructor.name]  ////retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO, MAS ISSO AÍ SERÁ SÓ O NOME DA PROPRIEDADE... --> QUANTO AO VALOR,
+
+
+
+VAMOS 
+
+SETTÁ-LO COMO 
+
+SENDO IGUAL A __OUTRO __ OBJECT.... --> 
+
+
+
+
+
+
+
+
+
+E NESSE OBJECT __ TAMBÉM TEREMOS 
+
+
+
+
+'A DINAMICALLY ASSIGNED property (indexable property)',
+
+
+
+
+em que 
+
+
+
+coloco 'propName',
+
+
+
+
+
+
+
+
+esse parâmetro aí,
+
+como 
+
+'key'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+ 
+
+ const registeredValidators = ValidatorConfig = {};
+
+
+
+ function Required(target: any, propName: string) {
+
+   registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+   }
+   
+   
+   
+   
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... NOSSO PROPNAME será colocado ali como uma key,
+
+e aí 
+
+o 
+valor 
+
+
+dessa propriedade SERÁ UM ARRAY DE STRINGS,
+
+
+
+
+array em que constará a string de 'required'..
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+ const registeredValidators = ValidatorConfig = {};
+
+
+
+ function Required(target: any, propName: string) {
+
+   registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+    [propName]: ['required']
+   }
+   
+   
+   
+   
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE ESSE É UM VALIDATOR MT 'NAIVE'... ------->  SE TIVÉSSEMOS OUTROS 
+
+VALIDATORS 
+
+
+
+
+
+
+__ REGISTRADOS_ PARA ESSA PROPRIEDADE 
+
+DE 
+
+
+'propName',
+
+
+
+O PROFESSOR 
+
+
+
+OVERWRITTARIA ESSES VALUES AGORA....
+
+
+
+
+
+
+(
+  só 
+
+
+  adicionar 'required' ao array já existente...
+)
+
+
+
+
+
+
+
+--> mas o professor vai seguir esse approach mais 'naive',
+
+
+para salvar tempo....
+
+
+
+
+
+
+
+
+
+
+
+--> NO DECORATOR DE 'PositiveNumber',
+
+
+
+
+FAEZMOS ESSENCIALMENTE A MESMA COISA, mas escrevemos 'positive'... (esse identifier)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+interface ValidatorConfig {
+  [property: string]: { ///exemplo de 'INDEXABLE TYPES' ( ou seja, de um OBJECT/class com PROPRIEDADES INFINITAS/VARIÁVEIS...)
+
+
+    [validatableProperty: string]: string[]
+
+
+  } ////////E PARECE QUE CADA 'PROPRIEDADE VARIÁVEL' nessa nossa class _ VAI __ ARMAZENAR UM OBJECT ({})...
+
+}
+
+
+
+
+
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+    [propName]: ['positive']
+  }
+}
+
+
+function Required(target: any, propName: string) { ///decorator (property decorator)
+
+
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+    [propName]: ['required']
+  }
+  
+}
+
+
+function Validate(obj: object) { ///decorator (acho...)....
+
+}
+
+
+
+
+
+const registeredValidators: ValidatorConfig = {}
+
+
+
+class Course {
+  @Required
+  title: string;
+
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... MAS COM ISSO, COM TUDO ISSO QUE REGISTRAMOS ATÉ AGORA,
+
+
+
+
+
+_ NÓS __ REGISTRAMOS 
+
+
+
+
+ESSAS PROPRIEDADES DE 'title' e 'price' 
+
+
+
+
+
+
+
+E SEUS _ VALIDATORS/DECORATORS_ _ NA NOSSA 'GLOBAL CONFIG',
+
+
+
+QUANDO ESSA CLASS É DEFINIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA SÓ PRECISAMOS TRABALHAR NA FUNCTION DE 'validate()'... ---> 
+
+
+
+
+
+
+
+
+
+ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ANTES DE MAIS NADA, PROFESSOR VAI QUERER RETRIEVAR 'the concrete configuration' 
+
+
+DO OBJECT COM QUE ESTAMOS LIDANDO... -------> 
+
+
+
+
+
+
+
+PARA ISSO, É CLARO,
+
+PRECISAMOS ___'''DESCOBRIR''' 
+
+
+
+
+QUAL CONSTRUCTOR FUNCTION NOSSO 
+
+
+OBJECT 
+
+É 
+
+'BASED ON' 
+
+
+(
+
+
+  auqele object em 
+
+  'function validate(obj: object)'...
+) 
+
+
+
+
+
+__ E AÍ _ VAMOS 'GET THE VALIDATION CONFIG/PROPERTY VALIDATOR MAPPINGS'
+
+
+
+que 
+
+
+settamos para esse object...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+até agora, nossa function está assim:
+
+
+
+
+
+
+
+
+
+
+function validate(obj: object) {
+
+}
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO CASO, 
+
+
+professor vai escrever 
+
+
+
+'const objectValidatorConfig',
+
+
+
+e aí 
+
+VAI ACESSAR A PROPRIEDADE de 'registeredValidators' 
+
+
+
+
+
+
+
+
+QUE SERÁ 'obj.constructor.name'  (ou seja, MESMA LÓGICA DE ANTEs)...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+function validate(obj: object) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+
+
+    const objectValidatorConfig = registeredValidators[obj.constructor.name];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO SIGNIFICA QUE ACESSAMOS A PROPRIEDADE 'constructor' dentro DO OBJECT(não interessa o object),
+
+
+
+
+
+...
+ podemos acessar esse constructor diretamente _ DEVIDO __ À MANEIRA PELA QUAL O JAVASCRIPT FUNCIONA,
+
+ E DEVIDO AO 
+
+
+ 'PROTOTYPE CHAINING'... 
+
+
+
+
+
+
+
+--> isso fará, é claro, que um object como 
+
+
+
+'newCourse'
+
+
+
+__ VAI RETORNAR, POR MEIO DESSA EXPRESSÃO,
+
+a string de 'Course', pq é 
+
+ÓBVIO QUE 
+
+
+ESSE OBJECT É BASEADO NESSA CLASS..
+
+
+
+
+
+
+
+ ----------- 
+
+
+
+
+
+
+
+
+
+ OK....  
+
+
+
+
+
+
+
+
+
+
+
+ --------> É CLARO QUE EVENTUALMENTE PODEMOS 'NOT FIND THIS', 
+
+
+
+
+TENTAR 'VALIDATE' UM OBJECT_  EM QUE __ NADA __ FOI 'REGISTERED'...
+
+
+
+
+
+
+
+
+
+-_> é por isso que colocamos um IF CHECK DE 
+
+
+
+'!objectValidatorConfig'.... 
+
+
+
+
+
+se entramos nesse block, vamos querer retornar 'true' (
+
+
+
+  pq 
+
+  essa 
+
+
+
+  function de validate vai OU 
+
+  RETORNAR TRUE, OU FALSE....
+)
+
+
+
+
+
+
+
+
+
+---> mas se acharmos um 'objectValidatorConfig' com coisas dentro, vamos querer loopar por dentro de nossas propriedades de 
+
+'objectValidatorConfig'...
+
+
+--> expressão 'for (const prop in objectValidatorConfig)'...
+
+
+
+
+
+
+
+ISSO VAI NOS DAR ACESSO A TODOS OS 'PROPERTY NAMES'  dos validators...
+
+
+
+
+
+
+
+
+--> aí se encontramos cada validator string,
+
+
+como 
+
+
+'required',
+
+
+
+vamos rodar UM VALIDATE específico disso
+
+
+
+
+
+
+
+---> aí, dentro desse for in loop,
+
+
+
+
+
+vamos executar um FOR OF LOOP,
+
+
+
+for of loop em cima 
+
+
+do array de validators em uma determinada propriedade
+
+
+
+
+
+
+
+
+---> ficará tipo assim:
+
+
+
+
+
+
+
+for (const prop in objectValidatorConfig) {
+  for (const validator of objectValidatorConfig[prop]) {
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+--> aí dentro desse for of loop vamos ter um SWITCH STATEMENT,
+
+
+
+com switch em 'validator' (essa constante)
+
+
+
+
+
+
+
+--> aí colocamos vários cases,
+
+
+
+
+com código de validation....
+
+
+
+
+
+
+escrevamos 
+
+
+
+
+
+return obj[prop];
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+--> NOSSO DECORATOR DE 'validation',
+
+completo,
+
+fica assim:
+
+
+
+
+
+
+
+
+
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) {
+    return true;
+  }
+
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) {
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+          return !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'...
+          case 'positive':
+            return obj[prop] > 0;
+      }
+    }
+  }
+
+  return true; ////retorno default de 'true'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO COMPLETO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+
+interface ValidatorConfig {
+  [property: string]: { ///exemplo de 'INDEXABLE TYPES' ( ou seja, de um OBJECT/class com PROPRIEDADES INFINITAS/VARIÁVEIS...)
+
+
+    [validatableProperty: string]: string[]
+
+
+  } ////////E PARECE QUE CADA 'PROPRIEDADE VARIÁVEL' nessa nossa class _ VAI __ ARMAZENAR UM OBJECT ({})...
+
+}
+
+
+
+const registeredValidators: ValidatorConfig = {}
+
+
+
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+    [propName]: ['positive']
+  }
+}
+
+
+function Required(target: any, propName: string) { ///decorator (property decorator)
+
+
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+    [propName]: ['required']
+  }
+  
+}
+
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) {
+    return true;
+  }
+
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) {
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+          return !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'...
+          case 'positive':
+            return obj[prop] > 0;
+      }
+    }
+  }
+
+  return true; ////retorno default de 'true'
+}
+
+
+
+
+
+
+
+class Course {
+  @Required
+  title: string;
+
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+
+
+    const newCourse = new Course(title, price);
+    
+
+    if(!validate(newCourse)) {
+
+      alert('Invalid input, please try again.');
+      return;
+
+    }
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... 
+
+
+
+
+AGORA SE DIGITAMOS 
+
+ALGUMA COISA INCORRETA NOS INPUT FIELDS,
+ 
+ ganhamos mensagens de erro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE DEIXAMOS NOSSOS INPUT FIELDS COMPLETAMENTE VAZIOS,
+
+
+ganhamos um error de 'invalid input, please try again' (ok, sucesso)...
+
+
+
+
+ ----> ok.... mas mesmo com tudo isso,
+
+
+
+
+
+ FICAMOS COM UM BUG...
+
+
+
+
+
+
+
+ -> QUAL É O BUG?
+
+
+
+
+
+
+
+
+
+
+
+SE DEIXAMOS O __ PRIMEIRO FIELD como 'vazio' 
+
+e O 
+
+
+segundo como preenchido (e válido),
+
+
+
+O 
+
+
+
+'SAVE' VAI FUNCIONAR, não vai dar problema/erro de validation... --> (e 
+
+isso é um problema, pois a mensagem de 
+
+erro deve aparecer sempre que 1 DOS 2 INPUTS ESTIVER INVÁLIDO...)
+
+
+
+
+
+
+
+
+
+
+
+
+VOLTAMOS AO NOSSO CÓDIGO:
+
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) {
+    return true;
+  }
+
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) {
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+          return !!obj[prop]; //vai retornar/converter esse valor em 'true' ou 'false'...
+          case 'positive':
+            return obj[prop] > 0;
+      }
+    }
+  }
+
+  return true; ////retorno default de 'true'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor console.logga 'prop'... --> VAMOS PERCEBER QUE, NO consolE,
+
+
+
+A PRIMEIRA E ÚNICA COISA QUE SERÁ PRINTADA SERÁ 'PRICE',
+
+
+
+
+
+E DEPOIS 
+
+
+
+
+SIMPLESMENTE NÃO GANHAMOS MAIS OUTPUTS...
+
+
+
+
+
+
+
+
+----->  a propriedade 'price',
+
+no esquema das coisas,
+
+era 
+
+
+A 'PRIMEIRA PROPRIEDADE A SER VALIDADA'... -----> e, na verdade, 
+
+
+
+
+
+
+É A 'ÚNICA PROPRIEDADE QUE IMPORTA',
+
+
+PQ NÓS 
+
+
+vamos 
+
+
+
+RETORNÁ-LA em 'validate()'...
+
+
+
+
+
+
+
+
+
+
+
+ESTAMOS RETORNANDO 'TRUE' em geral, para __ A 'PRIMEIRA VEZ QUE UMA PROPERTY ATINGE NOSSAS EXPECTATIVAS'...
+
+
+
+
+-> e isso é um problema... -------> 
+
+
+
+
+
+para consertar isso,
+
+devemos criar uma 
+
+
+
+
+
+variable 
+
+
+
+
+
+
+de 'let isValid'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí essa variable 
+
+SERÁ USADA PARA REGULAR ESSA VALIDATION...
+
+
+
+
+
+
+
+
+--> caso apenas 1 dos switch cases RESULTE EM 'false',
+
+ESSA 
+
+PROPRIEDADE SERÁ ALTERADA PARA FICAR 'false'
+
+,
+
+e aí será RETORNADA NO FINAL..
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+function validate(obj: any) { //ESSA É UMA FUNCTION, E NÃO UM VALIDATOR... ela vai 'go through all validators' ----> E AÍ VAI EXECUTAR DIFERENTE LÓGICA, COM BASE NOS DIFERENTES VALIDATORS QUE ENCONTRAR... 
+
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+
+
+  if (!objectValidatorConfig) {
+    return true;
+  }
+
+
+
+  let isValid = true; //eis o código em questão.
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) {
+      switch (validator) { ///essa é a lógica de validate em si...
+        case 'required':
+            isValid = isValid && !!obj[prop];
+            break;
+          case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+
+  return isValid; 
+}
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, GARANTIMOS QUE TODAS AS PROPERTIES FIQUEM CHECADAS,
+
+E NÃO SÓ A 'PRIMEIRA QUE SATISFAZ OS REQUISITOS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSE __ NÃO É O NOSSO ÚNICO PROBLEMA... --> ATÉ AGORA,
+
+
+
+
+sempre 
+
+
+
+
+tivemos um código tipo assim:
+
+
+
+
+
+
+
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+
+    [propName]: ['positive']
+  }
+}
+
+
+
+
+
+
+
+
+
+-------> ESSE CÓDIGO SEMPRE VAI OVERWRITTAR OS 'registeredValidators',
+
+
+PARA 1 DETERMINADA CLASSNAME,
+
+com um 
+
+
+NOVO OBJECT... --> EM VEZ DISSO,
+
+
+
+DEVEOMS ADICIONAR 'ANY EXISTING VALIDATORS' 
+
+
+
+nesse objeto ({}) aí,
+
+tudo 
+
+PARA QUE 
+
+
+NÃO ACABEMOS 'REPLACING' o objeto 'registeredValidators' antigo pelo novo (ou seja, vamos querer ADICIONAR VALIDATORS 
+AOS VALIDATORS JÁ EXISTENTES)...
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA ISSO,
+
+
+
+PODEMOS __ USAR___ O SPREAD OPERATOR...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+ 
+function PositiveNumber(target: any, propName: string) {//DECORATOR (property decorator)
+  registeredValidators[target.constructor.name] = { //// 'registeredValidators[target.constructor.name] 'retornará uma string dizendo 'Course'... (que será O NOME DESSA PROPRIEDADE, lá em 'registeredValidators' )...
+
+    ...registeredValidators[target.constructor.name], 
+
+    [propName]: ['positive']
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... AGORA 
+
+
+
+
+O PROFESSOR CONSEGUIU.. 
+
+
+
+É NOSSA PRIMEIRA IMPLEMENTAÇÃO 'NAIVE' DE 
+
+COMO 
+
+UMA DECORATOR VALIDATION 
+
+
+
+
+
+PODE FUNCIONAR, com a ajuda dos typescript decorators...
+
+
+
+
+
+
+
+
+
+
+
+--> TENHA EM MENTE:
+
+
+
+TODO ESSE CÓDIGO, CÓDIGO DO REGISTRY, VALIDATOR functionS,
+
+tudo isso 
+
+
+PODERIA/PODE FICAR 
+
+__ ESCONDIDO __ DE VOCÊ ---> 
+
+
+
+
+
+
+
+
+
+
+VOCÊ COMPARTILHA COM SEUS END USERS --> como end user,
+
+
+
+
+
+VOCÊ SIMPLESMENTE IMPORTARIA ESSAS COISAS,
+
+adicionar esses decorators e 
+
+
+EXECUTAR 'validate()' 
+
+
+
+
+(
+
+  ISSO TE DÁ UMA MANEIRA MT CONVENIENTE DE ADICIONAR 
+
+
+  VALIDATION NAS SUAS CLASSES..
+)

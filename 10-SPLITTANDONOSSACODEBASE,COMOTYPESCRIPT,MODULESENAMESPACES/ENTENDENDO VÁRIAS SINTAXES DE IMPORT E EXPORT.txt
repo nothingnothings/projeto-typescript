@@ -1,0 +1,389 @@
+É CLARO QUE EXISTEM VARIAÇÕES 
+
+
+
+DESSA   SINTAXE DE IMPORT EXPORT  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS AS CONHECER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO, VOCê PODE 'BUNDLAR IMPORTS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+import { Validatable, validate } from '..' 
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ESTÁ FALANDO DE IMPORTS como 
+
+
+
+'Import.xxxxx' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA AGRUPAR IMPORTS,
+
+VOCÊ SÓ USA 
+
+
+
+'import * as XXXXX from xxxxx '...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AÍ VOCÊ USA 
+
+
+ESSE TERMO 'XXXX' como um OBJECT,
+
+
+tipo assim:
+
+
+
+
+
+
+
+XXXX.suaFunção...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, eu já sabia isso...
+
+
+
+
+
+
+
+
+
+------> 
+
+
+
+
+
+
+
+GROUPING, PORTANTO, É UMA COISA QEU VOCê PODE FAEZR>..
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê TAMBÉM PODE ASSIGNAR ALIASES, SE QUISER...
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+import  { autobind as Autobind } from '...'
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+ESSA É UMA FEATURE BOA __ PARA __ EVITAR__ NAME CLASHES...
+
+
+
+
+
+
+
+
+
+
+
+-----------> VOCÊ TAMBÉM PODE TRABALHAR COM 'default exports'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, BASE COMPONENT TEM SÓ 1 CÓDIGO A SER EXPORTADO, AQUELA ABSTRACT CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+export abstract class Component...
+
+
+
+
+
+
+
+
+
+export default abstract class Component
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso diz que 
+
+
+SERÁ O DEFAULT EXPORT DESSE ARQUIVO.....
+
+
+
+
+
+
+
+
+
+
+--> VOCê AINDA PODE TER OUTROS NAMED EXPORTS COM ESSE DEFAULT EXPORT,
+
+
+mas se voc~e usar um
+
+DEFAULT EXPORT,
+VOCê SÓ PODE TER 1 
+
+ÚNICO 'DEFAULT EXPORT' 
+
+
+
+por arquivo..
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM DEFAULT EXPORTS,
+
+VOCê IMPORTA ASSIM...
+
+
+
+
+
+
+
+
+import from '...'
+
+
+
+
+
+
+
+
+------> ESCOLHA QUALQUER NOME...
+
+
+
+
+
+
+
+
+import Exemplo from '...'....
+
+
+
+
+
+
+
+
+NÃO HÁ '*', PQ NÃO VAMOS IMPORTAR TUDO...
+
+
+
+
+
+
+
+
+(só vamos importar o DEFAULT EXPORT)...
+
+
+
+
+DEFAULT EXPORTS SÃO BONS SE VOCê TEM SÓ 1 POR ARQUIVO,
+
+MAS PROFESSOR PREFERE NAMED EXPORTS....
+
+
+
+
+
+
+
+
+
+
+MELHOR AUTO-COMPLETION...
+
+
+
+

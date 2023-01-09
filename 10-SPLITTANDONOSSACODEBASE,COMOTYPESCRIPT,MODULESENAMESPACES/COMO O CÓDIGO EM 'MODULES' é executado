@@ -1,0 +1,211 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ALÉM DESSAS DIFERENTES SINTAXES DE IMPORT/EXPORT,
+
+HÁ OUTRA COISA QUE VOC~e TEM QUE ENTENDER E SABER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ EM 'project-state'
+
+
+
+ESTAMOS EXPORTANDO ALGO QUE NÃO É UMA CLASS 
+
+
+OU INTERFACE,
+
+E SIM 
+
+
+uma 
+
+'CONSTANT'... 
+
+(projectState) ---> mas o curioso é que 
+
+
+AQUI ESTAMOS EXPORTANDO ESSA  CONSTANTE A DIVERSOS OUTROS ARQUIVOS....
+
+
+
+
+
+
+
+
+
+
+--------> ESTMAOS EXPORTANDO ESSA CONST EM 'ProjectLIst'
+
+
+e 
+
+
+'ProjectInput',...
+
+
+
+
+
+
+
+-->ISSO SIGNIFICA QUE ESSE CÓDIGO ESTÁ SENDO EXPORTADO VÁRIAS VEZES...
+
+
+
+
+
+
+
+
+
+
+
+
+A PERGUNTA É:
+
+
+
+
+
+
+
+
+
+
+
+
+por acaso ESSE CÓDIGO, ESSA CRIAÇÃO DESSA CONST AÍ,
+
+
+
+
+
+RODA APENAS 1 ÚNICA VEZ,
+
+
+
+OU 2 VEZES,
+
+
+
+1 VEZ POR IMPORT STATEMENT,
+
+
+OU 'ONCE FOR THE ENTIRE APP' ---------> 
+
+
+
+
+
+
+O QUE ACONTECE 
+
+
+
+
+É:
+
+
+
+'''ELA RODA 1 VEZ, QUANDO A FILE É IMPORTADA __ PELA PRIMEIRA VEZ,
+
+
+POR QUALQUER OUTRO ARQUIVO''' --> E SE __ OUTRO ARQUIVO __ AÍ IMPORTA __ 
+
+ESSE ARQUIVO DE NOVO,
+
+
+ESSE CÓDIGO DA CONST __ NÃO VAI _ RODAR DE NOVO__....
+
+
+(
+
+    podemos TESTAR ISSO POR MEIO DE UM CONSOLE.LOG DE 
+
+    'running' nesse arquivo em que 
+
+    temos essa const --->
+
+
+    ESSE CONSOLE.LOG 
+
+
+    VAI 
+
+    SER PRINTADO 1 ÚNICA VEZ,
+
+
+    AINDA UQE 
+
+
+    ESTEJAMOS IMPORTANDO ESSA CONST 
+
+
+tanto 
+
+
+
+em 
+
+'project-list.ts'
+
+
+e em 
+'project-input.ts'...
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... É EXECUTADO 1 ÚNICA VEZ.... 
+
+
+ONLY RUNS ONCE... --> 
+
+
+
+
+ISSO É ALGO QUE VOCÊ TEM QUE SABER,
+
+PARA PLANEJAR SEU APP APROPRIADAMENTE...

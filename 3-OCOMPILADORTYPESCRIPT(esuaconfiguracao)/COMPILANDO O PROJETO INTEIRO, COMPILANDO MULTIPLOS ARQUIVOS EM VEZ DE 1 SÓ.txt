@@ -1,0 +1,351 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO O PROFESSOR MENCIONOU NA ÚLTIMA AULA,
+
+
+TER O 
+
+'--watch'
+
+
+JÁ É ÓTIMO,
+
+
+MAS SERIA MT MELHOR SE PUDÉSSEMOS 
+
+TER 
+
+ESSE 
+'
+WATCH'
+
+sobre 
+
+
+todos 
+
+os arquivos 
+
+.ts 
+
+
+
+no folder de nosso projeto......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> para isso,
+
+
+professor 
+
+cria arquivos 'app.ts'
+
+e 
+
+'analytics.ts'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> QUEREMOS FAZER WATCH DE TODO NOSSO FOLDER DO PROJETO....
+
+
+
+
+
+
+
+
+
+
+
+--> recompilar quaisquer arquivos que forem alterados...
+
+
+
+
+
+
+
+
+
+
+
+
+-> bem, podemos dizer AO TYPESCRIPT ____________ QUE 
+
+
+
+
+
+'''ESSE  FOLDER É APENAS 1 PROJETO, PROJETO QUE DEVE SER 
+
+
+MANAGEADO PELO TYPESCRIPT'''
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, VÁ ATÉ O FOLDER DE 
+SEU 
+
+PROJETO TYPESCRIPT, ROOT,
+
+E AÍ 
+
+
+escreva 
+
+'tsc --init'...
+
+
+
+
+
+
+
+
+
+--> ISSO SÓ É REQUERIDO 1 ÚNICA VEZ,
+
+VAI INICIALIZAR SEU PROJECT COMO UM TYPESCRIPT PROJECT,
+
+
+
+VAI DIZER QUE 
+
+TUDO 
+
+
+
+DENTRO DO FOLDER EM QUE VOCê RODOU ESSE COMANDO 
+
+
+
+
+__ É _ PARTE _ DO SEU PROJETO... --> ESSE PROJECT DEVERÁ SER MAANGEADO PELO 
+
+TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ISSO VAI CRIAR UM ARQUIVO 'tsconfig.json'...
+
+
+
+
+
+
+
+
+
+
+
+---> ESSE ARQUIVO É BASICAMENTE O INDICADOR __ PARA o TYPESCRIPT _ DE QUE 
+
+
+
+TODOS OS FOLDERS DEBAIXO DESSE arquivo 
+
+
+
+DEVEM 
+
+SER 
+
+MANAGEADOS POR ELE....
+
+
+
+
+
+
+
+
+
+
+
+-----> SE OLHARMOS ESSE ARQUIVO, VEREMOS UM MONTE DE CONFIGS,,
+
+
+
+MAS NÃO PRECISAMOS AS ESTUDAR AIND....
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO, FECHAMOS ESSE ARQUIVO,
+
+
+
+E AÍ RODAMOS 'tsc' no terminal...
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... --> SE FAZEMOS ISSO,
+
+
+
+
+TODOS OS ARQUIVOS .ts no nosso folder serão compilados...
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ALÉM DISSO,
+
+
+
+O 
+
+
+'tsc' solto
+
+
+
+
+__ PODE__ TAMBÉM SER COMBINADO 
+
+COM 
+
+'tsc --watch'...
+
+
+
+
+
+
+
+
+
+--> ISSO VAI ATIVAR A AUTO-COMPILATION 
+
+TYPESCRIPT ___ PARA ___ TODOS __OS 
+
+
+SEUS ARQUIVOS TS..
+
+
+
+
+
+
+
+---> E ISSO, É CLARO,
+
+FUNCIONARÁ COM 
+
+O 
+
+
+'lite-server' que 
+
+o 
+
+
+professor nos mostrou anteriormente (
+
+
+
+    em outras palavras, 
+
+    PROJETOS _ SIMPLES__,
+
+    QUE SÓ POSSUEM 1 PÁGINA ESTÁTICA WEB,
+
+    ESSES 
+
+
+    PODEM 
+
+    SER 
+
+
+
+    ESCRITOS E TROUBLESHOOTADOS __ SÓ _ _COM 
+
+    'typescript' + 'lite-server'....
+)

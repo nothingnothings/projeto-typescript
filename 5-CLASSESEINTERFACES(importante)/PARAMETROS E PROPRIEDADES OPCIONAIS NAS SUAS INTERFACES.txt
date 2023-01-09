@@ -1,0 +1,943 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... AGORA DEVEMOS VOLTAR AO ASSUNTO DAS 'INTERFACES PARA OBJECTS' (e não para FUNCTIONS)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR QUER NOS ENSINAR _ QUE __ É POSSÍVEL __ 
+
+
+ADICIONAR 'OPTIONAL PARAMETERS/PROPRIEDADES'
+
+
+
+
+
+___ EM _ OBJECTS E CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+
+TEMOS 
+
+O NOSSO CÓDIGO Do 'inheritingEmInterfaces":
+
+
+
+interface Named {
+    readonly name: string;
+  }
+
+
+
+
+
+  
+interface Greetable2 extends Named { //////SINTAXE __IDÊNTICA à usada em CLASSES, para legar coisas de uma class 'base' às classes 'HERDEIRAS' (inheriting)....
+    greet(phrase: string): void; 
+
+    ////'readonly name: string' ---> isso tbm vai existir nessa INTERFACE, pq herdamos daquela interface de 'Named'...
+  }
+  
+
+
+
+
+  
+class Lawyer2 implements Greetable2 { //o implement dessas 2 interfaces vai:  1) OBRIGAR ESSA CLASS A TER A PROPRIEDADE DE 'name';  2) OBRIGAR ESSA CLASS A TER A PROPRIEDADE de greet (obrigada por Greetable)....
+    
+    static age = 30; 
+
+    name2: string;
+
+
+greet(phrase: string) { 
+        console.log(phrase);
+}
+
+
+
+constructor(public name: string) {
+        this.name2 = name;
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------->  OK...
+
+
+
+
+
+
+
+
+
+VAMOS COLOCAR UMA 'PROPRIEDADE OPCIONAL
+'
+
+
+
+
+LÁ 
+
+
+
+
+NA INTERFACE DE 'Named' (que é uma interface que usamos para 'LEGAR' a propriedad de 'name")...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ESSA PROPRIEDADE 
+
+
+opcional terá um name de 
+
+'outputName'...
+
+
+
+
+
+
+
+
+
+
+
+------> MAS COMO ASSIM 'OPCIONAL'? ------> BEM, ISSO SIGNIFICA QUE _ NÃO VAMOS QUERER __ 
+
+
+QUE 
+
+
+
+
+
+TODAS AS CLASSES 
+
+
+
+que tem 'Named' implementado em si 
+
+
+__FIQUEM COM ESSA _ PROPRIEDADE/sejam forçados a ter essa propriedade ( ou seja, propriedade FACULTATIVA/OPCIONAl)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> VOCÊ PODE ESPECIFICAR QUE UMA PROPRIEDADE É 'opcional'
+
+
+
+POR MEIO DA ESCRITA DE um '?' (interrogação) DEPOIS DO NOME DA PROPRIEDADE...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+interface Named2 {
+  readonly name: string;
+  outputtedName?: string; //////EXEMPLO DE 'optional property'... (a class em que implementarmos 'Named2' NÃO VAI PRECISAR TER ESSA PROPRIEDADE, OBRIGATORIAMENTE)....
+}
+
+interface Greetable3 extends Named2 {
+  greet(phrase: string): void;
+
+
+}
+
+class Lawyer3 implements Greetable3 {
+
+  static age = 30;
+
+  name2: string;
+
+  greet(phrase: string) {
+    console.log(phrase);
+  }
+
+  constructor(public name: string) {
+    this.name2 = name;
+  }
+}
+ 
+
+
+
+
+
+
+ ----------------------------
+
+
+
+
+
+
+
+
+ --> ISSO VAI QUERER DIZER QUE 
+
+
+ __ ESSA PROPRIEDADE __ TALVEZ __ PODERÁ EXISTIR EM CLASSES
+
+
+ QUE 
+
+ IMPLEMENTAREM ESSA INTERFCE,
+
+
+ MAS 
+
+
+ QUE __ ELAS __ NÃO __ POSSUEM A __ OBRIGATORIEDADE__ de ter essa propriedade....
+
+
+
+
+
+
+
+
+
+
+ -_> ISSO SIGNIFICA QUE SE EM 'Lawyer3'
+
+ NÃO TIVERMOS ESSA PROPRIEDADE,
+
+
+ NÃO VAMOS GANHAR UM ERROR (pq ela é opcional)...
+
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+ interface Named {
+
+
+   readonly name: string;
+   outputName?: string;
+ }
+
+
+
+
+
+
+
+
+
+ class Person implements Greetable {
+
+
+   name: string;
+   ///outputName = '...'; ///a inexistência disto não nos dará errors....
+   age = 30; 
+ }
+
+
+
+
+
+
+
+ ---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ CERTO..... -----> É CLARO QUE EM 1 CLASS NÓS TAMBÉM PODEMOS TER UMA 'OPTIONAL PROPERTY'...
+
+
+
+
+
+ -->  digamos que 'name2', aqui, 
+
+
+ será 
+
+ OPCIONAL 
+
+
+
+
+
+NA NOSSA CLASS EM SI....
+
+
+
+
+
+
+
+
+
+
+
+--> mas antes de fazermos isso, somos obrigados a declarar 'name2' 
+
+como OPCIONAL ('?') LÁ 
+
+NA NOSSA INTERFACE....
+
+
+
+
+
+
+
+
+
+--> para que essa propriedade exista/inexista,
+
+colocamos 
+
+
+um IF CHECK NO CONSTRUCTOR.... ---> '''se name2 já estiver como SET, vamos querer 
+
+que NADA ACONTEÇA... CASO CONTRÁRIO, VAMOS QUERER QUE 'name2' seja definido como esse parâmetro de 'name2 ''''...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+ interface Named {
+
+
+   readonly name: string;
+   outputName?: string;
+   name2?: string;
+ }
+
+
+
+
+
+
+
+
+
+ class Person implements Greetable {
+
+
+   name: string;
+   ///outputName = '...'; ///a inexistência disto não nos dará errors....
+   age = 30;
+   name2?: string;
+
+
+
+
+
+  constructor (name: string, name2: string) {
+
+          this.name = name;
+    if (name2) {
+
+      this.name2 = name2;
+    }
+  }
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO SERÁ OK, NO CASO, 
+
+
+
+PQ _O PROFESSOR DEFINIU ESSA PROPRIEDADE COMO 'OPTIONAL' (?)
+
+
+TANTO 
+
+
+
+NA INTERFACE COMO NA CLASS em si...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> ISSO SIGNIFICA QUE AGORA PODEMOS INSTANCIAR UM OBJETO DE 'Person'
+
+
+
+SEM PASSAR UM 'name2'... ---->  MAS PARA ISSO, TEREMOS DE __EDITAr__ A LISTA DE PARÂMETROS de 'Person', no constructor...
+
+
+
+
+
+
+
+
+
+
+
+--> TIPO ASSIM:
+
+
+
+
+
+
+
+
+ interface Named {
+
+
+   readonly name: string;
+   outputName?: string;
+   name2?: string;
+ }
+
+
+
+
+
+
+
+
+
+ class Person implements Greetable {
+
+
+   name: string;
+   ///outputName = '...'; 
+   age = 30;
+   name2?: string;
+
+
+
+
+
+  constructor (name?: string, name2?: string) { ////EIS O CÓDIGO EM QUESTÃO. --> PARÂMETROS OPCIONAIS...
+
+          this.name = name;
+    if (name2) {
+
+      this.name2 = name2;
+    }
+  }
+
+ }
+
+
+
+
+
+
+
+ const newPerson = new Person(); //////////// ---> aqui, o pass de parâmetros se torna OPCIONAL.... 
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+PROFESSOR TAMBÉM NOS EXPLICA QUE PODERÍAMOS 
+
+
+
+TER ESCRITO UM 'DEFAULT VALUE'
+
+
+
+em vez de um 'OPTIONAL',
+
+tipo assim:
+
+
+
+
+
+
+
+
+constructor(name: string = 'DEFAULTVALUE')
+
+
+
+
+
+
+
+
+
+--------> 
+
+
+
+
+caso a pessoa chame sua funçaõ SEM PASSAR 1 PARÂMETRO, ela 
+
+
+fará com que o valor 'DEFAULT' seja aplicado....
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS SE O USER NÃO PASSAR COISA ALGUMA,
+
+
+
+o 
+
+
+method de 'greet' 
+
+vai fazer um output, no console, de undefined,
+
+
+por isso 
+
+é 
+
+bom adicionarmos um 
+
+if check de 'this.name',
+
+para 
+
+aí 
+
+
+console.loggar uma mensagem de fallback, tipo assim:
+
+
+
+
+
+
+
+
+
+  greet(phrase: string) {
+
+
+    if (this.name) {
+      console.log(phrase + ' ' + this.name);
+    } else {
+
+      console.log('No greetings for you, no parameter provided');
+    }
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK......... SALVAMOS TUDO ISSO, E TEMOS ESTE CÓDIGO AQUI:
+
+
+
+ 
+
+
+ var Lawyer3 = /** @class */ (function () {
+    function Lawyer3(name, name2) {
+        this.name = name;
+        this.name = name;
+        this.name2 = name2;
+    }
+    Lawyer3.prototype.greet = function (phrase) {
+        if (this.name) {
+            console.log(phrase + ' ' + this.name);
+        }
+        else {
+            console.log('No greetings for you, no parameter provided');
+        }
+    };
+    Lawyer3.age = 30;
+    return Lawyer3;
+}());
+var newLawyer5 = new Lawyer3(); ////podemos chamar assim justamente pq definimos esses parâmetro, na INTERFACE E NA CLASS, como optional...
+newLawyer5.greet('frase');
+
+
+
+
+
+var newLawyer6 = new Lawyer3('Max', 'Manu');
+
+
+
+newLawyer6.greet('frase');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO CONSOLE, VEMOS ESTE OUTPUT:
+
+
+
+12:30:20.767 app.js:12 No greetings for you, no parameter provided
+12:30:20.767 app.js:9 frase Max
+
+
+
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AÍ O PROFESSOR FAZ OUTRO ESCLARECIMENTO...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAS 3 'COISAS' SÃO LOOSELY RELATED... -->  vocÊ pode:
+
+
+
+
+
+
+
+
+1) TER UMA PROPRIEDADE 'optional' em uma INTERFACE 
+
+
+
+
+
+2) aí __ TER ESSA PROPRIEDADE COMO 'NON OPTIONAL'  lá na CLASSE.... (sem '?') 
+
+
+
+
+
+
+
+3) VOCê TAMBÉM PODE TER 'OPTIONAL' TANTO NA INTERFACE, COMO NA CLASS E NO CONSTRUCTOR DA CLASS (aí você realmetne não precisa passar esse valor)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM,
+
+
+CABE RESSALTAR QUE VOCê PODE
+
+
+TER PROPRIEDAEDS 'OPTIONAL'
+
+
+tanto 
+
+em 
+
+
+FUNCTIONS, E METHODS.... (inclusive o method 'constructor') ---------> 
+
+
+
+
+
+
+
+
+OPTIONAL PARAMETERS 
+
+SÃO 
+
+
+
+DEFINIDOS:
+
+
+
+
+
+
+
+
+
+1) OU COM O '?' --> faz com que o  valor alternativo seja 'undefined'...
+
+
+
+
+
+
+
+
+
+
+2) OU POR MEIO DE UMA ESCRITA COMO ESTA: 'n: string = "" '  ------> VALOR DEFAULT SERÁ ASSUMIDO, CASO NENHUM VALUE SEJA PASSADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... isso te dá maior flexibilidade quanto À estruturação de suas classes.... --> 
+
+
+
+E TAMBÉM, QUANDO FALAMOS SOBRE INTERFACES,
+
+
+COMO 
+
+NÓS ESTRUTURAMOS 
+
+NOSSOS 'CONTRACTS' que 
+as 
+
+
+classes seguirão....

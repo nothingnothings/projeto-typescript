@@ -1,0 +1,756 @@
+
+
+
+
+
+
+
+
+
+
+
+
+PROFESSOR FALA DE NOVO DO 'KANGAX' --> 
+
+
+
+lista de features que são suportadas POR BROWSERS... (
+
+
+
+
+ESSA LISTA TAMBÉM 
+
+
+FALA _ DOS _ COMPILERS__ QUE SUPORTAM ESSAS FEATURES...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM ENCONTRAMOS O 'TYPESCRIPT' nesse nego´cio, junto do 
+
+
+'COREJS' (que é um POLYFILL PROVIDER)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> GERALMENTE,
+
+ESSA LISTA 
+
+
+TE 
+
+DIZ 
+
+O
+ QUE 
+
+ O 
+
+
+
+ TYPESCRIPT É CAPAZ DE COMPILAR...
+
+
+
+
+
+
+
+
+
+
+
+ --> PODEMOS CHECAR, NESSA LISTA ,
+
+
+ SE O TYPESCRIPT FUNCIONA COM ESSA FEATURE OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+ ----> FUNCIONA COM QUASE TODAS FEATURES, NA REAL... (
+
+
+     essa lista também te mostra as RESTRICTIONS DE CADA BROWSER, ETC ETC...
+ )
+
+
+
+
+
+
+
+
+
+
+ -_> ESSA LISTA TAMBÉM TE MOSTRA 'TARGETS'
+
+
+ dos browsers,
+
+
+
+ etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UM RESOURCE MT BOM,
+
+
+QUE 
+
+
+
+TE 
+
+DEIXA 
+
+TROCAR 
+
+ENTRE AS DIVERSAS ITERAÇÕES 
+
+DO JAVASCRIPT (ecma 5, ecma 6, etc etc)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... MAS VAMOS COMEÇAR 
+
+
+
+
+COM UMA
+
+
+
+
+DAS INTRODUÇÕES MAIS ÓBVIAS DO NEXT-GEN JAVASCRIPT (es6+)
+  
+
+
+
+
+
+
+
+
+
+
+  LET CONST --> 
+
+
+
+
+  TE DEIXA SETTAR CONSTANTS,
+
+
+  OU VARIABLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> CONSTNTES NÃO MUDAM (exceto coisas como ARRAYS, EM QUE PODEMOS ADICIONAR NOVOS ELEMENTOS COM 'push' e 'pop')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... JÁ SEI ISSO AÍ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LET E CONST POSSUEM UMA DIFERENÇA ÓBVIA EM RELAÇÃO AO 
+
+'VAR '- -> 
+
+
+É O 
+
+
+'SCOPE
+'
+
+
+EM QUE 
+
+ESSAS VARIABLES 
+
+
+FICAM DISPONÍVEIS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> SCOPES ----> COM 'VAR',
+
+
+
+temos 
+
+
+
+AS SCOPES DE 
+
+
+
+
+'FUNCTION' 
+
+
+
+e 
+
+
+'GLOBAL' ------> isso signfica que 
+
+
+
+
+
+
+
+
+VARIABLES DEFINIDAS GLOBALMENTE 
+
+
+
+
+
+(fora de functions) 
+
+
+FICAM 
+
+DISPONÍVEIS 
+
+EM QUALQUER LOCAL 
+
+DE SEUS SCRIPTS,
+
+
+
+ao passo que 
+
+
+
+VARIABLES DEFINIDAS __ DENTRO __dE 
+
+
+FUNCTIONS 
+
+SÓ EXISTEM DENTRO DESSAS FUNCTIONS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const userName = 'Max';
+
+
+
+let age = 30;
+
+
+
+
+age = 29;
+
+
+
+
+function add(a: number, b: number) {
+
+
+    var reuslt;
+    result = a + b;
+
+    return result;
+}
+
+
+
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> COM 'LET E CONST'
+
+você 
+
+pode trablahar 
+
+
+
+
+COM 
+
+
+
+
+VARIABLES 
+
+'ON A HIGHER SCOPE '
+
+
+ 
+
+
+ de 
+
+
+ nossas function....
+
+
+
+
+
+
+
+
+ VAR --> VOCÊ SÓ TEM 'FUNCTION' E 'GLOBAL' SCOPE...
+
+
+
+
+
+
+
+
+
+
+
+
+ MAS COM 
+
+
+
+
+ 'let e const',
+
+
+ NÓS TEMOS MAIS DO QUE SÓ ESSES 2 SCOPES..
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+ if (age > 20) {
+
+
+     var isOld = true;
+
+ }
+
+
+
+
+
+console.log(isOld);
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ ------> SE TENTAMOS EXECUTAR ESSE CONSOLE.LOG AÍ,
+
+
+
+ VAMOS RECEBER UM __ ERRO__ NO TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+ --> ENTRETANTO,
+
+ SE COPIARMOS E COLARMOS ESSE CÓDIGO NO CONSOLE DO CHROME,
+
+
+ vamos receber um print de 'true',
+
+ o que 
+
+
+ significa que 
+
+ ESSA VARIABLE ESTÁ SENDO DEFINIDA, em outras palavras (mesmo o typescript outputtando aquele erro...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ISSO SIGNIFICA QUE ESSA VARIABLE ESTÁ SENDO DEFINIDA __ GLOBALMENTE,
+
+
+
+ E NÃO SÓ 
+
+
+
+ DENTRO DO CONTEXTO DESSE 'IF CHECK'...
+
+
+
+
+
+
+ (
+
+
+     É JUSTAMENTE POR CAUSA DAQUILO:
+
+
+     COM 'VAR', O JAVASCRIPT _ NÃO CONHECE 
+
+     NENHUMA OUTRA SCOPE QUE NÃO SEJA 
+
+     'GLOBAL' 
+
+     OU 'FUNCTION SCOPE' 
+ ) --------> E ISSO 
+
+
+
+ __ MUDA__ COM 
+
+
+ 'let'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> COM 'LET':
+
+
+
+
+
+
+
+
+ if (age > 20 ) {
+
+
+     let isOld = true;
+ }
+
+
+ console.log(isOld); //////ISSO VAI OUTPUTTAR 'UNDEFINED'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> COM 'let',
+
+
+
+ ESSE 
+
+
+ VALOR DE 'true' definido NESSE __ IF CHECK __ 
+
+
+ SÓ __ VAI 
+
+
+ EXISTIR  DENTRO DO CONTEXTO DESSE IF CHECK (dentro dos {}) --------> FORA DOS '{}',
+
+
+
+ O VALOR DE 
+
+
+
+
+
+ 'isOld', essa variable aí,
+
+
+ AINDA SERÁ DE 'UNDEFINED'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ISSO ACONTECE __ JUSTAMENTE_ _ PQ 
+
+
+
+
+
+
+LET E CONST INTRODUZIRAM UM CONCEITO CHAMADO DE 'block scope' --> SIGNIFICA QUE 
+
+
+
+
+__ UMA __ VARIABLE/CONST __ 
+
+
+SEMPRE 
+
+FICA 
+
+SÓ _ DISPONÍVEL __ 
+
+
+
+NO BLOCK EM QUE 
+
+FOI DEFINIDA,
+
+
+
+__ E NOS __ BLOCKS __ INFERIORES A ESSE BLOCK... (E um block é sempre UM SNIPPET ___ ENVOLTO POR '{}' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+{
+
+
+
+    let variable = 'xxx'  ///ESSA VARIABLE ´SO VAI EXISTIR DENTRO DESSE '{}', apesar de essa sintaxe ser INVÁLIDA..
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO É UMA BOA COISA, PQ TE FORÇA A ESCREVER 
+
+
+CÓDIGO 
+
+MAIS LIMPO, E A EVITAR SITUAÇÕES COMO AQUELA QUE MOSTRAMOS ANTERIORMENTE...

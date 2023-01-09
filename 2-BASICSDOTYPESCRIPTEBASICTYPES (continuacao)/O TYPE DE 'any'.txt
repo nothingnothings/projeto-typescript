@@ -1,0 +1,404 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, QUASE ACABAMOS COM OS 'CORE TYPES'...
+
+
+
+
+
+
+
+
+
+--> VIMOS, ATÉ AGORA:
+
+
+
+
+
+
+
+
+
+
+1) number 
+
+
+2) string 
+
+3) boolean 
+
+
+
+4) object 
+
+
+5) array 
+
+
+6) tuple 
+
+
+
+7) enum 
+
+
+
+
+
+
+
+
+----> AGORA,
+
+
+
+8) ANY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É REPRESENTADO POR '*' ---------> É O TYPE MAIS FLEXÍVEL QUE VOCÊ PODE ESCREVER NO 
+
+TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE TYPE _ NÃO DIZ COISA ALGUMA AO TYPESCRIPT....  -> ELE BASICAMENTE 
+
+SIGNIFICA QUE 
+
+VOCê 
+PODE ARMAZENAR 
+
+
+
+
+QUALQUER COISA DENTRO DELE,
+
+
+E QUE 
+
+ 
+ VOCÊ 
+ NÃO TE´RA
+  
+
+
+  NENHUM
+
+
+  'SPECIFIC TYPE ASSIGNMENT'...
+
+
+
+
+
+
+
+
+
+
+
+  --> E O TYPESCRIPT NUNCA VAI RECLAMAR QUANDO VOCÊ DEFINIR ALGUMA VARIABLE COMO 'any'....
+  
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+  let favoriteActivities: any;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+
+
+  
+    let favoriteActivities2: any;  ///se vocÊ definir 'any', NÃO RECEBERÁ 1 ERROR...
+
+
+
+
+
+
+
+
+    let favoriteActivities3: any[]; ///aqui dizemos ao typescript que ESSE NEGÓCIO DEVERÁ SER 'UM ARRAY DE ALGUMA COISA'...
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+NA VERSÃO DO CÓDIGO DE BAIXO,
+
+ESTA:
+
+
+    let favoriteActivities3: any[]; ///aqui dizemos ao typescript que ESSE NEGÓCIO DEVERÁ SER 'UM ARRAY DE ALGUMA COISA'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE TENTARMOS 
+
+
+
+ARMAZENAR SÓ 1 ÚNICO VALOR, como 
+
+'UMA STRING',
+
+
+RECEBEREMOS UM _ ERROR_,
+
+
+PQ 
+
+VAMOS TENTAR ARMAZENAR UM VALOR SOLTO EM UMA 
+VARIABLE 
+
+QUE 
+
+SÓ 
+
+DEIXA ACONTECER 'redefine' se o valor for uma STRING ('any[]') ...
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... --> O ANY É MT FLEXÍVEL,
+
+
+
+
+MAS TRAZ GRANDES DESVANTAGENS,
+
+E DEVEMOS 
+O 
+
+EVITAR A TODO CUSTO...
+
+
+
+
+
+
+
+
+
+
+--> ELE TE DÁ A MESMA 
+
+EXPERIÊNCIA DO VANILLA JAVASCRIPT (em que já temos o type 'any' em qualquer coisa)...
+
+
+
+
+
+
+
+-> O 'ANY' FAZ COM QUE 
+
+O 
+TYPESCRIPT COMPILER _ NÃO CONSIGA__ 
+
+CHECAR_ NADA... ------> 
+
+
+
+
+
+O NEGÓCIO FICA 'SEM NADA PARA CHECAR'... ------->  VOCê _ SÓ __ PODE USAR 
+
+
+'any'
+
+
+
+
+
+COMOO _ UM FALLBACK__SE VOCÊ TIVER 
+
+
+
+
+'SOME VALUE, SOME KIND OF DATA'
+
+
+em que 
+
+VOCê 
+
+NÃO VAI TER COMO SABER 
+
+
+QUE TIPO DE DATA VAI SER ARMAZENADO LÁ DENTRO (
+
+
+nesse caso,
+
+você 
+
+VAI RODAR ALGUNS 'type checks' (como 'if (typeof n1 !== 'number')' )
+
+
+
+__ DURANTE__ O __ RUNTIME,
+
+PARA 
+
+ENTÃO 
+
+
+'narrow down' 
+
+AS COISAS QUE VOCê 
+
+VAI QUERER 
+
+FAZER 
+
+'FOR CERTAIN VALUES' ( tipo um switch statement, a depender do tipo de value recebido)...
+
+
+
+
+
+
+
+
+-> AÍ, NO CASO, PODERÍAMOS SEGUIR COM 'ANy'....
+
+
+
+
+
+
+
+
+-> MAS EM TODOS OS OUTROS CASOS,
+
+TENTE EVITAR O ANY...
+
+)
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ TEM UMA CHANCE DE 'KNOW WHAT KIND OF DATA YOU'RE WORKING WITH',
+
+
+seja bem explícito,
+
+deixe 
+
+o 
+'type inference' 
+
+
+DO 
+
+TYPESCIRPT 
+
+
+
+FAZER O 
+
+
+
+TRABALOH,
+
+
+ou então tente definir OS TYPES explicitamente...

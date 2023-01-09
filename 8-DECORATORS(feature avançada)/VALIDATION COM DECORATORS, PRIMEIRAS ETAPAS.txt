@@ -1,0 +1,2050 @@
+
+
+
+
+
+
+
+
+
+
+EXAMINAMOS, NA ÚLTIMA AULA,
+
+O 
+
+CREATE DE UM DECORATOR QUE FAZIA 'AUTOBIND' de this 
+
+
+
+
+
+
+NOS INSTANCE MEHTODS DE NOSSOS OBJETOS criados a partir de classses..
+
+
+
+
+
+
+
+
+
+
+---------> AGORA HÁ MAIS UM EXEMPLO QUE O PROFESSOR QUER NOS MOSTRAR..
+
+
+
+
+
+
+
+
+
+
+----> SÃO OS DECORATORS USADOS PARA 'validation'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR COMEÇA COM O WRITE DE UMA CLASS,
+
+
+'Course'...
+
+
+
+
+
+
+
+
+
+--> UM COURSE SEMPRE VAI TER 
+
+
+
+
+PROPRIEDADES DE 'title' e 'price'...
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS TER UM CONSTRUCTOR,
+
+EM QUE OBTEMOS AMBOS OS VALORES...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class Course {
+
+    title: string;
+    price: number;
+
+
+
+
+
+
+
+    constructor(title: string, price: number) {
+
+                this.title = title;
+                this.price = price;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE ESTÁ DELIBERADAMENTE EVITANDO A SINTAXE DO 'SHORTCUT' DE SET DE PROPRIEDADES,
+
+
+pois ___ ELE __ DIZ QUE __ VAMOS CERTAMENTE USAR/assignar 'PROPERTY DECORATORS',
+
+
+
+por isso precisamos da forma normal....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE AGORA, QUANDO QUISERMOS  INSTANCIAR ESSE 'COURSE',
+
+
+VAMOS PRECISAR 
+
+
+DE 
+
+1 TITLE E PRICE 
+
+
+VÁLIDOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS 1 CENÁRIO COMUM QUE VOCÊ PDOE ENCONTRAR, EM ALGUNS APPS,
+
+é que 
+
+você faz 'FETCH' de data 
+
+
+
+
+DE ALGUM WEB RESOURCE,
+
+
+
+E ÁI 
+
+
+
+VOCÊ 
+
+RECEBE DATA,
+
+POR EXEMPLO,
+
+
+EM QUE 
+
+VOCÊ 
+
+
+
+
+
+
+
+
+
+
+
+
+'ACREDITA/__PENSA__' que 
+
+
+
+fez get de vários courses,
+
+
+
+
+MAS _ VOCÊ _ NÃO  TEM CERTEZA DE QUAIS CURSOS/QUANTOS CURSOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... OUTRO EXEMPLO: __ VOCÊ __ '''''
+
+
+
+LET USERS ENTER THE DATA''',
+
+
+
+e aí 
+
+
+você simplesmente quer ASSIGN ESSA DATA,
+
+
+FAZER O CREATE DE UM NOVO 'course' COM A DATA INPUTTADA PELO USER.. --> NESSES CASES,
+
+
+VOCÊ VAI 
+
+'ASSUMIR' QUE ESSA 
+
+DATA ESTÁ CORRETA, MAS É CLARO QUE VOCÊ NUNCA TERÁ CERTEZA,
+
+E É 
+
+AÍ QUE SURGE A NECESSIDADE DE 'VALIDATION'...
+
+
+
+
+
+
+
+
+
+--> validation do input.... ------------> 
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE NO NOSSO INDEX.HTML TEMOS UMA SIMPLES FORM,
+
+
+com um input de 
+
+
+tipo 'text',
+
+
+
+
+placeholder de 'title',
+
+
+id de 'title'... 
+
+
+
+
+
+
+
+
+------> O OUTRO FIELD SERÁ DE TYPE 'PRICE'...
+
+
+
+
+
+
+
+
+-> POR FIM, TEMOS UM BUTTON DE TYPE 'submit'...  (para triggar o comportamento default de um BUTTON EM UMA FORM)....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Understanding TypeScript</title>
+    <script src="dist/app.js" defer></script>
+    <script src="dist/analytics.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <p></p>
+      <button>Click me</button>
+      <form>
+        <input type="text" placeholder="Course title" id="title" />
+        <input type="number" placeholder="Course price" id="price " />
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UMA FORM BEM SIMPLES, MAS TEM TUDO DO QUE PRECISMAOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí adicionamos um eventlistener, para vincular esse button aí..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') 
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+class Course {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> AÍ NESSA FORM VAMOS QUERER ADICIONAR UM EVENTLISTENER..
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ UM LISTENER DE event 'submit'...
+
+
+
+
+
+
+
+
+
+
+
+-----> AÍ __ 
+
+
+
+
+NO SEGUNDO PARÂMETRO VAMOS TER UMA ANON FUNCTION, EM QUE ESCREVEMOS 
+
+
+
+
+'(event) => {
+
+
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+-> PRIMEIRAMENTE, PROFESSOR VAI QUERER EXECUTAR 
+
+
+'event.preventDefault()',
+
+
+PARA EVITAR O RELOAD DA PAGE QUANDO 
+
+
+FOR 
+
+
+
+
+CLICADO O button de submit...
+
+
+(
+
+    para que não seja enviado http request quando o button da form for pressionado...
+
+
+)
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+class Course {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+courseForm.addEventListener('submit', 
+
+
+
+event => {
+    event.preventDefault();
+}
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> AÍ, DENTRO DESSE NEGÓCIO, É CLARO QUE VAMOS QUERER 'EXTRACT THE DATA'
+
+lá 
+
+
+de nossas form...
+
+
+
+
+
+
+
+
+
+-> AS FORMS DE 'title' e 'price'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o title pode ser extraído por meio do código 
+
+
+
+
+'const title = document.getElementById('title') as HTMLInputElement;' ,
+
+
+
+
+
+
+
+E O OUTRO COM 
+
+
+
+'const price = document.getElementById('price') as HTMLInputElement;' ...
+
+
+
+
+
+
+
+
+
+
+
+
+FICA MELHOR ASSIM:
+
+
+
+
+
+
+
+
+
+courseForm.addEventListener('submit', 
+
+
+
+event => {
+    event.preventDefault();
+
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+
+
+
+
+
+}
+
+
+
+
+)
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí conseguimos o valor desses inputs ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+class Course {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+courseForm.addEventListener('submit', 
+
+
+
+event => {
+    event.preventDefault();
+
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+
+    const title = titleEl.value;
+    const price = +priceEl.value
+
+
+
+}
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> como queremos esse 'price' como um number,
+
+
+colocamos aquele operador de '+' no início..
+
+
+
+
+
+
+
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok....
+
+
+
+
+
+
+
+
+
+
+ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+--> MAS AGORA VAMOS QUERER CRIAR UM NOVO 'course' object com essa info,
+
+
+por isso escreveoms:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+class Course {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+courseForm.addEventListener('submit', 
+
+
+
+event => {
+    event.preventDefault();
+
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+
+    const title = titleEl.value;
+    const price = +priceEl.value
+
+
+
+}
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+const courseForm = document.querySelector('form') as HTMLFormElement;
+
+class Course {
+  title: string;
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+courseForm.addEventListener('submit', 
+
+
+
+event => {
+    event.preventDefault();
+
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+
+    const title = titleEl.value;
+    const price = +priceEl.value
+
+
+
+
+
+
+
+    const newCourse = new Course(title, price);
+
+
+
+
+    
+
+
+
+
+
+}
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> 
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ISSO VAI CRIAR UM NOVO 'course',
+
+
+basicamente....
+
+
+
+
+
+
+
+
+
+
+
+----> podemos console.loggá-lo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A MÁ NOTÍCIA É QUE ESSE 'COURSE' será criado MESMO QUANDO NOSSOS 
+
+
+
+
+INPUT FIELDS ESTIVEREM VAZIOS... (falta de validation, de 'if empty string, xxx'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PRECISAMOS DE VALIDATION, PORTANTO..
+
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS TER UM TITLE QUE NÃO É '',
+
+
+e 
+
+um 
+
+
+
+
+
+
+
+PRICE QUE É MAIOR DO QUE 0....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> é claro que poderíamos escrever um código simples como
+
+
+
+'if(title.trim().length > 0) {
+    ...
+}' 
+
+
+
+
+
+,
+
+
+
+
+
+
+MAS O PROBLEMA __ É QUE __ ISSO 
+
+
+
+AÍ __ SIGNIFICA QUE 
+
+SEMPRE 
+
+
+
+
+QUE CRIARMOS UM NOVO 'COURSE',
+
+
+
+
+
+VAMOS TER QUE ADICIONAR ESSA 'VALIDATION LOGIC' 
+
+
+
+
+
+
+
+
+
+
+ANTES DE ADICIONAR O 'COURSE' em si...
+
+
+
+
+
+
+
+
+
+
+
+-> SERIA BEM MAIS NICE SE ESSA VALIDATION
+ 
+
+
+
+ LOGIC__ FOSSE INCLUÍDA  
+
+
+
+
+
+
+ __ NA 'COURSE CLASS',
+
+ tudo com a ajuda de decorators....
+
+
+
+
+
+
+
+
+
+
+ -> E É ISSO QUE FAREMOS, AGORA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> PROFESSOR VAI __ MOSTRAR UMA IDEIA BÁSICA DE COMO IMPLEMENTAR ISSO...
+
+
+
+
+
+
+
+
+
+
+
+ ---> NO PRÓXIMO MÓDULO ELE VAI NOS MOSTRAR UMA PACKAGE 
+
+ QUE FAZ ISSO DE UMA MANEIRA BEM MAIS ELABORADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS AQUI O PROFESSOR CRIA UM DECORATOR DE 'Required',
+
+
+ E 
+ outro de 
+
+
+ 'PositiveNumber()'...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+ function Required() {}
+
+
+
+
+
+
+
+
+
+
+ function PositiveNumber() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> VAMOS COLOCAR ESSES DECORATORS NAS NOSSAS PROPRERTIES, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+ function Required() {
+
+ }
+
+
+
+
+
+ function PositiveNumber() {
+
+ }
+
+
+
+
+
+class Course {
+
+
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    const newCourse = new Course(title, price);
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... O TYPESCRIPT VAI REGISTRAR esses decoratoes nessas 
+
+properties.....
+
+
+
+
+
+
+
+
+
+
+
+--> TERMEOS 1 TERCEIRO DECORATOR, de 'validate'...
+
+
+
+,
+
+
+
+EM QUE TEREMOS 'QUALQUER OBJECT'  
+
+
+como parâmetro...
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+ const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+ function Required() {
+
+ }
+
+
+
+
+
+ function PositiveNumber() {
+
+ }
+
+
+ function validate(obj: object) {
+
+ }
+
+
+
+
+
+class Course {
+
+
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    const newCourse = new Course(title, price);
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT VAI DAR UMA OLHADA NESSE OBJECT 
+
+
+
+
+
+
+PASSADO A ESSE DECORATOR de 'validate',
+
+
+
+VAI __ ENTÃO __ 
+
+
+
+'FINDS ANY VALIDATION THAT WE REGISTERED FOR THIS OBJECT EARLIER',
+
+
+
+E AÍ __ 'APPLIES OUR VALIDATION LOGIC'... --------> ESSA É A IDEIA QUE TEMOS AQUI...
+
+
+
+
+
+
+
+
+
+
+
+
+------>  ISSO SIGNIFICA QUE ESSES 3 DECORATORS _ PODEM SER__ PARTE DE UMA 'THIRD PARTY LIBRARY'
+
+exposta a nós,
+
+
+
+
+E QUE __ VOCÊ ENTÃO SÓ IMPORTA NO SEU CÓDIGO,
+
+
+para 
+
+
+'FIRST SET THE VALIDATORS',
+
+
+para então chamar 
+
+'VALIDATE'....
+
+
+
+
+
+
+
+
+
+
+
+--------->  isso significa que chamamos primeiramente AQUELA FUNCTION DE 'validate()'
+
+EM ALGUM PONTO DE NOSSO CÓDIGO,
+
+para então 
+
+
+ter o resto das functions sendo executado...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    const newCourse = new Course(title, price);
+
+
+    if (!validate(newCourse)) { ///EIS O CÓDIGO EM QUESTAÕ.
+
+            alert('Invalid input, please try again!' );
+            return;
+    }
+
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+CÓDIGO COMPLETO:
+
+
+
+
+
+
+
+
+
+
+
+
+ const courseForm = document.querySelector('form') as HTMLFormElement;
+
+
+
+ function Required() {
+
+ }
+
+
+
+
+
+ function PositiveNumber() {
+
+ }
+
+
+ function Validate(obj: object) {
+
+ }
+
+
+
+
+
+class Course {
+
+
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    const newCourse = new Course(title, price);
+
+
+    if(!Validate(newCourse)) {
+                    alert('Invalid input, please try again!' );
+            return;
+    }
+
+    console.log(newCourse);
+  }
+
+
+
+  
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS PRECISAMOS ASSEGURAR QUE, QUANDO NÓS ASSIGNARMOS NOSSO DECORATOR LÁ EM 
+
+LOCAIS 
+COMO 
+
+
+''
+
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+
+
+'',
+
+
+
+ISSO FIQUE ___ ARMAZENADO ___ EM ALGUM LUGAR... (
+
+
+
+    OBS::: essa storage poderia ser feita por nossa THIRD PARTY LIBRARY EM SI... 
+) ------->  e aí é NA STORAGE QUE REALIZAMOS NOSSA 'CHECKING LOGIC' em cima desses inputs... é essa a ideia, aqui..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+explicação de novo:
+
+
+
+
+
+
+
+
+
+
+
+'''NÃO VAMOS QUERER TER QUE ESCREVER A 'VALIDATION LOGIC'
+
+
+nesse 'addEventListener',
+
+
+
+
+antes de criarmos esse object'''' --> seria muito 
+
+
+
+melhor se 
+
+essa lógica de validation 
+
+
+existisse DENTRO DA CLASS, 
+
+por meio de DECORATORS..
+
+
+
+
+
+
+
+
+
+
+
+-----> É ISSO QUE VAMOS QUERER FAZER, AQUi.. ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'function Validate() {}' --------> isso é um decorator, presumo...
+
+
+
+
+
+
+
+
+
+
+
+'''PODEMOS PASSAR UM OBJECT A ESSE 'validate',
+
+
+que 
+
+o 
+
+
+
+TYPESCRIPT VAI OLHAR DENTRO DESSE OBJECT,
+
+
+PROCURAR POR QUALQUER VALIDATION QUE ADICIONAMOS NESSE OBJECT ANTERIORMENTE,
+
+
+E AÍ __ APLICA NOSSA 'VALIDATION LOGIC' nesse object''' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... AÍ VOCÊ IMPORTA 'required' 'PositiveNumber' e 'Validate'...
+
+
+
+
+
+
+--> você setta o 'required' e 'PositiveNumber'
+
+
+
+nas suas 
+
+
+PROPRIEDADES DA SUA CLAS,
+
+
+PRA SÓ ENTÃO, MAIS TARDE,
+
+
+
+chamar 
+
+'validate()',
+
+
+PASSANDO O OBJETO INSTANCIADo ('newCourse') 
+
+
+
+PARA 
+
+
+DENTRO 
+
+
+
+
+DESSE NEGÓCIO....
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+courseForm.addEventListener(
+  'submit',
+
+  (event) => {
+    event.preventDefault();
+
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    const newCourse = new Course(title, price);
+
+
+    if(!Validate(newCourse)) {
+                    alert('Invalid input, please try again!' );
+            return;
+    }
+
+    console.log(newCourse);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> TEMOS QUE FAZER ALGUMAS COISAS:
+
+
+
+
+
+1) quando um decorator for adicionado em uma das properties,
+
+
+precisamos ASSEGURAR QUE _ _ele __ FIQUE 'ARMAZENADO' em algum lugar... (
+
+
+
+
+  professor teoriza, diz que esses 3 decorators poderiam fzer parte de um mesmo 'third party library',
+  library 
+
+  em que teríamos certa espécie de storage,
+
+
+  storage que 
+
+  diria ''esse title deve ser REQUIREd'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+e em validate, por exemplo, __ PODEOMS__ CHECAR__ SE, NESSE STORAGE,  
+
+
+PARA O OBJECT QUE OBTEMOS a partir daquela class, __ TEMOS__ ALGUM VALIDATOR _ REGISTRADO 
+
+PARA 
+
+o 
+
+'title, price', etc ... -> e aí rodamos nossa VALIDATION LOGIC... --> essa é nossa ideia, aqui....

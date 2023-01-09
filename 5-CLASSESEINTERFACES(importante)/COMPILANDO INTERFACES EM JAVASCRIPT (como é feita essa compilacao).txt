@@ -1,0 +1,234 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK.... FALAMOS MT SOBRE INTERFACES E CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> TEMOS QUE VER 'UNDER THE HOOD',
+
+
+
+ descobrir o que 
+
+ o 
+
+
+ JAVASCRIPT PRODUZ 
+
+
+
+
+
+ COMO ALTERNATIVA/código velho Às  interfaces....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> APRENDEMOS QUE 'classes' --> seu código traduzido DEPENDE DO 'es5-6-7' QUE ESCOLHEMOS....
+
+
+
+
+
+
+
+
+
+
+
+ --> SE ESCOLHEMOS 'es6', ficamos com 'class' no código compilado...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS ES5 --> faz com que 
+
+
+ seja produzido aquele WORKAROUND COM __ CONSTRUCTOR FUNCTIONS_......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK, MAS O QUE ACONTECE COM INTERFACES?
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> BEM, SE OBSERVARMOS O 'app.js',
+
+ VEREMOS QUE _ __AS INTERFACES__ NÃO VÃO NEM EXISTIR... 
+ (
+
+     as interfaces não são traduzidas,
+
+
+
+     NÃO ENCONTRAMOS NENHUM VESTÍGIO DELAS....
+ )
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+ var Lawyer3 = /** @class */ (function () {
+    function Lawyer3(name, name2) {
+        this.name = name;
+        this.name = name;
+        this.name2 = name2;
+    }
+    Lawyer3.prototype.greet = function (phrase) {
+        if (this.name) {
+            console.log(phrase + ' ' + this.name);
+        }
+        else {
+            console.log('No greetings for you, no parameter provided');
+        }
+    };
+    Lawyer3.age = 30;
+    return Lawyer3;
+}());
+var newLawyer5 = new Lawyer3(); ////podemos chamar assim justamente pq definimos esses parâmetro, na INTERFACE E NA CLASS, como optional...
+newLawyer5.greet('frase');
+
+
+
+
+
+var newLawyer6 = new Lawyer3('Max', 'Manu');
+
+
+
+newLawyer6.greet('frase');
+
+
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÃO ENCONTRAMOS NENHUMA REFERÊNCIA A UMA INTERFACE ---> A RAZÃO PARA ISSO 
+
+
+É QUE 
+
+NÃO EXISTE TRANSLATION PARA INTERFACES (o javascript não conhece essa feature, ela só existe no typescript, durante o development e compilation)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UMA 'PURE DEVELOPMENT FEATURE', que te ajuda a escrever código bem estruturado, seguindo regras bem definidas...
+
+
+
+
+
+
+
+
+
+
+
+
+--------------> só veremos FUNCTIONS E CLASSES, código normal.... --> INTERFACES SÃO 'DUMPED' no código javascript compilado....

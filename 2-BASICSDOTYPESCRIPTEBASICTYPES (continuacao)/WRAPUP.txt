@@ -1,0 +1,157 @@
+
+
+
+COM ISSO,
+
+DEMOS UMA OLHADA EM TODOS OS BASICS 
+
+E 
+
+CORE TYPES 
+
+
+DO 
+
+
+
+
+TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+-> VIMOS:
+
+
+1) COMO CRIAMOS E ASSIGNAMOS TYPES 
+
+
+2) COMO ASSIGNAMOS TYPES A VARIABLES E PARAMETERS 
+
+
+
+3) COMO TYPE ASSIGNMENTS EM TYPESCRIPT DIFEREM DE TYPE CHECKS 
+
+DO JAVASCRIPTT (type checks no typescript USAM 'STATIC TYPES', que importam durante 
+o development,
+
+ao passo que 
+
+
+
+O JAVASCRIPT USA 'RUNTIME CHECKS'...
+)
+
+
+4) VIMOS QUE 
+
+
+
+O CÓDIGO JAVASCRIPT OUTPUTTADO (BUILD JAVASCRIPT CODE)
+
+
+
+NÃO INCLUI NNEHUM DOS TYPE ASSIGNMENTS,
+
+
+
+E SIM 
+
+_sÓ __ INCLUI 
+
+'TYPE CHECKS '( como 'if (typeof userInput === 'string'))' 
+
+
+
+
+
+
+
+
+coisas como 'let userInput: string' NÃO EXISTEM NO JAVASCRIPT...
+
+
+
+
+5) VIMOS 'NUMBERS',
+
+'STRINGS',
+
+
+'BOOLEANS'
+
+
+
+
+6) VIMOS FUNCTION TYPES
+
+
+
+7) VIMOS COMO SETTAR ARGUMENT TYPES, RETURN TYPES, ETC....
+
+
+
+8) VIMOS COMO 'DESCRIBE THE TYPE OF A OVERALL FUNCTION' (útil se você tem uma variable que EVENTUALMENTE SEGURARÁ UMA FUNCTION INTEIRA  )
+
+
+
+
+
+
+9 ) VIMOS OBJECTS, ARRAYS
+
+
+
+10) VIMOS TUPLES...
+
+
+
+
+
+
+
+11) VIMOS TYPE ALIASES (merge de complex types em ALIASES QUE PODEMOS REUSE)....
+
+
+
+
+
+
+
+
+12) VIMOS UNION TYPES E LITERAL TYPES (úteis para cenários em que 
+
+vocÊ espera mais de 1 possible type)
+
+
+
+
+
+13) VIMOS 'UNKNOWN' e 'NEVER',
+
+types nichos, que são mt 
+
+
+bons nos seus nichos...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEREMOS DIFERENTES ÁREAS E CONSTRUCTS EM QUE 
+
+OS TYPES DO TYPESCRIPT PODEM
+
+SER ÚTEIS...

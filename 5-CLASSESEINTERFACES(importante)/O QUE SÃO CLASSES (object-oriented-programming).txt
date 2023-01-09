@@ -1,0 +1,619 @@
+
+
+
+
+
+
+
+
+
+
+
+
+O QUE É O 'OOP' ------> 
+
+
+
+
+
+
+
+
+
+
+
+DEPENDENDO DO SEU NÍVEL DE CONHECIMENTO,
+
+
+e o quanto você trabalhou com js,
+
+
+
+
+
+
+
+VOCÊ 
+
+TALVZE 
+
+
+JÁ 
+
+SAIBA 
+
+O 
+
+QUE 
+
+
+SÃO CLASSES 
+
+E 
+
+OBJECT-ORIENTED-PROGRAMMING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É IMPORTANTE ENTENDER ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A IDEIA POR TRÁS DISOS É QUE 
+
+VOCê 
+
+TRABALHA COM 'ENTIDADES DE VERDADE NO SEU CÓDIGO'...
+
+
+
+
+
+
+
+
+
+
+
+--> OBJECTS QUE
+
+
+
+REPRESENTAM REAL-LIFE OBJECTS... --> mais fácil de entender seu códigol......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ONLINE SHOP --> PRODUCTLIST --> objeto 'productList',
+
+
+
+vai ter 
+
+
+
+1 
+
+method para 
+
+
+ADICIONAR PRODUCTS, ETC ETC... --> 
+
+
+vários 
+
+
+'productItem',
+
+
+etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'ProductList' --> vai segurar 
+
+
+
+A LÓGICA 
+
+
+
+DE 'RENDERING + FETCHING ' de 
+
+
+
+PRODUCTS....
+
+
+
+
+
+
+
+
+
+
+-> PRODUCTLIST --> RENDERIZA UMA LISTA DE PRODUCTS QUE FORAM FETCHEADAS DE UM SERVER ( da database de um server, na verdade)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS TAMBÉM 
+
+PRECISAMOS 
+
+
+TRABALHAR COM PRODUCTS INDIVIDUAIS.... --> VAMOS PRECISAR DE 1 'object'
+
+PARA 
+
+CADA
+
+PRODUCT...
+
+
+
+
+
+
+
+
+
+
+-> CADA PRODUCT VAI TER LO´GICA PARA RENDERIZAR DETALHES SOBRE 1 PRODUCT,
+E 
+
+PARA 
+PERMITIR SUA ADIÇAÕ 
+
+
+
+
+A 
+
+
+
+1 'Cart'... -->  
+
+
+
+
+
+
+
+
+
+O OBJETO 
+
+
+CART VAI __ TER 
+
+
+
+LÓGICA DE 'RENDERING + CART-ADDING'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ESSES 2 OBJECTS, PRODUCTLIST E PRODUCT,
+
+
+vao estar 
+
+
+
+
+
+BASICAMENTE RELATED... ------> NÓS TBM PROVAVELMENTE 
+
+
+
+TEREMOS 
+
+
+
+UM 
+
+
+
+
+
+OBJETO 'shoppingCART',
+
+
+
+
+
+
+
+
+
+
+que 
+
+
+
+
+SERÁ RESPONSÁVEL 
+
+
+
+PELO 
+
+RENDERING 
+
+
+
+E MANAGE 
+
+
+
+DO 
+
+SHOPPING CART  (que também está conectado aos product),
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ESSE OBJECT VAI 
+
+
+
+TER A LÓGICA PARA FAZER O RENDER DOS PRODUCTS,
+
+
+
+
+  O ORDERING (server communication logic )
+
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO TUDO SÃO 'OBJETOS'
+
+
+que 
+
+se 
+
+conectam 
+
+e que 
+fazem 
+
+sentido a nós, humanos...
+
+
+
+
+
+
+
+
+-> NA GRANDE MAIORIA DAS LINGUAGENS DE PROGRAMAÇÃO O 
+
+'oop'
+
+É 
+
+ATIVAMENTE SUPORTADO,
+
+
+
+PQ 
+
+TEMOS 
+
+OBJECTS 
+(
+
+    que 
+
+    são 
+
+    complex data structures que 
+
+    seguram 
+
+    PROPRIEDADES E METHODS
+),
+
+
+
+mas 
+
+
+
+
+também temos 'CLASSES' que nos ajudam com isso...
+
+
+
+
+
+
+
+
+
+
+
+--> AS CLASSES NOS PERMITEM __ INSTANCIAR OBJECTS, CRIAR VÁRIOS OBJECTS A PARTIR DELAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OBJECTS --> quando seguimos 
+
+
+
+ESSE OBJECT-ORIENTED-APPROACH,
+
+
+vmaos 
+
+
+considerar SPLITTAR NOSSO 
+
+APp 
+
+
+EM 
+
+
+
+
+
+MÚLTIPLOS OBJECTS,
+
+
+OBJECTS _ QUE _ VÃO MANAGEAR __ 
+
+
+a lógica 
+
+de nosso app... 
+
+
+
+
+
+
+(PARTE DE NOSSA LÓGICA )....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CONECTADA A IDEIA 
+
+DESSES OBJECTS,
+
+
+E´
+
+
+a 
+
+
+
+COISA 
+
+
+QUE 
+
+
+É CHAMADA DE 
+
+
+'classes'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBJECTS --> SÃO AS COISAS COM AS QUAIS  TRABALHAMSO NO NOSSO CÓDIGO (rodamos methods, fazemos coisas)..
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CLASSES --> SÃO AS BLUEPRINTS PARA 'DEFINIR OBJECTS '--> 
+
+
+
+DEFINEM COMO 
+
+
+OBJECTS DEVEM SE PARECER, QUE 
+PROPRIEDADES DEVEM TER,
+
+QUE METHODS DEVEM TER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OBJECTS --> SÃO INSTANCES DE CLASSES... (baseados nas classes)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PODEMOS REPLICAR MÚLTIPLOS OBJECTS, COM A MESMA ESTRUTURA, COM BASE NA MESMA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-ok... classes EXISTEM PARA ACELERAR A PRODUÇÃO DE OBJECTS...
+
+
+
+
+
+
+
+
+--> CLASSES SÃO UMA ALTERNATIVA AO USO DE 'new Object()' 
+
+
+
+
+
+
+
+(
+    object literals, sintaxe VELHA...
+)
+
+
+
+
+
+
+
+
+
+-_> CLASSES --> FAZEM A CRIAÇAÕ DE 
+
+
+
+MÚLTIPLOS OBJETOS SIMILARES SER MT MAIS FÁCIL...

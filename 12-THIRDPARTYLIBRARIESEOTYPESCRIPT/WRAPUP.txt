@@ -1,0 +1,124 @@
+
+
+
+
+
+
+
+
+--> ACABAMOS COM ESTE MÓDULLO..
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE EXISTEM MILHARES DE 
+
+
+
+THIRD PARTY PACKAGES QUE VOCê PODE USAR COM O TYPESCRIPT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PROFESSOR 
+
+
+QUERIA SÓ NOS MOSTRAR 
+
+
+
+
+2 COISAS:
+
+
+
+
+
+
+
+1) COM O TYPESCRIPT, VOCê PODE USAR PACKAGES COMUNS DO JS 
+
+COMO 'LODASH'
+
+
+,
+
+
+sem problemas... (
+
+
+    workarounds por meio dO import dos TYPES CORRETOS....
+)
+
+
+
+--> TRANSLATION PACAKGES EXISTEM PARA MTAS JAVASCRIPT LIBRARIES...
+
+
+
+
+--> D.TS FILES BUILTIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) ALÉM DESSAS VANILLA JAVASCRIPT LIBRARIES,
+
+
+VOCê TAM´BEM TEM LIBRARIES COMO 'CLASS-TRANSFORMER',
+
+
+
+
+QUE 
+
+FUNCIONAM 
+
+
+
+NO VANILLA JAVASCRIPT, MAS QUE FUNCIONAM 
+
+EM TYPESCRIPT PROJECTS TABME´M..
+
+
+
+
+
+
+
+
+
+
+3) CLASS-VALIDATOR --> PACKAGES QUE FUNCIONAM COM FEATURES DO TYPESCRIPT,
+
+
+
+como essa package aí, que usa os decorators do typescript...

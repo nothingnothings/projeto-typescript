@@ -1,0 +1,2206 @@
+
+
+
+
+
+
+
+
+
+EU JÁ HAVIA ESTUDADO ISSO EM UMA AULA, UMA VEZ...
+
+
+
+
+
+
+
+
+-_> uso de 'ref' 
+
+
+
+
+em inputs para 
+
+
+
+OBTER 
+
+
+
+
+OS INPUTS 
+
+
+
+DOS USUÁRIOS....
+
+
+
+
+
+
+
+
+
+--> BEM, PARA ISSO, PROVAVELMENTE TEREMOS DE CRIAR 1 
+
+
+
+COMPONENT DE 'Input',
+
+ou algo assim....
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ADICIONA UM NOVO COMPONENT,
+
+DE NOME 
+
+
+'NewTodo.tsx'...
+
+
+
+
+
+
+
+
+
+
+-->  PROFESSOR EXPLICA QUE PODERÍAMOS CRIAR/USAR CLASS-BASED COMPONENTS COM O TYPESCRIPT,
+QUE ISSO 
+É 
+TOTALMENTE SUPORTADO,
+
+ 
+ MAS QUE ELE VAI USAR 
+
+
+ ESSA SINTAXE MODERNA DE 'FUNCTIONAL COMPONENTS ONLY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> aí ele escreve isto:
+
+
+
+
+
+
+
+
+import React from 'react';
+
+const NewTodo: React.FC = () => {};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+const NewTodo: React.FC = () => {
+
+
+
+
+
+
+    return 
+
+
+};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI QUERER RETORNAR UMA FORM,
+
+
+FORM EM QUE 
+
+
+
+
+
+SERÃO ADICIONADOS TODOS OS CONTROLS NECESSÁRIOS PARA ADICIONAR UM NOVO 
+
+'
+Todo'....
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ENTÃO IMPORTA E INCORPORA ESSE 
+
+'NewTodo'
+
+
+
+
+LÁ NO COMPONENT-CHEFE DE 'App.tsx'...
+
+
+
+
+
+
+
+
+--> OK... --> SO´UM '<NewTodo>',
+
+solto,
+
+
+
+
+
+
+
+
+sem nenhum prop....
+
+
+
+
+
+
+
+
+--> BEM, DENTRO DE 'NewTodo'
+
+O PROFESSOR VAI QUERER ADICIONAR UM INPUT...
+
+
+
+
+
+
+
+
+
+---> UM INPUT E DEPOIS UM BUTTON (ele não vai criar components standalone para isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA USAR 'refs',
+
+
+
+precisamos do HOOK DE 'useRref',
+
+
+
+
+
+
+
+
+
+que é acessado com 'import { useRef} from 'react'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU MEIO GOROROBA,
+
+TIPO ASSim:
+
+
+
+
+
+
+
+
+
+
+import React, { useRef } from 'react';
+
+
+
+
+
+
+import React, { useRef } from 'react';
+
+
+
+
+
+
+
+
+interface NewTodoProps {
+    onSubmit: (title: {current: {value: string}} ) => void;
+}
+
+const NewTodo: React.FC<NewTodoProps> = (props) => {
+
+
+
+    const titleRef = useRef();
+
+
+
+  return (
+    <form onSubmit={props.onSubmit(titleRef)}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">SUBMIT</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SIGO ASSISTINDO A AULA DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+
+ele escreve assim:
+
+
+
+
+
+
+
+  return (
+    <form onSubmit={props.onSubmit(titleRef)}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">ADD TODO</button>
+    </form>
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+  ------------------
+
+
+
+  ESSA É UMA FORM BEM BÁSICA, USADA PARA ADICIONAR UM TODO..
+
+
+
+
+
+
+
+  --> PARA FAZER ISSO FUNCIONAR, PRECISAMOS SEGUIR UM PUNHADO DE ETAPAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1o --> precisamos _ PEGAr__ A COISA QUE __  O USER VAI INPUTAR,
+
+
+  AQUI NESSE INPUT FIELD...
+
+
+
+
+
+
+
+
+
+  2o ---> AÍ PRECISAMOS __ FORWARDAR___ O QUE O USER INPUTTOU, LÁ PARA O COMPONENT de 'App',
+
+  em que existirõa nossos methods... 
+
+
+  (
+
+
+      PQ 
+
+      É 
+
+
+      EM 'App.tsx' 
+
+
+      QUE VAMOS MANAGEAR NOSSOS TODOS, MAIS TARDE, por meio do array de 'Todos'...
+  )
+
+
+
+
+
+
+
+
+
+
+
+  ---------> professor diz que devemos 'REACT TO A FORM SUBMISSION'...
+
+
+
+
+
+
+
+
+
+  --> e ele NÃO VAI ESCREVER UM METHOD DE 'submitHandler' lá no nosso parent component de 'App.tsx',
+
+
+  e sim 
+
+
+
+  O FARÁ 
+
+  LÁ 
+
+
+  NO PRÓPRIO 'NewTodo.tsx'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> EU HAVIA ESCRITO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+  const NewTodo: React.FC = (props) => {
+
+
+
+    const titleRef = useRef();
+
+
+
+
+
+
+
+
+
+
+    const todoSubmitHandler = (event: SubmitEvent) => {
+        event.preventDefault();
+  
+        const enteredTitle = title.current.value;
+  
+  
+  
+    }
+
+
+
+
+
+
+
+
+  return (
+    <form onSubmit={todoSubmitHandler}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">SUBMIT</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS ISSO ESTÁ ERRADO, ESSE CÓDIGO ME MOSTRA ERRORS....
+
+
+
+
+
+
+
+
+--> PARA ACABAR COM ESSES ERRORS, preciso trocar aquele Type de 'event: SubmitEvent' 
+
+
+
+por 'React.FormEvent'...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+import React, { useRef } from 'react';
+
+
+
+
+
+
+
+const NewTodo: React.FC = (props) => {
+
+
+
+    const titleRef = useRef();
+
+
+
+
+
+
+
+
+
+
+    const todoSubmitHandler = (event: React.FormEvent) => {
+        event.preventDefault();
+  
+        const enteredTitle = title.current.value;
+  
+  
+  
+    }
+
+
+
+
+
+
+
+
+  return (
+    <form onSubmit={todoSubmitHandler}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">SUBMIT</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> BEM, DENTRO DESSE METHOD CHAMADO A PARTIR DO 'submit' event,
+
+vamos 
+querer 
+
+CHAMAR 'event.preventDefault()'
+
+
+PARA _ PREVENIR__ O RELOAD DA PÁGINA.... (prevenir o send de um REAL REQUEST AO SERVER QUE ESTÁ SERVINDO O APP) ---> queremos 
+que 
+
+
+
+o 
+
+request seja handlado apenas pelo javascript, por isso o prevent desse browser default....
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO FEITO,
+
+
+
+
+VAMOS QUERER OBTER AQUILO QUE O USER INPUTTOU NO INPUT FIELD....
+
+
+
+
+
+
+
+
+
+
+--> 2 MAIN WAYS:
+
+
+
+
+
+
+
+1) 'inputChangedHandler' --> keystroke por keystroke... (é o manage do STATE DO INPUT FIELD)... -> 2 way binding...
+
+
+
+
+
+
+
+
+
+
+2) usar um REF, para extrair o que o user inputtou aqui, user inpputtou aqui 
+
+
+
+
+
+quando a form foi submittada...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vamos usar 
+o segundo approach....
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+professor importa o hook de 'useRef'...
+
+
+
+
+
+
+
+
+
+
+HOOKS --> FUNÇÕES ESPECIAIS QUE VOCe^PODE EXECUTAR EM FUNCTION COMPONETS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+ok, aí professor faz o que eu fiz,
+
+
+
+escreve 
+
+
+
+
+'const titleRef = useRef();'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+aí escrevemos 'ref={textInputRef}' 
+
+
+LÁ NO NOSSO ELEMENTO 'input'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS QUANDO O PROFESSOR FAZ ISSO,
+
+ELE GANHA UM 'TYPE ERROR'... 
+
+
+
+
+
+
+
+
+
+
+
+--> QUAL É A RAZÃO DESSE ERROR?
+
+
+
+
+
+
+
+
+
+--> É PQ 
+
+
+
+'useRef()' 
+
+
+
+
+É, NA VERDADE,
+
+UMA _ GENERIC_ FUNCTION___
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ESSE ERRO,
+
+
+
+
+
+PRECISAMOS __ PASSAR__ UM TYPE__ com '<>' ,
+
+
+
+nesse call de 'useRef()'...
+
+
+
+
+
+
+
+MAS O QUE PODEMOS ESCREVER NISSO,
+
+O QUE SERIA 'BOM DE SABER'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERIA BOM SABER _ QUAL TIPO DE DATA SERÁ ARMAZENADA __ DENTRO DESSE 'REF.'...
+
+
+
+
+
+
+
+
+
+
+--> OK... -> COMO NÓS VAMOS APONTAR A UM 'INPUT ELEMENT',
+
+
+
+NÓS OBRIGATORIAMENTE 
+
+
+TEREMOS UM 'HTMLInputElement' 
+
+
+
+ARMAZENADO DENTRO DE 'useRef'...
+
+
+
+
+
+
+
+
+POR ISSO QUE FICA ASSIM:
+
+
+
+
+
+
+
+const titleRef = useRef<HTMLInputElement>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+por fim, o professor escreve 'null' 
+
+
+NOS PARÊNTESES 
+
+
+inicializadores,
+
+
+
+pq 
+
+
+
+
+isso aí é o 'VALOR QUE ESSE REF TERÁ QUANDO O COMPONENT FOR RENDERIZADO PELA PRIMEIRA VEZ'''' 
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useRef } from 'react';
+
+
+
+
+
+
+
+const NewTodo: React.FC = (props) => {
+
+
+
+    const titleRef = useRef<HTMLInputElement>(null); //'useRef()' é uma generic function, o que pode ocasionar ERROS DE TYPE, no typescript, caso usada incorretamente....
+                ////aqui dizemos que esse 'REF' de 'useRef()' vai segurar uma referência ESPECIFICAMENTE A UM ELEMENTO DE TIPO 'HTMLInputElement' (ou seja, aquele elemento de  '''         <input type="text" id="text" required ref={titleRef}></input>''' )
+                /// 'null' --. escrevemos aquele 'null' ali apenas para INDICAR/EXPLICAR ao typescript que _ O VALOR __ INICIAL DESSE REF SERÁ DE 'NULL' ( ou seja, no momento em que o component de 'NewTodo' é inicializado, o valor desse ref é de NULL) --> só passa a ser a STRING que o user inputta___ em um MOMENTO POSTERIOR....
+
+
+
+
+
+
+
+
+    const todoSubmitHandler = (event: React.FormEvent) => {
+        event.preventDefault();
+  
+        const enteredTitle = titleRef.current?.value;
+  
+  
+  
+    }
+
+
+
+
+
+
+
+
+  return (
+    <form onSubmit={todoSubmitHandler}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">SUBMIT</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE AGORA _ PRECISO __ FAZER ALGO COM ESSE 'enteredTitle',
+
+
+essa string aí... -->  
+
+PRECISO PASSAR ISSO 
+
+
+
+ao 
+
+
+
+
+COMPONENT DE 'App',
+
+que é onde 
+
+tenho 
+
+
+
+
+
+O ARRAY DE 'todos',
+
+
+e onde tenho METHOD PARA 
+
+
+ADICIONAR 1 TODO A PARTIR DESSE INPUt...
+
+
+
+
+
+
+
+
+--> TENTAR FAZER ISSO POR CONTA PRÓPRIA....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+Passing Data from Child to Parent
+Passing the data from the child to parent component is a bit trickier. In order to do this, you need to do the following steps:
+Create a callback function in the parent component. This callback function will get the data from the child component.
+Pass the callback function in the parent as a prop to the child component.
+The child component calls the parent callback function using props.
+Let’s see how these steps are implemented using an example. You have two class components, Parent and Child. The Child component has a form that can be submitted in order to send its data up to the Parent component. It would look something like this:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+
+class Parent extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            data: null
+        }
+    }
+
+    handleCallback = (childData) =>{
+        this.setState({data: childData})
+    }
+
+    render(){
+        const {data} = this.state;
+        return(
+            <div>
+                <Child parentCallback = {this.handleCallback}/>
+                {data}
+            </div>
+        )
+    }
+}
+
+class Child extends React.Component{
+  
+    onTrigger = (event) => {
+        this.props.parentCallback("Data from child");
+        event.preventDefault();
+    }
+
+    render(){
+        return(
+        <div>
+            <form onSubmit = {this.onTrigger}>
+                <input type = "submit" value = "Submit"/>
+            </form>
+        </div>
+        )
+    }
+}
+
+export default Parent;
+
+
+
+
+
+
+
+
+
+
+
+As you can see, when the Child component is triggered, it will call the Parent component’s callback function with data it wants to pass to the parent. The Parent’s callback function will handle the data it received from the child.
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ACHO QUE CONSERTEI ISSO AÍ...
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+    console.log(todos);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+  E ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    const onSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        props.submit(event, titleRef);
+    }
+
+
+
+
+
+
+  return (
+    <form onSubmit={onSubmit}>
+      <div>
+        <label htmlFor='title'>Title</label>
+        <input type="text" id="text" required ref={titleRef}></input>
+      </div>
+    <button type="submit">SUBMIT</button>
+    </form>
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM CONSEGUI FAZER O STATE MANAGEMENT DO 
+
+
+
+
+'App.tsx',
+
+que ficou assim:
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+
+import NewTodo from './components/NewTodo';
+
+
+interface AppProps {}
+
+const App: React.FC<AppProps> = (props) => {
+
+
+  const [todos, setTodos] = useState([
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+
+
+export default App;
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> OK, COMO FICOU O CÓDIGO DO PROFESSOR?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele escreveu assim:
+
+
+
+
+
+
+
+
+
+
+ele diz que queremos transferir a data do 'text' captado no input,
+
+
+lá para o component de 'App.tsx'...
+
+
+
+
+
+
+
+
+
+
+ele 
+
+
+
+escreve 
+
+
+um 
+
+
+
+
+'todoAddHandler',
+
+
+lá 
+
+
+
+em 
+
+
+'App'...
+
+
+
+
+
+
+
+
+
+--. tipo assim:
+
+
+
+
+
+
+
+
+
+const App: React.FC = () => {
+
+
+  const todos = [{id: 't1', text: 'Finish the course'}];
+
+
+  const todoAddHandler = (text: string) => {
+
+
+
+  }
+
+
+
+
+      return (
+        <div className="App">
+        <NewTodo />
+        <TodoList items={todos} />
+        </div>
+
+      )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------->  ESSE TODOADDHANDLER VAI RECEBER O 'text' COMO UMA STRING,
+
+
+E AÍ 
+
+VAI QUERER 
+
+
+ADICIONAR
+
+
+
+ESSE 
+
+TEXT COMO 
+
+UMA STRING 
+
+
+
+àQUELE ARRAY de 'todos'...
+
+
+
+
+
+
+--> É CLARO QUE, NO REACT,
+PRECISAMOS 
+
+
+
+
+
+
+DE UM 'useState'
+
+
+para 
+
+
+RE-RENDERIZAR ESSE COMPONENT,
+
+
+MAS ISSO É ALGO QUE FAREMOS MAIS TARrDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo.... 
+
+
+
+
+
+
+
+
+
+--> ELE DIZ QUE DEVEMOS FAZER COM QUE 
+
+
+
+
+ESSE 
+'todoAddHandler'
+
+
+CONSIGA _ SER __ CHAMADO __ LÁ DE DENTRO DE 
+
+
+'NewTodo.tsx',
+
+
+o component FILHO,
+
+pq 
+
+
+É 
+
+
+
+__ AÍ _ QUE __NÓS REALMENTE TEMOS O VALOR DE 'textInputRef',
+
+
+que será repassado...
+
+
+
+
+
+
+
+
+
+-------> PARA CONSEGUIR FAZER ISSO,
+
+
+PRECISAMOS PASSAR UM POINTER A ESSE METHOD DE 'todoAddHandler'
+
+
+
+
+LÁ EM '<NewTodo />',
+
+
+COMO UM PROP...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+const App: React.FC = () => {
+
+
+  const todos = [{id: 't1', text: 'Finish the course'}];
+
+
+  const todoAddHandler = (text: string) => {
+
+
+
+  }
+
+
+
+
+      return (
+        <div className="App">
+        <NewTodo onAddTodo={todoAddHandler} />
+        <TodoList items={todos} />
+        </div>
+
+      )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+OK... FOI EXATAMENTE ISSO QUE EU FIZ, no meu código...
+
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS ATÉ 'NewTodo',
+
+
+
+em que 
+
+
+ACESSAMOS 
+
+
+
+
+
+ESSE NEGÓCIO,
+
+ 
+
+ POR MEIO DE UM CÓDIGO EM 'todoSubmitHandler',
+
+
+ tipo assim:
+
+
+
+
+
+
+
+
+
+
+ const todoSubmitHandler = (event: React.FormEvent) => {
+   event.preventDefault();
+
+   const enteredText = textInputRef.current!.value;
+   props.onAddTodo(enteredText);
+ }
+
+
+
+
+
+
+
+
+
+ ------------------------------
+
+
+
+
+
+
+
+
+ -->  MAS É CLARO QUE O TYPESCRIPT NÃO VAI GOSTAR DISSO,
+
+ PQ 
+
+ NÃO ESPECIFICAMOS, EM 'NewTOdo',
+
+
+
+ que 
+
+
+
+
+ ESSE COMPONENT 'NewTodo'
+
+
+
+ __RECEBERIA/VAI RECEBER __ ESSE PROP de 'onAddTodo'...
+
+
+
+
+
+
+
+
+ --> É POR ISSO QUE O PROFESSOR 
+
+
+
+ VAI ESPECIFICAR com '<>' 
+
+
+ aquele type de 'React.FC',
+
+
+
+
+ colocando uma INTERFACE que descreve 
+
+
+
+ QUE PROPS TEREMOS DENTRO DESSE COMPONENT,
+
+
+ TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ interface NewTodoProps {
+    onAddTodo: (event: React.FormEvent, titleRef: React.RefObject<HTMLInputElement>) => void;
+}
+
+
+
+
+
+
+
+
+const NewTodo: React.FC<NewTodoProps> = (props) => {
+
+
+
+
+
+    const onAddTodo = (event: React.FormEvent) => {
+        event.preventDefault();
+        props.submit(event, titleRef);
+    }
+
+
+}
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.... SETTAMOS E USAMOS ESSA INTERFACE AÍ,
+
+
+PORTANTO...
+
+
+
+
+
+
+
+
+
+--> poderíamos usar uma interface,
+
+
+ou um TYPE...
+
+
+
+
+
+
+
+--> O PROFESSOR SEMPRE USA INTERFACES PARA ISSO, NO ENTANTO...
+
+
+
+
+
+
+
+
+
+
+--> ok,
+
+ele escreve assim:
+
+
+
+
+
+
+
+type NewTodoProps = {
+  onAddTodo: (todoText: string) => void;
+}
+
+
+
+
+
+
+
+
+
+
+--> o  código do professor ficou um pouco diferente do meu,
+
+
+pq 
+
+ele 
+
+
+NÃO PASSOU O EVENT OBJECT, nem o objeto 'Ref' em si,
+
+PASSANDO APENAS O 
+
+
+'todoText'...
+
+
+
+
+
+
+
+
+
+--> mas dá na mesma, pq o nosso código também funcionou...
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+SE ADICIONAMOS UM TEXT DNV,
+
+
+
+
+
+
+
+AGORA A COMUNICAÇÃO ENTRE OS 
+
+
+
+2 COMPONENTS FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+--> COMO PRÓXIMO PASSO,
+
+
+O PROFESSOR QUER ADIICONAR STATE MANAGEMENT (
+  mas já fiz isso,
+
+
+  como você pode constatar com este códiog:
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+
+import NewTodo from './components/NewTodo';
+
+
+interface AppProps {}
+
+const App: React.FC<AppProps> = (props) => {
+
+  const [todos, setTodos] = useState([
+    {
+      id: 't1',
+      text: 'Finish the course',
+    },
+    {
+      id: 't2',
+      text: 'Finish the job',
+    },
+    {
+      id: 't3',
+      text: 'Graduate',
+    },
+  ]);
+
+  const todoSubmitHandler = (
+    event: React.FormEvent,
+    titleRef: React.RefObject<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    const enteredTitle = titleRef.current!.value;
+
+    const todo = {
+      id: Math.random().toString(),
+      text: enteredTitle,
+    };
+
+
+
+    setTodos([
+      ...todos,
+      todo
+    ]);
+
+    console.log(todos);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo submit={todoSubmitHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+
+export default App;
+
+
+)
+
+
+
+
+
+

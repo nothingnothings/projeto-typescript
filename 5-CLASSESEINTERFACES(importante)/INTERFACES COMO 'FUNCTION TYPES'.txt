@@ -1,0 +1,737 @@
+
+
+
+
+
+
+
+
+
+--> NOSSO CÓDIGO DE 'inheriting EM INTERFACES' havia ficado assimm:
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Named {
+    readonly name: string;
+  }
+
+
+
+
+
+  
+interface Greetable2 extends Named { //////SINTAXE __IDÊNTICA à usada em CLASSES, para legar coisas de uma class 'base' às classes 'HERDEIRAS' (inheriting)....
+    greet(phrase: string): void; 
+
+    ////'readonly name: string' ---> isso tbm vai existir nessa INTERFACE, pq herdamos daquela interface de 'Named'...
+  }
+  
+
+
+
+
+  
+class Lawyer2 implements Greetable2 { //o implement dessas 2 interfaces vai:  1) OBRIGAR ESSA CLASS A TER A PROPRIEDADE DE 'name';  2) OBRIGAR ESSA CLASS A TER A PROPRIEDADE de greet (obrigada por Greetable)....
+    
+    static age = 30; 
+
+    name2: string;
+
+
+greet(phrase: string) { 
+        console.log(phrase);
+}
+
+
+
+constructor(public name: string) {
+        this.name2 = name;
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... -> E O PROFESSOR 
+
+
+HAVIA MENCIONADO QUE 
+
+
+
+__INTERFACES __'''PODEM SER USADAS PARA DEFINIR A ESTRUTURA DE UM OBJECT'''...
+
+
+
+
+
+
+
+
+
+-------> BEM.... --> MAS __ AS INTERFACES_ NÃO SE LIMITAM A ISSO......
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DE SEREM USADAS PARA DEFINIR A ESTRUTURA DE OBJECTS,
+
+
+
+INTERFACES PODEM SER USADAS ( e são usadas)
+
+PARA 
+
+
+
+__dEFINIR __A ESTRUTURA_ _ 
+
+
+DE FUNCTIONS (pq functions são objetos)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------->  OU SEJA,
+
+
+
+
+
+
+
+
+
+
+
+____ AS INTERFACES__ SERVEM/PODEM SERVIR 
+
+COMO 
+
+'
+REPLACEMENTS'
+
+PARA 
+
+
+
+
+OS 'FUNCTION TYPES'
+
+
+que já havíamos aprendido..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> DEVEMOS RECORDAR OS FUNCTION TYPES:
+
+
+
+
+
+
+
+
+
+
+
+
+
+type funcaoLegal = () => {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+type funcaoLegal = (a: number, b: number) =>  number; /////tíipica definição de 'FUNCTION TYPE' no typescript... (vamos compará-la com UMA INTERFACE USADA COMO FUNCTION TYPE...)
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... COM ISSO, PODEMOS CRIAR UMA NOVA FUNCTION,
+
+QUE SERÁ 
+
+DESSE TIPO 'funcaoLegal'..
+
+
+
+
+
+
+
+
+
+ESCREVEMOS ASSIM:
+
+
+
+
+
+
+type funcaoLegal = (a: number, b: number) => number; /////tíipica definição de 'FUNCTION TYPE' no typescript... (vamos compará-la com UMA INTERFACE USADA COMO FUNCTION TYPE...)
+
+
+
+let add: funcaoLegal = (num1: number, num2: number) => {
+    return num1 + num2;
+}
+
+
+
+
+add(12, 24);
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE CÓDIGO, É CLARO, É A MESMA COISA QUE ESCREVER ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type funcaoLegal = (a: number, b: number) => number; /////tíipica definição de 'FUNCTION TYPE' no typescript... (vamos compará-la com UMA INTERFACE USADA COMO FUNCTION TYPE...)
+
+
+
+let add: funcaoLegal;
+
+
+add = (num1: number, num2: number) => {
+
+        return num1 + num2;
+}
+
+
+
+add(12, 24);
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.... BASTA FAZER COM QUE OS 2 ARGUMENTS 
+
+
+
+SEJAM DE TYPE 'number', e que o return seja um number tbm...
+
+
+
+
+
+
+
+TUDO ISSO JÁ APRENDEMOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------> 
+
+
+
+
+MAS A QUESTÃO É QUE AQUI PODEMOS USAR UMA 'INTERFACE'
+
+
+
+EM VEZ DESSE 'CUSTOM TYPE' aí....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> INTERFACES 
+
+EXISTEM PARA__ 'DEFINE THE STRUCTURE OF AN OBJECt',
+
+
+como o professor nos ensinou...
+
+
+
+
+
+
+
+
+
+-------> MAS FUNCTIONS _ SÃO OBJECTS,
+
+
+
+
+POR ISSO 
+
+
+
+
+ESSA GAMBIARRA É ALGO COMO UMA 'EXCEÇÃO'... --> SIM, VOCÊ PODE CRIAR FUNCTION TYPES 
+
+
+com interfaces...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+INVENTAMOS UMA INTERFACE 
+de 
+
+'InterfaceLegal'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AÍ DENTRO DA INTERFACE 
+
+
+
+
+
+
+_______ VAMOS ___ DEFINIR __ A 'FUNCTION',
+
+
+SUA ESTRUTURA,
+
+
+POR MEIO DO SIMPLES ADD/ESCRITA DE 
+
+'()' 
+
+
+
+
+
+
+
+
+
+
+
+
+------> DENTRO DESSE '()" 
+
+VAMOS COLOCAR OS ARGUMENTS DA FUNCTION...
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+(a: number, b: number) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO FEITO, ESCRITO ESSE NEGÓCIO ,,
+
+vocÊ 
+
+
+
+
+
+VAI ESCREVER um ':'  NO LADO DE FORA,
+
+
+
+E ÁI _ VAI COLOCAR __ O 'RETURN TYPE'....
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+interface InterfaceLegal {
+        (a: number, b: number): number;
+}
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+interface InterfaceLegal {
+        (a: number, b: number): number; ///mesma coisa que escrever 'type funcaoLegal = (a: number, b:number) => number'
+        
+        
+        
+        
+        ///// (a: number, b:number) ---> são os parameters de seu function type
+
+        ///// ':number' --> é o RETURN TYPE de seu function type....
+
+
+}
+
+
+
+
+
+let add: InterfaceLegal;
+
+
+
+
+add = (num1: number, num2: number) => {
+        return num1 + num2;
+}
+
+
+add(12, 24);
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA SINTAXE BIZARRA DE 
+
+
+
+'''
+
+
+
+interface InterfaceLegal {
+        (a: number, b: number): number;
+}
+
+
+
+
+
+'''
+
+
+
+
+
+É QUASE COMO UMA 'ANON FUNCTION' 
+
+dentro de sua interface... --> é assim que definimos FUNCTION TYPES usando INTERFACES, basicamente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TYPESCRIPT VAI ENTENDER ESSA SINTAXE IMEDIATAMENT,
+
+
+
+VAI COMPREENDER QUE VOCÊ QUER _ USAR_ 
+
+ESSA INTERFACE COMO UM FUNCTION TYPE...
+
+
+
+(
+
+     e é assim que 
+
+     sua function deve se parecer...
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK.... TUDO CERTO... -> MAS ESSA É SIMPLESMENTE UMA ALTERNATIVA àQUELE 
+
+'custom function type'....
+
+
+
+
+
+
+(
+
+
+
+    é claro que usar o custom type É MAIS COMUM,
+
+
+    MAIS 
+
+
+    CURTO, provavelmente melhor....
+)
+
+
+
+
+
+
+
+-_> mas esse approach das interfaces como fnuction types AINDA É UTILIZADO, EM ALGUNS PROJETOS....

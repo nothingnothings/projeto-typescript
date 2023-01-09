@@ -1,0 +1,337 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TYPESCRIPT E MODERN JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> USANDO SINTAXE NEXT-GEN JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE SABEMOS BASTANTE SOBRE AS BASIC FEATURES DO TYPESCRIPT E O QUE ELE ADICIONA,
+
+
+
+
+
+E AGORA 
+
+QUE 
+
+SABEMOS 
+
+
+COMO 
+
+O 
+
+COMPILER 
+
+TYPESCRIPT 
+
+
+FUNCIONA,
+
+
+
+
+
+
+
+
+
+_ DEVEMOS__ DAR UMA OLHADA NAS 
+
+
+
+OUTRAS FEATURES 
+
+
+QUE 
+
+ELE 
+
+
+
+
+
+NOS OFERECE,
+
+
+
+
+
+ESPECIFICAMENTE NAQUILO QUE 
+
+DIZ RESPEITO A 'MODERN JAVASCRIPT SYNTAX'.... ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM... ESSE É UM TERMO BEM DIFÍCIL ('modern'),
+
+
+
+MAS O QUE 
+
+O 
+
+PROFESSOR QUER DIZER É 
+
+
+
+'FEATURES JAVASCRIPT QUE 
+
+
+
+JÁ ESTÃO POR AÍ por alguns anos,
+
+já existem há tempos,
+
+MAS QUE 
+
+AINDA NÃO SAÕ SUPORTADAS EM TODOS OS BROWSERS,
+
+
+ESPECIALMENTE BROWSERS ANTIGOS'...
+
+
+
+
+
+
+
+
+
+
+
+(
+
+
+    especialmente 
+
+
+NO _ _INTERNET EXPLORER...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+-_> PROFESSOR ESTÁ FALANDO DE coisas como:
+
+
+
+
+
+
+
+
+
+1) LET E CONST 
+
+
+
+
+
+
+
+2) ARROW FUNCTIONS 
+
+
+
+
+
+3) DEESTRUCTURING SYNTAX 
+
+
+
+
+
+
+
+4) SPREAD OPERATOR 
+
+
+
+
+
+
+
+
+
+assim por diante...
+
+
+
+
+
+
+
+
+
+
+---. ESSAS SÃO COISAS QUE JÁ SABEMOS, mas o professor vai REFRESHAR 
+
+O CONHECIMENTO 
+
+DESSAS SINTAXES...
+
+
+
+
+
+
+
+
+
+
+
+
+O RESUMO:
+
+
+
+TYPESCRIPT COMPILA ESSAS FEATURES DE MODO QUE __ ELAS FUNCIONAM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE SKIPPAR ESSE MÓDULO SE TUDO ISSO 
+
+
+É ALGO QUE 
+
+VOCÊ 
+
+
+JÁ 
+
+SABE...
+
+
+
+
+
+
+
+
+
+
+PROFESSOR CRIA UM NOVO PROJETINHO,
+
+
+
+
+
+
+PROJETO 
+
+
+
+
+
+com o lite-server, de novo...
+
+
+
+
+
+
+
+
+
+TSCONFIG FILE --> configuração bem 'strict'....
+
+
+
+
+
+
+
+
+
+
+
+
+-----> DEIXE O DEV SERVER RODANDO, ETC ETC....
+
+
+
+
+
+
+
+
+-> COMPILE O CÓDIGO COM 'tsc', 
+
+
+
+
+
+ou com 
+
+'tsc -w' (ou 'tsc --watch') 
+,
+
+
+
+PARA QUE TENHAMOS O MODO 'watch'....

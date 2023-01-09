@@ -1,0 +1,1057 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, ESTAMOS USANDO OS CORE TYPES DE 'BOOLEAN', 'NUMBER' E 'STRING'...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+console.log('EXEMPLO');
+
+
+function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+
+
+
+
+    const calculus = n1 + n2;
+
+
+    const result = `${resultPhrase} ${calculus}`
+
+
+    if (showResult) {
+        console.log(result);
+    } else {
+        return calculus;
+    }
+}
+
+
+
+
+const resultPhrase = "Result is: "
+
+
+const number1 = 5;
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+const printResult = true;
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult, resultPhrase);
+console.log(result);
+
+
+
+
+
+
+
+
+
+--------------->  OK... 
+
+
+
+
+
+
+
+
+-----> ESTAMOS SEMPRE ASSIGNANDO OS TYPES 
+
+
+EXPLICITAMENTE,
+
+
+
+
+com o 
+
+NOME DA VARIABLE,
+
+E AÍ 
+
+
+
+O NOME DO TYPE QUE DESEJAMOS...
+
+(
+
+
+    ex: 
+
+
+    'n1: number'...
+)
+
+
+
+
+
+
+
+
+--------> CERTO... --> E ESSA ESCRITA DE 
+
+
+'number', 'string', boolean', etc 
+
+
+
+
+
+É UMA __ SINTAXE_ ESPECIAL DO TYPESCRIPT,
+
+
+
+
+
+ 
+
+ NÃO E´__ CÓDIGO JAVASCRIPT OFICIAL...
+
+
+
+
+
+
+
+
+
+
+
+ --> SE OLHARMOS O ARQUIVO 'app.js',
+
+
+ VEREMOS QUE 
+
+
+
+
+
+ ESSa escrita de ':number'
+
+
+ TERÁ SUMIDO.... -------> SÃO KEYWORDS INTRODUZIDAS PELO TYPESCRIPT,
+
+
+
+ etc etc... ---->  O IDE 
+
+
+
+ suporta o typescript,
+
+ por isso 
+
+ compreende 
+
+
+ isso ai...
+
+
+
+
+
+
+
+
+ JÁ O TYPESCRIPT NÃO COMPREENDE ISSO AÍ... ---> por isso não consegue ler e executar isso aí..
+
+
+
+
+
+
+
+
+
+ --> ESSE CÓDIGO SÓ É USADO PELO 'TYPESCRIPT COMPILER',
+
+
+ que 
+
+
+ o transforma em 
+
+
+ código 
+
+ JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+ -------> obs: ele tbm troca 'const' por 'var',
+
+  etc etc....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OK.... --> MAS PQ DIABOS ESTAMOS DEFININDO EXPLICITAMENTE OS 'TYPES' DESSAS VARIABLES/ARGUMENTOS __ NAS FUNÇÕES,
+
+
+  E NÃO 
+
+
+  EM LOCAIS 
+
+
+  como 
+
+
+
+  ''
+
+  
+'const number1 = 5;
+const number2 = 2.8;
+const printResult = true;
+const resultPhrase = 'Result is ';
+
+
+
+'''
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICA QUE 
+
+
+
+
+
+
+
+NÃO FAZEMOS A DEFINIÇÃO DOS TYPES DESSES NEGÓCIOS 
+
+
+
+_ JUSTAMENTE__ PQ 
+O 
+
+TYPESCRIPT TEM ALGO QUE 
+
+É CHAMADO DE 
+
+
+
+
+
+
+'''TYPE INFERENCE'''' ---> ISSO SIGNIFICA QUE 
+
+
+O 
+
+TYPESCRIPT 
+
+
+DÁ O SEU MELHOR __ PARA __ ENTENDEr__ __ QUAL TYPE__ VOCÊ 
+
+TEM 
+
+EM 
+
+
+1 
+DETERMINADA VARIABLE/CONSTANT ... ------> E É EXATAMENTE 
+
+
+POR ISSO QUE 
+
+QUANDO VOCÊ 
+
+ESCREVE 
+
+
+
+
+'const number1 = 5',
+
+
+
+
+
+
+
+__ O TYPESCRIPT __ SEMPRE _ VAI SABER QUE 
+
+
+
+ISSO AÍ __ 'SERÁ DE TYPE NUMBER'... -->  VAI SER DESSE TIPO PQ 
+
+
+_VOCÊ O INICIALIZOU COMO 
+
+
+UM NUMBER... ------>  E ALÉM DISSO,
+
+
+SE VOCÊ PASSAR O MOUSE POR CIMA,
+
+
+
+O 
+
+
+IDE 
+
+
+
+te mostra isso:
+
+
+
+
+
+
+
+const number1: 5 
+
+
+
+
+
+
+
+
+-----> ISSO SIGNIFICA QUE 
+
+ALÉM DE SER UMA CONSTANTE,
+
+
+ESSE NEGÓCIO JÁ VAI TER 1 TYPE DEFINIDO, no caso o 
+
+
+type de 
+
+
+'5' ------> PQ __ ESSE __ É O TYPE __ DESSA CONST,
+
+
+
+PQ VOCÊ NÃO VAI CONSEGUIR ARMAZENAR UM NOVO VALOR/VALOR DIFERENTE DENTRO DE UMA CONSTANTE LEGIT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok.. mas se trocarmos 'const' por 'let',
+
+
+AÍ 
+
+
+
+VAMOS CONSTATAR A ESCRITA DE 
+
+
+
+
+
+'let number1: number' ---------> OU SEJA,
+
+
+
+
+AGORA O TYPESCRIPT ADMITIU/CONCEDEU __ QUE __ 
+ESSE NEGÓCIO __ PODE __ MUDAR_ _ NO 
+
+FUTURO;
+
+
+
+SEU TYPE NÃO VAI SER OBRIGATORIAMENTE '5',
+
+
+como no caso das CONST.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODERÍAMOS/PODEMOS ESCREVER UM CÓDIGO COMO ESTE:
+
+
+
+
+
+let number1: number = 5; 
+
+
+
+
+
+
+
+
+
+
+
+(
+
+    OU SEJA,
+
+
+
+
+    EXATAMENTE O MESMO CÓDIGO QUE HAVÍAMOS ESCRITO EM 
+
+
+    'function add(n1: number)', etc etc...
+)
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+ISSO 
+
+É 
+
+
+ __ REDUNDANTE__, 
+
+ E CONSIDERADO UMA PÉSSIMA PRÁTICA.... ----> ISSO PQ 
+
+
+ __O  TYPESCRIPT_ _É PERFEITAMENTE ___ CAPAZ DE 
+ FAZER 
+
+ 'INFER'
+
+
+ DESSE 
+
+
+ TYPE 
+
+
+ 'number'
+
+
+
+ dessa variável aí... (sem você dizer nada)...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> É POR ISSO QUE ASSIGNAR 
+
+
+
+
+
+
+ coisas com 
+
+
+
+ 'const resultPhrase: string = "Result is ";
+
+
+
+
+
+
+
+
+
+
+ É UMA PESSIMA IDEIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SÓ É UMA BOA IDEIA 
+
+
+
+
+
+
+ __ SE VOCê__ CRIAR/CONSTRUIR SUA VARIÁVEL DE UMA MANEIRA 'UNASSIGNED'....
+
+
+
+
+ ex:
+
+
+
+
+ let number1: number;  ////EIS O CÓDIGO EM QUESTÃO.
+
+ const number2 = 2.8;
+ const printResult = true;
+ const resultPhrase = 'Result is ';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ NÃO INICIALIZAR ESSA VARIABLE IMEDIATAMENTE,
+
+
+É ÓBVIO QUE 
+
+
+É UMA BOA PRACTICE INFORMAR O TYPESCRIPT/SEUS COLEGAS__ _DE QUAL __ TYPE 
+
+EVENTUALMENTE SERÁ 'STORED' 
+
+
+DENTRO DESSA CONST... -----> ISSO PARA QUE 
+
+DEPOIS,
+
+
+QUANDO VOCÊ 
+
+FOR ASSIGNAR UM VALOR 
+
+A 
+ESSA VARIABLE,
+
+
+
+
+
+
+VOCÊ 
+
+
+
+
+
+
+TERÁ __ A 'DICA' 
+
+DE QUE 
+
+
+ESSE NEGÓCIO DEVERIA SER SETTADO COMO um 'number', e não como uma STRING, por exemplo....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+ let number1: number;  ////EIS O CÓDIGO EM QUESTÃO.
+
+ const number2 = 2.8;
+ const printResult = true;
+ const resultPhrase = 'Result is ';
+
+
+number1 = 5; ////OPS, AGORA SEI QUE ESSE NEGÓCIO TEM QUE SER UM 'NUMBER'...
+
+----------------------------------
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('EXEMPLO');
+
+
+function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+
+
+
+
+    const calculus = n1 + n2;
+
+
+    const result = `${resultPhrase} ${calculus}`
+
+
+    if (showResult) {
+        console.log(result);
+    } else {
+        return calculus;
+    }
+}
+
+
+
+
+const resultPhrase = "Result is: "
+
+
+const number1 = 5;    ///type inference --> 'const number1: 5' (VOCê DEVE PASSAR O MOUSE EM CIMA, COM O IDE) ---> isso vai te mostrar QUAL É O TYPE DESSE NEGÓCIO, QUE SERÁ '5', é claro (ou seja, mais específico do que um number, pq ele vai ser ESPECIFICAMENTE O __ NÚMERO 5__....).
+
+
+let number10 = 10; ////TYPE INFERENCE --> isso vai mostrar, por outro lado, 'const number10: number' ----> ISSO PQ _ ESSE NEGÓCOI É UMA VARIA´VEL, SUA RESTRIÇÃO É MENOR DO QUE A CONST --> significa que esse VALOR dessa constante _ PODERÁ EVENTUALEMNTE SER MUDADO, por meio de uma re-define como 'number10 = 55'; 
+
+
+//const number1 = '5'; //só existe aqui para mostrar que SE TENTARMOS ADICIONAR UMA STRING E UM NUMBER, JAVASCRIPT VAI TRATAR OS 2 COMO STRINGS E VAI OS CONCATENAR (comportamento indesejado)...
+
+
+
+
+let number11: number; ///////POR MEIO DESSA SINTAXE, 'UNASSIGNED VARIABLES' ficam com 'INSTRUÇÕES', pq vamos SABER COM CERTEZA, NO FUTURO, QUE ESSA VARIABLE AÍ __ SÓ _ ADMITE__ VALORES QUE SÃO 'number' no seu interior/store...
+
+
+
+// number11 = 'dados'; ///EXEMPLO DAQUILO DE CIMA...
+
+
+
+number11 = 122109210;
+
+
+const printResult = true;
+
+const number2 = 2.8;
+
+
+
+
+
+const result = add(number1, number2, printResult, resultPhrase);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> É CLARO QUE ISSO É OPCIONAL, MAS É __ _UMA ÓTIMA PRACTICE....
+
+
+
+
+
+
+
+
+
+
+------->  SE NÃO TIVÉSSEMOS ISSO,
+
+
+
+
+teríamos algo como isto:
+
+
+
+
+
+let number1;
+
+number = '5'; //////////( OU SEJA, ELE DEIXARIA VOCÊ COLOCAR UMA STRING NESSA VARIÁVEL, SEM RECLAMAR NADA, O QUE É RUIM, GERALMENTE...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+já se escrever assim:
+
+
+
+let number1: number;
+
+number = '5'; ///////// O NEGÓCIO VAI APITAR, VAI RECLAMAR, PQ VOCÊ VAI TENTAR ARMAZNEAR UMA STRING DENTRO DE UM VARIABLE QUE É DE TYPE 'number'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------- CERTO.... --> É ASSIM QUE PODEMOS 'ASSIGN TYPES'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS __ MESMO SE O TYPESCRIPT __ SÓ FEZ 'INFER' DO TYPE,
+
+
+ELE __ 
+
+
+VAI 
+
+
+_GRITAR_ COM VOCÊ 
+
+
+SE 
+
+
+
+
+VOCê _QUEBRAR O TYPE... -----> 
+
+
+
+
+
+
+
+
+
+
+
+o 'TYPE INFERENCE' 
+
+
+
+EXISTE 
+
+PARA EVITAR 
+
+
+
+
+A NECESSIDADE DE TER QUE DEFINIR TYPES MANUALMENTE (é uma conveniência),
+
+
+
+E É POR ISSO QUE 
+
+
+
+O 
+
+TYPESCRIPT/IDE 
+
+
+
+VAI GRITAR CONOSCO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+outro exemplo,
+
+
+a variável 
+
+
+'resultPhrase'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+let resultPhrase = 'Result is: '; 
+
+
+
+
+
+
+
+
+
+O TYPE AQUI ESTÁ COMO 'string'...
+
+
+
+
+
+
+
+
+--> no caso, é o mesmo type que seria produzido/settado se 
+
+escrevêssmos isto:
+
+
+
+
+
+--------------------------------------------------
+
+
+
+let resultPhrase: string;
+
+
+
+resultPhrase = 'Result is: '
+
+
+
+---------------------------------------
+
+
+
+
+
+
+MAS É CLARO QUE A VERSÃO DE CIMA ECONOMIZA _ MT _ MAIS CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+--> CERTO... e isso é algo DO TYPESCRIPT MESMO, É ALGO _AUTOMÁTICO..
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+///EXEMPLO DE 'TYPE INFERING' do TYPESCRIPT.... ( só existe quando temos o typescript instalado, e em arquivos 'ts'...)
+// let exemploDeString = 'EXEMPLO DE STRING';
+
+
+// exemploDeString = 12; ////exemplo de define INVÁLIDO, pq estamos tentando armazenar um NUMBER EM UMA VARIABLE QUE SÓ DEVE TRABALHAR COM STRINGS...
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK.... -----> ESSE É  O TRABALHAMSO
+
+
+DO TYPESCRPIT,
+
+
+
+CHECAR TYPES 
+
+E 
+
+
+GRITAR CONOSCO SE ESTIVERMOS OS UTILIZANDO DE FORMA INCORRETA...

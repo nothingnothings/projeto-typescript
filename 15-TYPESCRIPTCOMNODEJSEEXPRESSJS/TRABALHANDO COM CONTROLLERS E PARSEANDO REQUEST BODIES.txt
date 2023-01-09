@@ -1,0 +1,1193 @@
+
+
+
+
+
+
+
+
+AGORA QUE REGISTRAMOS ALGUMAS ROUTES,
+
+
+LÁ EM 'App.ts',
+
+
+
+com este código:
+
+
+
+import express from 'express';
+
+
+import { Request, Response, NextFunction } from 'express'
+
+import bodyParser from 'body-parser';
+
+
+import routes from  './routes/routes'
+
+
+ 
+const app = express();
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+
+
+
+app.use(body);
+
+
+// app.use(routes);
+
+
+
+app.use('/todos', routes); 
+
+
+
+
+app.use( ///error handling middleware (fallback)..
+
+    (error: Error, req: Request, res: Response, next: NextFunction) => {   
+
+
+        res.status(400).json({
+            message: 'Whoops, something went wrong!'
+        })
+    }
+ 
+)
+
+
+app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS REGISTRAR UM POUCO DE LÓGICA PARA ESSAS ROUTES...
+
+
+
+
+
+
+
+
+--> PROFESSOR CRIA UM FOLDER DE 'controllers',
+
+
+ 
+
+
+ em que 
+
+
+
+
+
+ COLOCAMOS 'todos.ts'..
+
+
+
+
+
+
+
+
+
+
+
+ FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+import { Request, Response, NextFunction } from 'express'
+
+
+
+
+
+
+
+
+export const getTodos = (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+
+
+
+export const getTodo = (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+
+
+
+export const deleteTodo = (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+
+
+
+
+export const editTodo = (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+
+
+
+
+export const addTodo = (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.... -----> AGORA BASTA ESCREVER A LÓGICA DOS CONTROLLERS....
+
+
+
+
+
+
+
+
+
+
+-> hmmm mas agora temos um problema --> onde teremos nossos 'todos'? 
+
+
+
+
+-_> provavelmente na memo´ria,
+
+
+pq o professor quer um app simples...
+
+
+
+
+
+
+--> crio uma const de 'todos '
+
+
+lá no controller,
+
+
+
+
+
+
+local,
+
+
+
+que será usado 
+
+por nossos controllers...
+
+
+
+
+
+
+
+
+
+
+ACHO QUE ACABEI...
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Request, Response, NextFunction } from 'express'
+
+
+
+
+interface Todo {
+    id: string;
+    text: string;
+}
+
+interface RequestBody {
+    text: string;
+}
+
+type RequestParams = { ///params só funciona com 'type alias', por alguma razão.
+    todoId: string;
+}
+
+
+
+const todos: Todo[] = [
+    {
+        id: 'szxc',
+        text: 'First Todo'
+    }
+]
+
+
+
+
+export const getTodos = (req: Request, res: Response, next: NextFunction) => {
+
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+}
+
+
+
+
+export const getTodo = (req: Request, res: Response, next: NextFunction) => {
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+
+
+}
+
+
+
+
+export const deleteTodo = (req: Request, res: Response, next: NextFunction) => {
+
+
+    const params = req.params as RequestParams;
+
+
+    const todoId = params.todoId;
+
+   const todoIndex =  todos.findIndex(
+        (todo) => {
+            return todo.id === todoId
+        }
+    )
+
+        todos.splice(todoIndex, 1);
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+
+}
+
+
+
+
+
+export const editTodo = (req: Request, res: Response, next: NextFunction) => {
+
+    const params = req.params as RequestParams;
+
+    const body = req.body as RequestBody
+
+    const todoId = params.todoId;
+
+   const todoIndex =  todos.findIndex(
+        (todo) => {
+            return todo.id === todoId
+        }
+    )
+
+        todos[todoIndex] = {
+            id: todos[todoIndex].id,
+            text: body.text
+        }
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+}
+
+
+
+
+
+export const addTodo = (req: Request, res: Response, next: NextFunction) => {
+
+
+    const body = req.body as RequestBody
+
+    todos.push(
+        {
+            id: Math.random().toString(),
+            text: body.text
+        }
+    )
+    res.status(201).json(
+        {
+            todos: todos
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o código do professor ficou assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const createTodo = (req: Request, res: Response, next: NextFunction) => {
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR FALA DE UM SHORTCUT A ADICIONAR ' req: Request, res: Response, next: NextFunction) ' 
+
+
+
+
+
+
+
+EM TODOS ESSES NEGÓCIOS....
+
+
+
+
+
+
+
+
+
+--> O SHORTCUT PARA ISSO É IMPORTAR O 
+
+
+'RequestHandler',
+
+
+TYPE ESPECIAL,
+
+
+lá do 'expresss'...
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ VOCê VAI SIMPLESMENTE ESCREVER ASSIM:
+
+
+
+
+
+
+
+import { RequestHandler } from 'express';
+
+
+
+export const createTodo: RequestHandler = (req, res, next) => {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ O TYPESCRIPT VAI AUTOMATICAMENTE SABER QUE VAMOS TER UM REQUEEST, UMA RESPONSE E UM NEXT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Todo {
+    id: string;
+    text: string;
+}
+
+interface RequestBody {
+    text: string;
+}
+
+type RequestParams = { ///params só funciona com 'type alias', por alguma razão.
+    todoId: string;
+}
+
+
+
+const todos: Todo[] = [
+    {
+        id: 'szxc',
+        text: 'First Todo'
+    }
+]
+
+
+
+
+export const getTodos: RequestHandler = (req, res, next) => {
+
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+}
+
+
+
+
+export const getTodo: RequestHandler = (req, res, next) => {
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+
+
+}
+
+
+
+
+export const deleteTodo: RequestHandler = (req, res, next) => {
+
+
+    const params = req.params as RequestParams;
+
+
+    const todoId = params.todoId;
+
+   const todoIndex =  todos.findIndex(
+        (todo) => {
+            return todo.id === todoId
+        }
+    )
+
+        todos.splice(todoIndex, 1);
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+
+}
+
+
+
+
+
+export const editTodo: RequestHandler = (req, res, next) => {
+
+    const params = req.params as RequestParams;
+
+    const body = req.body as RequestBody
+
+    const todoId = params.todoId;
+
+   const todoIndex =  todos.findIndex(
+        (todo) => {
+            return todo.id === todoId
+        }
+    )
+
+        todos[todoIndex] = {
+            id: todos[todoIndex].id,
+            text: body.text
+        }
+
+
+    res.status(200).json(
+        {
+            todos: todos
+        }
+    )
+
+}
+
+
+
+
+
+export const addTodo: RequestHandler = (req, res, next) => {
+
+
+    const body = req.body as RequestBody
+
+    todos.push(
+        {
+            id: Math.random().toString(),
+            text: body.text
+        }
+    )
+    res.status(201).json(
+        {
+            todos: todos
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+ok, continuando....
+
+
+
+
+
+
+
+
+AGORA O TYPESCRIPT VAI SABER QUE TEREMOS ESSE REQUEST, ESSA RESPONSE E ESSE NEXT...
+
+
+
+
+'''params dictionary''''... ---> isso simplifica bastante nossa vida....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE 'import { RequestHandler } from 'express' 
+
+
+
+VAI __ SUMIR_ DURANTE O COMPILATION,
+
+PQ 
+
+ELE 
+
+NÃO ADICIONA NADA QUE VAI SER USADO NO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AI O PROFESSOR ADICIONA UM ARRAY DE TODOS, EXAMTENET COMO EU FIZ.... 
+
+
+
+
+
+
+
+
+
+
+-> ENTRETANTO,
+
+
+O PROFESSOR JÁ FEZ ALGO DIFERENTE.... --> 
+
+
+
+ELE USOU UM FOLDER DE 'models',
+
+
+
+em que 
+
+CRIOU UMA CLASS DE 'Todo' 
+
+
+para que 
+
+
+
+SEJA MAIS FÁCIL CRIAR ESSE 
+
+NEGÓCIO 'Todo'..
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Todo } from '../models/todo';
+
+
+
+
+const todos: Todo[] = [
+    {
+        id: 'szxc',
+        text: 'First Todo'
+    }
+]
+
+
+
+
+
+
+
+
+
+
+export const addTodo: RequestHandler = (req, res, next) => {
+
+
+    const body = req.body as RequestBody;
+
+
+
+    const newTodo = new Todo(Math.random().toString(), body.text)
+
+    todos.push(
+        // {
+        //     id: Math.random().toString(),
+        //     text: body.text
+        // }
+
+        newTodo
+    )
+    res.status(201).json(
+        {
+            todos: todos
+        }
+    )
+}
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK....
+ 
+
+
+
+ É QUASE A MESMA COISA QUE EU FIZ,
+
+ MAS COM O OUTSOURCE DESSE 'Todo'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR USA O TYPE CASTING PARA RESOLVER 
+
+
+
+ O PROBLEMA DOS ERRORS DE TYPESCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+ --> ele faz tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+ ANTES:
+
+
+
+
+
+
+
+
+
+ export const createTodo: RequestHandler = (req, res, next) => {
+
+ 
+     const text = req.body.text; /// ISTO DEU ERRO, TYPESCRIPT NÃO SABE QUE TEREMOS UMA PROPRIEDADE DE 'text' dentro desse 'req.body'...
+     const newTodo = new Todo(Math.random().toString(), text);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+ DEPOIS( com o erro consertado, uso de 'as', TYPECASTING):
+
+
+
+
+
+
+
+
+
+ 
+ export const createTodo: RequestHandler = (req, res, next) => {
+
+ 
+     const text = (req.body as {text: string}).text; ///  CONSERTADO.
+     const newTodo = new Todo(Math.random().toString(), text);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> AGORA DIZEMOS QUE SABEMOS QUE REQ.BODY SERÁ UM OBJETO COM ESSA PROPRIEDADE DE 'text'..
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... AÍ FICA ASSIM, O CÓDIGO:
+
+
+
+
+
+
+
+
+ 
+ export const createTodo: RequestHandler = (req, res, next) => {
+
+ 
+     const text = (req.body as {text: string}).text; ///  CONSERTADO.
+     const newTodo = new Todo(Math.random().toString(), text);
+
+
+     todos.push(newTodo);
+ }
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, ELE ENVIA UM JSON EM QUE DIZ QUE CRIOU ESSE TODO...
+
+
+
+ 
+
+
+
+
+ export const createTodo: RequestHandler = (req, res, next) => {
+
+ 
+     const text = (req.body as {text: string}).text; ///  CONSERTADO.
+     const newTodo = new Todo(Math.random().toString(), text);
+
+
+     todos.push(newTodo);
+
+
+
+     res.status(201).json(
+         {
+             message: 'Created the todo',
+             todos: todos
+         }
+     )
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA SÓ PRECISAMOS GARANTIR QUE O BODY DESSE 'req.body'
+
+
+CONSIGA EXISTIR ---> PARA ISSO,
+PRECISAMOS USAR O BODY-PARSER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+const body = bodyParser.json({strict: true});
+
+
+
+app.use(body);
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+
+AGORA DEVEMOS TER UM SERVER QUE CRIA TODOS....
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA VAMOS QUERER ENVIAR UM POST REQUEST,
+POR MEIO DO POSTMAN..
+
+
+
+
+
+
+-> crie um request de tipo post para 'localhost:3000/todos''...
+
+
+
+
+
+
+
+
+--> no request body devemos ter {
+
+    text: 'Finish the course'..
+}
